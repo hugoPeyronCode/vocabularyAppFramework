@@ -10,11 +10,26 @@ import SwiftUI
 @main
 struct VocabularyAppFrameworkApp: App {
     var body: some Scene {
-        let allWords : Set<Word> = WordManager.shared.allWords
+        let allWordsFromHome : Set<Word> = WordManager.shared.allWords
         let wordsByCategories : [String: Set<Word>]  = WordManager.shared.wordsByCategory
         
         WindowGroup {
-            Home(allWords: allWords, wordsByCategories: wordsByCategories)
+            Home(allWords: allWordsFromHome, wordsByCategories: wordsByCategories)
+                .onAppear{
+                    print("allWordsFromHome.filter is liked : \(allWordsFromHome.filter { $0.isLiked }.count)")
+                }
         }
     }
 }
+
+
+// Le flow que je veux mettre en place
+
+// Load le JSON
+
+// Modifie le set AllWords
+
+// Save le JSON depuis le set allWords modifié
+
+// Repeat
+

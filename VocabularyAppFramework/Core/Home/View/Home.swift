@@ -21,6 +21,9 @@ struct Home: View {
             ScrollingWords
             
             PremiumButton
+                .onAppear{
+                    print("allWords.filter is liked : \(vm.allWords.filter { $0.isLiked }.count)")
+                }
             
             BottomBar
             

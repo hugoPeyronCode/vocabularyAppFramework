@@ -10,7 +10,7 @@ import SwiftUI
 struct WordView: View {
     
     @ObservedObject var viewModel: HomeViewModel
-    let word : Word
+    @State var word : Word
     
 //    let sharingAction : () -> Void
 //    let likeAction : (Word) -> Void
@@ -45,25 +45,25 @@ struct WordView: View {
     var ActionBar : some View {
         HStack(spacing: 50) {
             
-            Button {
-//                sharingAction()
-            } label: {
-                Image(systemName: "square.and.arrow.up")
-            }
+//            Button {
+////                sharingAction()
+//            } label: {
+//                Image(systemName: "square.and.arrow.up")
+//            }
             
             Button {
+                word.isLiked.toggle()
                 viewModel.toggleLike(for: word)
-                UserDataStorage.shared.loadWords()
             } label: {
                 Image(systemName: word.isLiked ? "heart.fill" : "heart")
                     .foregroundColor(word.isLiked ? .main : .primary)
             }
             
-            Button {
-//                bookmarkAction()
-            } label: {
-                Image(systemName: "bookmark")
-            }
+//            Button {
+////                bookmarkAction()
+//            } label: {
+//                Image(systemName: "bookmark")
+//            }
         }
         .font(.title)
         .fontWeight(.thin)

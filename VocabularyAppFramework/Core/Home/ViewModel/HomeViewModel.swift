@@ -44,7 +44,6 @@ class HomeViewModel: ObservableObject {
             for category in selectedCategories {
                 filtered.formUnion(words(forCategory: category))
             }
-            
             return filtered
         } else if selectedCategory == "All" {
             return allWords
@@ -58,13 +57,15 @@ class HomeViewModel: ObservableObject {
     func toggleLike(for word: Word) {
         print("Toggling like for word: \(word.Headword)")
 
-        if allWords.contains(word) {
-            var updatedWord = word
-            updatedWord.isLiked.toggle()
+        if var wordInSet = allWords.first(where: { $0.id == word.id }) {
+            wordInSet.isLiked.toggle()
+            
             allWords.remove(word)
-            allWords.insert(updatedWord)
+            allWords.insert(wordInSet)
+            
             UserDataStorage.shared.saveWords(allWords)
-            print(" \(updatedWord.Headword) is liked = \(updatedWord.isLiked)")
+            
+            print("\(wordInSet.Headword) is liked = \(wordInSet.isLiked)")
         } else {
             print("Word not found in allWords set.")
         }

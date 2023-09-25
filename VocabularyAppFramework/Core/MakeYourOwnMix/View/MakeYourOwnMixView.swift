@@ -20,10 +20,12 @@ struct MakeYourOwnMixView: View {
     
     @State var selectedCategories: [String]? = []
     
+    
     var body: some View {
         NavigationStack {
                 VStack{
                     CustomButtonMarked(text: "Save Selection", action: {
+                        presentationMode.wrappedValue.dismiss()
                         presentationMode.wrappedValue.dismiss()
                         vm.selectedCategories = selectedCategories ?? ["Error"]
                         print(selectedCategories ?? [""])
