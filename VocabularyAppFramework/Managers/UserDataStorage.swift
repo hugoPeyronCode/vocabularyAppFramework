@@ -19,38 +19,23 @@ class UserDataStorage {
         return documentsDirectory.appendingPathComponent(wordsFilename)
     }
 
-    func saveWords(_ words: [Word]) {
+    func saveWords(_ words: Set<Word>) {
         do {
-            print("Initiating saving process...")
-
-            // Check if the file exists and move it to a backup location
-            if FileManager.default.fileExists(atPath: fileURL.path) {
-                let backupURL = fileURL.deletingLastPathComponent().appendingPathComponent("backupWords.json")
-                try? FileManager.default.moveItem(at: fileURL, to: backupURL)
-            }
-
-            let data = try JSONEncoder().encode(words)
+            let wordsArray = Array(words) // Convert set to array
+            let data = try JSONEncoder().encode(wordsArray)
             try data.write(to: fileURL)
-            print("Words saved successfully!")
         } catch {
             print("Error saving words: \(error)")
         }
     }
 
-    func loadWords() -> [Word]? {
-        print("Initiating loading process...")
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            print("File exists at path: \(fileURL.path)")
-            do {
-                let data = try Data(contentsOf: fileURL)
-                let words = try JSONDecoder().decode([Word].self, from: data)
-                print("Loaded \(words.count) words successfully!")
-                return words
-            } catch {
-                print("Error loading words: \(error)")
-            }
-        } else {
-            print("File does not exist at path: \(fileURL.path)")
+    func loadWords() -> Set<Word>? {
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let wordsArray = try JSONDecoder().decode([Word].self, from: data)
+            return Set(wordsArray) // Convert array back to set
+        } catch {
+            print("Error loading words: \(error)")
         }
         return nil
     }

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct WordView: View {
     
-    @ObservedObject var viewModel: WordViewModel
+    @ObservedObject var viewModel: HomeViewModel
+    let word : Word
     
 //    let sharingAction : () -> Void
 //    let likeAction : (Word) -> Void
@@ -28,11 +29,11 @@ struct WordView: View {
     
     var MainContent : some View {
         VStack(alignment: .center, spacing: 50) {
-            Text(viewModel.word.Headword)
+            Text(word.Headword)
                 .font(.system(size: 45))
-            Text(viewModel.word.Definition)
+            Text(word.Definition)
                 .font(.title3)
-            Text("(\(viewModel.word.Context_sentence))")
+            Text("(\(word.Context_sentence))")
                 .font(.subheadline)
         }
         .lineLimit(nil)
@@ -51,10 +52,11 @@ struct WordView: View {
             }
             
             Button {
-                viewModel.toggleLike()
+                viewModel.toggleLike(for: word)
+                UserDataStorage.shared.loadWords()
             } label: {
-                Image(systemName: viewModel.word.isLiked ? "heart.fill" : "heart")
-                    .foregroundColor(viewModel.word.isLiked ? .main : .primary)
+                Image(systemName: word.isLiked ? "heart.fill" : "heart")
+                    .foregroundColor(word.isLiked ? .main : .primary)
             }
             
             Button {
@@ -72,9 +74,8 @@ struct WordView: View {
 struct WordView_Previews: PreviewProvider {
     
     static var word = Word(Rank: "", List: "", Headword: "Example", Definition: "Super definition du mot example", Context_sentence: "An example is exactly what you see right now", Synonyms: "", Antonyms: "", Topic: "other")
-
     
     static var previews: some View {
-        WordView(viewModel: WordViewModel(word: word))
+        WordView(viewModel: HomeViewModel(allWords: WordManager.shared.allWords , wordsByCategory: WordManager.shared.wordsByCategory), word: word)
     }
 }

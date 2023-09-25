@@ -22,15 +22,15 @@ class HomeViewModel: ObservableObject {
     @Published var selectedCategories : [String] = []
     
     // Data
-    var allWords: [Word]
-    var wordsByCategory : [ String : [Word] ]
+    var allWords: Set<Word>
+    var wordsByCategory : [String: Set<Word>]
     
-    init(allWords : [Word], wordsByCategory: [String : [Word]]) {
+    init(allWords: Set<Word>, wordsByCategory: [String: Set<Word>]) {
         self.allWords = allWords
         self.wordsByCategory = wordsByCategory
     }
     
-    var filteredWords: [Word] {
+    var filteredWords: Set<Word> {
         if !selectedCategories.isEmpty {
             if selectedCategories.contains("All") {
                 return allWords
@@ -40,9 +40,9 @@ class HomeViewModel: ObservableObject {
                 return allWords.filter { $0.isLiked }
             }
             
-            var filtered: [Word] = []
+            var filtered: Set<Word> = []
             for category in selectedCategories {
-                filtered.append(contentsOf: words(forCategory: category))
+                filtered.formUnion(words(forCategory: category))
             }
             
             return filtered
@@ -55,19 +55,34 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    func toggleLike(for word: Word) {
+        print("Toggling like for word: \(word.Headword)")
+
+        if allWords.contains(word) {
+            var updatedWord = word
+            updatedWord.isLiked.toggle()
+            allWords.remove(word)
+            allWords.insert(updatedWord)
+            UserDataStorage.shared.saveWords(allWords)
+            print(" \(updatedWord.Headword) is liked = \(updatedWord.isLiked)")
+        } else {
+            print("Word not found in allWords set.")
+        }
+    }
+    
     func refreshWords() {
         self.objectWillChange.send()
     }
     
-    func words(forCategory category: String) -> [Word] {
+    func words(forCategory category: String) -> Set<Word> {
         return wordsByCategory[category] ?? []
     }
     
-    func wordsForCategories(categories: [String]) -> [Word] {
-        var result: [Word] = []
+    func wordsForCategories(categories: [String]) -> Set<Word> {
+        var result: Set<Word> = []
         
         for category in categories {
-            result.append(contentsOf: words(forCategory: category))
+            result.formUnion(words(forCategory: category))
         }
         
         return result

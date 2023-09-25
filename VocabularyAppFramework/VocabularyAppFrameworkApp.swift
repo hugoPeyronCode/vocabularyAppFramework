@@ -10,10 +10,8 @@ import SwiftUI
 @main
 struct VocabularyAppFrameworkApp: App {
     var body: some Scene {
-        
-        // Ici je veux initialiser mon Array de mot allWords.
-        let allWords : [Word] = Array(WordManager.shared.allWords.shuffled().prefix(2000))
-        let wordsByCategories : [ String: [Word]]  = WordManager.shared.wordsByCategory
+        let allWords : Set<Word> = WordManager.shared.allWords
+        let wordsByCategories : [String: Set<Word>]  = WordManager.shared.wordsByCategory
         
         WindowGroup {
             Home(allWords: allWords, wordsByCategories: wordsByCategories)

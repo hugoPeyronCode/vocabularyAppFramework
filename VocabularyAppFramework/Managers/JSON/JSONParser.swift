@@ -10,7 +10,7 @@ import SwiftUI
 
 class JSONParser {
     
-    static func parseWord1(from filename: String) -> [Word]? {
+    static func parseWord1(from filename: String) -> Set<Word>? {
         guard let url = Bundle.main.url(forResource: filename, withExtension: "json"),
               let data = try? Data(contentsOf: url) else {
             print("Failed to locate or read from \(filename).json in bundle.")
@@ -20,8 +20,8 @@ class JSONParser {
         let decoder = JSONDecoder()
         
         do {
-            let words = try decoder.decode([Word].self, from: data)
-            return words
+            let wordsArray = try decoder.decode([Word].self, from: data)
+            return Set(wordsArray)
         } catch let DecodingError.dataCorrupted(context) {
             print("Data corrupted: \(context)")
             print("Debug description: \(context.debugDescription)")

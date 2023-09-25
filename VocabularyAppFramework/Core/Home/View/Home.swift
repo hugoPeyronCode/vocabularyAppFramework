@@ -11,7 +11,7 @@ struct Home: View {
         
     @StateObject var vm: HomeViewModel
     
-    init(allWords: [Word], wordsByCategories: [String: [Word]]) {
+    init(allWords: Set<Word>, wordsByCategories: [String: Set<Word>]) {
         _vm = StateObject(wrappedValue: HomeViewModel(allWords: allWords, wordsByCategory: wordsByCategories))
     }
     var body: some View {
@@ -34,12 +34,13 @@ struct Home: View {
         .sheet(isPresented: $vm.isShowingSettingsView) { SettingsView() }
     }
     
-    var ScrollingWords : some View {
+    var ScrollingWords: some View {
         GeometryReader { screen in
+            let wordsArray = Array(vm.filteredWords)
             TabView(selection: $vm.currentPage) {
-                ForEach((vm.filteredWords).indices, id: \.self) { index in
+                ForEach(0..<wordsArray.count, id: \.self) { index in
                     LazyVStack {
-                        WordView(viewModel: WordViewModel(word: vm.filteredWords[index]))
+                        WordView(viewModel: vm, word: wordsArray[index])
                     }
                     .frame(width: screen.size.width, height: screen.size.height)
                     .rotationEffect(Angle(degrees: -90))

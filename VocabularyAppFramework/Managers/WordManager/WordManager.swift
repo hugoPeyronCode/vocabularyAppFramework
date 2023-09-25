@@ -10,8 +10,8 @@ import SwiftUI
 class WordManager {
     static let shared = WordManager()
 
-    var allWords: [Word] = []
-    var wordsByCategory: [String: [Word]] = [:]
+    var allWords: Set<Word> = []
+    var wordsByCategory: [String: Set<Word>] = [:]
 
     private init() {
         // Load words from saved data if available, else from bundled JSON
@@ -19,7 +19,7 @@ class WordManager {
         // TO DO -> ADD the logic that make it so that allWords is not 25K words but a fraction of it so that the LazyVStack does not lag
         if let savedWords = UserDataStorage.shared.loadWords() {
             print("Loading from saved data...")
-            self.allWords = savedWords
+            self.allWords = Set(savedWords)
         } else if let wordsFromJSON = JSONParser.parseWord1(from: "words") {
             print("Loading from bundled JSON...")
             self.allWords = wordsFromJSON
@@ -30,23 +30,11 @@ class WordManager {
         for word in allWords {
             let topic = word.Topic
             if wordsByCategory[topic] != nil {
-                wordsByCategory[topic]!.append(word)
+                wordsByCategory[topic]!.insert(word)
             } else {
                 wordsByCategory[topic] = [word]
             }
         }
     }
-
-    func toggleLike(for word: Word) {
-        print("Toggling like for word: \(word.Headword)")
-        if let index = allWords.firstIndex(where: { $0.Headword == word.Headword }) {
-            allWords[index].isLiked.toggle()
-            UserDataStorage.shared.saveWords(allWords)
-            print(" \(allWords[index].Headword) is liked = \(allWords[index].isLiked)")
-        } else {
-            print("Word not found in allWords array.")
-        }
-    }
-
 }
 

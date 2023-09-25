@@ -7,20 +7,7 @@
 import Foundation
 import SwiftUI
 
-class WordViewModel: ObservableObject {
-    @Published var word: Word
-
-    init(word: Word) {
-        self.word = word
-    }
-
-    func toggleLike() {
-        WordManager.shared.toggleLike(for: word)
-        word.isLiked.toggle()
-    }
-}
-
-struct Word: Hashable, Identifiable, Codable {
+struct Word: Hashable, Identifiable, Codable, Equatable {
     var id: UUID = UUID()
     let Rank: String
     let List: String
