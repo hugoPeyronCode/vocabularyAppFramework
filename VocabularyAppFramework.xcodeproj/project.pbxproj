@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		43ADC9402AC2D32400A0781C /* ChangeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */; };
+		43ADC9422AC2F4B800A0781C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC9412AC2F4B800A0781C /* Theme.swift */; };
+		43ADC9452AC2FDB100A0781C /* ThemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC9442AC2FDB100A0781C /* ThemesManager.swift */; };
 		43DB2E942ABF312C00081BDC /* MakeYourOwnMixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */; };
 		43E943B62AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */; };
 		43E943B82AB9CDDF008F79B5 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B72AB9CDDF008F79B5 /* Home.swift */; };
@@ -36,6 +38,8 @@
 /* Begin PBXFileReference section */
 		43ADC93D2AC2CE6E00A0781C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeIconView.swift; sourceTree = "<group>"; };
+		43ADC9412AC2F4B800A0781C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		43ADC9442AC2FDB100A0781C /* ThemesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesManager.swift; sourceTree = "<group>"; };
 		43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeYourOwnMixView.swift; sourceTree = "<group>"; };
 		43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyAppFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyAppFrameworkApp.swift; sourceTree = "<group>"; };
@@ -74,6 +78,21 @@
 
 /* Begin PBXGroup section */
 		43ADC93E2AC2D31400A0781C /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		43ADC9432AC2FDA800A0781C /* ThemesManager */ = {
+			isa = PBXGroup;
+			children = (
+				43ADC9442AC2FDB100A0781C /* ThemesManager.swift */,
+			);
+			path = ThemesManager;
+			sourceTree = "<group>";
+		};
+		43ADC9462AC325CF00A0781C /* New Group */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -146,6 +165,7 @@
 				43E943E32ABA1931008F79B5 /* Model */,
 				43E943F22ABC444D008F79B5 /* Data */,
 				43E943B92AB9CDE0008F79B5 /* Assets.xcassets */,
+				43ADC9462AC325CF00A0781C /* New Group */,
 				43E943BB2AB9CDE0008F79B5 /* Preview Content */,
 			);
 			path = VocabularyAppFramework;
@@ -280,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				43E943E42ABA193C008F79B5 /* Word.swift */,
+				43ADC9412AC2F4B800A0781C /* Theme.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -330,6 +351,7 @@
 		43E943F52ABC45FB008F79B5 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				43ADC9432AC2FDA800A0781C /* ThemesManager */,
 				43E943F92ABC7FC5008F79B5 /* WordManager */,
 				43E943F62ABC4603008F79B5 /* JSON */,
 				43E943FF2ABDDC54008F79B5 /* UserDataStorage.swift */,
@@ -434,9 +456,11 @@
 			files = (
 				43E943CB2AB9D189008F79B5 /* CustomButton.swift in Sources */,
 				43E943FE2ABDAEC9008F79B5 /* Colors.swift in Sources */,
+				43ADC9452AC2FDB100A0781C /* ThemesManager.swift in Sources */,
 				43E943B82AB9CDDF008F79B5 /* Home.swift in Sources */,
 				43E943F82ABC460D008F79B5 /* JSONParser.swift in Sources */,
 				43E943DB2AB9E18F008F79B5 /* ThemeButton.swift in Sources */,
+				43ADC9422AC2F4B800A0781C /* Theme.swift in Sources */,
 				43E943C72AB9CE2C008F79B5 /* HomeViewModel.swift in Sources */,
 				43E943D02AB9D50F008F79B5 /* CategoriesView.swift in Sources */,
 				43E943F12ABB28BE008F79B5 /* ManageSubscriptionView.swift in Sources */,
@@ -592,7 +616,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UIUserInterfaceStyle = light;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -625,7 +649,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UIUserInterfaceStyle = light;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

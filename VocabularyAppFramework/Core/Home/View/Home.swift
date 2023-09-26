@@ -11,6 +11,10 @@ struct Home: View {
         
     @StateObject var vm: HomeViewModel
     
+    @EnvironmentObject var themesManager: ThemesManager
+    
+    var isMain : Bool { themesManager.currentTheme.backgroundImage == "Main" }
+    
     init(allWords: Set<Word>, wordsByCategories: [String: Set<Word>]) {
         _vm = StateObject(wrappedValue: HomeViewModel(allWords: allWords, wordsByCategory: wordsByCategories))
     }
@@ -21,21 +25,20 @@ struct Home: View {
             ScrollingWords
             
             PremiumButton
-                .onAppear{
-                    print("allWords.filter is liked : \(vm.allWords.filter { $0.isLiked }.count)")
-                }
             
             BottomBar
             
         }
-        .background(Color.main.opacity(0.1))
+        .background(Image(themesManager.currentTheme.backgroundImage).opacity(isMain ? 0.3 : 1))
+        .font(themesManager.currentTheme.font)
         .sheet(isPresented: $vm.isShowingPremiumView) { PremiumView() }
         .sheet(isPresented: $vm.isShowingCategoriesView) {
             CategoriesView(vm: vm, isShowingCategoriesView: $vm.isShowingCategoriesView)
         }
-        .sheet(isPresented: $vm.isShowingThemesView) { ThemesView() }
+        .sheet(isPresented: $vm.isShowingThemesView) { ThemesView().environmentObject(themesManager) }
         .sheet(isPresented: $vm.isShowingSettingsView) { SettingsView() }
     }
+
     
     var ScrollingWords: some View {
         GeometryReader { screen in
@@ -43,7 +46,7 @@ struct Home: View {
             TabView(selection: $vm.currentPage) {
                 ForEach(0..<wordsArray.count, id: \.self) { index in
                     LazyVStack {
-                        WordView(viewModel: vm, word: wordsArray[index])
+                        WordView(viewModel: vm, word: wordsArray[index], fontColor: themesManager.currentTheme.fontColor)
                     }
                     .frame(width: screen.size.width, height: screen.size.height)
                     .rotationEffect(Angle(degrees: -90))
@@ -73,6 +76,7 @@ struct Home: View {
         VStack {
             
             Spacer()
+            
             HStack {
                 CustomButton(text: vm.selectedCategories.isEmpty ? vm.selectedCategory  : "Mix" , image: "square.grid.2x2", action: {vm.isShowingCategoriesView.toggle()})
                 
@@ -89,5 +93,6 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home(allWords: WordManager.shared.allWords, wordsByCategories: WordManager.shared.wordsByCategory)
+            .environmentObject(ThemesManager())
     }
 }
