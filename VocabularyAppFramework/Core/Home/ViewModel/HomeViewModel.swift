@@ -10,6 +10,8 @@ import SwiftUI
 
 class HomeViewModel: ObservableObject {
     
+    @EnvironmentObject var themesManager: ThemesManager
+
     // UI and Navigation Variable
     @Published var isShowingPremiumView = false
     @Published var isShowingCategoriesView = false

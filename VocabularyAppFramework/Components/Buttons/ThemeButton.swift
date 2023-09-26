@@ -7,30 +7,31 @@
 
 import SwiftUI
 
+
+
 struct ThemeButton: View {
-    let mainImage: String
-    let action : () -> Void
+    let theme : Theme
+    let action : (Theme) -> Void
     
     var body: some View {
         Button {
-            action()
+            action(theme)
         } label: {
             ZStack {
-                Image(mainImage)
+                Image(theme.backgroundImage)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 90, height: 150)
-                    .background(Color.gray.opacity(0.2))
+                    .background(Color.gray.opacity(0.3))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 
-                Icon
+                LockIcon
             }
             .frame(width: 100)
         }
     }
-    
-    
-    var Icon : some View {
+        
+    var LockIcon : some View {
         VStack {
             HStack {
                 Spacer()
@@ -49,7 +50,10 @@ struct ThemeButton: View {
 }
 
 struct ThemeButton_Previews: PreviewProvider {
+    
+    static let theme : Theme = Theme(backgroundImage: "BlackTexture1", font: .body, fontColor: .white)
+    
     static var previews: some View {
-        ThemeButton(mainImage: "All", action: {})
+        ThemeButton(theme: theme, action: {_ in })
     }
 }

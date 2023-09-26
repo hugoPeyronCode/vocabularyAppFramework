@@ -2,29 +2,39 @@
 //  ThemesView.swift
 //  VocabularyAppFramework
 //
-//  Created by Hugo Peyron on 19/09/2023.
-//
+
 import SwiftUI
 
 struct ThemesView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @EnvironmentObject var themesManager: ThemesManager
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(0 ..< 5) { item in
-                    ThemeCategoryScrollView
+                ForEach(ThemesCategories.allCases, id: \.self) { category in
+                    VStack(alignment: .leading, spacing: 1) {
+                        
+                        HStack {
+                            Text("\(category.displayName)")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        
+                        ColoredThemes(for: category)
+                    }
                 }
+                .navigationTitle("Categories")
+                .navigationBarItems(
+                    leading: CancelButton,
+                    trailing: UnlockAllButton
+                )
             }
             .background(Color.main.opacity(0.1))
-            .navigationTitle("Themes")
-            .navigationBarItems(
-                leading: CancelButton,
-                trailing: UnlockAllButton
-            )
         }
-        
     }
     
     var UnlockAllButton : some View {
@@ -46,34 +56,24 @@ struct ThemesView: View {
     }
     
     // This view represents one horizontal scroll view of theme buttons for a category
-    var ThemeCategoryScrollView: some View {
-        
-        VStack(alignment: .leading, spacing: 1) {
-            HStack {
-                Text("Category 2")
-                    .font(.headline)
-                Spacer()
-                
-                Text("View All")
-                    .font(.caption)
-            }
-            .padding(.horizontal)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 0) {
-                    ForEach(0 ..< 5) { item in
-                        ThemeButton(mainImage: "All", action: {})
+    func ColoredThemes(for category: ThemesCategories) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 0) {
+                ForEach(themesManager.themesDict[category] ?? [], id: \.self) { theme in
+                    ThemeButton(theme: theme) { selectedTheme in
+                        themesManager.currentTheme = selectedTheme
+                        presentationMode.wrappedValue.dismiss()
                     }
-                    ThemeButton(mainImage: "All",action: {})
                 }
-                .padding()
             }
+            .padding()
         }
     }
 }
 
 struct ThemesView_Previews: PreviewProvider {
     static var previews: some View {
-        ThemesView()
+        ThemesView().environmentObject(ThemesManager())
     }
 }
+

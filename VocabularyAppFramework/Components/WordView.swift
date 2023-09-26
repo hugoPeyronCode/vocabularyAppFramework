@@ -12,6 +12,8 @@ struct WordView: View {
     @ObservedObject var viewModel: HomeViewModel
     @State var word : Word
     
+    let fontColor : Color
+    
 //    let sharingAction : () -> Void
 //    let likeAction : (Word) -> Void
 //    let bookmarkAction : () -> Void
@@ -38,6 +40,8 @@ struct WordView: View {
         }
         .lineLimit(nil)
         .multilineTextAlignment(.center)
+        .foregroundColor(fontColor)
+        .shadow(radius: fontColor == .white ? 1 : 0)
         .fontDesign(.serif)
         .padding()
     }
@@ -56,7 +60,7 @@ struct WordView: View {
                 viewModel.toggleLike(for: word)
             } label: {
                 Image(systemName: word.isLiked ? "heart.fill" : "heart")
-                    .foregroundColor(word.isLiked ? .main : .primary)
+                    .foregroundColor(word.isLiked ? .main : fontColor)
             }
             
 //            Button {
@@ -68,6 +72,7 @@ struct WordView: View {
         .font(.title)
         .fontWeight(.thin)
         .foregroundColor(.primary)
+        .shadow(radius: fontColor == .white ? 1 : 0)
     }
 }
 
@@ -76,6 +81,6 @@ struct WordView_Previews: PreviewProvider {
     static var word = Word(Rank: "", List: "", Headword: "Example", Definition: "Super definition du mot example", Context_sentence: "An example is exactly what you see right now", Synonyms: "", Antonyms: "", Topic: "other")
     
     static var previews: some View {
-        WordView(viewModel: HomeViewModel(allWords: WordManager.shared.allWords , wordsByCategory: WordManager.shared.wordsByCategory), word: word)
+        WordView(viewModel: HomeViewModel(allWords: WordManager.shared.allWords , wordsByCategory: WordManager.shared.wordsByCategory), word: word, fontColor: .white)
     }
 }

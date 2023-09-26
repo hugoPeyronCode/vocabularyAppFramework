@@ -27,7 +27,7 @@ struct CustomButton: View {
             }
             .foregroundColor(.primary)
             .padding()
-            .background(Color.main.opacity(0.1))
+            .background(.thinMaterial)
             .cornerRadius(150)
             .shadow(color: .gray.opacity(0.3), radius: 3)
         }

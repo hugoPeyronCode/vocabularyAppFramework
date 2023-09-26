@@ -9,24 +9,16 @@ import SwiftUI
 
 @main
 struct VocabularyAppFrameworkApp: App {
+    
+    @StateObject var themesManager = ThemesManager()
+    
     var body: some Scene {
         let allWordsFromHome : Set<Word> = WordManager.shared.allWords
         let wordsByCategories : [String: Set<Word>]  = WordManager.shared.wordsByCategory
-        
+                
         WindowGroup {
             Home(allWords: allWordsFromHome, wordsByCategories: wordsByCategories)
+                .environmentObject(themesManager)
         }
     }
 }
-
-
-// Le flow que je veux mettre en place
-
-// Load le JSON
-
-// Modifie le set AllWords
-
-// Save le JSON depuis le set allWords modifié
-
-// Repeat
-
