@@ -66,6 +66,7 @@ struct PremiumView: View {
             .resizable()
             .scaledToFit()
             .frame(width: 60)
+            .foregroundColor(.main)
     }
     
     var AdvantagesList : some View {

@@ -11,6 +11,8 @@ struct SettingsView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @State private var isShowingPremiumView : Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -28,6 +30,9 @@ struct SettingsView: View {
                 }
             }
             .navigationBarItems(leading: CancelButton)
+            .navigationDestination(isPresented: $isShowingPremiumView) {
+                PremiumView()
+            }
         }
     }
     
@@ -52,7 +57,8 @@ struct SettingsView: View {
     }
 
     var BuyPremiumButton : some View {
-        CustomButtonMarked(text: "Try Vocabulary Free", action: {})
+        
+        CustomButtonMarked(text: "Try Vocabulary Free", action: { isShowingPremiumView.toggle()})
     }
 
     var SettingsSection : some View {
@@ -70,10 +76,10 @@ struct SettingsView: View {
                 }
             }
 
-            NavigationLink(destination: EmptyView()) {
+            NavigationLink(destination: ChangeIconView()) {
                 HStack(spacing: 20) {
-                    Image(systemName: "rectangle.grid.1x2.fill")
-                    Text("Standard Widget")
+                    Image(systemName: "square.fill")
+                    Text("Change Icon")
                 }
             }
 

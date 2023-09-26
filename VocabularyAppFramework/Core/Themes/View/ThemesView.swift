@@ -10,14 +10,12 @@ struct ThemesView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    
     var body: some View {
         NavigationStack {
             ScrollView {
                 ForEach(0 ..< 5) { item in
                     ThemeCategoryScrollView
                 }
-                
             }
             .background(Color.main.opacity(0.1))
             .navigationTitle("Themes")

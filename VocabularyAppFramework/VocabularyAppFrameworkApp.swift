@@ -15,9 +15,6 @@ struct VocabularyAppFrameworkApp: App {
         
         WindowGroup {
             Home(allWords: allWordsFromHome, wordsByCategories: wordsByCategories)
-                .onAppear{
-                    print("allWordsFromHome.filter is liked : \(allWordsFromHome.filter { $0.isLiked }.count)")
-                }
         }
     }
 }

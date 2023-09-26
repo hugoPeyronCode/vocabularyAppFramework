@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43ADC9402AC2D32400A0781C /* ChangeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */; };
 		43DB2E942ABF312C00081BDC /* MakeYourOwnMixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */; };
 		43E943B62AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */; };
 		43E943B82AB9CDDF008F79B5 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B72AB9CDDF008F79B5 /* Home.swift */; };
@@ -33,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		43ADC93D2AC2CE6E00A0781C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeIconView.swift; sourceTree = "<group>"; };
 		43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeYourOwnMixView.swift; sourceTree = "<group>"; };
 		43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyAppFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyAppFrameworkApp.swift; sourceTree = "<group>"; };
@@ -70,9 +73,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43ADC93E2AC2D31400A0781C /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		43DB2E8F2ABF310500081BDC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				43ADC93E2AC2D31400A0781C /* New Group */,
 				43DB2E902ABF311900081BDC /* MakeYourOwnMix */,
 				43E943DE2ABA1227008F79B5 /* Premium */,
 				43E943C52AB9CE16008F79B5 /* Home */,
@@ -126,6 +137,7 @@
 		43E943B42AB9CDDF008F79B5 /* VocabularyAppFramework */ = {
 			isa = PBXGroup;
 			children = (
+				43ADC93D2AC2CE6E00A0781C /* Info.plist */,
 				43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */,
 				43DB2E8F2ABF310500081BDC /* Core */,
 				43E943C82AB9D17A008F79B5 /* Components */,
@@ -277,6 +289,7 @@
 			children = (
 				43E943EA2ABAE3D4008F79B5 /* Views */,
 				43E943E92ABAE3D1008F79B5 /* ViewModel */,
+				43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -437,6 +450,7 @@
 				43E943D22AB9D62B008F79B5 /* CustomButtonMarked.swift in Sources */,
 				43E944002ABDDC54008F79B5 /* UserDataStorage.swift in Sources */,
 				43DB2E942ABF312C00081BDC /* MakeYourOwnMixView.swift in Sources */,
+				43ADC9402AC2D32400A0781C /* ChangeIconView.swift in Sources */,
 				43E943B62AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift in Sources */,
 				43E943EC2ABAE3F6008F79B5 /* SettingsView.swift in Sources */,
 			);
@@ -562,19 +576,23 @@
 		43E943C12AB9CDE0008F79B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon4 AppIcon3 AppIcon2 AppIcon1 AppIcon5 AppIcon6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VocabularyAppFramework/Preview Content\"";
 				DEVELOPMENT_TEAM = YA24P24868;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VocabularyAppFramework/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -591,19 +609,23 @@
 		43E943C22AB9CDE0008F79B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon4 AppIcon3 AppIcon2 AppIcon1 AppIcon5 AppIcon6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VocabularyAppFramework/Preview Content\"";
 				DEVELOPMENT_TEAM = YA24P24868;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VocabularyAppFramework/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

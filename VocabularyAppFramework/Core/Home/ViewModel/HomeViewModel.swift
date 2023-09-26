@@ -21,6 +21,8 @@ class HomeViewModel: ObservableObject {
     @Published var selectedCategory: String = "All"
     @Published var selectedCategories : [String] = []
     
+    private var allWordsLimits : Int = 2000
+    
     // Data
     var allWords: Set<Word>
     var wordsByCategory : [String: Set<Word>]
@@ -31,9 +33,10 @@ class HomeViewModel: ObservableObject {
     }
     
     var filteredWords: Set<Word> {
+        
         if !selectedCategories.isEmpty {
             if selectedCategories.contains("All") {
-                return allWords
+                return Set(Array(allWords.prefix(allWordsLimits)))
             }
             
             if selectedCategories.contains("My Favorites") {
@@ -45,8 +48,9 @@ class HomeViewModel: ObservableObject {
                 filtered.formUnion(words(forCategory: category))
             }
             return filtered
+            
         } else if selectedCategory == "All" {
-            return allWords
+            return Set(Array(allWords.prefix(allWordsLimits)))
         } else if selectedCategory == "My Favorites" {
             return allWords.filter { $0.isLiked }
         } else {
