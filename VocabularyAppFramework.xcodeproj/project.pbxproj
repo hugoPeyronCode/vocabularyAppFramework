@@ -10,6 +10,9 @@
 		43ADC9402AC2D32400A0781C /* ChangeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */; };
 		43ADC9422AC2F4B800A0781C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC9412AC2F4B800A0781C /* Theme.swift */; };
 		43ADC9452AC2FDB100A0781C /* ThemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC9442AC2FDB100A0781C /* ThemesManager.swift */; };
+		43ADC95A2AC42E4800A0781C /* SortsMillGoudy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43ADC9572AC42E4800A0781C /* SortsMillGoudy-Regular.ttf */; };
+		43ADC95C2AC42E4800A0781C /* SortsMillGoudy-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43ADC9592AC42E4800A0781C /* SortsMillGoudy-Italic.ttf */; };
+		43ADC95E2AC42F1300A0781C /* FontsTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC95D2AC42F1300A0781C /* FontsTestView.swift */; };
 		43DB2E942ABF312C00081BDC /* MakeYourOwnMixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */; };
 		43E943B62AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */; };
 		43E943B82AB9CDDF008F79B5 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B72AB9CDDF008F79B5 /* Home.swift */; };
@@ -40,6 +43,9 @@
 		43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeIconView.swift; sourceTree = "<group>"; };
 		43ADC9412AC2F4B800A0781C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		43ADC9442AC2FDB100A0781C /* ThemesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesManager.swift; sourceTree = "<group>"; };
+		43ADC9572AC42E4800A0781C /* SortsMillGoudy-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SortsMillGoudy-Regular.ttf"; path = "VocabularyAppFramework/Components/Fonts/Sorts_Mill_Goudy/SortsMillGoudy-Regular.ttf"; sourceTree = SOURCE_ROOT; };
+		43ADC9592AC42E4800A0781C /* SortsMillGoudy-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SortsMillGoudy-Italic.ttf"; path = "VocabularyAppFramework/Components/Fonts/Sorts_Mill_Goudy/SortsMillGoudy-Italic.ttf"; sourceTree = SOURCE_ROOT; };
+		43ADC95D2AC42F1300A0781C /* FontsTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsTestView.swift; sourceTree = "<group>"; };
 		43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeYourOwnMixView.swift; sourceTree = "<group>"; };
 		43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyAppFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyAppFrameworkApp.swift; sourceTree = "<group>"; };
@@ -97,6 +103,24 @@
 			children = (
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		43ADC9492AC42B8900A0781C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				43ADC9562AC42E4800A0781C /* Sorts_Mill_Goudy */,
+				43ADC95D2AC42F1300A0781C /* FontsTestView.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		43ADC9562AC42E4800A0781C /* Sorts_Mill_Goudy */ = {
+			isa = PBXGroup;
+			children = (
+				43ADC9572AC42E4800A0781C /* SortsMillGoudy-Regular.ttf */,
+				43ADC9592AC42E4800A0781C /* SortsMillGoudy-Italic.ttf */,
+			);
+			path = Sorts_Mill_Goudy;
 			sourceTree = "<group>";
 		};
 		43DB2E8F2ABF310500081BDC /* Core */ = {
@@ -207,6 +231,7 @@
 		43E943C82AB9D17A008F79B5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				43ADC9492AC42B8900A0781C /* Fonts */,
 				43E943C92AB9D181008F79B5 /* Buttons */,
 				43E943E62ABA1AD7008F79B5 /* WordView.swift */,
 			);
@@ -441,8 +466,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43ADC95C2AC42E4800A0781C /* SortsMillGoudy-Italic.ttf in Resources */,
 				43E943F42ABC446F008F79B5 /* words.json in Resources */,
 				43E943BD2AB9CDE0008F79B5 /* Preview Assets.xcassets in Resources */,
+				43ADC95A2AC42E4800A0781C /* SortsMillGoudy-Regular.ttf in Resources */,
 				43E943BA2AB9CDE0008F79B5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -457,6 +484,7 @@
 				43E943CB2AB9D189008F79B5 /* CustomButton.swift in Sources */,
 				43E943FE2ABDAEC9008F79B5 /* Colors.swift in Sources */,
 				43ADC9452AC2FDB100A0781C /* ThemesManager.swift in Sources */,
+				43ADC95E2AC42F1300A0781C /* FontsTestView.swift in Sources */,
 				43E943B82AB9CDDF008F79B5 /* Home.swift in Sources */,
 				43E943F82ABC460D008F79B5 /* JSONParser.swift in Sources */,
 				43E943DB2AB9E18F008F79B5 /* ThemeButton.swift in Sources */,

@@ -11,8 +11,6 @@ import SwiftUI
 enum ThemesCategories : CaseIterable {
     case colors
     case cozy
-    case photos
-    case books
     case landscapes
     case textures
     case manga
@@ -36,8 +34,6 @@ class ThemesManager : ObservableObject {
             Theme(backgroundImage: "Brown", font: .body, fontColor: .black),
             Theme(backgroundImage: "Yellow", font: .body, fontColor: .black)
 
-        ],
-        .books: [
         ],
         .cozy: [
             Theme(backgroundImage: "Office1", font: .body, fontColor: .white)

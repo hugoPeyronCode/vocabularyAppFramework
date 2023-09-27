@@ -22,14 +22,10 @@ extension ThemesCategories {
             return "Color"
         case .cozy:
             return "Cozy"
-        case .photos:
-            return "Photo"
-        case .books:
-            return "Books"
         case .landscapes:
-            return "Landscape"
+            return "Landscapes"
         case .textures:
-            return "Texture"
+            return "Textures"
         case .manga:
             return "Manga"
         }
