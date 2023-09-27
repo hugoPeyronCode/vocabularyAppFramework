@@ -8,27 +8,18 @@
 import Foundation
 import SwiftUI
 
-struct Theme : Identifiable, Hashable {
+struct Theme: Identifiable, Hashable {
     let id = UUID()
-    let backgroundImage : String
-    let font : Font
-    let fontColor : Color
-}
-
-extension ThemesCategories {
-    var displayName: String {
-        switch self {
-        case .colors:
-            return "Color"
-        case .cozy:
-            return "Cozy"
-        case .landscapes:
-            return "Landscapes"
-        case .textures:
-            return "Textures"
-        case .manga:
-            return "Manga"
-        }
+    let backgroundImage: String
+    let font: String
+    let fontColor: Color
+    let needContrast: Bool?
+    
+    init(backgroundImage: String, font: String, fontColor: Color, needContrast: Bool? = nil) {
+        self.backgroundImage = backgroundImage
+        self.font = font
+        self.fontColor = fontColor
+        self.needContrast = needContrast
     }
 }
 

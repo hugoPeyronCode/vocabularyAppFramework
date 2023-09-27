@@ -19,6 +19,7 @@ struct VocabularyAppFrameworkApp: App {
         WindowGroup {
             Home(allWords: allWordsFromHome, wordsByCategories: wordsByCategories)
                 .environmentObject(themesManager)
+//            FontsTestView()
         }
     }
 }

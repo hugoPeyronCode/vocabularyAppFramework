@@ -13,6 +13,7 @@ struct WordView: View {
     @State var word : Word
     
     let fontColor : Color
+    let fontString : String
     
 //    let sharingAction : () -> Void
 //    let likeAction : (Word) -> Void
@@ -32,17 +33,16 @@ struct WordView: View {
     var MainContent : some View {
         VStack(alignment: .center, spacing: 50) {
             Text(word.Headword)
-                .font(.system(size: 45))
+                .font(.custom(fontString, size: 42))
             Text(word.Definition)
-                .font(.title3)
+                .font(.custom(fontString, size: 17))
             Text("(\(word.Context_sentence))")
-                .font(.subheadline)
+                .font(.custom(fontString, size: 13))
         }
         .lineLimit(nil)
         .multilineTextAlignment(.center)
         .foregroundColor(fontColor)
         .shadow(radius: fontColor == .white ? 1 : 0)
-        .fontDesign(.serif)
         .padding()
     }
     
@@ -81,6 +81,6 @@ struct WordView_Previews: PreviewProvider {
     static var word = Word(Rank: "", List: "", Headword: "Example", Definition: "Super definition du mot example", Context_sentence: "An example is exactly what you see right now", Synonyms: "", Antonyms: "", Topic: "other")
     
     static var previews: some View {
-        WordView(viewModel: HomeViewModel(allWords: WordManager.shared.allWords , wordsByCategory: WordManager.shared.wordsByCategory), word: word, fontColor: .white)
+        WordView(viewModel: HomeViewModel(allWords: WordManager.shared.allWords , wordsByCategory: WordManager.shared.wordsByCategory), word: word, fontColor: .black, fontString: "AmericanTypewriter")
     }
 }

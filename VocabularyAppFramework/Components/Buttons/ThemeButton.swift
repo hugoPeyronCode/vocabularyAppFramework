@@ -25,9 +25,13 @@ struct ThemeButton: View {
                     .background(Color.gray.opacity(0.3))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 
+                Text("ABC")
+                    .font(.custom(theme.font, size: 30))
+                    .foregroundColor(theme.fontColor)
+                
                 LockIcon
             }
-            .frame(width: 100)
+            .frame(width: 100, height: 150)
         }
     }
         
@@ -51,7 +55,7 @@ struct ThemeButton: View {
 
 struct ThemeButton_Previews: PreviewProvider {
     
-    static let theme : Theme = Theme(backgroundImage: "BlackTexture1", font: .body, fontColor: .white)
+    static let theme : Theme = Theme(backgroundImage: "BlackTexture1", font: "Chalkduster", fontColor: .white)
     
     static var previews: some View {
         ThemeButton(theme: theme, action: {_ in })

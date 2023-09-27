@@ -14,7 +14,7 @@ struct ChangeIconView: View {
 
     @AppStorage("active_icon") var activeIcon: String = "AppIcon"
     
-    let customIcons: [String] = ["AppIcon1", "AppIcon2", "AppIcon3", "AppIcon4", "AppIcon5", "AppIcon6"]
+    let customIcons: [String] = ["AppIcon1", "AppIcon2", "AppIcon3", "AppIcon4", "AppIcon5", "AppIcon6", "AppIcon7", "AppIcon8", "AppIcon9","AppIcon10","AppIcon11","AppIcon12","AppIcon13","AppIcon14","AppIcon15", "AppIcon16","AppIcon17", "AppIcon18", "AppIcon19", "AppIcon20", "AppIcon21", "AppIcon22","AppIcon23", "AppIcon24", "AppIcon25" ]
     
     var columns: [GridItem] = [
         GridItem(.adaptive(minimum: 100), spacing: 20)
@@ -36,30 +36,16 @@ struct ChangeIconView: View {
                                 .scaledToFit()
                                 .frame(width: 80, height: 80)
                                 .cornerRadius(15)
-                                .shadow(radius: 3)
-                                .overlay(
-                                    CheckmarkView(isActive: icon == activeIcon)
-                                )
+                                .shadow(color: .main, radius: icon == activeIcon ? 3 : 0)
+                                .shadow(color: .main, radius: icon == activeIcon ? 3 : 0)
+                                .shadow(color: .main, radius: icon == activeIcon ? 3 : 0)
+                                .shadow(color: .main, radius: icon == activeIcon ? 3 : 0)
                         }
                     }
                 }
                 .padding()
             }
             .navigationTitle("Select an Icon")
-        }
-    }
-}
-
-struct CheckmarkView: View {
-    var isActive: Bool
-
-    var body: some View {
-        if isActive {
-            Image(systemName: "checkmark")
-                .bold()
-                .foregroundColor(.white)
-                .imageScale(.large)
-                .transition(.scale)
         }
     }
 }

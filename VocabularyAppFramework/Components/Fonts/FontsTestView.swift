@@ -11,10 +11,19 @@ struct FontsTestView: View {
     var body: some View {
         VStack {
             Text("Hello, world!")
-                .font(.custom("Item 0", size: 20))
+                .font(.custom("Verdana", size: 20))
             
             Text("Hello, world!")
-                .font(.custom("Item 1", size: 20))
+                .font(.custom("AmericanTypewriter", size: 20))
+            
+            Text("Hello, world!")
+                .font(.custom("AcademyEngravedLetPlain", size: 30))
+        }
+        .onAppear {
+            for family in UIFont.familyNames.sorted() {
+                let names = UIFont.fontNames(forFamilyName: family)
+                print("Family: \(family) Font names: \(names)")
+            }
         }
     }
 }

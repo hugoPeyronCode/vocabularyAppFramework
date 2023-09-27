@@ -29,8 +29,14 @@ struct Home: View {
             BottomBar
             
         }
-        .background(Image(themesManager.currentTheme.backgroundImage).opacity(isMain ? 0.3 : 1))
-        .font(themesManager.currentTheme.font)
+        .background(
+            ZStack{
+                Image(themesManager.currentTheme.backgroundImage).opacity(isMain ? 0.2 : 1)
+                if themesManager.currentTheme.needContrast == true {
+                    Color(.black).opacity(0.2)
+                }
+            }
+        )
         .sheet(isPresented: $vm.isShowingPremiumView) { PremiumView() }
         .sheet(isPresented: $vm.isShowingCategoriesView) {
             CategoriesView(vm: vm, isShowingCategoriesView: $vm.isShowingCategoriesView)
@@ -38,7 +44,6 @@ struct Home: View {
         .sheet(isPresented: $vm.isShowingThemesView) { ThemesView().environmentObject(themesManager) }
         .sheet(isPresented: $vm.isShowingSettingsView) { SettingsView() }
     }
-
     
     var ScrollingWords: some View {
         GeometryReader { screen in
@@ -46,7 +51,7 @@ struct Home: View {
             TabView(selection: $vm.currentPage) {
                 ForEach(0..<wordsArray.count, id: \.self) { index in
                     LazyVStack {
-                        WordView(viewModel: vm, word: wordsArray[index], fontColor: themesManager.currentTheme.fontColor)
+                        WordView(viewModel: vm, word: wordsArray[index], fontColor: themesManager.currentTheme.fontColor, fontString: themesManager.currentTheme.font)
                     }
                     .frame(width: screen.size.width, height: screen.size.height)
                     .rotationEffect(Angle(degrees: -90))
