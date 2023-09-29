@@ -20,7 +20,7 @@ class HomeViewModel: ObservableObject {
     @Published var currentPage: Int = 0
     
     // User selection
-    @Published var selectedCategory: String = "All"
+    @Published var selectedCategory: String = "all"
     @Published var selectedCategories : [String] = []
     
     private var allWordsLimits : Int = 2000
@@ -37,7 +37,7 @@ class HomeViewModel: ObservableObject {
     var filteredWords: Set<Word> {
         
         if !selectedCategories.isEmpty {
-            if selectedCategories.contains("All") {
+            if selectedCategories.contains("all") {
                 return Set(Array(allWords.prefix(allWordsLimits)))
             }
             
@@ -51,7 +51,7 @@ class HomeViewModel: ObservableObject {
             }
             return filtered
             
-        } else if selectedCategory == "All" {
+        } else if selectedCategory == "all" {
             return Set(Array(allWords.prefix(allWordsLimits)))
         } else if selectedCategory == "My Favorites" {
             return allWords.filter { $0.isLiked }

@@ -33,11 +33,11 @@ struct WordView: View {
     var MainContent : some View {
         VStack(alignment: .center, spacing: 50) {
             Text(word.Headword)
-                .font(.custom(fontString, size: 42))
+                .font(.custom(fontString, size: 45))
             Text(word.Definition)
-                .font(.custom(fontString, size: 17))
+                .font(.custom(fontString, size: 19))
             Text("(\(word.Context_sentence))")
-                .font(.custom(fontString, size: 13))
+                .font(.custom(fontString, size: 15))
         }
         .lineLimit(nil)
         .multilineTextAlignment(.center)
@@ -81,6 +81,9 @@ struct WordView_Previews: PreviewProvider {
     static var word = Word(Rank: "", List: "", Headword: "Example", Definition: "Super definition du mot example", Context_sentence: "An example is exactly what you see right now", Synonyms: "", Antonyms: "", Topic: "other")
     
     static var previews: some View {
-        WordView(viewModel: HomeViewModel(allWords: WordManager.shared.allWords , wordsByCategory: WordManager.shared.wordsByCategory), word: word, fontColor: .black, fontString: "AmericanTypewriter")
+        WordView(viewModel: HomeViewModel(allWords: WordManager.shared.allWords , wordsByCategory: WordManager.shared.wordsByCategory), word: word, fontColor: .black, fontString: "STIXTwoText")
     }
 }
+
+// Georgia
+// STIXTwoMath-Regular

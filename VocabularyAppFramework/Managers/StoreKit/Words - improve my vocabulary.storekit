@@ -1,0 +1,71 @@
+{
+  "identifier" : "1781C6D3",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6468040922",
+    "_developerTeamID" : "YA24P24868",
+    "_lastSynchronizedDate" : 717596597.44247103
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21393919",
+      "localizations" : [
+
+      ],
+      "name" : "Yearly",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+            {
+              "internalID" : "E97B3F91",
+              "numberOfPeriods" : 1,
+              "offerID" : "3DaysTrial",
+              "paymentMode" : "free",
+              "referenceName" : "3 days trial",
+              "subscriptionPeriod" : "P3D"
+            }
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "17.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6468040964",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Profitez d'une année de contenu illimité",
+              "displayName" : "Annuel",
+              "locale" : "fr"
+            },
+            {
+              "description" : "Enjoy a full year of unlimited content",
+              "displayName" : "Yearly",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "Un año completo de contenidos ilimitados",
+              "displayName" : "Anual",
+              "locale" : "es_ES"
+            }
+          ],
+          "productID" : "Yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Yearly",
+          "subscriptionGroupID" : "21393919",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

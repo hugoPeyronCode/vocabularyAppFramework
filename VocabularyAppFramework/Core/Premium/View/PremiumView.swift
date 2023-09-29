@@ -11,11 +11,22 @@ struct PremiumView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @StateObject private var iapManager = IAPManager.shared
+    
+    var priceString: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = iapManager.products.first?.priceLocale
+        return formatter.string(from: iapManager.products.first?.price ?? 0) ?? "error"
+    }
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 40) {
                 
                 HeaderText
+                
+                IAPInfos
                 
                 Crown
                 
@@ -28,10 +39,13 @@ struct PremiumView: View {
                 Spacer()
                 
                 
-                Text("19.99 €/year")
-                    .font(.subheadline)
-                
-                CustomButtonMarked(text: "Continue", action: {})
+                Text(priceString)
+
+                CustomButtonMarked(text: "Continue", action: {
+                    if let product = iapManager.products.first {
+                        iapManager.purchase(product: product)
+                    }
+                })
                     .padding(.horizontal)
                 
                 FooterOption
@@ -39,6 +53,15 @@ struct PremiumView: View {
             }
             .navigationBarItems(leading: CancelButton)
             .navigationBarBackButtonHidden(true)
+        }
+    }
+    
+
+    var IAPInfos : some View {
+        VStack{
+            Text(iapManager.products.first?.localizedTitle ?? "error")
+            Text(iapManager.products.first?.localizedDescription ?? "error")
+            Text(iapManager.products.first?.price.stringValue ?? "error")
         }
     }
     

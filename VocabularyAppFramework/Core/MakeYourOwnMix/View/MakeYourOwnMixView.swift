@@ -34,11 +34,11 @@ struct MakeYourOwnMixView: View {
                         .padding()
                     List {
                         Section {
-                            ButtonList(content: "All", isSelected: selectedCategories?.contains("All") ?? false) {
-                                if selectedCategories?.contains("All") == true {
+                            ButtonList(content: "All", isSelected: selectedCategories?.contains("all") ?? false) {
+                                if selectedCategories?.contains("all") == true {
                                     selectedCategories?.removeAll() // Deselect all categories
                                 } else {
-                                    selectedCategories = ["All", "My Favorites"] + topCategories + subCategories
+                                    selectedCategories = ["all", "My Favorites"] + topCategories + subCategories
                                 }
                             }
                             ButtonList(content: "My Favorites", isSelected: selectedCategories?.contains("My Favorites") ?? false) {
@@ -49,7 +49,7 @@ struct MakeYourOwnMixView: View {
                                 }
                             }
                         }
-                        
+
                         Section("By Top Categories") {
                             ForEach(topCategories, id: \.self) { category in
                                 ButtonList(content: category.capitalized, isSelected: selectedCategories?.contains(category) ?? false) {

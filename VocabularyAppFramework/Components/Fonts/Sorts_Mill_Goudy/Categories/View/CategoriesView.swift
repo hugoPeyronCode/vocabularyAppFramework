@@ -33,9 +33,9 @@ struct CategoriesView: View {
                     MakeYourOwnMixButton
                     
                     LazyVGrid(columns: columns, spacing: 0) {
-                        CategoryButton(text: "All", icon: vm.selectedCategories.contains("All") ? "checkmark.circle" : "") {
+                        CategoryButton(text: "All", icon: vm.selectedCategories.contains("all") ? "checkmark.circle" : "") {
                             vm.selectedCategories.removeAll()
-                            vm.selectedCategory = "All" // Set to "All" when the "All" button is clicked
+                            vm.selectedCategory = "all" // Set to "All" when the "All" button is clicked
                             isShowingCategoriesView = false
                         }
                         CategoryButton(text: "My Favorites", icon: vm.selectedCategories.contains("My Favorite") ? "checkmark.circle" : "") {

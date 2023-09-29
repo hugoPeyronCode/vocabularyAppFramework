@@ -31,6 +31,10 @@
 		43ADC95A2AC42E4800A0781C /* SortsMillGoudy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43ADC9572AC42E4800A0781C /* SortsMillGoudy-Regular.ttf */; };
 		43ADC95C2AC42E4800A0781C /* SortsMillGoudy-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43ADC9592AC42E4800A0781C /* SortsMillGoudy-Italic.ttf */; };
 		43ADC95E2AC42F1300A0781C /* FontsTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC95D2AC42F1300A0781C /* FontsTestView.swift */; };
+		43C3F8FD2AC59AD30060B81E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C3F8FC2AC59AD30060B81E /* StoreKit.framework */; };
+		43C3F9192AC5A14C0060B81E /* Words - improve my vocabulary.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 43C3F9182AC5A14C0060B81E /* Words - improve my vocabulary.storekit */; };
+		43C3F91C2AC5AC530060B81E /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C3F91B2AC5AC530060B81E /* IAPManager.swift */; };
+		43C3F91E2AC5B1950060B81E /* PremiumStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C3F91D2AC5B1950060B81E /* PremiumStatus.swift */; };
 		43DB2E942ABF312C00081BDC /* MakeYourOwnMixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */; };
 		43E943B62AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */; };
 		43E943B82AB9CDDF008F79B5 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B72AB9CDDF008F79B5 /* Home.swift */; };
@@ -82,6 +86,10 @@
 		43ADC9572AC42E4800A0781C /* SortsMillGoudy-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SortsMillGoudy-Regular.ttf"; path = "VocabularyAppFramework/Components/Fonts/Sorts_Mill_Goudy/SortsMillGoudy-Regular.ttf"; sourceTree = SOURCE_ROOT; };
 		43ADC9592AC42E4800A0781C /* SortsMillGoudy-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SortsMillGoudy-Italic.ttf"; path = "VocabularyAppFramework/Components/Fonts/Sorts_Mill_Goudy/SortsMillGoudy-Italic.ttf"; sourceTree = SOURCE_ROOT; };
 		43ADC95D2AC42F1300A0781C /* FontsTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsTestView.swift; sourceTree = "<group>"; };
+		43C3F8FC2AC59AD30060B81E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		43C3F9182AC5A14C0060B81E /* Words - improve my vocabulary.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Words - improve my vocabulary.storekit"; sourceTree = "<group>"; };
+		43C3F91B2AC5AC530060B81E /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
+		43C3F91D2AC5B1950060B81E /* PremiumStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumStatus.swift; sourceTree = "<group>"; };
 		43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeYourOwnMixView.swift; sourceTree = "<group>"; };
 		43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyAppFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyAppFrameworkApp.swift; sourceTree = "<group>"; };
@@ -113,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43C3F8FD2AC59AD30060B81E /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +204,24 @@
 			path = Sorts_Mill_Goudy;
 			sourceTree = "<group>";
 		};
+		43C3F8F92AC59AC30060B81E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				43C3F8FC2AC59AD30060B81E /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43C3F91A2AC5A16C0060B81E /* StoreKit */ = {
+			isa = PBXGroup;
+			children = (
+				43C3F9182AC5A14C0060B81E /* Words - improve my vocabulary.storekit */,
+				43C3F91B2AC5AC530060B81E /* IAPManager.swift */,
+				43C3F91D2AC5B1950060B81E /* PremiumStatus.swift */,
+			);
+			path = StoreKit;
+			sourceTree = "<group>";
+		};
 		43DB2E8F2ABF310500081BDC /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +264,7 @@
 			children = (
 				43E943B42AB9CDDF008F79B5 /* VocabularyAppFramework */,
 				43E943B32AB9CDDF008F79B5 /* Products */,
+				43C3F8F92AC59AC30060B81E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -446,6 +474,7 @@
 		43E943F52ABC45FB008F79B5 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				43C3F91A2AC5A16C0060B81E /* StoreKit */,
 				43ADC9432AC2FDA800A0781C /* ThemesManager */,
 				43E943F92ABC7FC5008F79B5 /* WordManager */,
 				43E943F62ABC4603008F79B5 /* JSON */,
@@ -557,6 +586,7 @@
 				43E943BA2AB9CDE0008F79B5 /* Assets.xcassets in Resources */,
 				4302B64A2AC4320B0067C917 /* RobotoMono-Regular.ttf in Resources */,
 				4302B6502AC4320B0067C917 /* RobotoMono-Light.ttf in Resources */,
+				43C3F9192AC5A14C0060B81E /* Words - improve my vocabulary.storekit in Resources */,
 				4302B6462AC4320B0067C917 /* RobotoMono-Italic-VariableFont_wght.ttf in Resources */,
 				4302B64B2AC4320B0067C917 /* RobotoMono-LightItalic.ttf in Resources */,
 			);
@@ -575,6 +605,8 @@
 				43ADC95E2AC42F1300A0781C /* FontsTestView.swift in Sources */,
 				43E943B82AB9CDDF008F79B5 /* Home.swift in Sources */,
 				43E943F82ABC460D008F79B5 /* JSONParser.swift in Sources */,
+				43C3F91C2AC5AC530060B81E /* IAPManager.swift in Sources */,
+				43C3F91E2AC5B1950060B81E /* PremiumStatus.swift in Sources */,
 				43E943DB2AB9E18F008F79B5 /* ThemeButton.swift in Sources */,
 				43ADC9422AC2F4B800A0781C /* Theme.swift in Sources */,
 				43E943C72AB9CE2C008F79B5 /* HomeViewModel.swift in Sources */,
@@ -734,6 +766,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -768,6 +801,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

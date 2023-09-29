@@ -63,7 +63,7 @@ struct ThemesView: View {
                     ThemeButton(theme: theme) { selectedTheme in
                         themesManager.currentTheme = selectedTheme
                         presentationMode.wrappedValue.dismiss()
-                    }
+                    }.environmentObject(themesManager)
                 }
             }
             .padding()
