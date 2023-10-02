@@ -10,12 +10,14 @@ import SwiftUI
 struct CategoriesView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject private var storeKitManager : StoreKitManager
     
     @ObservedObject var vm : HomeViewModel
     
     @Binding var isShowingCategoriesView: Bool
     
     @State private var navigateToMixView: Bool = false
+    @State private var navigateToPremiumView : Bool = false
 
     let topCategories = ["society", "human body", "food", "people", "travel", "technology", "science", "literature", "history", "geography", "art", "business", "emotion", "nature", "health"]
     let subCategories = ["animals", "architecture", "colors", "crime", "currency", "fashion", "law", "mathematics", "plants", "politic", "religion", "slang", "music", "sounds", "sports", "time", "tools", "war", "other"]
@@ -33,15 +35,20 @@ struct CategoriesView: View {
                     MakeYourOwnMixButton
                     
                     LazyVGrid(columns: columns, spacing: 0) {
-                        CategoryButton(text: "All", icon: vm.selectedCategories.contains("all") ? "checkmark.circle" : "") {
+                        CategoryButton(text: "All", icon: vm.selectedCategories.contains("all") ? "checkmark.circle" : "", hasUnlockPremium: true) {
                             vm.selectedCategories.removeAll()
                             vm.selectedCategory = "all" // Set to "All" when the "All" button is clicked
                             isShowingCategoriesView = false
                         }
-                        CategoryButton(text: "My Favorites", icon: vm.selectedCategories.contains("My Favorite") ? "checkmark.circle" : "") {
-                            vm.selectedCategories.removeAll()
-                            vm.selectedCategory = "My Favorites"
-                            isShowingCategoriesView = false
+                        CategoryButton(text: "My Favorites", icon: vm.selectedCategories.contains("My Favorite") ? "checkmark.circle" : "", hasUnlockPremium: storeKitManager.hasUnlockedPremium) {
+                            
+                            if storeKitManager.hasUnlockedPremium {
+                                vm.selectedCategories.removeAll()
+                                vm.selectedCategory = "My Favorites"
+                                isShowingCategoriesView = false
+                            } else {
+                                navigateToPremiumView.toggle()
+                            }
                         }
                       }
                     
@@ -71,14 +78,18 @@ struct CategoriesView: View {
             .navigationDestination(isPresented: $navigateToMixView) {
                 MakeYourOwnMixView(vm: vm, topCategories: topCategories, subCategories: subCategories)
             }
+            .navigationDestination(isPresented: $navigateToPremiumView) {
+                PremiumView()
+            }
         }
     }
     
     var UnlockAllButton : some View {
-        NavigationLink {
-            PremiumView()
+        Button {
+            navigateToPremiumView.toggle()
         } label: {
-            Text("Unlock All").font(.subheadline).foregroundColor(.primary)
+            Text(storeKitManager.hasUnlockedPremium ? "" : "Unlock All")
+                .font(.subheadline).foregroundColor(.primary)
         }
     }
     
@@ -94,7 +105,11 @@ struct CategoriesView: View {
     
     var MakeYourOwnMixButton: some View {
         CustomButtonMarked(text: "Make your own mix") {
-            navigateToMixView.toggle()
+            if storeKitManager.hasUnlockedPremium {
+                navigateToMixView.toggle()
+            } else {
+                navigateToPremiumView.toggle()
+            }
         }
         .padding()
     }
@@ -102,10 +117,14 @@ struct CategoriesView: View {
     var GridMainCategories : some View {
       LazyVGrid(columns: columns, spacing: 0) {
             ForEach(topCategories, id: \.self) { category in
-                CategoryButton(text: category.capitalized, icon: vm.selectedCategories.contains(category) ? "checkmark.circle" : "") {
-                    vm.selectedCategories.removeAll()
-                    vm.selectedCategory = category
-                    isShowingCategoriesView = false
+                CategoryButton(text: category.capitalized, icon: vm.selectedCategories.contains(category) ? "checkmark.circle" : "", hasUnlockPremium: storeKitManager.hasUnlockedPremium) {
+                    if storeKitManager.hasUnlockedPremium {
+                        vm.selectedCategories.removeAll()
+                        vm.selectedCategory = category
+                        isShowingCategoriesView = false
+                    } else {
+                        navigateToPremiumView.toggle()
+                    }
                 }
             }
         }
@@ -114,10 +133,14 @@ struct CategoriesView: View {
     var GridSubCategories : some View {
       LazyVGrid(columns: columns, spacing: 0) {
           ForEach(subCategories, id: \.self) { category in
-              CategoryButton(text: category.capitalized, icon: vm.selectedCategories.contains(category) ? "checkmark.circle" : "") {
-                  vm.selectedCategories.removeAll()
-                  vm.selectedCategory = category
-                  isShowingCategoriesView = false
+              CategoryButton(text: category.capitalized, icon: vm.selectedCategories.contains(category) ? "checkmark.circle" : "", hasUnlockPremium: storeKitManager.hasUnlockedPremium) {
+                  if storeKitManager.hasUnlockedPremium {
+                      vm.selectedCategories.removeAll()
+                      vm.selectedCategory = category
+                      isShowingCategoriesView = false
+                  } else {
+                      navigateToPremiumView.toggle()
+                  }
               }
             }
         }
@@ -130,5 +153,6 @@ struct CategoriesView_Previews: PreviewProvider {
     
     static var previews: some View {
         CategoriesView(vm: HomeViewModel(allWords: WordManager.shared.allWords, wordsByCategory: WordManager.shared.wordsByCategory), isShowingCategoriesView: .constant(true))
+            .environmentObject(StoreKitManager())
     }
 }
