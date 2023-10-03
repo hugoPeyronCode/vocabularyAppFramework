@@ -11,6 +11,7 @@ struct CategoryButton: View {
     
     let text: String
     let icon: String
+    let hasUnlockPremium : Bool
     let action: () -> Void
     
     // Compute the image name based on the text (category name)
@@ -41,6 +42,12 @@ struct CategoryButton: View {
                     .background()
                 }
                 
+                Image(systemName:  hasUnlockPremium ? "" : "lock.fill")
+                    .bold()
+                    .font(.largeTitle)
+                    .foregroundStyle(.white)
+                    .shadow(color: .main, radius: 1)
+                    .shadow(color: .main, radius: 1)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity) // This ensures all buttons have the same size
             .background(Color(.systemBackground))  // Adding a background to make the RoundedRectangle visible
@@ -53,6 +60,6 @@ struct CategoryButton: View {
 
 struct CategoryButton_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryButton(text: "society", icon: "checkmark", action: {})
+        CategoryButton(text: "society", icon: "checkmark", hasUnlockPremium: false, action: {})
     }
 }

@@ -10,6 +10,10 @@ struct ThemesView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @EnvironmentObject var themesManager: ThemesManager
+    
+    @EnvironmentObject var storeKitManager : StoreKitManager
+    
+    @State private var isShowingPremiumView : Bool = false
 
     var body: some View {
         NavigationStack {
@@ -33,20 +37,26 @@ struct ThemesView: View {
                     trailing: UnlockAllButton
                 )
             }
+            .navigationDestination(isPresented: $isShowingPremiumView, destination: {
+                PremiumView()
+            })
             .background(Color.main.opacity(0.1))
         }
     }
     
     var UnlockAllButton : some View {
-        NavigationLink {
-            PremiumView()
+        Button {
+            HapticManager.shared.generateFeedback(for: .successLight)
+            isShowingPremiumView.toggle()
         } label: {
-            Text("Unlock All").font(.subheadline).foregroundColor(.primary)
+            Text( storeKitManager.hasUnlockedPremium ? "" : "Unlock All")
+                .font(.subheadline).foregroundColor(.primary)
         }
     }
     
     var CancelButton : some View {
         Button {
+            HapticManager.shared.generateFeedback(for: .successLight)
             presentationMode.wrappedValue.dismiss()
         } label: {
             Text("Cancel")
@@ -60,10 +70,17 @@ struct ThemesView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 0) {
                 ForEach(themesManager.themesDict[category] ?? [], id: \.self) { theme in
-                    ThemeButton(theme: theme) { selectedTheme in
-                        themesManager.currentTheme = selectedTheme
-                        presentationMode.wrappedValue.dismiss()
-                    }.environmentObject(themesManager)
+                    ThemeButton(theme: theme, hasUnlockPremium: storeKitManager.hasUnlockedPremium) { selectedTheme in
+                        if storeKitManager.hasUnlockedPremium {
+                            HapticManager.shared.generateFeedback(for: .successStrong)
+                            themesManager.currentTheme = selectedTheme
+                            presentationMode.wrappedValue.dismiss()
+                        } else {
+                            HapticManager.shared.generateFeedback(for: .errorStrong)
+                            isShowingPremiumView.toggle()
+                        }
+                    }
+                    .environmentObject(themesManager)
                 }
             }
             .padding()
@@ -73,7 +90,9 @@ struct ThemesView: View {
 
 struct ThemesView_Previews: PreviewProvider {
     static var previews: some View {
-        ThemesView().environmentObject(ThemesManager())
+        ThemesView()
+            .environmentObject(ThemesManager())
+            .environmentObject(StoreKitManager())
     }
 }
 

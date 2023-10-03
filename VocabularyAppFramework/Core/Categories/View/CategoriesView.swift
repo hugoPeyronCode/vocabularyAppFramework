@@ -36,6 +36,7 @@ struct CategoriesView: View {
                     
                     LazyVGrid(columns: columns, spacing: 0) {
                         CategoryButton(text: "All", icon: vm.selectedCategories.contains("all") ? "checkmark.circle" : "", hasUnlockPremium: true) {
+                            HapticManager.shared.generateFeedback(for: .successStrong)
                             vm.selectedCategories.removeAll()
                             vm.selectedCategory = "all" // Set to "All" when the "All" button is clicked
                             isShowingCategoriesView = false
@@ -43,10 +44,12 @@ struct CategoriesView: View {
                         CategoryButton(text: "My Favorites", icon: vm.selectedCategories.contains("My Favorite") ? "checkmark.circle" : "", hasUnlockPremium: storeKitManager.hasUnlockedPremium) {
                             
                             if storeKitManager.hasUnlockedPremium {
+                                HapticManager.shared.generateFeedback(for: .successStrong)
                                 vm.selectedCategories.removeAll()
                                 vm.selectedCategory = "My Favorites"
                                 isShowingCategoriesView = false
                             } else {
+                                HapticManager.shared.generateFeedback(for: .errorStrong)
                                 navigateToPremiumView.toggle()
                             }
                         }
@@ -86,6 +89,7 @@ struct CategoriesView: View {
     
     var UnlockAllButton : some View {
         Button {
+            HapticManager.shared.generateFeedback(for: .successLight)
             navigateToPremiumView.toggle()
         } label: {
             Text(storeKitManager.hasUnlockedPremium ? "" : "Unlock All")
@@ -95,6 +99,7 @@ struct CategoriesView: View {
     
     var CancelButton : some View {
         Button {
+            HapticManager.shared.generateFeedback(for: .successLight)
             presentationMode.wrappedValue.dismiss()
         } label: {
             Text("Cancel")
@@ -106,8 +111,10 @@ struct CategoriesView: View {
     var MakeYourOwnMixButton: some View {
         CustomButtonMarked(text: "Make your own mix") {
             if storeKitManager.hasUnlockedPremium {
+                HapticManager.shared.generateFeedback(for: .successStrong)
                 navigateToMixView.toggle()
             } else {
+                HapticManager.shared.generateFeedback(for: .errorStrong)
                 navigateToPremiumView.toggle()
             }
         }
@@ -119,10 +126,12 @@ struct CategoriesView: View {
             ForEach(topCategories, id: \.self) { category in
                 CategoryButton(text: category.capitalized, icon: vm.selectedCategories.contains(category) ? "checkmark.circle" : "", hasUnlockPremium: storeKitManager.hasUnlockedPremium) {
                     if storeKitManager.hasUnlockedPremium {
+                        HapticManager.shared.generateFeedback(for: .successStrong)
                         vm.selectedCategories.removeAll()
                         vm.selectedCategory = category
                         isShowingCategoriesView = false
                     } else {
+                        HapticManager.shared.generateFeedback(for: .errorStrong)
                         navigateToPremiumView.toggle()
                     }
                 }
@@ -135,10 +144,12 @@ struct CategoriesView: View {
           ForEach(subCategories, id: \.self) { category in
               CategoryButton(text: category.capitalized, icon: vm.selectedCategories.contains(category) ? "checkmark.circle" : "", hasUnlockPremium: storeKitManager.hasUnlockedPremium) {
                   if storeKitManager.hasUnlockedPremium {
+                      HapticManager.shared.generateFeedback(for: .successStrong)
                       vm.selectedCategories.removeAll()
                       vm.selectedCategory = category
                       isShowingCategoriesView = false
                   } else {
+                      HapticManager.shared.generateFeedback(for: .errorStrong)
                       navigateToPremiumView.toggle()
                   }
               }

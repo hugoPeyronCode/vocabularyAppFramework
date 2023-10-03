@@ -12,6 +12,7 @@ struct Home: View {
     @StateObject var vm: HomeViewModel
     
     @EnvironmentObject var themesManager: ThemesManager
+    @EnvironmentObject private var storeKitManager : StoreKitManager
     
     var isMain : Bool { themesManager.currentTheme.backgroundImage == "Main" }
     
@@ -24,7 +25,7 @@ struct Home: View {
             
             ScrollingWords
             
-            PremiumButton
+            if !storeKitManager.hasUnlockedPremium { PremiumButton }
             
             BottomBar
             
@@ -40,6 +41,7 @@ struct Home: View {
         .sheet(isPresented: $vm.isShowingPremiumView) { PremiumView() }
         .sheet(isPresented: $vm.isShowingCategoriesView) {
             CategoriesView(vm: vm, isShowingCategoriesView: $vm.isShowingCategoriesView)
+                .environmentObject(storeKitManager)
         }
         .sheet(isPresented: $vm.isShowingThemesView) { ThemesView().environmentObject(themesManager) }
         .sheet(isPresented: $vm.isShowingSettingsView) { SettingsView() }
@@ -52,6 +54,9 @@ struct Home: View {
                 ForEach(0..<wordsArray.count, id: \.self) { index in
                     LazyVStack {
                         WordView(viewModel: vm, word: wordsArray[index], fontColor: themesManager.currentTheme.fontColor, fontString: themesManager.currentTheme.font)
+                            .onAppear{
+                                HapticManager.shared.generateFeedback(for: .successLight)
+                            }
                     }
                     .frame(width: screen.size.width, height: screen.size.height)
                     .rotationEffect(Angle(degrees: -90))
@@ -70,7 +75,10 @@ struct Home: View {
         VStack {
             HStack {
                 Spacer()
-                CustomButton(text: "", image: "crown", action: {vm.isShowingPremiumView.toggle()})
+                CustomButton(text: "", image: "crown", action: {
+                    HapticManager.shared.generateFeedback(for: .successLight)
+                    vm.isShowingPremiumView.toggle()
+                })
             }
             Spacer()
         }
@@ -83,11 +91,20 @@ struct Home: View {
             Spacer()
             
             HStack {
-                CustomButton(text: vm.selectedCategories.isEmpty ? vm.selectedCategory  : "Mix" , image: "square.grid.2x2", action: {vm.isShowingCategoriesView.toggle()})
+                CustomButton(text: vm.selectedCategories.isEmpty ? vm.selectedCategory  : "Mix" , image: "square.grid.2x2", action: {
+                    HapticManager.shared.generateFeedback(for: .successLight)
+                    vm.isShowingCategoriesView.toggle()
+                })
                 
                 Spacer()
-                CustomButton(text: "", image: "paintbrush", action: {vm.isShowingThemesView.toggle()})
-                CustomButton(text: "", image: "person", action: {vm.isShowingSettingsView.toggle()})
+                CustomButton(text: "", image: "paintbrush", action: {
+                    HapticManager.shared.generateFeedback(for: .successLight)
+                    vm.isShowingThemesView.toggle()
+                })
+                CustomButton(text: "", image: "person", action: {
+                    HapticManager.shared.generateFeedback(for: .successLight)
+                    vm.isShowingSettingsView.toggle()
+                })
                 
             }
             .padding()
@@ -99,5 +116,6 @@ struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home(allWords: WordManager.shared.allWords, wordsByCategories: WordManager.shared.wordsByCategory)
             .environmentObject(ThemesManager())
+            .environmentObject(StoreKitManager())
     }
 }

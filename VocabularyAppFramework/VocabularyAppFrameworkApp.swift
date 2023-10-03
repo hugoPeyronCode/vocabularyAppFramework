@@ -11,16 +11,23 @@ import SwiftUI
 struct VocabularyAppFrameworkApp: App {
     
     @StateObject var themesManager = ThemesManager()
+    @StateObject private var storeKitManager = StoreKitManager()
+    let haptic = HapticManager.shared
+    
+    let allWordsFromHome : Set<Word> = WordManager.shared.allWords
+    let wordsByCategories : [String: Set<Word>]  = WordManager.shared.wordsByCategory
     
     var body: some Scene {
-        let allWordsFromHome : Set<Word> = WordManager.shared.allWords
-        let wordsByCategories : [String: Set<Word>]  = WordManager.shared.wordsByCategory
-                
         WindowGroup {
             Home(allWords: allWordsFromHome, wordsByCategories: wordsByCategories)
+                .onAppear(perform: {
+                    haptic.prepareHaptic()
+                })
                 .environmentObject(themesManager)
-                .onAppear{  IAPManager.shared.fetchProducts() }
-//            FontsTestView()
+                .environmentObject(storeKitManager)
+                .task {
+                    await storeKitManager.updatePurchasedProducts()
+                }
         }
     }
 }

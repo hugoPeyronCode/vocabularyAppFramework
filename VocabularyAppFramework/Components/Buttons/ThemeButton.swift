@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ThemeButton: View {
     let theme : Theme
+    let hasUnlockPremium: Bool
     let action : (Theme) -> Void
     
     @EnvironmentObject var themesManager: ThemesManager
@@ -36,8 +37,7 @@ struct ThemeButton: View {
                 
                 CheckIcon
                 
-//                LockIcon
-                
+                if !hasUnlockPremium && theme.backgroundImage != "Main" { LockIcon }
                 
             }
             .frame(width: 100, height: 150)
@@ -63,7 +63,7 @@ struct ThemeButton: View {
         VStack {
             HStack {
                 Spacer()
-                Image(systemName: "lock")
+                Image(systemName: "lock.fill")
                     .foregroundColor(.white)
                     .bold()
                     .padding(7)
@@ -79,10 +79,10 @@ struct ThemeButton: View {
 
 struct ThemeButton_Previews: PreviewProvider {
     
-    static let theme : Theme = Theme(backgroundImage: "BlackTexture1", font: "Chalkduster", fontColor: .white)
+    static let theme : Theme = Theme(backgroundImage: "Main", font: "Chalkduster", fontColor: .white)
     
     static var previews: some View {
-        ThemeButton(theme: theme, action: {_ in })
+        ThemeButton(theme: theme, hasUnlockPremium: false, action: {_ in })
             .environmentObject(ThemesManager())
     }
 }

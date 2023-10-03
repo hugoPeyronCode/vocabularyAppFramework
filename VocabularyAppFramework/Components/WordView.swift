@@ -56,6 +56,7 @@ struct WordView: View {
 //            }
             
             Button {
+                HapticManager.shared.generateFeedback(for: .successStrong)
                 word.isLiked.toggle()
                 viewModel.toggleLike(for: word)
             } label: {

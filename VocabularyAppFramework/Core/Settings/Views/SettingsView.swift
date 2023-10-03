@@ -6,27 +6,30 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct SettingsView: View {
     
+    let termsAndConditionsURL = URL(string: "https://www.notion.so/APPLICATION-TERMS-AND-CONDITIONS-OF-USE-AND-PRIVACY-POLICY-431520373299481a97353288b54489f5?pvs=4")!
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var storeKitManager : StoreKitManager
+    
+    @ObservedObject var hapticManager = HapticManager.shared
     
     @State private var isShowingPremiumView : Bool = false
+    
+    @State private var isShareSheetShowing = false
     
     var body: some View {
         NavigationStack {
             VStack {
                 Title
                 
-                BuyPremiumButton
-                    .padding()
+                if !storeKitManager.hasUnlockedPremium { BuyPremiumButton.padding() }
 
                 List {
-
                     SettingsSection
-
-                    YourWordsSection
-
                 }
             }
             .navigationBarItems(leading: CancelButton)
@@ -48,7 +51,7 @@ struct SettingsView: View {
 
     var Title : some View {
         HStack() {
-            Text("Vocabulary")
+            Text("Words")
                 .font(.title)
                 .bold()
             Spacer()
@@ -57,75 +60,80 @@ struct SettingsView: View {
     }
 
     var BuyPremiumButton : some View {
-        
-        CustomButtonMarked(text: "Try Vocabulary Free", action: { isShowingPremiumView.toggle()})
+        CustomButtonMarked(text: "Try Words Free", action: { isShowingPremiumView.toggle()})
     }
 
     var SettingsSection : some View {
         Section("Settings") {
-            NavigationLink(destination: GeneralView()) {
+            Button(action: {
+                self.isShareSheetShowing.toggle()
+            }) {
                 HStack(spacing: 20) {
-                    Image(systemName: "gearshape.fill")
-                    Text("General")
+                    Image(systemName: "square.and.arrow.up")
+                    Text("Share Words")
                 }
+                .foregroundStyle(.black)
             }
-            NavigationLink(destination: EmptyView()) {
-                HStack(spacing: 20) {
-                    Image(systemName: "bell.fill")
-                    Text("Reminders")
-                }
+            .sheet(isPresented: $isShareSheetShowing) {
+                ShareSheet(activityItems: ["Check this app"])
             }
-
+            
             NavigationLink(destination: ChangeIconView()) {
                 HStack(spacing: 20) {
                     Image(systemName: "square.fill")
                     Text("Change Icon")
                 }
             }
-
-            NavigationLink(destination: EmptyView()) {
+            
+            HStack {
+                Image(systemName: hapticManager.isHapticEnabled ? "water.waves" : "water.waves.slash")
+                Toggle("Haptic", isOn: $hapticManager.isHapticEnabled)
+            }
+            
+            Link(destination: termsAndConditionsURL) {
                 HStack(spacing: 20) {
-                    Image(systemName: "rectangle.grid.2x2.fill")
-                    Text("Lock Screen Widgets")
+                    Image(systemName: "doc.text.fill")
+                    Text("Terms & Conditions")
+                }
+                .foregroundStyle(.black)
+            }
+            
+            NavigationLink(destination: PrivacyPolicyView()) {
+                HStack(spacing: 20) {
+                    Image(systemName: "lock.shield.fill")
+                    Text("Privacy Policy")
                 }
             }
-        }
-    }
-
-    var YourWordsSection : some View {
-        Section("Your Words") {
-            NavigationLink(destination: EmptyView()) {
+            
+//            NavigationLink(destination: HapticTestView()) {
+//                HStack(spacing: 20) {
+//                    Image(systemName: "phone")
+//                    Text("Haptic Test View")
+//                }
+//            }
+            
+            NavigationLink(destination: FeedbackView()) {
                 HStack(spacing: 20) {
-                    Image(systemName: "bookmark.fill")
-                    Text("Collections")
+                    Image(systemName: "bubble.right.fill")
+                    Text("Please leave us a feedback")
                 }
             }
-            NavigationLink(destination: EmptyView()) {
-                HStack(spacing: 20) {
-                    Image(systemName: "bell.fill")
-                    Text("Add Your Own")
+            
+            
+            Button(action: {
+                Task {
+                    do {
+                        try await AppStore.sync()
+                    } catch {
+                        print(error)
+                    }
                 }
-            }
-
-            NavigationLink(destination: EmptyView()) {
+            }) {
                 HStack(spacing: 20) {
-                    Image(systemName: "magnifyingglass")
-                    Text("Search")
+                    Image(systemName: "purchased")
+                    Text("Restore purchase(s)")
                 }
-            }
-
-            NavigationLink(destination: EmptyView()) {
-                HStack(spacing: 20) {
-                    Image(systemName: "clock.fill")
-                    Text("Past Words")
-                }
-            }
-
-            NavigationLink(destination: EmptyView()) {
-                HStack(spacing: 20) {
-                    Image(systemName: "heart.fill")
-                    Text("Favorites")
-                }
+                .foregroundStyle(.black)
             }
         }
     }
@@ -134,5 +142,20 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .environmentObject(StoreKitManager())
     }
 }
+
+
+
+    struct ShareSheet: UIViewControllerRepresentable {
+        let activityItems: [Any]
+        let applicationActivities: [UIActivity]? = nil
+
+        func makeUIViewController(context: UIViewControllerRepresentableContext<ShareSheet>) -> UIActivityViewController {
+            let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+            return controller
+        }
+
+        func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ShareSheet>) {}
+    }
