@@ -11,6 +11,7 @@
 		4309417A2ACB6A9A008566E3 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430941792ACB6A9A008566E3 /* FeedbackView.swift */; };
 		43620DEA2ACC4035003FB04E /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 43620DE92ACC4035003FB04E /* FacebookBasics */; };
 		43620DEC2ACC4035003FB04E /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 43620DEB2ACC4035003FB04E /* FacebookCore */; };
+		43620DEF2ACD63AF003FB04E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43620DEE2ACD63AF003FB04E /* AppDelegate.swift */; };
 		43ACAC1C2AC6DD8C003ED836 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ACAC1B2AC6DD8C003ED836 /* StoreKitManager.swift */; };
 		43ADC9402AC2D32400A0781C /* ChangeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */; };
 		43ADC9422AC2F4B800A0781C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC9412AC2F4B800A0781C /* Theme.swift */; };
@@ -59,11 +60,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4302B62F2AC431780067C917 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		430941772ACB6A3B008566E3 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		430941792ACB6A9A008566E3 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		430941802ACC03A1008566E3 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		430941822ACC03A1008566E3 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		43620DED2ACD62B1003FB04E /* VocabularyAppFramework.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VocabularyAppFramework.entitlements; sourceTree = "<group>"; };
+		43620DEE2ACD63AF003FB04E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43ACAC1B2AC6DD8C003ED836 /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitManager.swift; sourceTree = "<group>"; };
 		43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeIconView.swift; sourceTree = "<group>"; };
 		43ADC9412AC2F4B800A0781C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -119,14 +121,6 @@
 				43ADC9442AC2FDB100A0781C /* ThemesManager.swift */,
 			);
 			path = ThemesManager;
-			sourceTree = "<group>";
-		};
-		43ADC9462AC325CF00A0781C /* Info */ = {
-			isa = PBXGroup;
-			children = (
-				4302B62F2AC431780067C917 /* Info.plist */,
-			);
-			path = Info;
 			sourceTree = "<group>";
 		};
 		43C3F8F92AC59AC30060B81E /* Frameworks */ = {
@@ -239,6 +233,8 @@
 		43E943B42AB9CDDF008F79B5 /* VocabularyAppFramework */ = {
 			isa = PBXGroup;
 			children = (
+				43620DED2ACD62B1003FB04E /* VocabularyAppFramework.entitlements */,
+				43620DEE2ACD63AF003FB04E /* AppDelegate.swift */,
 				43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */,
 				43E943B92AB9CDE0008F79B5 /* Assets.xcassets */,
 				43DB2E8F2ABF310500081BDC /* Core */,
@@ -247,7 +243,6 @@
 				43E943FC2ABDAEC2008F79B5 /* Extension */,
 				43E943E32ABA1931008F79B5 /* Model */,
 				43E943F22ABC444D008F79B5 /* Data */,
-				43ADC9462AC325CF00A0781C /* Info */,
 				43E943BB2AB9CDE0008F79B5 /* Preview Content */,
 			);
 			path = VocabularyAppFramework;
@@ -543,6 +538,7 @@
 				43D0942B2ACAC3FF006FB45E /* HapticTestView.swift in Sources */,
 				430941782ACB6A3B008566E3 /* PrivacyPolicyView.swift in Sources */,
 				43E943E52ABA193C008F79B5 /* Word.swift in Sources */,
+				43620DEF2ACD63AF003FB04E /* AppDelegate.swift in Sources */,
 				43C94F552ACABC5400EDBED6 /* HapticManager.swift in Sources */,
 				43E943E22ABA123D008F79B5 /* PremiumView.swift in Sources */,
 				43E943E72ABA1AD7008F79B5 /* WordView.swift in Sources */,
@@ -685,11 +681,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = VocabularyAppFramework/VocabularyAppFramework.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.4;
+				CURRENT_PROJECT_VERSION = 1.5;
 				DEVELOPMENT_ASSET_PATHS = "\"VocabularyAppFramework/Preview Content\"";
 				DEVELOPMENT_TEAM = YA24P24868;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VocabularyAppFramework/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Words;
@@ -705,7 +703,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -721,11 +719,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = VocabularyAppFramework/VocabularyAppFramework.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.4;
+				CURRENT_PROJECT_VERSION = 1.5;
 				DEVELOPMENT_ASSET_PATHS = "\"VocabularyAppFramework/Preview Content\"";
 				DEVELOPMENT_TEAM = YA24P24868;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VocabularyAppFramework/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Words;
@@ -741,7 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

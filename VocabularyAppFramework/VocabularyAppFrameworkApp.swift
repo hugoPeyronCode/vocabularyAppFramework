@@ -10,6 +10,8 @@ import SwiftUI
 @main
 struct VocabularyAppFrameworkApp: App {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     @StateObject var themesManager = ThemesManager()
     @StateObject private var storeKitManager = StoreKitManager()
     let haptic = HapticManager.shared

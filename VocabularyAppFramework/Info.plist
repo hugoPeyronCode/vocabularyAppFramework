@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Info.plist
+   VocabularyAppFramework
+
+   Created by Hugo Peyron on 27/09/2023.
+   Copyright (c) 2023 ___ORGANIZATIONNAME___. All rights reserved.
+-->
 <plist version="1.0">
-<dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>VocabularyAppFramework/Components/Fonts/Sorts_Mill_Goudy/SortsMillGoudy-Regular.ttf</string>
-		<string>VocabularyAppFramework/Components/Fonts/Sorts_Mill_Goudy/SortsMillGoudy-Italic.ttf</string>
-		<string>VocabularyAppFramework/Components/Fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf</string>
-	</array>
-</dict>
+    <dict>
+        <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>fb223508647402479</string>
+                </array>
+            </dict>
+        </array>
+        <key>FacebookAppID</key>
+        <string>223508647402479</string>
+        <key>FacebookClientToken</key>
+        <string>e1eaae76a13bfe0c2ca648a1fbc2de27</string>
+        <key>FacebookDisplayName</key>
+        <string>Words</string>
+        <key>FacebookAutoLogAppEventsEnabled</key>
+        <true/>
+        <key>FacebookAdvertiserIDCollectionEnabled</key>
+        <true/>
+        <!-- Ajoutez vos autres clés et valeurs XML ici -->
+    </dict>
 </plist>
