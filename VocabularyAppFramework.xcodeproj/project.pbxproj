@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		430941782ACB6A3B008566E3 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430941772ACB6A3B008566E3 /* PrivacyPolicyView.swift */; };
 		4309417A2ACB6A9A008566E3 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430941792ACB6A9A008566E3 /* FeedbackView.swift */; };
-		43620DEA2ACC4035003FB04E /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 43620DE92ACC4035003FB04E /* FacebookBasics */; };
-		43620DEC2ACC4035003FB04E /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 43620DEB2ACC4035003FB04E /* FacebookCore */; };
 		43620DEF2ACD63AF003FB04E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43620DEE2ACD63AF003FB04E /* AppDelegate.swift */; };
 		43ACAC1C2AC6DD8C003ED836 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ACAC1B2AC6DD8C003ED836 /* StoreKitManager.swift */; };
 		43ADC9402AC2D32400A0781C /* ChangeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC93F2AC2D32400A0781C /* ChangeIconView.swift */; };
 		43ADC9422AC2F4B800A0781C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC9412AC2F4B800A0781C /* Theme.swift */; };
 		43ADC9452AC2FDB100A0781C /* ThemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ADC9442AC2FDB100A0781C /* ThemesManager.swift */; };
+		43C3D5432ACFFE1F002FC3EE /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 43C3D5422ACFFE1F002FC3EE /* FacebookBasics */; };
+		43C3D5452ACFFE1F002FC3EE /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 43C3D5442ACFFE1F002FC3EE /* FacebookCore */; };
 		43C3F8FD2AC59AD30060B81E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C3F8FC2AC59AD30060B81E /* StoreKit.framework */; };
 		43C3F9192AC5A14C0060B81E /* Words - improve my vocabulary.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 43C3F9182AC5A14C0060B81E /* Words - improve my vocabulary.storekit */; };
 		43C3F91E2AC5B1950060B81E /* PremiumStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C3F91D2AC5B1950060B81E /* PremiumStatus.swift */; };
@@ -107,8 +107,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				43C3F8FD2AC59AD30060B81E /* StoreKit.framework in Frameworks */,
-				43620DEC2ACC4035003FB04E /* FacebookCore in Frameworks */,
-				43620DEA2ACC4035003FB04E /* FacebookBasics in Frameworks */,
+				43C3D5452ACFFE1F002FC3EE /* FacebookCore in Frameworks */,
+				43C3D5432ACFFE1F002FC3EE /* FacebookBasics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,8 +458,8 @@
 			);
 			name = VocabularyAppFramework;
 			packageProductDependencies = (
-				43620DE92ACC4035003FB04E /* FacebookBasics */,
-				43620DEB2ACC4035003FB04E /* FacebookCore */,
+				43C3D5422ACFFE1F002FC3EE /* FacebookBasics */,
+				43C3D5442ACFFE1F002FC3EE /* FacebookCore */,
 			);
 			productName = VocabularyAppFramework;
 			productReference = 43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */;
@@ -490,7 +490,7 @@
 			);
 			mainGroup = 43E943A92AB9CDDF008F79B5;
 			packageReferences = (
-				43620DE82ACC4035003FB04E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				43C3D5412ACFFE1F002FC3EE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 43E943B32AB9CDDF008F79B5 /* Products */;
 			projectDirPath = "";
@@ -692,6 +692,7 @@
 				INFOPLIST_FILE = VocabularyAppFramework/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Words;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to deliver personalized ads.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -730,6 +731,7 @@
 				INFOPLIST_FILE = VocabularyAppFramework/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Words;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to deliver personalized ads.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -774,7 +776,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		43620DE82ACC4035003FB04E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+		43C3D5412ACFFE1F002FC3EE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
 			requirement = {
@@ -785,14 +787,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		43620DE92ACC4035003FB04E /* FacebookBasics */ = {
+		43C3D5422ACFFE1F002FC3EE /* FacebookBasics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 43620DE82ACC4035003FB04E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			package = 43C3D5412ACFFE1F002FC3EE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookBasics;
 		};
-		43620DEB2ACC4035003FB04E /* FacebookCore */ = {
+		43C3D5442ACFFE1F002FC3EE /* FacebookCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 43620DE82ACC4035003FB04E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			package = 43C3D5412ACFFE1F002FC3EE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookCore;
 		};
 /* End XCSwiftPackageProductDependency section */

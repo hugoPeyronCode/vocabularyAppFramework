@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookCore
+import AppTrackingTransparency
 
 //@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
