@@ -36,5 +36,24 @@ class WordManager {
             }
         }
     }
+    
+    func similarWordsFilterCommonLetters(word: String, maxCommonLetters: Int, maxSampleSize: Int) -> [Word] {
+        var commonLetters = maxCommonLetters
+        var filteredData = allWords.filter {
+            word.prefix(commonLetters) == $0.Headword.prefix(commonLetters) && word != $0.Headword
+        }
+        
+        while filteredData.count < maxSampleSize && commonLetters > 0 {
+            commonLetters -= 1
+            filteredData = allWords.filter {
+                word.prefix(commonLetters) == $0.Headword.prefix(commonLetters) && word != $0.Headword
+            }
+        }
+        
+        var shuffledData = Array(filteredData)
+        shuffledData.shuffle()
+
+        return Array(shuffledData.prefix(maxSampleSize))
+    }
 }
 

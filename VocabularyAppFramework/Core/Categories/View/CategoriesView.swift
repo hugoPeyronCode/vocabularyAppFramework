@@ -109,7 +109,7 @@ struct CategoriesView: View {
     }
     
     var MakeYourOwnMixButton: some View {
-        CustomButtonMarked(text: "Make your own mix") {
+        CustomButtonMarked(text: "Make your own mix", isActive: true) {
             if storeKitManager.hasUnlockedPremium {
                 HapticManager.shared.generateFeedback(for: .successStrong)
                 navigateToMixView.toggle()

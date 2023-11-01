@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct OnboardingBackgroundImageView: View {
+    
+    let imageName: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(imageName)
+            .resizable()
+            .scaledToFill()
+            .frame(maxHeight: 200)
     }
 }
 
 #Preview {
-    OnboardingBackgroundImageView()
+    OnboardingBackgroundImageView(imageName: "Onboarding1")
 }

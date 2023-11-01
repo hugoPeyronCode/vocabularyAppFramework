@@ -31,7 +31,7 @@ extension ThemesCategories {
 }
 
 class ThemesManager : ObservableObject {
-    
+        
     @Published var currentTheme: Theme
     
     @Published var themesDict: [ThemesCategories: [Theme]] = [

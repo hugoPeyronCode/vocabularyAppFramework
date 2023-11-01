@@ -53,10 +53,14 @@ struct Home: View {
             TabView(selection: $vm.currentPage) {
                 ForEach(0..<wordsArray.count, id: \.self) { index in
                     LazyVStack {
-                        WordView(viewModel: vm, word: wordsArray[index], fontColor: themesManager.currentTheme.fontColor, fontString: themesManager.currentTheme.font)
-                            .onAppear{
-                                HapticManager.shared.generateFeedback(for: .successLight)
-                            }
+                        if index % 5 == 0 && index != 0 {
+                            QCMView(word: wordsArray[index], fontColor: themesManager.currentTheme.fontColor, fontString: themesManager.currentTheme.font)
+                        } else {
+                            WordView(viewModel: vm, word: wordsArray[index], fontColor: themesManager.currentTheme.fontColor, fontString: themesManager.currentTheme.font)
+                        }
+                    }
+                    .onAppear{
+                        HapticManager.shared.generateFeedback(for: .successLight)
                     }
                     .frame(width: screen.size.width, height: screen.size.height)
                     .rotationEffect(Angle(degrees: -90))

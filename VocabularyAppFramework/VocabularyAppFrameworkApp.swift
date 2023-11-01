@@ -14,16 +14,27 @@ struct VocabularyAppFrameworkApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
+    // Managers
     @StateObject var themesManager = ThemesManager()
     @StateObject private var storeKitManager = StoreKitManager()
     let haptic = HapticManager.shared
     
+    // DATA
     let allWordsFromHome : Set<Word> = WordManager.shared.allWords
     let wordsByCategories : [String: Set<Word>]  = WordManager.shared.wordsByCategory
+    
+    // Persiste onboarding status
+    @AppStorage("isShowingOnboarding") var isShowingOnboarding : Bool = true
+//    @State var isShowingOnboarding: Bool = true
     
     var body: some Scene {
         WindowGroup {
             Home(allWords: allWordsFromHome, wordsByCategories: wordsByCategories)
+                .fullScreenCover(isPresented: $isShowingOnboarding) {
+                    OnboardingView()
+                        .environmentObject(themesManager)
+                        .environmentObject(storeKitManager)
+                }
                 .onAppear(perform: {
                     haptic.prepareHaptic()
                 })

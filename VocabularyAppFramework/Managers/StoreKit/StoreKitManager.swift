@@ -12,7 +12,7 @@ import SwiftUI
 @MainActor
 class StoreKitManager : ObservableObject {
     
-    private let productIds = ["Yearly"] // Here I'll add all the id of the products I create in the store and can find the StoreKit fill in XCode.
+    private let productIds = ["Yearly","weekly","lifetime"] // Here I'll add all the id of the products I create in the store and can find the StoreKit fill in XCode.
     
     @Published private(set) var products : [Product] = []
     @Published private(set) var purchasedProductIDs = Set<String>()

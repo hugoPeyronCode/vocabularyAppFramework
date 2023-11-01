@@ -16,6 +16,7 @@ struct CustomButton: View {
     var body: some View {
         Button {
             action()
+            HapticManager.shared.generateFeedback(for: .successLight)
         } label: {
             HStack(spacing: 3) {
                 Image(systemName: image)

@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
+
+extension NotificationsSettingsView {
+    class ViewModel : ObservableObject {
+        // 
+    }
+}

@@ -19,6 +19,7 @@ struct ThemeButton: View {
     var body: some View {
         Button {
             action(theme)
+            HapticManager.shared.generateFeedback(for: .successLight)
         } label: {
             ZStack {
                 Image(theme.backgroundImage)

@@ -60,7 +60,7 @@ struct SettingsView: View {
     }
 
     var BuyPremiumButton : some View {
-        CustomButtonMarked(text: "Try Words Free", action: { isShowingPremiumView.toggle()})
+        CustomButtonMarked(text: "Try Words Free", isActive: true, action: { isShowingPremiumView.toggle()})
     }
 
     var SettingsSection : some View {
@@ -75,7 +75,7 @@ struct SettingsView: View {
                 .foregroundStyle(.black)
             }
             .sheet(isPresented: $isShareSheetShowing) {
-                ShareSheet(activityItems: ["Check this app"])
+                ShareSheet(activityItems: ["Check this app: https://apps.apple.com/us/app/words-learn-vocabulary-daily/id6468040922"])
             }
             
             NavigationLink(destination: ChangeIconView()) {
@@ -88,6 +88,14 @@ struct SettingsView: View {
             HStack {
                 Image(systemName: hapticManager.isHapticEnabled ? "water.waves" : "water.waves.slash")
                 Toggle("Haptic", isOn: $hapticManager.isHapticEnabled)
+            }
+            
+            NavigationLink(destination: NotificationsSettingsView(vm: OnboardingView.TabViewModel())) {
+                HStack(spacing: 20) {
+                    Image(systemName: "bell.fill")
+                    Text("Notifications")
+                }
+                .foregroundStyle(.black)
             }
             
             Link(destination: termsAndConditionsURL) {

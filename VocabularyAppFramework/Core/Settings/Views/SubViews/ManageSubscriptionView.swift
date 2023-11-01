@@ -20,7 +20,7 @@ struct ManageSubscriptionView: View {
             
             Spacer()
             
-            CustomButtonMarked(text: "Go Premium", action: {})
+            CustomButtonMarked(text: "Go Premium", isActive: true, action: {})
                 .padding()
         }
         .padding()
