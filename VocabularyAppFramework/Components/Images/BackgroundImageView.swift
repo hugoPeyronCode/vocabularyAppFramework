@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingBackgroundImageView: View {
+struct BackgroundImageView: View {
     
     let imageName: String
     
@@ -20,5 +20,5 @@ struct OnboardingBackgroundImageView: View {
 }
 
 #Preview {
-    OnboardingBackgroundImageView(imageName: "Onboarding1")
+    BackgroundImageView(imageName: "Onboarding1")
 }
