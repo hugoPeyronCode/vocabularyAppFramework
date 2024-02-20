@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43054CA82AF3B70A003374B8 /* PoppingEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43054CA72AF3B70A003374B8 /* PoppingEmoji.swift */; };
+		43054CAD2AF3BD62003374B8 /* ShakeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43054CAC2AF3BD62003374B8 /* ShakeAnimation.swift */; };
+		43054CAF2AF3BD82003374B8 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43054CAE2AF3BD82003374B8 /* ViewExtensions.swift */; };
+		43054CB22AF3D981003374B8 /* QuizSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43054CB12AF3D981003374B8 /* QuizSettingsView.swift */; };
 		430941782ACB6A3B008566E3 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430941772ACB6A3B008566E3 /* PrivacyPolicyView.swift */; };
 		4309417A2ACB6A9A008566E3 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430941792ACB6A9A008566E3 /* FeedbackView.swift */; };
 		431C702C2AEFA4E100FB3C36 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C702B2AEFA4E100FB3C36 /* IntroView.swift */; };
 		431C70312AEFB08500FB3C36 /* NotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70302AEFB08500FB3C36 /* NotificationsSettingsView.swift */; };
 		431C70332AEFB09400FB3C36 /* NotificationsSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70322AEFB09400FB3C36 /* NotificationsSettingsViewModel.swift */; };
 		431C70352AEFB77F00FB3C36 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70342AEFB77F00FB3C36 /* CustomSlider.swift */; };
-		431C70382AEFBE4600FB3C36 /* OnboardingBackgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70372AEFBE4600FB3C36 /* OnboardingBackgroundImageView.swift */; };
+		431C70382AEFBE4600FB3C36 /* BackgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70372AEFBE4600FB3C36 /* BackgroundImageView.swift */; };
 		431C703B2AEFD69D00FB3C36 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C703A2AEFD69D00FB3C36 /* NotificationsManager.swift */; };
 		431C703F2AF01A9700FB3C36 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C703E2AF01A9700FB3C36 /* OnboardingView.swift */; };
 		431C70422AF0D55000FB3C36 /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70412AF0D55000FB3C36 /* SurveyView.swift */; };
@@ -79,6 +83,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		43054CA72AF3B70A003374B8 /* PoppingEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoppingEmoji.swift; sourceTree = "<group>"; };
+		43054CAC2AF3BD62003374B8 /* ShakeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeAnimation.swift; sourceTree = "<group>"; };
+		43054CAE2AF3BD82003374B8 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		43054CB12AF3D981003374B8 /* QuizSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizSettingsView.swift; sourceTree = "<group>"; };
 		430941772ACB6A3B008566E3 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		430941792ACB6A9A008566E3 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		430941802ACC03A1008566E3 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -87,7 +95,7 @@
 		431C70302AEFB08500FB3C36 /* NotificationsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsView.swift; sourceTree = "<group>"; };
 		431C70322AEFB09400FB3C36 /* NotificationsSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsViewModel.swift; sourceTree = "<group>"; };
 		431C70342AEFB77F00FB3C36 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		431C70372AEFBE4600FB3C36 /* OnboardingBackgroundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBackgroundImageView.swift; sourceTree = "<group>"; };
+		431C70372AEFBE4600FB3C36 /* BackgroundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImageView.swift; sourceTree = "<group>"; };
 		431C703A2AEFD69D00FB3C36 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		431C703E2AF01A9700FB3C36 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		431C70412AF0D55000FB3C36 /* SurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
@@ -115,7 +123,7 @@
 		43C94F592ACABDE700EDBED6 /* CategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		43D0942A2ACAC3FF006FB45E /* HapticTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticTestView.swift; sourceTree = "<group>"; };
 		43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeYourOwnMixView.swift; sourceTree = "<group>"; };
-		43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyAppFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		43E943B22AB9CDDF008F79B5 /* QuizGPT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizGPT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyAppFrameworkApp.swift; sourceTree = "<group>"; };
 		43E943B72AB9CDDF008F79B5 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		43E943B92AB9CDE0008F79B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -153,6 +161,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43054CA62AF3B6FB003374B8 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				43054CA72AF3B70A003374B8 /* PoppingEmoji.swift */,
+				43054CAC2AF3BD62003374B8 /* ShakeAnimation.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		43054CB02AF3D96E003374B8 /* QuizSettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				43054CB12AF3D981003374B8 /* QuizSettingsView.swift */,
+			);
+			path = QuizSettingsView;
+			sourceTree = "<group>";
+		};
 		431C70292AEFA4C100FB3C36 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,7 +228,7 @@
 		431C70362AEFBE3700FB3C36 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				431C70372AEFBE4600FB3C36 /* OnboardingBackgroundImageView.swift */,
+				431C70372AEFBE4600FB3C36 /* BackgroundImageView.swift */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -355,6 +380,7 @@
 		43DB2E8F2ABF310500081BDC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				43054CB02AF3D96E003374B8 /* QuizSettingsView */,
 				438788CC2AECEF9100FCFEB6 /* QCM */,
 				43C94F562ACABDCE00EDBED6 /* Categories */,
 				43DB2E902ABF311900081BDC /* MakeYourOwnMix */,
@@ -404,7 +430,7 @@
 		43E943B32AB9CDDF008F79B5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */,
+				43E943B22AB9CDDF008F79B5 /* QuizGPT.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -463,6 +489,7 @@
 		43E943C82AB9D17A008F79B5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				43054CA62AF3B6FB003374B8 /* Animations */,
 				431C70362AEFBE3700FB3C36 /* Images */,
 				43E943C92AB9D181008F79B5 /* Buttons */,
 				43E943E62ABA1AD7008F79B5 /* WordView.swift */,
@@ -621,6 +648,7 @@
 			isa = PBXGroup;
 			children = (
 				43E943FD2ABDAEC9008F79B5 /* Colors.swift */,
+				43054CAE2AF3BD82003374B8 /* ViewExtensions.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -628,9 +656,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		43E943B12AB9CDDF008F79B5 /* VocabularyAppFramework */ = {
+		43E943B12AB9CDDF008F79B5 /* QuizGPT */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 43E943C02AB9CDE0008F79B5 /* Build configuration list for PBXNativeTarget "VocabularyAppFramework" */;
+			buildConfigurationList = 43E943C02AB9CDE0008F79B5 /* Build configuration list for PBXNativeTarget "QuizGPT" */;
 			buildPhases = (
 				43E943AE2AB9CDDF008F79B5 /* Sources */,
 				43E943AF2AB9CDDF008F79B5 /* Frameworks */,
@@ -641,13 +669,13 @@
 			);
 			dependencies = (
 			);
-			name = VocabularyAppFramework;
+			name = QuizGPT;
 			packageProductDependencies = (
 				43C3D5422ACFFE1F002FC3EE /* FacebookBasics */,
 				43C3D5442ACFFE1F002FC3EE /* FacebookCore */,
 			);
 			productName = VocabularyAppFramework;
-			productReference = 43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */;
+			productReference = 43E943B22AB9CDDF008F79B5 /* QuizGPT.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -665,7 +693,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 43E943AD2AB9CDDF008F79B5 /* Build configuration list for PBXProject "VocabularyAppFramework" */;
+			buildConfigurationList = 43E943AD2AB9CDDF008F79B5 /* Build configuration list for PBXProject "QuizGPT" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -681,7 +709,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				43E943B12AB9CDDF008F79B5 /* VocabularyAppFramework */,
+				43E943B12AB9CDDF008F79B5 /* QuizGPT */,
 			);
 		};
 /* End PBXProject section */
@@ -719,6 +747,7 @@
 				43C3F91E2AC5B1950060B81E /* PremiumStatus.swift in Sources */,
 				43C94F5A2ACABDE700EDBED6 /* CategoriesView.swift in Sources */,
 				43E943DB2AB9E18F008F79B5 /* ThemeButton.swift in Sources */,
+				43054CAD2AF3BD62003374B8 /* ShakeAnimation.swift in Sources */,
 				43ADC9422AC2F4B800A0781C /* Theme.swift in Sources */,
 				43E943C72AB9CE2C008F79B5 /* HomeViewModel.swift in Sources */,
 				438788D02AECEFAC00FCFEB6 /* QCMView.swift in Sources */,
@@ -731,9 +760,10 @@
 				430941782ACB6A3B008566E3 /* PrivacyPolicyView.swift in Sources */,
 				43E943E52ABA193C008F79B5 /* Word.swift in Sources */,
 				431C70352AEFB77F00FB3C36 /* CustomSlider.swift in Sources */,
+				43054CB22AF3D981003374B8 /* QuizSettingsView.swift in Sources */,
 				43620DEF2ACD63AF003FB04E /* AppDelegate.swift in Sources */,
 				431C70332AEFB09400FB3C36 /* NotificationsSettingsViewModel.swift in Sources */,
-				431C70382AEFBE4600FB3C36 /* OnboardingBackgroundImageView.swift in Sources */,
+				431C70382AEFBE4600FB3C36 /* BackgroundImageView.swift in Sources */,
 				431C702C2AEFA4E100FB3C36 /* IntroView.swift in Sources */,
 				431C703F2AF01A9700FB3C36 /* OnboardingView.swift in Sources */,
 				43C94F552ACABC5400EDBED6 /* HapticManager.swift in Sources */,
@@ -744,11 +774,13 @@
 				431C703B2AEFD69D00FB3C36 /* NotificationsManager.swift in Sources */,
 				43E943D22AB9D62B008F79B5 /* CustomButtonMarked.swift in Sources */,
 				431C70482AF0DA4A00FB3C36 /* MultiSelectButton.swift in Sources */,
+				43054CA82AF3B70A003374B8 /* PoppingEmoji.swift in Sources */,
 				43E944002ABDDC54008F79B5 /* UserDataStorage.swift in Sources */,
 				438788D22AECEFCC00FCFEB6 /* QCMViewModel.swift in Sources */,
 				431C70312AEFB08500FB3C36 /* NotificationsSettingsView.swift in Sources */,
 				431C70542AF2481500FB3C36 /* MoveToNextPageButton.swift in Sources */,
 				43DB2E942ABF312C00081BDC /* MakeYourOwnMixView.swift in Sources */,
+				43054CAF2AF3BD82003374B8 /* ViewExtensions.swift in Sources */,
 				43ACAC1C2AC6DD8C003ED836 /* StoreKitManager.swift in Sources */,
 				43ADC9402AC2D32400A0781C /* ChangeIconView.swift in Sources */,
 				43E943B62AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift in Sources */,
@@ -894,7 +926,7 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VocabularyAppFramework/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Words;
+				INFOPLIST_KEY_CFBundleDisplayName = QuizGPT;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to deliver personalized ads.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -908,8 +940,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.QuizGPT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -933,7 +965,7 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VocabularyAppFramework/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Words;
+				INFOPLIST_KEY_CFBundleDisplayName = QuizGPT;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to deliver personalized ads.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -947,8 +979,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.QuizGPT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -959,7 +991,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		43E943AD2AB9CDDF008F79B5 /* Build configuration list for PBXProject "VocabularyAppFramework" */ = {
+		43E943AD2AB9CDDF008F79B5 /* Build configuration list for PBXProject "QuizGPT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				43E943BE2AB9CDE0008F79B5 /* Debug */,
@@ -968,7 +1000,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		43E943C02AB9CDE0008F79B5 /* Build configuration list for PBXNativeTarget "VocabularyAppFramework" */ = {
+		43E943C02AB9CDE0008F79B5 /* Build configuration list for PBXNativeTarget "QuizGPT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				43E943C12AB9CDE0008F79B5 /* Debug */,

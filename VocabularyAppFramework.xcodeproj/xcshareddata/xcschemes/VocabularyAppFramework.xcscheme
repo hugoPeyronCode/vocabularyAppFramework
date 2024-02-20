@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43E943B12AB9CDDF008F79B5"
-               BuildableName = "VocabularyAppFramework.app"
-               BlueprintName = "VocabularyAppFramework"
-               ReferencedContainer = "container:VocabularyAppFramework.xcodeproj">
+               BuildableName = "QuizGPT.app"
+               BlueprintName = "QuizGPT"
+               ReferencedContainer = "container:QuizGPT.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "43E943B12AB9CDDF008F79B5"
-            BuildableName = "VocabularyAppFramework.app"
-            BlueprintName = "VocabularyAppFramework"
-            ReferencedContainer = "container:VocabularyAppFramework.xcodeproj">
+            BuildableName = "QuizGPT.app"
+            BlueprintName = "QuizGPT"
+            ReferencedContainer = "container:QuizGPT.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "43E943B12AB9CDDF008F79B5"
-            BuildableName = "VocabularyAppFramework.app"
-            BlueprintName = "VocabularyAppFramework"
-            ReferencedContainer = "container:VocabularyAppFramework.xcodeproj">
+            BuildableName = "QuizGPT.app"
+            BlueprintName = "QuizGPT"
+            ReferencedContainer = "container:QuizGPT.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
