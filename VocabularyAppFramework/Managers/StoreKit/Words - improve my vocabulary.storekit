@@ -24,7 +24,7 @@
     "_applicationInternalID" : "6468040922",
     "_developerTeamID" : "YA24P24868",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 720461324.336748,
+    "_lastSynchronizedDate" : 730141529.40249598,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
@@ -111,7 +111,7 @@
         {
           "adHocOffers" : [
             {
-              "internalID" : "6DEA6C6B",
+              "internalID" : "C627E7FB",
               "numberOfPeriods" : 1,
               "offerID" : "3DaysTrial",
               "paymentMode" : "free",

@@ -23,7 +23,7 @@ struct UserLevelView: View {
                 
                 Spacer()
                 
-                OnboardingBackgroundImageView(imageName: "OnboardingPodium")
+                BackgroundImageView(imageName: "OnboardingPodium")
                     .scaleEffect(0.8)
 
                 Spacer()

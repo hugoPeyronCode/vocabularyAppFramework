@@ -21,16 +21,16 @@ struct CustomButton: View {
             HStack(spacing: 3) {
                 Image(systemName: image)
                     .fontWeight(.thin)
-                    .frame(height: 15)
                 Text(text)
                     .fontWeight(.light)
                     .font(.caption)
             }
-            .foregroundColor(.primary)
+            .frame(height: 25)
             .padding()
-            .background(.thinMaterial)
-            .cornerRadius(150)
-            .shadow(color: .gray.opacity(0.3), radius: 3)
+            .foregroundColor(.primary)
+            .background(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .shadow(color: .black.opacity(0.3), radius: 3)
         }
     }
 }

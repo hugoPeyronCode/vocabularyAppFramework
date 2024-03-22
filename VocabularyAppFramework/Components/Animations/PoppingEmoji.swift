@@ -8,11 +8,41 @@
 import SwiftUI
 
 struct PoppingEmoji: View {
+    
+    @State var startValue: CGFloat = 1
+    @Binding var isTrigger : Bool
+    let maxValue : CGFloat = 250
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            Image(systemName: "checkmark.circle.fill")
+                .font(.system(size: startValue))
+                .padding(5)
+                .background(isTrigger ? Color.main.opacity(0.1) : .clear)
+                .clipShape(Circle())
+                .foregroundStyle(.main, .white)
+        }
+        .onChange(of: isTrigger) { oldValue in
+            updateScaleValue()
+        }
+        .onTapGesture {
+            updateScaleValue()
+        }
+    }
+    
+    func updateScaleValue() {
+        HapticManager.shared.generateFeedback(for: .successStrong)
+        withAnimation(.bouncy) {
+            if startValue == 1 || startValue == 20 {
+                startValue = maxValue
+            } else if startValue == maxValue {
+                startValue = 20
+            }
+        }
     }
 }
 
 #Preview {
-    PoppingEmoji()
+    PoppingEmoji(isTrigger: .constant(false))
 }

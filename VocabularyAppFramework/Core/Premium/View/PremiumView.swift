@@ -217,7 +217,6 @@ struct PremiumView: View {
         .font(.caption2)
         .foregroundColor(.gray)
     }
-    
 }
 struct PremiumView_Previews: PreviewProvider {
     static var previews: some View {

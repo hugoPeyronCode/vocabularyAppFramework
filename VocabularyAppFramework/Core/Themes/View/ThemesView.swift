@@ -75,6 +75,7 @@ struct ThemesView: View {
                             HapticManager.shared.generateFeedback(for: .successStrong)
                             themesManager.currentTheme = selectedTheme
                             presentationMode.wrappedValue.dismiss()
+                            print(selectedTheme.self)
                         } else {
                             HapticManager.shared.generateFeedback(for: .errorStrong)
                             isShowingPremiumView.toggle()

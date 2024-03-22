@@ -51,13 +51,15 @@ struct MoveToNextPageButton : View {
             .padding()
             .background(isActive ? .main.opacity(0.1) : .gray.opacity(0.1))
             .clipShape(RoundedRectangle(cornerRadius: 15))
+            .fontWeight(isActive ? .bold : .regular)
             .bold()
-            .foregroundStyle(isActive ? .main : defaultColor)
+            .foregroundStyle(isActive ? .main : defaultColor.opacity(0.5))
+            .frame(width: 250)
         }
         .disabled(!isActive)
     }
 }
 
 #Preview {
-    MoveToNextPageButton(isActive: .constant(true), action: {})
+    MoveToNextPageButton(isActive: .constant(false), action: {})
 }

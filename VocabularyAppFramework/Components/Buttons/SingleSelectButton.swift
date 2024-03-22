@@ -45,7 +45,6 @@ struct SingleSelectButton: View {
             return false
         }
     }
- 
 }
 
 #Preview {

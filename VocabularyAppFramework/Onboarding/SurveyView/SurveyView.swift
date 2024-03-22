@@ -23,7 +23,7 @@ struct SurveyView: View {
                 
                 Spacer()
                 
-                OnboardingBackgroundImageView(imageName: "OnboardingMouth")
+                BackgroundImageView(imageName: "OnboardingMouth")
                     .scaleEffect(0.8)
 
                 Spacer()

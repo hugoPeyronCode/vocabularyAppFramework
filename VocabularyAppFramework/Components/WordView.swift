@@ -79,7 +79,7 @@ struct WordView: View {
 
 struct WordView_Previews: PreviewProvider {
     
-    static var word = Word(Rank: "", List: "", Headword: "Example", Definition: "Super definition du mot example", Context_sentence: "An example is exactly what you see right now", Synonyms: "", Antonyms: "", Topic: "other")
+    static var word = Word(Rank: "", List: "", Headword: "Example", Definition: "An example is exactly what you see right now  An example is exactly what you see right now An example is exactly what you see right now An example is exactly what you see right now An example is exactly what you see right now Super definition du mot example", Context_sentence: "An example is exactly what you see right now", Synonyms: "", Antonyms: "", Topic: "other")
     
     static var previews: some View {
         WordView(viewModel: HomeViewModel(allWords: WordManager.shared.allWords , wordsByCategory: WordManager.shared.wordsByCategory), word: word, fontColor: .black, fontString: "STIXTwoText")

@@ -26,7 +26,7 @@ struct NotificationsSettingsView: View {
     var body: some View {
         ZStack {
             VStack {
-                OnboardingBackgroundImageView(imageName: "Onboarding2")
+                BackgroundImageView(imageName: "Onboarding2")
                     .scaleEffect(0.6)
                     .padding(.top)
                 

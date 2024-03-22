@@ -17,7 +17,7 @@ struct IntroView: View {
                 
                 Spacer()
                 
-                OnboardingBackgroundImageView(imageName: "Onboarding1")
+                BackgroundImageView(imageName: "Onboarding1")
                 
                 Spacer()
                 

@@ -24,7 +24,7 @@ struct AskForRatingView: View {
                 
                 Spacer()
                 
-                OnboardingBackgroundImageView(imageName: "OnboardingHeart")
+                BackgroundImageView(imageName: "OnboardingHeart")
                     .scaleEffect(0.8)
                 
                 Spacer()

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Home: View {
-        
+    
     @StateObject var vm: HomeViewModel
     
     @EnvironmentObject var themesManager: ThemesManager
@@ -19,11 +19,14 @@ struct Home: View {
     init(allWords: Set<Word>, wordsByCategories: [String: Set<Word>]) {
         _vm = StateObject(wrappedValue: HomeViewModel(allWords: allWords, wordsByCategory: wordsByCategories))
     }
+    
     var body: some View {
         
         ZStack {
             
             ScrollingWords
+            
+            QuizzSettingsButton
             
             if !storeKitManager.hasUnlockedPremium { PremiumButton }
             
@@ -38,6 +41,8 @@ struct Home: View {
                 }
             }
         )
+        .sheet(isPresented: $vm.isShowingQuizzSettingsView) { QuizSettingsView(quizApparitionValue : $vm.quizzApparitionValue)
+        }
         .sheet(isPresented: $vm.isShowingPremiumView) { PremiumView() }
         .sheet(isPresented: $vm.isShowingCategoriesView) {
             CategoriesView(vm: vm, isShowingCategoriesView: $vm.isShowingCategoriesView)
@@ -53,7 +58,7 @@ struct Home: View {
             TabView(selection: $vm.currentPage) {
                 ForEach(0..<wordsArray.count, id: \.self) { index in
                     LazyVStack {
-                        if index % 5 == 0 && index != 0 {
+                        if index % vm.quizzApparitionValue == 0 && index != 0 && vm.quizzApparitionValue < 12 {
                             QCMView(word: wordsArray[index], fontColor: themesManager.currentTheme.fontColor, fontString: themesManager.currentTheme.font)
                         } else {
                             WordView(viewModel: vm, word: wordsArray[index], fontColor: themesManager.currentTheme.fontColor, fontString: themesManager.currentTheme.font)
@@ -75,6 +80,22 @@ struct Home: View {
         }
     }
     
+    
+    var QuizzSettingsButton : some View {
+        VStack {
+            HStack {
+                CustomButton(text: "", image: "slider.horizontal.3", action: {
+                    HapticManager.shared.generateFeedback(for: .successLight)
+                    vm.isShowingQuizzSettingsView.toggle()
+                })
+                Spacer()
+
+            }
+            Spacer()
+        }
+        .padding()
+    }
+    
     var PremiumButton : some View {
         VStack {
             HStack {
@@ -91,9 +112,7 @@ struct Home: View {
     
     var BottomBar : some View {
         VStack {
-            
             Spacer()
-            
             HStack {
                 CustomButton(text: vm.selectedCategories.isEmpty ? vm.selectedCategory  : "Mix" , image: "square.grid.2x2", action: {
                     HapticManager.shared.generateFeedback(for: .successLight)

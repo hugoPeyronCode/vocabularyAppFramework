@@ -17,12 +17,19 @@ class HomeViewModel: ObservableObject {
     @Published var isShowingCategoriesView = false
     @Published var isShowingThemesView = false
     @Published var isShowingSettingsView = false
+    @Published var isShowingQuizzSettingsView = false
     @Published var currentPage: Int = 0
     
     // User selection
     @Published var selectedCategory: String = "all"
     @Published var selectedCategories : [String] = []
     
+    var quizzApparitionValue: Int = 5 {
+        didSet {
+            UserDefaults.standard.set(quizzApparitionValue, forKey: "quizApparitionValue")
+        }
+    }
+
     private var allWordsLimits : Int = 2000
     
     // Data
@@ -32,7 +39,12 @@ class HomeViewModel: ObservableObject {
     init(allWords: Set<Word>, wordsByCategory: [String: Set<Word>]) {
         self.allWords = allWords
         self.wordsByCategory = wordsByCategory
+        self.quizzApparitionValue = UserDefaults.standard.integer(forKey: "quizApparitionValue")
+        if self.quizzApparitionValue == 0 { // UserDefaults returns 0 if the key doesn't exist
+            self.quizzApparitionValue = 5 // Default value if not set in UserDefaults
+        }
     }
+
     
     var filteredWords: Set<Word> {
         

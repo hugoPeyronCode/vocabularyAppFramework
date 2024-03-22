@@ -34,7 +34,8 @@ class StoreKitManager : ObservableObject {
     
     var hasUnlockedPremium: Bool {
 //        print("has unlocked Premium")
-        return !self.purchasedProductIDs.isEmpty
+//        return !self.purchasedProductIDs.isEmpty
+        return true
     }
     
     func loadProducts() async throws {

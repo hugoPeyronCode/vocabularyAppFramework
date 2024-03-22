@@ -14,6 +14,7 @@ struct QCMView: View {
     @State var selectedAnswer : [String] = []
     @State var isActive : Bool = false
     @State var isGoodAnswer : Bool = false
+    @State var isBadAnswer : Bool = false
     
     let fontColor : Color
     let fontString : String
@@ -25,62 +26,59 @@ struct QCMView: View {
     }
     
     var body: some View {
+        ZStack {
             VStack {
-                VStack{}
-                    .frame(height: 50)
-                
-                Text(vm.cleanWordDescription(word: vm.word))
-                    .lineLimit(nil)
-                    .multilineTextAlignment(.center)
-                    .font(.custom(fontString, size: 19))
+                    WordDescription
+                    .offset(y: -20)
                     .padding()
                 
-//                Text("\(selectedAnswer.debugDescription)")
-//                Text(vm.word.Headword)
-            
-                VStack{}
-                    .frame(height: 50)
+                    QuestionButtons
+                    .shake($isBadAnswer)
                 
-                ForEach(vm.similarWordsArray, id: \.self) { word in
-                    SingleSelectButton(content: word.capitalized, defaultColor: fontColor, fontString: fontString, selectedItems: $selectedAnswer) {
-                            // some action here
-                            isActive = true
-                        }
-                        .disabled(isGoodAnswer)
+                    ValidationButton
+                    .offset(y: 50)
+                    
                 }
-                
-                VStack{}
-                    .frame(height: 50)
-                
-                MoveToNextPageButton(content: isGoodAnswer ? "Good Answer" : "Find the answer", icon: isGoodAnswer ? "party.popper" : "magnifyingglass", defaultColor: fontColor, fontString: fontString, isActive: $isActive, action: {
-                    checkAnswer()
-                })
-                .disabled(isGoodAnswer)
-                .padding()
-                
-            }
-            .foregroundColor(fontColor)
+                .foregroundColor(fontColor)
+            
+                PoppingEmoji(isTrigger: $isGoodAnswer)
+        }
     }
     
-    var Icon: some View {
-        Image(systemName:"checkmark.circle.fill")
-            .font(.title)
-            .padding()
-            .background(.clear)
-            .clipShape(Circle())
-            .foregroundStyle(.main)
-            .padding()
+    var WordDescription : some View {
+        Text(vm.cleanWordDescription(word: vm.word))
+            .lineLimit(nil)
+            .multilineTextAlignment(.center)
+            .font(.custom(fontString, size: 19))
+    }
+    
+    var QuestionButtons : some View {
+        ForEach(vm.similarWordsArray, id: \.self) { word in
+            SingleSelectButton(content: word.capitalized, defaultColor: fontColor, fontString: fontString, selectedItems: $selectedAnswer) {
+                    // some action here
+                    isActive = true
+                }
+                .disabled(isGoodAnswer)
+        }
+    }
+    
+    var ValidationButton : some View {
+        MoveToNextPageButton(content: isGoodAnswer ? "Good Answer" : "Find the answer", icon: isGoodAnswer ? "party.popper" : "magnifyingglass", defaultColor: fontColor, fontString: fontString, isActive: $isActive, action: {
+            checkAnswer()
+        })
+        .disabled(isGoodAnswer)
     }
     
     func checkAnswer() {
+        isBadAnswer = false
         if selectedAnswer.first?.capitalized == vm.word.Headword.capitalized {
             isGoodAnswer = true
             print("Good answer!")
             HapticManager.shared.generateFeedback(for: .successStrong)
         } else {
             print("Bad Answer")
+            isBadAnswer = true
             HapticManager.shared.generateFeedback(for: .errorLight)
-
         }
     }
 }
@@ -89,7 +87,7 @@ struct QCMView: View {
     QCMView(word: Word(Rank: "1",
                        List: "Vocabulary",
                        Headword: "Philanthrope",
-                       Definition: "Une personne qui cherche à promouvoir le bien-être d'autrui, en particulier par le don généreux d'argent à des causes bénéfiques.",
+                       Definition: "Une personne qui cherche à promouvoir le bien-être d'autrui, en particulier par le don généreux d'argent à des causes bénéfiques. Et même bien plus car je dois verifier si le text même très grand rentre dans le carde de l'écran.",
                        Context_sentence: "Le philanthrope a fait un don de plusieurs millions à l'hôpital local.",
                        Synonyms: "Bienfaiteur, Donateur",
                        Antonyms: "Misanthrope, Égoïste",
