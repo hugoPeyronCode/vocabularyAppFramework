@@ -65,6 +65,7 @@
 		43E943FB2ABC7FCD008F79B5 /* WordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943FA2ABC7FCD008F79B5 /* WordManager.swift */; };
 		43E943FE2ABDAEC9008F79B5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943FD2ABDAEC9008F79B5 /* Colors.swift */; };
 		43E944002ABDDC54008F79B5 /* UserDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943FF2ABDDC54008F79B5 /* UserDataStorage.swift */; };
+		50BCBBB82CF9E415004D67C8 /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -143,6 +144,7 @@
 		43E943FA2ABC7FCD008F79B5 /* WordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordManager.swift; sourceTree = "<group>"; };
 		43E943FD2ABDAEC9008F79B5 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		43E943FF2ABDDC54008F79B5 /* UserDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStorage.swift; sourceTree = "<group>"; };
+		50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStep.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -561,6 +563,7 @@
 			children = (
 				43E943E42ABA193C008F79B5 /* Word.swift */,
 				43ADC9412AC2F4B800A0781C /* Theme.swift */,
+				50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -740,6 +743,7 @@
 				431C704D2AF0DEE900FB3C36 /* SelectIconView.swift in Sources */,
 				43C3F91E2AC5B1950060B81E /* PremiumStatus.swift in Sources */,
 				43C94F5A2ACABDE700EDBED6 /* CategoriesView.swift in Sources */,
+				50BCBBB82CF9E415004D67C8 /* OnboardingStep.swift in Sources */,
 				43E943DB2AB9E18F008F79B5 /* ThemeButton.swift in Sources */,
 				43054CAD2AF3BD62003374B8 /* ShakeAnimation.swift in Sources */,
 				43ADC9422AC2F4B800A0781C /* Theme.swift in Sources */,

@@ -26,8 +26,6 @@ struct IntroView: View {
                 Spacer()
                 
                 MoveToNextPageButton(isActive: .constant(true), action: vm.moveToNextPage)
-                
-                Spacer()
             }
         }
     }

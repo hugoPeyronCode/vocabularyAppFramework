@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+enum OnboardingStep: Int, CaseIterable, Hashable {
+    case intro
+    case survey
+    case userLevel
+    case askForRating
+    case notification
+    case premium
+}
