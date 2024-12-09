@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,7 +18,6 @@
 		431C70332AEFB09400FB3C36 /* NotificationsSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70322AEFB09400FB3C36 /* NotificationsSettingsViewModel.swift */; };
 		431C70352AEFB77F00FB3C36 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70342AEFB77F00FB3C36 /* CustomSlider.swift */; };
 		431C70382AEFBE4600FB3C36 /* BackgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70372AEFBE4600FB3C36 /* BackgroundImageView.swift */; };
-		431C703B2AEFD69D00FB3C36 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C703A2AEFD69D00FB3C36 /* NotificationsManager.swift */; };
 		431C703F2AF01A9700FB3C36 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C703E2AF01A9700FB3C36 /* OnboardingView.swift */; };
 		431C70422AF0D55000FB3C36 /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70412AF0D55000FB3C36 /* SurveyView.swift */; };
 		431C70452AF0D94500FB3C36 /* UserLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431C70442AF0D94500FB3C36 /* UserLevelView.swift */; };
@@ -56,7 +55,6 @@
 		43E943DB2AB9E18F008F79B5 /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943DA2AB9E18F008F79B5 /* ThemeButton.swift */; };
 		43E943E22ABA123D008F79B5 /* PremiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943E12ABA123D008F79B5 /* PremiumView.swift */; };
 		43E943E52ABA193C008F79B5 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943E42ABA193C008F79B5 /* Word.swift */; };
-		43E943E72ABA1AD7008F79B5 /* WordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943E62ABA1AD7008F79B5 /* WordView.swift */; };
 		43E943EC2ABAE3F6008F79B5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943EB2ABAE3F6008F79B5 /* SettingsView.swift */; };
 		43E943EE2ABAF486008F79B5 /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943ED2ABAF486008F79B5 /* GeneralView.swift */; };
 		43E943F12ABB28BE008F79B5 /* ManageSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943F02ABB28BE008F79B5 /* ManageSubscriptionView.swift */; };
@@ -65,6 +63,7 @@
 		43E943FB2ABC7FCD008F79B5 /* WordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943FA2ABC7FCD008F79B5 /* WordManager.swift */; };
 		43E943FE2ABDAEC9008F79B5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943FD2ABDAEC9008F79B5 /* Colors.swift */; };
 		43E944002ABDDC54008F79B5 /* UserDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943FF2ABDDC54008F79B5 /* UserDataStorage.swift */; };
+		5032604E2D06F93400F60405 /* TypingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5032604D2D06F93400F60405 /* TypingAnimation.swift */; };
 		50BCBBB82CF9E415004D67C8 /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +94,6 @@
 		431C70322AEFB09400FB3C36 /* NotificationsSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsViewModel.swift; sourceTree = "<group>"; };
 		431C70342AEFB77F00FB3C36 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		431C70372AEFBE4600FB3C36 /* BackgroundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImageView.swift; sourceTree = "<group>"; };
-		431C703A2AEFD69D00FB3C36 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		431C703E2AF01A9700FB3C36 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		431C70412AF0D55000FB3C36 /* SurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
 		431C70442AF0D94500FB3C36 /* UserLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLevelView.swift; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 		43E943DA2AB9E18F008F79B5 /* ThemeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeButton.swift; sourceTree = "<group>"; };
 		43E943E12ABA123D008F79B5 /* PremiumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumView.swift; sourceTree = "<group>"; };
 		43E943E42ABA193C008F79B5 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
-		43E943E62ABA1AD7008F79B5 /* WordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordView.swift; sourceTree = "<group>"; };
 		43E943EB2ABAE3F6008F79B5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		43E943ED2ABAF486008F79B5 /* GeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralView.swift; sourceTree = "<group>"; };
 		43E943F02ABB28BE008F79B5 /* ManageSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubscriptionView.swift; sourceTree = "<group>"; };
@@ -144,8 +141,14 @@
 		43E943FA2ABC7FCD008F79B5 /* WordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordManager.swift; sourceTree = "<group>"; };
 		43E943FD2ABDAEC9008F79B5 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		43E943FF2ABDDC54008F79B5 /* UserDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStorage.swift; sourceTree = "<group>"; };
+		5032604D2D06F93400F60405 /* TypingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingAnimation.swift; sourceTree = "<group>"; };
 		50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStep.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		503260512D06FFB500F60405 /* WordView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WordView; sourceTree = "<group>"; };
+		50BCBBB92CF9F251004D67C8 /* WordWritingView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WordWritingView; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		43E943AF2AB9CDDF008F79B5 /* Frameworks */ = {
@@ -164,6 +167,7 @@
 			children = (
 				43054CA72AF3B70A003374B8 /* PoppingEmoji.swift */,
 				43054CAC2AF3BD62003374B8 /* ShakeAnimation.swift */,
+				5032604D2D06F93400F60405 /* TypingAnimation.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -229,14 +233,6 @@
 				431C70372AEFBE4600FB3C36 /* BackgroundImageView.swift */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		431C70392AEFD69100FB3C36 /* Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				431C703A2AEFD69D00FB3C36 /* NotificationsManager.swift */,
-			);
-			path = Notifications;
 			sourceTree = "<group>";
 		};
 		431C70402AF0D54300FB3C36 /* SurveyView */ = {
@@ -378,14 +374,15 @@
 		43DB2E8F2ABF310500081BDC /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				43054CB02AF3D96E003374B8 /* QuizSettingsView */,
-				438788CC2AECEF9100FCFEB6 /* QCM */,
+				503260512D06FFB500F60405 /* WordView */,
+				50BCBBB92CF9F251004D67C8 /* WordWritingView */,
 				43C94F562ACABDCE00EDBED6 /* Categories */,
 				43DB2E902ABF311900081BDC /* MakeYourOwnMix */,
 				43E943DE2ABA1227008F79B5 /* Premium */,
-				43E943C52AB9CE16008F79B5 /* Home */,
-				43E943D52AB9E058008F79B5 /* Themes */,
+				438788CC2AECEF9100FCFEB6 /* QCM */,
+				43054CB02AF3D96E003374B8 /* QuizSettingsView */,
 				43E943E82ABAE3CD008F79B5 /* Settings */,
+				43E943D52AB9E058008F79B5 /* Themes */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -439,6 +436,7 @@
 				43620DED2ACD62B1003FB04E /* VocabularyAppFramework.entitlements */,
 				43620DEE2ACD63AF003FB04E /* AppDelegate.swift */,
 				43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */,
+				43E943C52AB9CE16008F79B5 /* Home */,
 				431C70292AEFA4C100FB3C36 /* Onboarding */,
 				43DB2E8F2ABF310500081BDC /* Core */,
 				43E943C82AB9D17A008F79B5 /* Components */,
@@ -490,7 +488,6 @@
 				43054CA62AF3B6FB003374B8 /* Animations */,
 				431C70362AEFBE3700FB3C36 /* Images */,
 				43E943C92AB9D181008F79B5 /* Buttons */,
-				43E943E62ABA1AD7008F79B5 /* WordView.swift */,
 				431C70342AEFB77F00FB3C36 /* CustomSlider.swift */,
 			);
 			path = Components;
@@ -616,7 +613,6 @@
 		43E943F52ABC45FB008F79B5 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				431C70392AEFD69100FB3C36 /* Notifications */,
 				43C94F532ACABC4900EDBED6 /* HapticManager */,
 				43C3F91A2AC5A16C0060B81E /* StoreKit */,
 				43ADC9432AC2FDA800A0781C /* ThemesManager */,
@@ -667,6 +663,10 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				503260512D06FFB500F60405 /* WordView */,
+				50BCBBB92CF9F251004D67C8 /* WordWritingView */,
 			);
 			name = VocabularyAppFramework;
 			packageProductDependencies = (
@@ -756,6 +756,7 @@
 				43D0942B2ACAC3FF006FB45E /* HapticTestView.swift in Sources */,
 				431C70452AF0D94500FB3C36 /* UserLevelView.swift in Sources */,
 				430941782ACB6A3B008566E3 /* PrivacyPolicyView.swift in Sources */,
+				5032604E2D06F93400F60405 /* TypingAnimation.swift in Sources */,
 				43E943E52ABA193C008F79B5 /* Word.swift in Sources */,
 				431C70352AEFB77F00FB3C36 /* CustomSlider.swift in Sources */,
 				43054CB22AF3D981003374B8 /* QuizSettingsView.swift in Sources */,
@@ -767,9 +768,7 @@
 				43C94F552ACABC5400EDBED6 /* HapticManager.swift in Sources */,
 				431C70502AF0E3BD00FB3C36 /* AskForRatingView.swift in Sources */,
 				43E943E22ABA123D008F79B5 /* PremiumView.swift in Sources */,
-				43E943E72ABA1AD7008F79B5 /* WordView.swift in Sources */,
 				43E943D42AB9D821008F79B5 /* CategoryButton.swift in Sources */,
-				431C703B2AEFD69D00FB3C36 /* NotificationsManager.swift in Sources */,
 				43E943D22AB9D62B008F79B5 /* CustomButtonMarked.swift in Sources */,
 				431C70482AF0DA4A00FB3C36 /* MultiSelectButton.swift in Sources */,
 				43054CA82AF3B70A003374B8 /* PoppingEmoji.swift in Sources */,
@@ -933,7 +932,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -972,7 +971,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
