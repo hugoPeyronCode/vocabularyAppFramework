@@ -11,7 +11,7 @@ struct MakeYourOwnMixView: View {
 
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-  @ObservedObject var vm : HomeViewModel
+  @State var vm : HomeViewModel
 
   @State var isSelected : Bool = false
 

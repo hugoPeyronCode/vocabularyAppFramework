@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct Home: View {
+struct HomeView: View {
 
-  @StateObject var vm: HomeViewModel
+  @State var vm: HomeViewModel
 
   @EnvironmentObject var themesManager: ThemesManager
   @EnvironmentObject private var storeKitManager : StoreKitManager
@@ -17,7 +17,7 @@ struct Home: View {
   var isMain : Bool { themesManager.currentTheme.backgroundImage == "Main" }
 
   init(allWords: Set<Word>, wordsByCategories: [String: Set<Word>]) {
-    _vm = StateObject(wrappedValue: HomeViewModel(allWords: allWords, wordsByCategory: wordsByCategories))
+    _vm = State(wrappedValue: HomeViewModel(allWords: allWords, wordsByCategory: wordsByCategories))
   }
 
   var body: some View {
@@ -52,54 +52,53 @@ struct Home: View {
     .sheet(isPresented: $vm.isShowingSettingsView) { SettingsView() }
   }
 
-  @ViewBuilder
   var ScrollingContent: some View {
-      GeometryReader { screen in
-          TabView(selection: $vm.currentPage) {
-              ForEach(Array(vm.filteredWords.enumerated()), id: \.element) { index, word in
-                  WordWritingView(
-                      word: word,
-                      fontColor: themesManager.currentTheme.fontColor,
-                      fontString: themesManager.currentTheme.font
-                  )
-                  .frame(width: screen.size.width, height: screen.size.height)
-                  .rotationEffect(Angle(degrees: -90))
-                  .sensoryFeedback(.impact, trigger: index)
-                  .tag(index)
-              }
-          }
-          .frame(width: screen.size.height, height: screen.size.width)
-          .rotationEffect(.degrees(90), anchor: .topLeading)
-          .offset(x: screen.size.width)
-          .tabViewStyle(.page(indexDisplayMode: .never))
-      }
-  }
+    GeometryReader { screen in
+      TabView(selection: $vm.currentPage) {
+        ForEach(Array(vm.filteredWords.enumerated()), id: \.element) { index, word in
+          Group {
+            switch vm.getViewType(for: index) {
+            case .wordDisplay:
+              WordView(
+                viewModel: vm, word: word,
+                fontColor: themesManager.currentTheme.fontColor,
+                fontString: themesManager.currentTheme.font
+              )
 
-//  var ScrollingWords: some View {
-//    GeometryReader { screen in
-//      let wordsArray = Array(vm.filteredWords)
-//      TabView(selection: $vm.currentPage) {
-//        ForEach(0..<wordsArray.count, id: \.self) { index in
-//          LazyVStack {
-//            WordWritingView(word: wordsArray[index],
-//                            fontColor: themesManager.currentTheme.fontColor,
-//                            fontString: themesManager.currentTheme.font)
-//          }
-//          .onAppear{
-//            HapticManager.shared.generateFeedback(for: .successLight)
-//          }
-//          .frame(width: screen.size.width, height: screen.size.height)
-//          .rotationEffect(Angle(degrees: -90))
-//          .tag(index)
-//        }
-//      }
-//      .frame(width: screen.size.height, height: screen.size.width)
-//      .rotationEffect(.degrees(90), anchor: .topLeading)
-//      .offset(x: screen.size.width)
-//      .tabViewStyle(.page(indexDisplayMode: .never))
-//      .indexViewStyle(.page(backgroundDisplayMode: .never))
-//    }
-//  }
+            case .wordWriting:
+              WordWritingView(
+                word: word,
+                fontColor: themesManager.currentTheme.fontColor,
+                fontString: themesManager.currentTheme.font
+              )
+
+            case .fillInBlanks:
+              FillInBlanksView(
+                word: word,
+                fontColor: themesManager.currentTheme.fontColor,
+                fontString: themesManager.currentTheme.font
+              )
+
+            case .anagrams:
+              AnagramView(
+                word: word,
+                fontColor: themesManager.currentTheme.fontColor,
+                fontString: themesManager.currentTheme.font
+              )
+            }
+          }
+          .frame(width: screen.size.width, height: screen.size.height)
+          .rotationEffect(Angle(degrees: -90))
+          .sensoryFeedback(.impact, trigger: index)
+          .tag(index)
+        }
+      }
+      .frame(width: screen.size.height, height: screen.size.width)
+      .rotationEffect(.degrees(90), anchor: .topLeading)
+      .offset(x: screen.size.width)
+      .tabViewStyle(.page(indexDisplayMode: .never))
+    }
+  }
 
   var QuizzSettingsButton : some View {
     VStack {
@@ -157,7 +156,7 @@ struct Home: View {
 
 struct Home_Previews: PreviewProvider {
   static var previews: some View {
-    Home(allWords: WordManager.shared.allWords, wordsByCategories: WordManager.shared.wordsByCategory)
+    HomeView(allWords: WordManager.shared.allWords, wordsByCategories: WordManager.shared.wordsByCategory)
       .environmentObject(ThemesManager())
       .environmentObject(StoreKitManager())
   }

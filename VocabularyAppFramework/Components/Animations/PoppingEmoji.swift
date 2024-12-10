@@ -23,7 +23,7 @@ struct PoppingEmoji: View {
                 .clipShape(Circle())
                 .foregroundStyle(.main, .white)
         }
-        .onChange(of: isTrigger) { oldValue in
+        .onChange(of: isTrigger) { _,  oldValue in
             updateScaleValue()
         }
         .onTapGesture {

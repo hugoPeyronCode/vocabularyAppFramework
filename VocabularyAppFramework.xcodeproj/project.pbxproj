@@ -44,7 +44,7 @@
 		43D0942B2ACAC3FF006FB45E /* HapticTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D0942A2ACAC3FF006FB45E /* HapticTestView.swift */; };
 		43DB2E942ABF312C00081BDC /* MakeYourOwnMixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */; };
 		43E943B62AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */; };
-		43E943B82AB9CDDF008F79B5 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B72AB9CDDF008F79B5 /* Home.swift */; };
+		43E943B82AB9CDDF008F79B5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B72AB9CDDF008F79B5 /* HomeView.swift */; };
 		43E943BA2AB9CDE0008F79B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E943B92AB9CDE0008F79B5 /* Assets.xcassets */; };
 		43E943BD2AB9CDE0008F79B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E943BC2AB9CDE0008F79B5 /* Preview Assets.xcassets */; };
 		43E943C72AB9CE2C008F79B5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943C62AB9CE2C008F79B5 /* HomeViewModel.swift */; };
@@ -64,6 +64,7 @@
 		43E943FE2ABDAEC9008F79B5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943FD2ABDAEC9008F79B5 /* Colors.swift */; };
 		43E944002ABDDC54008F79B5 /* UserDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943FF2ABDDC54008F79B5 /* UserDataStorage.swift */; };
 		5032604E2D06F93400F60405 /* TypingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5032604D2D06F93400F60405 /* TypingAnimation.swift */; };
+		5032606A2D086DA500F60405 /* VocabularyViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503260692D086DA500F60405 /* VocabularyViewType.swift */; };
 		50BCBBB82CF9E415004D67C8 /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,7 +123,7 @@
 		43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeYourOwnMixView.swift; sourceTree = "<group>"; };
 		43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyAppFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyAppFrameworkApp.swift; sourceTree = "<group>"; };
-		43E943B72AB9CDDF008F79B5 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		43E943B72AB9CDDF008F79B5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		43E943B92AB9CDE0008F79B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43E943BC2AB9CDE0008F79B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		43E943C62AB9CE2C008F79B5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -142,11 +143,14 @@
 		43E943FD2ABDAEC9008F79B5 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		43E943FF2ABDDC54008F79B5 /* UserDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStorage.swift; sourceTree = "<group>"; };
 		5032604D2D06F93400F60405 /* TypingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingAnimation.swift; sourceTree = "<group>"; };
+		503260692D086DA500F60405 /* VocabularyViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyViewType.swift; sourceTree = "<group>"; };
 		50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStep.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		503260512D06FFB500F60405 /* WordView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WordView; sourceTree = "<group>"; };
+		5032606B2D086DDA00F60405 /* FillInBlanks */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FillInBlanks; sourceTree = "<group>"; };
+		5032606E2D086E5100F60405 /* Anagrams */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Anagrams; sourceTree = "<group>"; };
 		50BCBBB92CF9F251004D67C8 /* WordWritingView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WordWritingView; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -374,6 +378,8 @@
 		43DB2E8F2ABF310500081BDC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				5032606E2D086E5100F60405 /* Anagrams */,
+				5032606B2D086DDA00F60405 /* FillInBlanks */,
 				503260512D06FFB500F60405 /* WordView */,
 				50BCBBB92CF9F251004D67C8 /* WordWritingView */,
 				43C94F562ACABDCE00EDBED6 /* Categories */,
@@ -468,7 +474,7 @@
 		43E943C42AB9CE14008F79B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				43E943B72AB9CDDF008F79B5 /* Home.swift */,
+				43E943B72AB9CDDF008F79B5 /* HomeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -561,6 +567,7 @@
 				43E943E42ABA193C008F79B5 /* Word.swift */,
 				43ADC9412AC2F4B800A0781C /* Theme.swift */,
 				50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */,
+				503260692D086DA500F60405 /* VocabularyViewType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -666,6 +673,8 @@
 			);
 			fileSystemSynchronizedGroups = (
 				503260512D06FFB500F60405 /* WordView */,
+				5032606B2D086DDA00F60405 /* FillInBlanks */,
+				5032606E2D086E5100F60405 /* Anagrams */,
 				50BCBBB92CF9F251004D67C8 /* WordWritingView */,
 			);
 			name = VocabularyAppFramework;
@@ -738,7 +747,7 @@
 				43E943FE2ABDAEC9008F79B5 /* Colors.swift in Sources */,
 				43ADC9452AC2FDB100A0781C /* ThemesManager.swift in Sources */,
 				431C70422AF0D55000FB3C36 /* SurveyView.swift in Sources */,
-				43E943B82AB9CDDF008F79B5 /* Home.swift in Sources */,
+				43E943B82AB9CDDF008F79B5 /* HomeView.swift in Sources */,
 				43E943F82ABC460D008F79B5 /* JSONParser.swift in Sources */,
 				431C704D2AF0DEE900FB3C36 /* SelectIconView.swift in Sources */,
 				43C3F91E2AC5B1950060B81E /* PremiumStatus.swift in Sources */,
@@ -780,6 +789,7 @@
 				43054CAF2AF3BD82003374B8 /* ViewExtensions.swift in Sources */,
 				43ACAC1C2AC6DD8C003ED836 /* StoreKitManager.swift in Sources */,
 				43ADC9402AC2D32400A0781C /* ChangeIconView.swift in Sources */,
+				5032606A2D086DA500F60405 /* VocabularyViewType.swift in Sources */,
 				43E943B62AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift in Sources */,
 				431C704A2AF0DB2900FB3C36 /* SingleSelectButton.swift in Sources */,
 				43E943EC2ABAE3F6008F79B5 /* SettingsView.swift in Sources */,

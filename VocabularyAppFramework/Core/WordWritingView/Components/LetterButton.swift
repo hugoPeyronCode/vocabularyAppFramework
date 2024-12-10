@@ -13,7 +13,7 @@ struct LetterButtonView: View {
     let fontString: String
     let fontColor: Color
     let isValidated: Bool
-    let isIncorrect: Bool 
+    let isIncorrect: Bool
     let onTap: () -> Void
 
     var body: some View {
@@ -21,7 +21,7 @@ struct LetterButtonView: View {
             Text(String(item.letter).uppercased())
                 .font(.custom(fontString, size: min(geometry.size.width / 15, 24)).bold())
                 .frame(width: min(geometry.size.width / 8, 50), height: min(geometry.size.width / 8, 50))
-                .background(Color.gray.opacity(0.1))
+                .background(fontColor.opacity(0.1))
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(

@@ -10,8 +10,8 @@ import SwiftUI
 @Observable
 class WordWritingViewModel {
   let word: Word
-  let fontColor: Color
-  let fontString: String
+  var fontColor: Color
+  var fontString: String
 
   var selectedLetters: [Character] = []
   var availableLetters: [(id: UUID, letter: Character)] = []

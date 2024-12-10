@@ -28,7 +28,7 @@ struct VocabularyAppFrameworkApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Home(allWords: allWordsFromHome, wordsByCategories: wordsByCategories)
+            HomeView(allWords: allWordsFromHome, wordsByCategories: wordsByCategories)
                 .fullScreenCover(isPresented: $isShowingOnboarding) {
                     OnboardingView()
                         .environmentObject(themesManager)

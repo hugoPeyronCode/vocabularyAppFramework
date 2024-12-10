@@ -12,8 +12,8 @@ struct CategoriesView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject private var storeKitManager : StoreKitManager
     
-    @ObservedObject var vm : HomeViewModel
-    
+    @State var vm : HomeViewModel
+
     @Binding var isShowingCategoriesView: Bool
     
     @State private var navigateToMixView: Bool = false
