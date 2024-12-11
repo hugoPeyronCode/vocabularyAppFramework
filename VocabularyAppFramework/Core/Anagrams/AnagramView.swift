@@ -16,56 +16,10 @@ struct AnagramView: View {
   @State private var selectedOption: String?
   @State private var shuffledCorrectWord: String = ""
 
-  func generateOptions(from word: String) -> [String] {
-    guard word.count >= 2 else { return [word] } // Safety check for very short words
-
-    let letters = Array(word)
-    var options: [String] = []
-
-    // Generate the correct answer as an anagram
-    if letters.count >= 2 {
-      shuffledCorrectWord = String(letters.shuffled())
-      if shuffledCorrectWord == word {
-        // If we got the same word, swap two letters
-        var mutableLetters = Array(shuffledCorrectWord)
-        if mutableLetters.count >= 2 {
-          mutableLetters.swapAt(0, 1)
-          shuffledCorrectWord = String(mutableLetters)
-        }
-      }
-      options.append(shuffledCorrectWord)
-    }
-
-    // Generate wrong answers
-    let alphabet = Array("abcdefghijklmnopqrstuvwxyz")
-
-    while options.count < 4 {
-      var wrongLetters = letters
-
-      // Modify 1-2 letters to create similar but incorrect options
-      let numberOfChanges = min(Int.random(in: 1...2), wrongLetters.count)
-
-      for _ in 0..<numberOfChanges {
-        if let indexToChange = wrongLetters.indices.randomElement(),
-           let newLetter = alphabet.randomElement() {
-          wrongLetters[indexToChange] = newLetter
-        }
-      }
-
-      let wrongOption = String(wrongLetters.shuffled())
-      if !options.contains(wrongOption) && wrongOption != word {
-        options.append(wrongOption)
-      }
-    }
-
-    return options.shuffled()
-  }
-
   var body: some View {
     VStack(spacing: 30) {
       Text(word.Headword)
-        .font(.custom(fontString, size: 40))
-        .bold()
+        .font(.custom(fontString, size: 45))
 
       if !options.isEmpty {
         VStack(spacing: 15) {
@@ -74,33 +28,26 @@ struct AnagramView: View {
               selectedOption = option
             }) {
               Text(option)
-                .font(.custom(fontString, size: 30))
+                .font(.custom(fontString, size: 25))
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(backgroundColor(for: option))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: 25))
             }
           }
         }
         .padding()
       }
 
-      if let selected = selectedOption {
-        Text(selected == shuffledCorrectWord ? "Correct!" : "Try again")
-          .foregroundColor(selected == shuffledCorrectWord ? .green : .red)
-          .font(.custom(fontString, size: 20))
-      }
-
-      if selectedOption == shuffledCorrectWord {
         VStack(spacing: 10) {
           Text(word.Definition)
             .font(.custom(fontString, size: 19))
           Text(word.Context_sentence)
             .font(.custom(fontString, size: 15))
         }
+        .opacity(selectedOption == shuffledCorrectWord ? 1 : 0)
         .multilineTextAlignment(.center)
         .padding()
-      }
     }
     .foregroundColor(fontColor)
     .onAppear {
@@ -110,11 +57,92 @@ struct AnagramView: View {
 
   private func backgroundColor(for option: String) -> Color {
     guard let selected = selectedOption else {
-      return fontColor.opacity(0.1)
+      return fontColor.opacity(0.03)
     }
     return option == selected
     ? (option == shuffledCorrectWord ? .green.opacity(0.2) : .red.opacity(0.2))
-    : fontColor.opacity(0.1)
+    : fontColor.opacity(0.03)
+  }
+}
+
+
+extension AnagramView {
+  func generateOptions(from word: String) -> [String] {
+      // Need at least 3 letters for meaningful anagrams
+      guard word.count >= 3 else {
+          shuffledCorrectWord = word
+          return [word]
+      }
+
+      let letters = Array(word)
+      var options: [String] = []
+
+      // Generate correct anagram (must be different from original word)
+      var attempts = 0
+      repeat {
+          shuffledCorrectWord = String(letters.shuffled())
+          attempts += 1
+
+          // If we can't get a different shuffle after 5 attempts, force changes
+          if attempts >= 5 && shuffledCorrectWord == word {
+              var mutableLetters = Array(word)
+              // Swap first two letters
+              mutableLetters.swapAt(0, min(1, mutableLetters.count - 1))
+              // If possible, also swap another pair
+              if mutableLetters.count >= 3 {
+                  mutableLetters.swapAt(1, 2)
+              }
+              shuffledCorrectWord = String(mutableLetters)
+              break
+          }
+      } while shuffledCorrectWord == word && attempts < 5
+
+      options.append(shuffledCorrectWord)
+
+      // Generate wrong answers
+      let alphabet = Array("abcdefghijklmnopqrstuvwxyz")
+      var attempts2 = 0
+
+      while options.count < 4 && attempts2 < 20 {  // Add maximum attempts
+          attempts2 += 1
+          var wrongLetters = Array(word)
+
+          // Change at least 2 letters or 60% of the word
+          let targetChanges = max(2, Int(ceil(Double(wrongLetters.count) * 0.6)))
+          var changedCount = 0
+
+          // Try to make changes
+          for _ in 0..<targetChanges {
+              if let indexToChange = wrongLetters.indices.randomElement(),
+                 let newLetter = alphabet.randomElement(),
+                 newLetter != wrongLetters[indexToChange] {
+                  wrongLetters[indexToChange] = newLetter
+                  changedCount += 1
+              }
+          }
+
+          // Only add if we made enough changes
+          if changedCount >= 2 {
+              let wrongOption = String(wrongLetters.shuffled())
+              if !options.contains(wrongOption) && wrongOption != word {
+                  options.append(wrongOption)
+              }
+          }
+      }
+
+      // If we couldn't generate enough options, fill with simple modifications
+      while options.count < 4 {
+          var filler = Array(word)
+          if let index = filler.indices.randomElement() {
+              filler[index] = "x"
+              let fillerOption = String(filler)
+              if !options.contains(fillerOption) {
+                  options.append(fillerOption)
+              }
+          }
+      }
+
+      return options.shuffled()
   }
 }
 

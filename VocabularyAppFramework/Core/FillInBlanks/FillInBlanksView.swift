@@ -7,88 +7,11 @@
 
 import SwiftUI
 
-class FillInBlanksViewModel: ObservableObject {
-
-  let word: Word
-  @Published var fontColor: Color
-  @Published var fontString: String
-  @Published var selectedLetters: [Character] = []
-  @Published var availableLetters: [(id: UUID, letter: Character)] = []
-  @Published var validatedLetterIds = Set<UUID>()
-  @Published var incorrectLetterId: UUID?
-  @Published var isComplete = false
-  @Published var currentHighlightIndex: Int = 0
-
-  private var maskedIndices: [Int] = []
-  private var correctLetters: [Character] = []
-
-  init(word: Word, fontColor: Color, fontString: String) {
-    self.word = word
-    self.fontColor = fontColor
-    self.fontString = fontString
-    setupGame()
-  }
-
-  private func setupGame() {
-    let letters = Array(word.Headword)
-    correctLetters = letters
-
-    // Calculate number of letters to mask (40% of word length)
-    let numberOfLettersToMask = max(Int(Double(letters.count - 2) * 0.4), 1)
-
-    // Get all possible indices (excluding first and last)
-    let middleIndices = Array(1...(letters.count - 2))
-
-    // Randomly select indices to mask
-    maskedIndices = Array(middleIndices.shuffled().prefix(numberOfLettersToMask))
-    maskedIndices.sort() // Keep indices in order
-
-    // Create available letters from masked positions
-    let lettersToShow = maskedIndices.map { letters[$0] }
-    availableLetters = lettersToShow.shuffled().map { (UUID(), $0) }
-  }
-
-  func handleLetterTap(_ item: (id: UUID, letter: Character)) {
-    let currentIndex = selectedLetters.count
-
-    if currentIndex < maskedIndices.count {
-      let correctLetter = correctLetters[maskedIndices[currentIndex]]
-
-      if item.letter == correctLetter {
-        selectedLetters.append(item.letter)
-        validatedLetterIds.insert(item.id)
-
-        if selectedLetters.count == maskedIndices.count {
-          // Add a small delay before completing to allow for the last green animation
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.isComplete = true
-          }
-        } else {
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.currentHighlightIndex += 1
-          }
-        }
-      } else {
-        incorrectLetterId = item.id
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-          self.incorrectLetterId = nil
-        }
-      }
-    }
-  }
-
-  func isLetterMasked(at index: Int) -> Bool {
-    maskedIndices.contains(index)
-  }
-
-  func getMaskedLetterIndex(at index: Int) -> Int? {
-    maskedIndices.firstIndex(of: index)
-  }
-}
-
 struct FillInBlanksView: View {
   @StateObject private var vm: FillInBlanksViewModel
   @EnvironmentObject var themesManager: ThemesManager
+
+  @State private var showHint = false
 
   init(word: Word, fontColor: Color, fontString: String) {
     _vm = StateObject(wrappedValue: FillInBlanksViewModel(
@@ -99,22 +22,22 @@ struct FillInBlanksView: View {
   }
 
   private func updateViewModel() {
-      vm.fontColor = themesManager.currentTheme.fontColor
-      vm.fontString = themesManager.currentTheme.font
+    vm.fontColor = themesManager.currentTheme.fontColor
+    vm.fontString = themesManager.currentTheme.font
   }
 
   var body: some View {
     GeometryReader { geometry in
-      VStack {
+      VStack() {
         Spacer()
 
-        VStack(spacing: 90) {
-          WordToComplete(geometry: geometry)
-          WordContent
-        }
+        WordToComplete(geometry: geometry)
+        WordContent
 
         Spacer()
 
+        showDefinitionEyeButton
+          .padding(.bottom)
         LetterGrid(geometry: geometry)
 
         Spacer()
@@ -125,8 +48,8 @@ struct FillInBlanksView: View {
       .font(.custom(vm.fontString, size: 45))
     }
     .onChange(of: themesManager.currentTheme) { _, _ in
-         updateViewModel()
-     }
+      updateViewModel()
+    }
   }
 
   private func WordToComplete(geometry: GeometryProxy) -> some View {
@@ -166,14 +89,29 @@ struct FillInBlanksView: View {
     .animation(.easeInOut(duration: 1), value: vm.selectedLetters)
   }
 
+  private var showDefinitionEyeButton: some View {
+    Button(action: {
+      withAnimation { showHint.toggle() }
+    }) {
+      Image(systemName: showHint ? "eye.fill" : "eye.slash.fill")
+        .font(.title3)
+        .foregroundStyle(vm.fontColor.opacity(0.3))
+        .padding()
+    }
+  }
+
   private var WordContent: some View {
     VStack(spacing: 20) {
-      Text(vm.word.Definition)
-        .font(.custom(vm.fontString, size: 19))
+      VStack(spacing: 20) {
+        Text(vm.word.Definition)
+          .font(.custom(vm.fontString, size: 19))
 
-      Text("(\(vm.word.Context_sentence))")
-        .frame(height: 50)
-        .font(.custom(vm.fontString, size: 15))
+        Text("(\(vm.word.Context_sentence))")
+          .frame(height: 50)
+          .font(.custom(vm.fontString, size: 15))
+      }
+      .opacity(showHint ? 1 : 0)
+      .animation(.easeInOut, value: showHint)
     }
     .minimumScaleFactor(0.7)
     .lineLimit(nil)
@@ -223,4 +161,5 @@ struct FillInBlanksView: View {
     fontColor: .black,
     fontString: "Georgia"
   )
+  .environmentObject(ThemesManager())
 }
