@@ -11,13 +11,14 @@ struct CustomButtonMarked: View {
 
   let text : String
   @State var isActive : Bool
+  @State private var isTapped : Bool = false
+
   let action : () -> Void
 
   var body: some View {
 
     Button {
       action()
-      HapticManager.shared.generateFeedback(for: .successLight)
     } label: {
       Text(text)
         .fontDesign(.rounded)
@@ -36,6 +37,7 @@ struct CustomButtonMarked: View {
           }
         )
     }
+    .sensoryFeedback(.impact, trigger: isTapped)
     .disabled(!isActive)
   }
 }

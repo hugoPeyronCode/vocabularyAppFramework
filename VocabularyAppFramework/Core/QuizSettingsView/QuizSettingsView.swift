@@ -38,7 +38,7 @@ struct QuizSettingsView: View {
             
             Slider(value: $sliderValue, in: 1...12, step: 1)
                 .tint(.main)
-                .onChange(of: sliderValue) { newValue in
+                .onChange(of: sliderValue) { _, newValue in
                     // This will trigger every time the sliderValue changes
                     quizApparitionValue = Int(newValue)
                     saveQuizApparitionValue()

@@ -41,7 +41,6 @@ struct MoveToNextPageButton : View {
     var body: some View{
         Button{
             action()
-            HapticManager.shared.generateFeedback(for: .successLight)
         } label: {
             HStack {
                 Text(content)

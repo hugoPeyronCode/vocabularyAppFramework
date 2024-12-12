@@ -8,82 +8,82 @@
 import SwiftUI
 
 struct ThemeButton: View {
-    let theme : Theme
-    let hasUnlockPremium: Bool
-    let action : (Theme) -> Void
-    
-    @EnvironmentObject var themesManager: ThemesManager
-    
-    var isSelected : Bool { themesManager.currentTheme == theme }
+  let theme : Theme
+  let hasUnlockPremium: Bool
+  let action : (Theme) -> Void
 
-    var body: some View {
-        Button {
-            action(theme)
-            HapticManager.shared.generateFeedback(for: .successLight)
-        } label: {
-            ZStack {
-                Image(theme.backgroundImage)
-                    .resizable()
-                    .scaledToFill()
-                    .opacity(theme.backgroundImage == "Main" ? 0.3 : 1)
-                    .frame(width: 90, height: 150)
-                    .background(Color.gray.opacity(0.3))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .shadow(color : .main, radius: isSelected ? 3 : 0)
-                    .shadow(color : .main, radius: isSelected ? 3 : 0)
-                
-                Text("ABC")
-                    .font(.custom(theme.font, size: 30))
-                    .foregroundColor(theme.fontColor)
-                
-                CheckIcon
-                
-                if !hasUnlockPremium && theme.backgroundImage != "Main" { LockIcon }
-                
-            }
-            .frame(width: 100, height: 150)
-        }
-    }
-    
-    var CheckIcon : some View {
-        VStack {
-            HStack {
-                Spacer()
-                Image(systemName: isSelected ? "checkmark" : "")
-                    .foregroundColor(.white)
-                    .padding(7)
-                    .shadow(radius: 1)
-                    .shadow(radius: 1)
-            }
-            
-            Spacer()
-        }
-    }
-        
-    var LockIcon : some View {
-        VStack {
-            HStack {
-                Spacer()
-                Image(systemName: "lock.fill")
-                    .foregroundColor(.white)
-                    .bold()
-                    .padding(7)
-                    .shadow(radius: 1)
-                    .shadow(radius: 1)
+  @EnvironmentObject var themesManager: ThemesManager
 
-            }
-            
-            Spacer()
-        }
+  var isSelected : Bool { themesManager.currentTheme == theme }
+
+  var body: some View {
+    Button {
+      action(theme)
+    } label: {
+      ZStack {
+        Image(theme.backgroundImage)
+          .resizable()
+          .scaledToFill()
+          .opacity(theme.backgroundImage == "Main" ? 0.3 : 1)
+          .frame(width: 90, height: 150)
+          .background(Color.gray.opacity(0.3))
+          .clipShape(RoundedRectangle(cornerRadius: 10))
+          .shadow(color : .main, radius: isSelected ? 3 : 0)
+          .shadow(color : .main, radius: isSelected ? 3 : 0)
+
+        Text("ABC")
+          .font(.custom(theme.font, size: 30))
+          .foregroundColor(theme.fontColor)
+
+        CheckIcon
+
+        if !hasUnlockPremium && theme.backgroundImage != "Main" { LockIcon }
+
+      }
+      .frame(width: 100, height: 150)
+      .sensoryFeedback(.impact, trigger: isSelected)
     }
+  }
+
+  var CheckIcon : some View {
+    VStack {
+      HStack {
+        Spacer()
+        Image(systemName: isSelected ? "checkmark" : "")
+          .foregroundColor(.white)
+          .padding(7)
+          .shadow(radius: 1)
+          .shadow(radius: 1)
+      }
+
+      Spacer()
+    }
+  }
+
+  var LockIcon : some View {
+    VStack {
+      HStack {
+        Spacer()
+        Image(systemName: "lock.fill")
+          .foregroundColor(.white)
+          .bold()
+          .padding(7)
+          .shadow(radius: 1)
+          .shadow(radius: 1)
+
+      }
+
+      Spacer()
+    }
+  }
 }
 
 struct ThemeButton_Previews: PreviewProvider {
-    
-    static let theme : Theme = Theme(backgroundImage: "Main", font: "Chalkduster", fontColor: .white)
-    
-    static var previews: some View {
-        ThemeButton(theme: theme, hasUnlockPremium: false, action: {_ in })
-            .environmentObject(ThemesManager())
-    }
+
+  static let theme : Theme = Theme(backgroundImage: "Main", font: "Chalkduster", fontColor: .white)
+
+  static var previews: some View {
+    ThemeButton(theme: theme, hasUnlockPremium: false, action: {_ in })
+      .environmentObject(ThemesManager())
+  }
 }

@@ -21,7 +21,6 @@ struct SingleSelectButton: View {
         selectedItems.removeAll()
       }
       selectedItems.append(content)
-      HapticManager.shared.generateFeedback(for: .successLight)
       action()
     } label: {
       RoundedRectangle(cornerRadius: 50)
@@ -36,6 +35,7 @@ struct SingleSelectButton: View {
         .frame(width: 350, height: 50)
         .padding(.horizontal)
     }
+    .sensoryFeedback(.impact, trigger: isSelected())
   }
 
   func isSelected() -> Bool {

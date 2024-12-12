@@ -22,10 +22,7 @@ struct MultiSelectButton : View {
       } else {
         selectedItems.removeLast()
       }
-
-      HapticManager.shared.generateFeedback(for: .successLight)
       action()
-
     } label: {
       RoundedRectangle(cornerRadius: 50)
         .stroke(lineWidth: 1.0)
@@ -38,6 +35,7 @@ struct MultiSelectButton : View {
         .frame(maxWidth: .infinity, maxHeight: 50)
         .padding(.horizontal)
     }
+    .sensoryFeedback(.impact, trigger: selectedItems)
   }
 }
 

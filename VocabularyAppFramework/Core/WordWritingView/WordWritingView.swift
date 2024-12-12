@@ -54,8 +54,7 @@ struct WordWritingView: View {
     HStack(spacing: 8) {
       ForEach(Array(vm.word.Headword.enumerated()), id: \.offset) { index, letter in
         Text(String(letter).uppercased())
-          .font(.custom(vm.fontString, size: min(geometry.size.width / CGFloat(Double(vm.word.Headword.count) * 1.5), 46)))
-          .bold()
+          .font(.custom(vm.fontString, size: min(geometry.size.width / CGFloat(Double(vm.word.Headword.count) * 1.5), 45)))
           .foregroundStyle(vm.selectedLetters.count > index ? vm.fontColor : vm.fontColor.opacity(0.3))
       }
     }

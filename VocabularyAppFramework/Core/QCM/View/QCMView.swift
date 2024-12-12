@@ -43,6 +43,8 @@ struct QCMView: View {
             
                 PoppingEmoji(isTrigger: $isGoodAnswer)
         }
+        .sensoryFeedback(.impact, trigger: isGoodAnswer)
+        .sensoryFeedback(.error, trigger: isBadAnswer)
     }
     
     var WordDescription : some View {
@@ -74,11 +76,9 @@ struct QCMView: View {
         if selectedAnswer.first?.capitalized == vm.word.Headword.capitalized {
             isGoodAnswer = true
             print("Good answer!")
-            HapticManager.shared.generateFeedback(for: .successStrong)
         } else {
             print("Bad Answer")
             isBadAnswer = true
-            HapticManager.shared.generateFeedback(for: .errorLight)
         }
     }
 }

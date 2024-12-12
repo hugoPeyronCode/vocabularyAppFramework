@@ -39,9 +39,7 @@
 		43C3F8FD2AC59AD30060B81E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C3F8FC2AC59AD30060B81E /* StoreKit.framework */; };
 		43C3F9192AC5A14C0060B81E /* Words - improve my vocabulary.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 43C3F9182AC5A14C0060B81E /* Words - improve my vocabulary.storekit */; };
 		43C3F91E2AC5B1950060B81E /* PremiumStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C3F91D2AC5B1950060B81E /* PremiumStatus.swift */; };
-		43C94F552ACABC5400EDBED6 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C94F542ACABC5400EDBED6 /* HapticManager.swift */; };
 		43C94F5A2ACABDE700EDBED6 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C94F592ACABDE700EDBED6 /* CategoriesView.swift */; };
-		43D0942B2ACAC3FF006FB45E /* HapticTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D0942A2ACAC3FF006FB45E /* HapticTestView.swift */; };
 		43DB2E942ABF312C00081BDC /* MakeYourOwnMixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */; };
 		43E943B62AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */; };
 		43E943B82AB9CDDF008F79B5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943B72AB9CDDF008F79B5 /* HomeView.swift */; };
@@ -66,6 +64,7 @@
 		5032604E2D06F93400F60405 /* TypingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5032604D2D06F93400F60405 /* TypingAnimation.swift */; };
 		5032606A2D086DA500F60405 /* VocabularyViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503260692D086DA500F60405 /* VocabularyViewType.swift */; };
 		50BCBBB82CF9E415004D67C8 /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */; };
+		50C039002D0B115B008199F4 /* SharedWordContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C038FF2D0B115B008199F4 /* SharedWordContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,9 +116,7 @@
 		43C3F8FC2AC59AD30060B81E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		43C3F9182AC5A14C0060B81E /* Words - improve my vocabulary.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Words - improve my vocabulary.storekit"; sourceTree = "<group>"; };
 		43C3F91D2AC5B1950060B81E /* PremiumStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumStatus.swift; sourceTree = "<group>"; };
-		43C94F542ACABC5400EDBED6 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		43C94F592ACABDE700EDBED6 /* CategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
-		43D0942A2ACAC3FF006FB45E /* HapticTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticTestView.swift; sourceTree = "<group>"; };
 		43DB2E932ABF312C00081BDC /* MakeYourOwnMixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeYourOwnMixView.swift; sourceTree = "<group>"; };
 		43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyAppFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E943B52AB9CDDF008F79B5 /* VocabularyAppFrameworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyAppFrameworkApp.swift; sourceTree = "<group>"; };
@@ -145,6 +142,7 @@
 		5032604D2D06F93400F60405 /* TypingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingAnimation.swift; sourceTree = "<group>"; };
 		503260692D086DA500F60405 /* VocabularyViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyViewType.swift; sourceTree = "<group>"; };
 		50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStep.swift; sourceTree = "<group>"; };
+		50C038FF2D0B115B008199F4 /* SharedWordContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWordContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -342,15 +340,6 @@
 			path = StoreKit;
 			sourceTree = "<group>";
 		};
-		43C94F532ACABC4900EDBED6 /* HapticManager */ = {
-			isa = PBXGroup;
-			children = (
-				43C94F542ACABC5400EDBED6 /* HapticManager.swift */,
-				43D0942A2ACAC3FF006FB45E /* HapticTestView.swift */,
-			);
-			path = HapticManager;
-			sourceTree = "<group>";
-		};
 		43C94F562ACABDCE00EDBED6 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -495,6 +484,7 @@
 				431C70362AEFBE3700FB3C36 /* Images */,
 				43E943C92AB9D181008F79B5 /* Buttons */,
 				431C70342AEFB77F00FB3C36 /* CustomSlider.swift */,
+				50C038FF2D0B115B008199F4 /* SharedWordContent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -620,7 +610,6 @@
 		43E943F52ABC45FB008F79B5 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				43C94F532ACABC4900EDBED6 /* HapticManager */,
 				43C3F91A2AC5A16C0060B81E /* StoreKit */,
 				43ADC9432AC2FDA800A0781C /* ThemesManager */,
 				43E943F92ABC7FC5008F79B5 /* WordManager */,
@@ -752,6 +741,7 @@
 				431C704D2AF0DEE900FB3C36 /* SelectIconView.swift in Sources */,
 				43C3F91E2AC5B1950060B81E /* PremiumStatus.swift in Sources */,
 				43C94F5A2ACABDE700EDBED6 /* CategoriesView.swift in Sources */,
+				50C039002D0B115B008199F4 /* SharedWordContent.swift in Sources */,
 				50BCBBB82CF9E415004D67C8 /* OnboardingStep.swift in Sources */,
 				43E943DB2AB9E18F008F79B5 /* ThemeButton.swift in Sources */,
 				43054CAD2AF3BD62003374B8 /* ShakeAnimation.swift in Sources */,
@@ -762,7 +752,6 @@
 				43E943D92AB9E07A008F79B5 /* ThemesView.swift in Sources */,
 				43E943FB2ABC7FCD008F79B5 /* WordManager.swift in Sources */,
 				43E943EE2ABAF486008F79B5 /* GeneralView.swift in Sources */,
-				43D0942B2ACAC3FF006FB45E /* HapticTestView.swift in Sources */,
 				431C70452AF0D94500FB3C36 /* UserLevelView.swift in Sources */,
 				430941782ACB6A3B008566E3 /* PrivacyPolicyView.swift in Sources */,
 				5032604E2D06F93400F60405 /* TypingAnimation.swift in Sources */,
@@ -774,7 +763,6 @@
 				431C70382AEFBE4600FB3C36 /* BackgroundImageView.swift in Sources */,
 				431C702C2AEFA4E100FB3C36 /* IntroView.swift in Sources */,
 				431C703F2AF01A9700FB3C36 /* OnboardingView.swift in Sources */,
-				43C94F552ACABC5400EDBED6 /* HapticManager.swift in Sources */,
 				431C70502AF0E3BD00FB3C36 /* AskForRatingView.swift in Sources */,
 				43E943E22ABA123D008F79B5 /* PremiumView.swift in Sources */,
 				43E943D42AB9D821008F79B5 /* CategoryButton.swift in Sources */,

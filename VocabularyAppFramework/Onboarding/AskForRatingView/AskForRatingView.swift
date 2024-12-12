@@ -39,7 +39,6 @@ struct AskForRatingView: View {
                             .font(.title)
                             .foregroundStyle(.main)
                             .onTapGesture {
-                                HapticManager.shared.generateFeedback(for: .successStrong)
                                 withAnimation(.smooth) {
                                     imageName = "star.fill"
                                     isActive = true
@@ -50,6 +49,7 @@ struct AskForRatingView: View {
                             }
                     }
                 }
+                .sensoryFeedback(.impact, trigger: isActive)
                 .padding()
                 .background(.main.opacity(0.1))
                 .clipShape(RoundedRectangle(cornerRadius: 50))

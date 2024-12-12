@@ -15,8 +15,6 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var storeKitManager : StoreKitManager
     
-    @ObservedObject var hapticManager = HapticManager.shared
-    
     @State private var isShowingPremiumView : Bool = false
     
     @State private var isShareSheetShowing = false
@@ -83,11 +81,6 @@ struct SettingsView: View {
                     Image(systemName: "square.fill")
                     Text("Change Icon")
                 }
-            }
-            
-            HStack {
-                Image(systemName: hapticManager.isHapticEnabled ? "water.waves" : "water.waves.slash")
-                Toggle("Haptic", isOn: $hapticManager.isHapticEnabled)
             }
             
             NavigationLink(destination: NotificationsSettingsView(vm: OnboardingView.TabViewModel())) {

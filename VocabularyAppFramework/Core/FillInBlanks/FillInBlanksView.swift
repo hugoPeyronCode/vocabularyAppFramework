@@ -21,14 +21,10 @@ struct FillInBlanksView: View {
     ))
   }
 
-  private func updateViewModel() {
-    vm.fontColor = themesManager.currentTheme.fontColor
-    vm.fontString = themesManager.currentTheme.font
-  }
-
   var body: some View {
     GeometryReader { geometry in
       VStack() {
+
         Spacer()
 
         WordToComplete(geometry: geometry)
@@ -36,20 +32,31 @@ struct FillInBlanksView: View {
 
         Spacer()
 
-        showDefinitionEyeButton
-          .padding(.bottom)
         LetterGrid(geometry: geometry)
 
         Spacer()
+
+        EyeButton
+
       }
       .padding()
       .foregroundColor(vm.fontColor)
       .shadow(radius: vm.fontColor == .white ? 1 : 0)
       .font(.custom(vm.fontString, size: 45))
     }
+    .onChange(of: vm.isComplete, { oldValue, newValue in
+      if newValue {
+        showHint = true
+      }
+    })
     .onChange(of: themesManager.currentTheme) { _, _ in
       updateViewModel()
     }
+  }
+
+  private func updateViewModel() {
+    vm.fontColor = themesManager.currentTheme.fontColor
+    vm.fontString = themesManager.currentTheme.font
   }
 
   private func WordToComplete(geometry: GeometryProxy) -> some View {
@@ -60,19 +67,15 @@ struct FillInBlanksView: View {
             if maskedIndex < vm.selectedLetters.count {
               // Show the found letter with animation
               Text(String(vm.selectedLetters[maskedIndex]).uppercased())
-                .font(.custom(vm.fontString, size: min(geometry.size.width / CGFloat(Double(vm.word.Headword.count) * 1.5), 46)))
-                .bold()
-                .foregroundStyle(vm.isComplete ? vm.fontColor : .green)
+                .foregroundStyle(vm.isComplete ? vm.fontColor : .main)
                 .animation(.easeIn(duration: 1), value: vm.selectedLetters.count)
                 .animation(.easeIn(duration: 1), value: vm.isComplete)
             } else {
               // Show underscore for unfound letters
               Text("_")
-                .font(.custom(vm.fontString, size: min(geometry.size.width / CGFloat(Double(vm.word.Headword.count) * 1.5), 46)))
-                .bold()
                 .foregroundStyle(
                   maskedIndex == vm.currentHighlightIndex
-                  ? .blue
+                  ? .main
                   : vm.fontColor.opacity(0.3)
                 )
             }
@@ -80,23 +83,26 @@ struct FillInBlanksView: View {
         } else {
           // Show unmasked letters
           Text(String(letter).uppercased())
-            .font(.custom(vm.fontString, size: min(geometry.size.width / CGFloat(Double(vm.word.Headword.count) * 1.5), 46)))
-            .bold()
             .foregroundStyle(vm.fontColor)
         }
       }
     }
+    .font(.custom(vm.fontString, size: min(geometry.size.width / CGFloat(Double(vm.word.Headword.count) * 1.5), 45)))
+
     .animation(.easeInOut(duration: 1), value: vm.selectedLetters)
   }
 
-  private var showDefinitionEyeButton: some View {
+  private var EyeButton: some View {
     Button(action: {
       withAnimation { showHint.toggle() }
     }) {
-      Image(systemName: showHint ? "eye.fill" : "eye.slash.fill")
+      Text(" \(showHint ? "Hide" : "Hint")")
+        .opacity(vm.isComplete ? 0 : 1)
+        .font(.custom(vm.fontString, size: 18))
         .font(.title3)
-        .foregroundStyle(vm.fontColor.opacity(0.3))
+        .foregroundStyle(showHint ? vm.fontColor.opacity(0.3) :  .blue)
         .padding()
+        .sensoryFeedback(.alignment, trigger: showHint)
     }
   }
 
@@ -105,9 +111,9 @@ struct FillInBlanksView: View {
       VStack(spacing: 20) {
         Text(vm.word.Definition)
           .font(.custom(vm.fontString, size: 19))
-
         Text("(\(vm.word.Context_sentence))")
           .frame(height: 50)
+
           .font(.custom(vm.fontString, size: 15))
       }
       .opacity(showHint ? 1 : 0)

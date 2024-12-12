@@ -16,8 +16,7 @@ struct VocabularyAppFrameworkApp: App {
     // Managers
     @StateObject var themesManager = ThemesManager()
     @StateObject private var storeKitManager = StoreKitManager()
-    let haptic = HapticManager.shared
-    
+
     // DATA
     let allWordsFromHome : Set<Word> = WordManager.shared.allWords
     let wordsByCategories : [String: Set<Word>]  = WordManager.shared.wordsByCategory
@@ -34,9 +33,6 @@ struct VocabularyAppFrameworkApp: App {
                         .environmentObject(themesManager)
                         .environmentObject(storeKitManager)
                 }
-                .onAppear(perform: {
-                    haptic.prepareHaptic()
-                })
                 .environmentObject(themesManager)
                 .environmentObject(storeKitManager)
 //                .task {

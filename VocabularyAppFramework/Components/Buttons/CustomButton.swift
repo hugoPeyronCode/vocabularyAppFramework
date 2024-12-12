@@ -12,11 +12,12 @@ struct CustomButton: View {
   let text : String
   let image : String
   let action : () -> Void
+  @State private var isTapped: Bool = false
 
   var body: some View {
     Button {
+      isTapped.toggle()
       action()
-      HapticManager.shared.generateFeedback(for: .successLight)
     } label: {
       HStack(spacing: 3) {
         Image(systemName: image)
@@ -25,6 +26,7 @@ struct CustomButton: View {
           .fontWeight(.light)
           .font(.caption)
       }
+      .sensoryFeedback(.impact, trigger: isTapped)
       .frame(height: 25)
       .padding()
       .foregroundColor(.primary)

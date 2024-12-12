@@ -104,11 +104,9 @@ struct HomeView: View {
     VStack {
       HStack {
         CustomButton(text: "", image: "slider.horizontal.3", action: {
-          HapticManager.shared.generateFeedback(for: .successLight)
           vm.isShowingQuizzSettingsView.toggle()
         })
         Spacer()
-
       }
       Spacer()
     }
@@ -120,7 +118,6 @@ struct HomeView: View {
       HStack {
         Spacer()
         CustomButton(text: "", image: "crown", action: {
-          HapticManager.shared.generateFeedback(for: .successLight)
           vm.isShowingPremiumView.toggle()
         })
       }
@@ -134,17 +131,14 @@ struct HomeView: View {
       Spacer()
       HStack {
         CustomButton(text: vm.selectedCategories.isEmpty ? vm.selectedCategory  : "Mix" , image: "square.grid.2x2", action: {
-          HapticManager.shared.generateFeedback(for: .successLight)
           vm.isShowingCategoriesView.toggle()
         })
 
         Spacer()
         CustomButton(text: "", image: "paintbrush", action: {
-          HapticManager.shared.generateFeedback(for: .successLight)
           vm.isShowingThemesView.toggle()
         })
         CustomButton(text: "", image: "person", action: {
-          HapticManager.shared.generateFeedback(for: .successLight)
           vm.isShowingSettingsView.toggle()
         })
 

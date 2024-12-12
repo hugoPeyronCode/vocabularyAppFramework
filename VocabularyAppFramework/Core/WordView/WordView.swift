@@ -44,28 +44,15 @@ struct WordView: View {
 
   var ActionBar : some View {
     HStack(spacing: 50) {
-
-//                  Button {
-//      //                sharingAction()
-//                  } label: {
-//                      Image(systemName: "square.and.arrow.up")
-//                  }
-
       Button {
-        HapticManager.shared.generateFeedback(for: .successStrong)
         word.isLiked.toggle()
         viewModel.toggleLike(for: word)
       } label: {
         Image(systemName: word.isLiked ? "heart.fill" : "heart")
           .foregroundColor(word.isLiked ? .main : fontColor)
       }
-
-      //            Button {
-      ////                bookmarkAction()
-      //            } label: {
-      //                Image(systemName: "bookmark")
-      //            }
     }
+    .sensoryFeedback(.impact, trigger: word.isLiked)
     .font(.title)
     .fontWeight(.thin)
     .foregroundColor(.primary)

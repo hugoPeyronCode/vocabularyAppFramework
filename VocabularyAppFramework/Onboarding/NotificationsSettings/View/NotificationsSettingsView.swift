@@ -88,8 +88,6 @@ struct NotificationsSettingsView: View {
       Spacer()
       HStack {
         Button {
-          // Move to previous sound option
-          HapticManager.shared.generateFeedback(for: .successLight)
           moveSound(forward: false)
         } label: {
           Image(systemName: "arrow.left.circle.fill")
@@ -100,8 +98,6 @@ struct NotificationsSettingsView: View {
           .frame(width: 90)
 
         Button {
-          // Move to next sound option
-          HapticManager.shared.generateFeedback(for: .successLight)
           moveSound(forward: true)
         } label: {
           Image(systemName: "arrow.right.circle.fill")
@@ -109,6 +105,7 @@ struct NotificationsSettingsView: View {
         }
       }
     }
+    .sensoryFeedback(.impact, trigger: selectedSound)
     .padding()
     .background()
     .clipShape(RoundedRectangle(cornerRadius: 15))

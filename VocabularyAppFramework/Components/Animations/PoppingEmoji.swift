@@ -32,7 +32,6 @@ struct PoppingEmoji: View {
     }
     
     func updateScaleValue() {
-        HapticManager.shared.generateFeedback(for: .successStrong)
         withAnimation(.bouncy) {
             if startValue == 1 || startValue == 20 {
                 startValue = maxValue
