@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LetterButtonView: View {
   let item: (id: UUID, letter: Character)
-  let geometry: GeometryProxy
   let fontString: String
   let fontColor: Color
   let isValidated: Bool
@@ -19,15 +18,15 @@ struct LetterButtonView: View {
   var body: some View {
     Button(action: onTap) {
       Text(String(item.letter).uppercased())
-        .font(.custom(fontString, size: min(geometry.size.width / 15, 24)))
-        .frame(width: min(geometry.size.width / 8, 50), height: min(geometry.size.width / 8, 50))
-        .background(fontColor.opacity(0.1))
+        .font(.custom(fontString, size: 40))
+        .frame(width: 50, height: 50)
+        .background(fontColor.opacity(0.09))
         .overlay(
           RoundedRectangle(cornerRadius: 8)
             .stroke(
               isValidated ? .main :
                 isIncorrect ? Color.red :
-                Color.clear,
+                Color.black,
               lineWidth: 2
             )
         )
@@ -42,16 +41,12 @@ struct LetterButtonView: View {
 }
 
 #Preview("LetterButtonView") {
-  GeometryReader { geometry in
     LetterButtonView(
       item: (UUID(), "A"),
-      geometry: geometry,
       fontString: "Georgia",
       fontColor: .black,
       isValidated: false,
       isIncorrect: false,
       onTap: {}
     )
-  }
-  .frame(width: 100, height: 100)
 }

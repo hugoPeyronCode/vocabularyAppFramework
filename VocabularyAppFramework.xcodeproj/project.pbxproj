@@ -46,7 +46,7 @@
 		43E943BA2AB9CDE0008F79B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E943B92AB9CDE0008F79B5 /* Assets.xcassets */; };
 		43E943BD2AB9CDE0008F79B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E943BC2AB9CDE0008F79B5 /* Preview Assets.xcassets */; };
 		43E943C72AB9CE2C008F79B5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943C62AB9CE2C008F79B5 /* HomeViewModel.swift */; };
-		43E943CB2AB9D189008F79B5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943CA2AB9D189008F79B5 /* CustomButton.swift */; };
+		43E943CB2AB9D189008F79B5 /* HomeSquareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943CA2AB9D189008F79B5 /* HomeSquareButton.swift */; };
 		43E943D22AB9D62B008F79B5 /* CustomButtonMarked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943D12AB9D62B008F79B5 /* CustomButtonMarked.swift */; };
 		43E943D42AB9D821008F79B5 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943D32AB9D821008F79B5 /* CategoryButton.swift */; };
 		43E943D92AB9E07A008F79B5 /* ThemesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E943D82AB9E07A008F79B5 /* ThemesView.swift */; };
@@ -124,7 +124,7 @@
 		43E943B92AB9CDE0008F79B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43E943BC2AB9CDE0008F79B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		43E943C62AB9CE2C008F79B5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		43E943CA2AB9D189008F79B5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		43E943CA2AB9D189008F79B5 /* HomeSquareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSquareButton.swift; sourceTree = "<group>"; };
 		43E943D12AB9D62B008F79B5 /* CustomButtonMarked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonMarked.swift; sourceTree = "<group>"; };
 		43E943D32AB9D821008F79B5 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		43E943D82AB9E07A008F79B5 /* ThemesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesView.swift; sourceTree = "<group>"; };
@@ -494,7 +494,7 @@
 			children = (
 				431C70472AF0DA4A00FB3C36 /* MultiSelectButton.swift */,
 				431C70492AF0DB2900FB3C36 /* SingleSelectButton.swift */,
-				43E943CA2AB9D189008F79B5 /* CustomButton.swift */,
+				43E943CA2AB9D189008F79B5 /* HomeSquareButton.swift */,
 				43E943D12AB9D62B008F79B5 /* CustomButtonMarked.swift */,
 				43E943D32AB9D821008F79B5 /* CategoryButton.swift */,
 				43E943DA2AB9E18F008F79B5 /* ThemeButton.swift */,
@@ -731,7 +731,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43E943CB2AB9D189008F79B5 /* CustomButton.swift in Sources */,
+				43E943CB2AB9D189008F79B5 /* HomeSquareButton.swift in Sources */,
 				4309417A2ACB6A9A008566E3 /* FeedbackView.swift in Sources */,
 				43E943FE2ABDAEC9008F79B5 /* Colors.swift in Sources */,
 				43ADC9452AC2FDB100A0781C /* ThemesManager.swift in Sources */,

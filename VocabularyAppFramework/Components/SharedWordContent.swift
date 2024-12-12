@@ -15,17 +15,15 @@ struct WordHeadwordView: View {
   let fontString: String
 
   var body: some View {
-    GeometryReader { geometry in
-      Text(word.Headword.capitalized)
-        .font(.custom(fontString, size: 70))
-        .minimumScaleFactor(0.7)
-        .lineLimit(nil)
-        .multilineTextAlignment(.center)
-        .foregroundColor(fontColor)
-        .shadow(radius: fontColor == .white ? 1 : 0)
-        .frame(maxWidth: .infinity)
-        .padding()
-    }
+    Text(word.Headword.capitalized)
+      .font(.custom(fontString, size: 40))
+      .minimumScaleFactor(0.7)
+      .lineLimit(nil)
+      .multilineTextAlignment(.center)
+      .foregroundColor(fontColor)
+      .shadow(radius: fontColor == .white ? 1 : 0)
+      .frame(maxWidth: .infinity)
+      .padding()
   }
 }
 
@@ -35,17 +33,15 @@ struct WordDefinitionView: View {
   let fontString: String
 
   var body: some View {
-    GeometryReader { geometry in
-      Text(word.Definition)
-        .font(.custom(fontString, size: 20))
-        .minimumScaleFactor(0.6)
-        .lineLimit(nil)
-        .multilineTextAlignment(.center)
-        .foregroundColor(fontColor)
-        .shadow(radius: fontColor == .white ? 1 : 0)
-        .frame(maxWidth: .infinity)
-        .padding()
-    }
+    Text(word.Definition)
+      .font(.custom(fontString, size: 18))
+      .minimumScaleFactor(0.6)
+      .lineLimit(nil)
+      .multilineTextAlignment(.center)
+      .foregroundColor(fontColor)
+      .shadow(radius: fontColor == .white ? 1 : 0)
+      .frame(maxWidth: .infinity)
+      .padding()
   }
 }
 
@@ -55,16 +51,14 @@ struct WordSentenceView: View {
   let fontString: String
 
   var body: some View {
-    GeometryReader { geometry in
-      Text("(\(word.Context_sentence))")
-        .font(.custom(fontString, size: 20))
-        .lineLimit(2)
-        .multilineTextAlignment(.center)
-        .foregroundColor(fontColor)
-        .shadow(radius: fontColor == .white ? 1 : 0)
-        .frame(maxWidth: .infinity)
-        .padding()
-    }
+    Text("(\(word.Context_sentence))")
+      .font(.custom(fontString, size: 16))
+      .lineLimit(nil)
+      .multilineTextAlignment(.center)
+      .foregroundColor(fontColor)
+      .shadow(radius: fontColor == .white ? 1 : 0)
+      .frame(maxWidth: .infinity)
+      .padding()
   }
 }
 
@@ -131,7 +125,7 @@ struct SharedWordContent: View {
   }
 
   var body: some View {
-    VStack(alignment: .center, spacing: 50) {
+    VStack(alignment: .center) {
       if showHeadword {
         WordHeadwordView(
           word: word,
@@ -139,11 +133,10 @@ struct SharedWordContent: View {
           fontString: fontString
         )
         .opacity(headwordOpacity)
-        .frame(height: 60)
       }
 
       if showDefinition || showSentence {
-        VStack(spacing: 20) {
+        VStack() {
           if showDefinition {
             WordDefinitionView(
               word: word,
@@ -151,7 +144,6 @@ struct SharedWordContent: View {
               fontString: fontString
             )
             .opacity(definitionOpacity)
-            .frame(height: 100)
           }
 
           if showSentence {
@@ -161,7 +153,6 @@ struct SharedWordContent: View {
               fontString: fontString
             )
             .opacity(sentenceOpacity)
-            .frame(height: 50)
           }
         }
       }
@@ -232,21 +223,18 @@ struct SharedWordContent_Previews: PreviewProvider {
           fontColor: .black,
           fontString: "Georgia"
         )
-        .frame(height: 60)
 
         WordDefinitionView(
           word: sampleWord,
           fontColor: .black,
           fontString: "Georgia"
         )
-        .frame(height: 100)
 
         WordSentenceView(
           word: sampleWord,
           fontColor: .black,
           fontString: "Georgia"
         )
-        .frame(height: 50)
       }
       .previewDisplayName("Individual Components")
 

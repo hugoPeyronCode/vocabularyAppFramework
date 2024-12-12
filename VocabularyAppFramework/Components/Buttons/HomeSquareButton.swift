@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct CustomButton: View {
-
+struct HomeSquareButton: View {
+  @EnvironmentObject var themesManager : ThemesManager
   let text : String
   let image : String
-  let action : () -> Void
   @State private var isTapped: Bool = false
+  let action : () -> Void
 
   var body: some View {
     Button {
@@ -29,16 +29,17 @@ struct CustomButton: View {
       .sensoryFeedback(.impact, trigger: isTapped)
       .frame(height: 25)
       .padding()
-      .foregroundColor(.primary)
-      .background(.white)
+      .foregroundColor(themesManager.currentTheme.fontColor)
+      .background(.ultraThinMaterial)
       .clipShape(RoundedRectangle(cornerRadius: 15))
-      .shadow(color: .black.opacity(0.3), radius: 3)
+      .shadow(color: themesManager.currentTheme.fontColor.opacity(0.3), radius: 1)
     }
   }
 }
 
 struct CustomButton_Previews: PreviewProvider {
   static var previews: some View {
-    CustomButton(text: "Category", image: "crown", action: {})
+    HomeSquareButton(text: "Category", image: "crown", action: {})
+      .environmentObject(ThemesManager())
   }
 }

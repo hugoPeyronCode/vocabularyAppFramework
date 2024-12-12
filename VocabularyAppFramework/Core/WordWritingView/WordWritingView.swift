@@ -21,15 +21,15 @@ struct WordWritingView: View {
   }
 
   private func updateViewModel() {
-      vm.fontColor = themesManager.currentTheme.fontColor
-      vm.fontString = themesManager.currentTheme.font
+    vm.fontColor = themesManager.currentTheme.fontColor
+    vm.fontString = themesManager.currentTheme.font
   }
 
   var body: some View {
     GeometryReader { geometry in
       VStack() {
         Spacer()
-        VStack(spacing: 90) {
+        VStack() {
           WordToComplete(geometry: geometry)
           WordContent
         }
@@ -43,39 +43,29 @@ struct WordWritingView: View {
       .padding()
       .foregroundColor(vm.fontColor)
       .shadow(radius: vm.fontColor == .white ? 1 : 0)
-      .font(.custom(vm.fontString, size: 45))
     }
     .onChange(of: themesManager.currentTheme) { _ , _ in
-             updateViewModel()
+      updateViewModel()
     }
   }
 
   private func WordToComplete(geometry: GeometryProxy) -> some View {
-    HStack(spacing: 8) {
+    HStack(spacing: 1) {
       ForEach(Array(vm.word.Headword.enumerated()), id: \.offset) { index, letter in
         Text(String(letter).uppercased())
-          .font(.custom(vm.fontString, size: min(geometry.size.width / CGFloat(Double(vm.word.Headword.count) * 1.5), 45)))
+          .font(.custom(vm.fontString, size: 40))
           .foregroundStyle(vm.selectedLetters.count > index ? vm.fontColor : vm.fontColor.opacity(0.3))
       }
     }
   }
 
   private var WordContent: some View {
-    VStack(spacing: 20) {
-      Text(!vm.isComplete ? " " : vm.word.Definition)
-        .font(.custom(vm.fontString, size: 19))
-
-      Text(!vm.isComplete ? " " : "(\(vm.word.Context_sentence))")
-        .frame(height: 50)
-        .font(.custom(vm.fontString, size: 15))
+    VStack() {
+      WordDefinitionView(word: vm.word, fontColor: vm.fontColor, fontString: vm.fontString)
+      WordSentenceView(word: vm.word, fontColor: vm.fontColor, fontString: vm.fontString)
     }
-    .minimumScaleFactor(0.7)
+    .opacity(vm.isComplete ? 1 : 0)
     .animation(.smooth(duration: 1), value: vm.isComplete)
-    .lineLimit(nil)
-    .multilineTextAlignment(.center)
-    .foregroundColor(vm.fontColor)
-    .shadow(radius: vm.fontColor == .white ? 1 : 0)
-    .frame(height: 100)
   }
 
   private func LetterGrid(geometry: GeometryProxy) -> some View {
@@ -88,7 +78,6 @@ struct WordWritingView: View {
         ForEach(vm.availableLetters, id: \.id) { item in
           LetterButtonView(
             item: item,
-            geometry: geometry,
             fontString: vm.fontString,
             fontColor: vm.fontColor,
             isValidated: vm.validatedLetterIds.contains(item.id),
@@ -118,4 +107,5 @@ struct WordWritingView: View {
     fontColor: .black,
     fontString: "Georgia"
   )
+  .environmentObject(ThemesManager())
 }

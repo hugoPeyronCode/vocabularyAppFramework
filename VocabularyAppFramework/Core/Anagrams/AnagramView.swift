@@ -19,8 +19,8 @@ struct AnagramView: View {
   @State private var shouldShake: Bool = false
 
   var body: some View {
-    VStack(spacing: 30) {
-      WordToFind
+    VStack() {
+      WordHeadwordView(word: word, fontColor: fontColor, fontString: fontString)
       if !options.isEmpty {
         ZStack {
           OptionsView
@@ -29,12 +29,16 @@ struct AnagramView: View {
               .degrees(isFlipped ? 180 : 0),
               axis: (x: 0, y: 1, z: 0)
             )
-          Definition
-            .opacity(isFlipped ? 1 : 0)
-            .rotation3DEffect(
-              .degrees(isFlipped ? 0 : -180),
-              axis: (x: 0, y: 1, z: 0)
-            )
+
+          VStack {
+            WordDefinitionView(word: word, fontColor: fontColor, fontString: fontString)
+            WordSentenceView(word: word, fontColor: fontColor, fontString: fontString)
+          }
+          .opacity(isFlipped ? 1 : 0)
+          .rotation3DEffect(
+            .degrees(isFlipped ? 0 : -180),
+            axis: (x: 0, y: 1, z: 0)
+          )
         }
         .animation(.bouncy(duration: 1), value: isFlipped)
       }
@@ -71,7 +75,7 @@ struct AnagramView: View {
             .background(backgroundColor(for: option))
             .clipShape(RoundedRectangle(cornerRadius: 25))
         }
-        .shake($shouldShake)
+        .shake($shouldShake, repeatCount: 2, duration: 0.8, offsetRange: 2.5)
         .disabled(isFlipped)
       }
     }
@@ -87,27 +91,8 @@ struct AnagramView: View {
       return fontColor.opacity(0.03)
     }
     return option == selected
-    ? (option == shuffledCorrectWord ? .main.opacity(0.2) : .red.opacity(0.2))
+    ? (option == shuffledCorrectWord ? .main : .pink.opacity(0.5))
     : fontColor.opacity(0.03)
-  }
-
-  var WordToFind: some View {
-    Text(word.Headword)
-      .font(.custom(fontString, size: 45))
-  }
-
-  var Definition: some View {
-    VStack(spacing: 50) {
-      Text(word.Definition)
-        .font(.custom(fontString, size: 19))
-      Text(word.Context_sentence)
-        .font(.custom(fontString, size: 15))
-    }
-    .lineLimit(nil)
-    .multilineTextAlignment(.center)
-    .foregroundColor(fontColor)
-    .shadow(radius: fontColor == .white ? 1 : 0)
-    .padding()
   }
 }
 

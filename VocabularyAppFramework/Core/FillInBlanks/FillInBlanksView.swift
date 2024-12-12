@@ -36,8 +36,7 @@ struct FillInBlanksView: View {
 
         Spacer()
 
-        EyeButton
-
+        HintButton
       }
       .padding()
       .foregroundColor(vm.fontColor)
@@ -87,44 +86,25 @@ struct FillInBlanksView: View {
         }
       }
     }
-    .font(.custom(vm.fontString, size: min(geometry.size.width / CGFloat(Double(vm.word.Headword.count) * 1.5), 45)))
-
+    .font(.custom(vm.fontString, size: 40))
     .animation(.easeInOut(duration: 1), value: vm.selectedLetters)
   }
 
-  private var EyeButton: some View {
-    Button(action: {
+  private var HintButton: some View {
+    HomeSquareButton(text: !showHint ? "Hint" : "Hide", image: "") {
       withAnimation { showHint.toggle() }
-    }) {
-      Text(" \(showHint ? "Hide" : "Hint")")
-        .opacity(vm.isComplete ? 0 : 1)
-        .font(.custom(vm.fontString, size: 18))
-        .font(.title3)
-        .foregroundStyle(showHint ? vm.fontColor.opacity(0.3) :  .blue)
-        .padding()
-        .sensoryFeedback(.alignment, trigger: showHint)
     }
+    .sensoryFeedback(.alignment, trigger: showHint)
+    .opacity(vm.isComplete ? 0 : 1)
   }
 
   private var WordContent: some View {
-    VStack(spacing: 20) {
-      VStack(spacing: 20) {
-        Text(vm.word.Definition)
-          .font(.custom(vm.fontString, size: 19))
-        Text("(\(vm.word.Context_sentence))")
-          .frame(height: 50)
-
-          .font(.custom(vm.fontString, size: 15))
-      }
-      .opacity(showHint ? 1 : 0)
-      .animation(.easeInOut, value: showHint)
+    VStack {
+      WordDefinitionView(word: vm.word, fontColor: vm.fontColor, fontString: vm.fontString)
+      WordSentenceView(word: vm.word, fontColor: vm.fontColor, fontString: vm.fontString)
     }
-    .minimumScaleFactor(0.7)
-    .lineLimit(nil)
-    .multilineTextAlignment(.center)
-    .foregroundColor(vm.fontColor)
-    .shadow(radius: vm.fontColor == .white ? 1 : 0)
-    .frame(height: 100)
+    .opacity(showHint ? 1 : 0)
+    .animation(.easeInOut, value: showHint)
   }
 
   private func LetterGrid(geometry: GeometryProxy) -> some View {
@@ -137,7 +117,6 @@ struct FillInBlanksView: View {
         ForEach(vm.availableLetters, id: \.id) { item in
           LetterButtonView(
             item: item,
-            geometry: geometry,
             fontString: vm.fontString,
             fontColor: vm.fontColor,
             isValidated: vm.validatedLetterIds.contains(item.id),

@@ -103,7 +103,7 @@ struct HomeView: View {
   var QuizzSettingsButton : some View {
     VStack {
       HStack {
-        CustomButton(text: "", image: "slider.horizontal.3", action: {
+        HomeSquareButton(text: "", image: "slider.horizontal.3", action: {
           vm.isShowingQuizzSettingsView.toggle()
         })
         Spacer()
@@ -117,7 +117,7 @@ struct HomeView: View {
     VStack {
       HStack {
         Spacer()
-        CustomButton(text: "", image: "crown", action: {
+        HomeSquareButton(text: "", image: "crown", action: {
           vm.isShowingPremiumView.toggle()
         })
       }
@@ -130,15 +130,15 @@ struct HomeView: View {
     VStack {
       Spacer()
       HStack {
-        CustomButton(text: vm.selectedCategories.isEmpty ? vm.selectedCategory  : "Mix" , image: "square.grid.2x2", action: {
+        HomeSquareButton(text: vm.selectedCategories.isEmpty ? vm.selectedCategory  : "Mix" , image: "square.grid.2x2", action: {
           vm.isShowingCategoriesView.toggle()
         })
 
         Spacer()
-        CustomButton(text: "", image: "paintbrush", action: {
+        HomeSquareButton(text: "", image: "paintbrush", action: {
           vm.isShowingThemesView.toggle()
         })
-        CustomButton(text: "", image: "person", action: {
+        HomeSquareButton(text: "", image: "person", action: {
           vm.isShowingSettingsView.toggle()
         })
 

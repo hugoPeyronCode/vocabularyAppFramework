@@ -20,26 +20,10 @@ struct WordView: View {
 
   var body: some View {
     VStack(spacing: 90) {
-      MainContent
+      SharedWordContent(word: word, fontColor: fontColor, fontString: fontString)
       ActionBar
     }
     .offset(y: 40)
-  }
-
-  var MainContent : some View {
-    VStack(alignment: .center, spacing: 50) {
-      Text(word.Headword)
-        .font(.custom(fontString, size: 45))
-      Text(word.Definition)
-        .font(.custom(fontString, size: 19))
-      Text("(\(word.Context_sentence))")
-        .font(.custom(fontString, size: 15))
-    }
-    .lineLimit(nil)
-    .multilineTextAlignment(.center)
-    .foregroundColor(fontColor)
-    .shadow(radius: fontColor == .white ? 1 : 0)
-    .padding()
   }
 
   var ActionBar : some View {
