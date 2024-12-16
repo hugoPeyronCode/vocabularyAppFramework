@@ -30,29 +30,30 @@ struct WordWritingView: View {
       VStack() {
         Spacer()
         VStack() {
-          WordToComplete(geometry: geometry)
-          WordContent
+          WordToComplete
+          if !vm.isComplete {
+            LetterGrid(geometry: geometry)
+          } else {
+            WordContent
+          }
         }
-
-        Spacer()
-
-        LetterGrid(geometry: geometry)
-
         Spacer()
       }
       .padding()
       .foregroundColor(vm.fontColor)
       .shadow(radius: vm.fontColor == .white ? 1 : 0)
     }
+    .animation(.default, value: vm.isComplete)
     .onChange(of: themesManager.currentTheme) { _ , _ in
       updateViewModel()
     }
   }
 
-  private func WordToComplete(geometry: GeometryProxy) -> some View {
+  private var WordToComplete : some View {
     HStack(spacing: 1) {
       ForEach(Array(vm.word.Headword.enumerated()), id: \.offset) { index, letter in
-        Text(String(letter).uppercased())
+        Text(String(letter))
+          .minimumScaleFactor(0.7)
           .font(.custom(vm.fontString, size: 40))
           .foregroundStyle(vm.selectedLetters.count > index ? vm.fontColor : vm.fontColor.opacity(0.3))
       }
@@ -64,7 +65,6 @@ struct WordWritingView: View {
       WordDefinitionView(word: vm.word, fontColor: vm.fontColor, fontString: vm.fontString)
       WordSentenceView(word: vm.word, fontColor: vm.fontColor, fontString: vm.fontString)
     }
-    .opacity(vm.isComplete ? 1 : 0)
     .animation(.smooth(duration: 1), value: vm.isComplete)
   }
 

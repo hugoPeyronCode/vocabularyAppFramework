@@ -30,14 +30,14 @@ struct FillInBlanksView: View {
         WordToComplete(geometry: geometry)
         WordContent
 
-        Spacer()
-
-        LetterGrid(geometry: geometry)
-
+        if !vm.isComplete {
+          LetterGrid(geometry: geometry)
+        }
         Spacer()
 
         HintButton
       }
+      .animation(.default, value: vm.isComplete)
       .padding()
       .foregroundColor(vm.fontColor)
       .shadow(radius: vm.fontColor == .white ? 1 : 0)
@@ -65,7 +65,7 @@ struct FillInBlanksView: View {
           if let maskedIndex = vm.getMaskedLetterIndex(at: index) {
             if maskedIndex < vm.selectedLetters.count {
               // Show the found letter with animation
-              Text(String(vm.selectedLetters[maskedIndex]).uppercased())
+              Text(String(vm.selectedLetters[maskedIndex]).lowercased())
                 .foregroundStyle(vm.isComplete ? vm.fontColor : .main)
                 .animation(.easeIn(duration: 1), value: vm.selectedLetters.count)
                 .animation(.easeIn(duration: 1), value: vm.isComplete)
@@ -81,7 +81,7 @@ struct FillInBlanksView: View {
           }
         } else {
           // Show unmasked letters
-          Text(String(letter).uppercased())
+          Text(String(letter).lowercased())
             .foregroundStyle(vm.fontColor)
         }
       }

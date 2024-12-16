@@ -15,7 +15,7 @@ struct WordHeadwordView: View {
   let fontString: String
 
   var body: some View {
-    Text(word.Headword.capitalized)
+    Text(word.Headword.lowercased())
       .font(.custom(fontString, size: 40))
       .minimumScaleFactor(0.7)
       .lineLimit(nil)
@@ -34,8 +34,8 @@ struct WordDefinitionView: View {
 
   var body: some View {
     Text(word.Definition)
-      .font(.custom(fontString, size: 18))
-      .minimumScaleFactor(0.6)
+      .font(.custom(fontString, size: 20))
+//      .minimumScaleFactor(0.6)
       .lineLimit(nil)
       .multilineTextAlignment(.center)
       .foregroundColor(fontColor)

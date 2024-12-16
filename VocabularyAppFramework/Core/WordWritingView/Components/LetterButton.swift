@@ -17,21 +17,10 @@ struct LetterButtonView: View {
 
   var body: some View {
     Button(action: onTap) {
-      Text(String(item.letter).uppercased())
+      Text(String(item.letter).lowercased())
         .font(.custom(fontString, size: 40))
-        .frame(width: 50, height: 50)
-        .background(fontColor.opacity(0.09))
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(
-              isValidated ? .main :
-                isIncorrect ? Color.red :
-                Color.black,
-              lineWidth: 2
-            )
-        )
         .clipShape(RoundedRectangle(cornerRadius: 8))
-        .foregroundStyle(isValidated ? .main : fontColor)
+        .foregroundStyle(isValidated ? .clear : isIncorrect  ? .red : fontColor)
     }
     .sensoryFeedback(.success, trigger: isValidated)
     .sensoryFeedback(.error, trigger: isIncorrect)

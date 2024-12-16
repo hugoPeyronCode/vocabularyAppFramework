@@ -19,7 +19,7 @@ struct AnagramView: View {
   @State private var shouldShake: Bool = false
 
   var body: some View {
-    VStack() {
+    VStack {
       WordHeadwordView(word: word, fontColor: fontColor, fontString: fontString)
       if !options.isEmpty {
         ZStack {
@@ -63,7 +63,7 @@ struct AnagramView: View {
   }
 
   private var OptionsView: some View {
-    VStack(spacing: 15) {
+    VStack {
       ForEach(options, id: \.self) { option in
         Button(action: {
           selectedOption = option
