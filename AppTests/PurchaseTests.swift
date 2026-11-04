@@ -10,7 +10,6 @@ import Testing
 @Suite("Achats (StoreKit local)", .serialized)
 struct PurchaseTests {
     let session: SKTestSession
-    let reminders = FakeTrialReminders()
 
     init() throws {
         session = try SKTestSession(contentsOf: RepoFiles.storeKitConfiguration)
@@ -21,7 +20,7 @@ struct PurchaseTests {
     }
 
     private func makeService(legacyPremiumFlag: Bool = false) async -> EntitlementService {
-        let service = EntitlementService(trialReminders: reminders, analytics: RecordingAnalytics())
+        let service = EntitlementService(analytics: RecordingAnalytics())
         await service.start(legacyPremiumFlag: legacyPremiumFlag)
         return service
     }
@@ -35,40 +34,35 @@ struct PurchaseTests {
         }
     }
 
-    @Test("Produits du paywall chargés, essai proposé à un nouveau client")
+    @Test("Produits du paywall chargés : hebdomadaire et à vie, sans essai")
     func products() async {
         let service = await makeService()
-        #expect(Set(service.products.keys) == ["Yearly", "lifetime"])
-        #expect(service.isTrialEligible)
+        #expect(Set(service.products.keys) == ["weekly", "lifetime"])
+        #expect(service.products["weekly"]?.subscription?.introductoryOffer == nil)
         #expect(!service.isPremium)
     }
 
-    @Test("Achat annuel avec essai : premium, essai détecté, rappel 24 h avant la fin")
-    func yearlyWithTrial() async throws {
+    @Test("Achat hebdomadaire : premium immédiat")
+    func weekly() async throws {
         let service = await makeService()
-        let outcome = try await service.purchase("Yearly", remindBeforeTrialEnds: true, perform: buy)
-        #expect(outcome == .purchased(productID: "Yearly", isTrial: true))
+        let outcome = try await service.purchase("weekly", perform: buy)
+        #expect(outcome == .purchased(productID: "weekly"))
         #expect(service.isPremium)
-        let reminder = try #require(reminders.dates.first)
-        let expected = Date.now.addingTimeInterval(2 * 86_400)
-        #expect(abs(reminder.timeIntervalSince(expected)) < 120)
     }
 
-    @Test("Rappel désactivé : aucun rappel planifié")
-    func yearlyWithoutReminder() async throws {
-        let service = await makeService()
-        _ = try await service.purchase("Yearly", remindBeforeTrialEnds: false, perform: buy)
-        #expect(service.isPremium)
-        #expect(reminders.dates.isEmpty)
-    }
-
-    @Test("Achat à vie : premium, pas d'essai ni de rappel")
+    @Test("Achat à vie : premium")
     func lifetime() async throws {
         let service = await makeService()
-        let outcome = try await service.purchase("lifetime", remindBeforeTrialEnds: true, perform: buy)
-        #expect(outcome == .purchased(productID: "lifetime", isTrial: false))
+        let outcome = try await service.purchase("lifetime", perform: buy)
+        #expect(outcome == .purchased(productID: "lifetime"))
         #expect(service.isPremium)
-        #expect(reminders.dates.isEmpty)
+    }
+
+    @Test("Abonné annuel de Words v3 (Yearly, retiré de la vente) reconnu comme premium")
+    func legacyYearly() async throws {
+        _ = try await session.buyProduct(identifier: "Yearly")
+        let service = await makeService()
+        #expect(service.isPremium)
     }
 
     @Test("Abonné weekly de Words v3 reconnu comme premium")
@@ -81,9 +75,9 @@ struct PurchaseTests {
     @Test("Abonnement expiré ou annulé : plus premium")
     func expiredSubscription() async throws {
         let service = await makeService()
-        _ = try await service.purchase("Yearly", remindBeforeTrialEnds: false, perform: buy)
+        _ = try await service.purchase("weekly", perform: buy)
         #expect(service.isPremium)
-        try session.expireSubscription(productIdentifier: "Yearly")
+        try session.expireSubscription(productIdentifier: "weekly")
         try await waitUntilNotPremium(service)
         #expect(!service.isPremium)
     }
@@ -110,10 +104,9 @@ struct PurchaseTests {
     @Test("Achat interrompu par l'utilisateur : rien ne change")
     func userCancelled() async throws {
         let service = await makeService()
-        let outcome = try await service.purchase("Yearly", remindBeforeTrialEnds: true) { _ in .userCancelled }
+        let outcome = try await service.purchase("weekly") { _ in .userCancelled }
         #expect(outcome == .cancelled)
         #expect(!service.isPremium)
-        #expect(reminders.dates.isEmpty)
     }
 
     @Test("Clé v3 com.words.premiumAccess sans aucune transaction : premium (règle 5)")

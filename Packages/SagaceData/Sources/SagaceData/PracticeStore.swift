@@ -15,6 +15,8 @@ public protocol PracticeRecording: AnyObject {
     /// Les 5 derniers jours, du plus ancien à aujourd'hui : au moins une session terminée ?
     func sessionDays(last count: Int, at now: Date) -> [Bool]
     func bestScore(for mode: PracticeMode) -> Int?
+    /// Sessions terminées (jeux, défis, révisions, tests), pour les stats.
+    func finishedSessionCount() -> Int
     /// Enregistre le test et fait du niveau obtenu le niveau du profil.
     func saveLevelTest(score: Int, outOf: Int, at now: Date) -> Level
     func lastLevelTest() -> LevelTestResult?
@@ -86,6 +88,10 @@ public final class PracticeStore: PracticeRecording {
 
     public func bestScore(for mode: PracticeMode) -> Int? {
         finishedSessions().filter { $0.mode == mode }.map(\.score).max()
+    }
+
+    public func finishedSessionCount() -> Int {
+        finishedSessions().count
     }
 
     public func saveLevelTest(score: Int, outOf: Int, at now: Date) -> Level {

@@ -21,5 +21,9 @@ struct SagaceApp: App {
                 .environment(dependencies.router)
                 .environment(\.haptics, dependencies.haptics)
         }
+        .backgroundTask(.appRefresh(ReminderScheduler.refreshTaskIdentifier)) {
+            await dependencies.reminders.reschedule()
+            await MainActor.run { dependencies.reminders.submitBackgroundRefresh() }
+        }
     }
 }

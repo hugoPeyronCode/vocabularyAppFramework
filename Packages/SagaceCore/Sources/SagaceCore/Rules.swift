@@ -47,8 +47,6 @@ public enum Rules {
     public static let maxBox = 4
     /// Intervalle en jours avant la prochaine révision, par boîte.
     public static let reviewIntervalDays: [Int: Int] = [1: 1, 2: 3, 3: 7, 4: 21]
-    /// Une révision due est insérée après chaque groupe de ce nombre de fiches.
-    public static let reviewEveryFiches = 5
 
     public static func reviewIntervalDays(forBox box: Int) -> Int? { reviewIntervalDays[box] }
 
@@ -71,8 +69,6 @@ public enum Rules {
     public static let justeOuFautifChoiceCount = 2
     public static let sessionLength = 10
     public static let freeSessionsPerDay = 1
-    /// Délai du passage automatique après une réponse (secondes).
-    public static let answerAutoAdvanceDelay: TimeInterval = 0.8
     public static let rushSecondsPerQuestion: TimeInterval = 5
     public static let rushLives = 3
     public static let sprintDuration: TimeInterval = 60
@@ -130,6 +126,4 @@ public enum Rules {
 
     /// Identifiants reconnus comme premium. Les trois premiers viennent de Words v3 : ne jamais les retirer.
     public static let premiumProductIDs: Set<String> = ["Yearly", "weekly", "lifetime"]
-    public static let trialReminderHoursBeforeEnd = 24
-    public static let trialDays = 3
 }

@@ -33,6 +33,7 @@ struct FeedView: View {
                 sorting: viewModel.currentSortableFicheID.flatMap { viewModel.sortings[$0] },
                 canSort: viewModel.currentSortableFicheID != nil,
                 hasFiche: viewModel.currentPage?.ficheID != nil,
+                dueReviews: viewModel.dueReviewCount,
                 sortTip: sortTip,
                 infoTip: infoTip,
                 onInfo: {
@@ -40,6 +41,7 @@ struct FeedView: View {
                     if let id = viewModel.currentPage?.ficheID { router.open(.fiche(id)) }
                 },
                 onShare: { if let id = viewModel.currentPage?.ficheID { router.open(.share(id)) } },
+                onGames: { router.open(.practice) },
                 onSort: { sorting in
                     sortTip.invalidate(reason: .actionPerformed)
                     InfoTip.hasSorted = true
@@ -51,9 +53,6 @@ struct FeedView: View {
         .background(.vBackground)
         .toast(viewModel.goalToast) { toast in
             Toast(Text("Objectif atteint · \(toast.goal) fiches · Série : \(toast.streak) jours"), systemImage: "checkmark.seal")
-        }
-        .floatingSheet(item: $viewModel.mastered, detents: [.medium]) { mastered in
-            MasteredSheet(mastered: mastered)
         }
         .floatingSheet(isPresented: $viewModel.isShowingGameSuggestion, detents: [.medium]) {
             GameSuggestionSheet(games: viewModel.suggestedGames) { router.open(.session(.game($0))) }
@@ -100,46 +99,15 @@ struct FeedView: View {
         switch page.item {
         case .fiche(let id):
             if let fiche = viewModel.fiche(id) {
-                FicheCard(fiche: fiche, familyName: viewModel.familyName(of: fiche), onSpeak: { viewModel.speak(id) }) {
-                    router.open(.practice)
-                }
-            }
-        case .review(let id):
-            if let card = viewModel.reviews[id] {
-                ReviewCardView(card: card, answerState: { viewModel.answerState(for: id, choice: $0) }) {
-                    viewModel.answerReview(id, choice: $0)
-                }
+                FicheCard(
+                    fiche: fiche, isWordOfTheDay: viewModel.wordOfTheDayID == id, details: viewModel.details(of: fiche),
+                    revealed: viewModel.revealed[page.id, default: 0], onSpeak: { viewModel.speak(id) }
+                ) { viewModel.reveal(page.id) }
             }
         case .end:
             EndCardView(hoursToNextBatch: viewModel.hoursToNextBatch, isPremium: viewModel.isPremium) {
                 router.open(.paywall(.endOfFreeBatch))
             }
-        }
-    }
-}
-
-/// Mot maîtrisé (FEED-03).
-struct MasteredSheet: View {
-    let mastered: FeedViewModel.Mastered
-    @Environment(\.dismiss) private var dismiss
-
-    var body: some View {
-        SheetContainer(showsCloseButton: false) {
-            VStack(spacing: 14) {
-                Image(systemName: "checkmark.seal.fill")
-                    .font(.system(size: 64))
-                    .foregroundStyle(.vCorrect)
-                    .accessibilityHidden(true)
-                Text("Maîtrisé : \(mastered.headword)")
-                    .textStyle(.title)
-                    .multilineTextAlignment(.center)
-                Text("Vous avez maîtrisé \(mastered.count) mots.")
-                    .textStyle(.body)
-                Spacer(minLength: 8)
-                PrimaryButton("Continuer") { dismiss() }
-            }
-            .padding(.horizontal, SagaceMetrics.pageMargin)
-            .padding(.top, 8)
         }
     }
 }

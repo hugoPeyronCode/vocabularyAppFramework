@@ -17,6 +17,8 @@ import SwiftData
     public var pendingV3Headwords: [String]
     /// Valeur de `com.words.premiumAccess` relevée avant la suppression des clés v3 (règle 5 de `04_MIGRATION.md`).
     public var legacyPremiumFlag: Bool
+    /// Identifiant affiché dans Réglages › Compte (support), sans lien avec l'identité Apple.
+    public var userID: String = UUID().uuidString
     public var createdAt: Date
 
     public init(createdAt: Date = .now) {
@@ -29,6 +31,7 @@ import SwiftData
         self.migratedFromV3 = false
         self.pendingV3Headwords = []
         self.legacyPremiumFlag = false
+        self.userID = UUID().uuidString
         self.createdAt = createdAt
     }
 }
@@ -190,6 +193,11 @@ import SwiftData
     public var weekdays: [Int]
     public var soundID: String
     public var isEnabled: Bool
+
+    public var spec: ReminderSpec {
+        ReminderSpec(id: String(describing: persistentModelID.hashValue), source: source, sourceID: sourceID, count: count,
+                     startMinute: startMinute, endMinute: endMinute, weekdays: Set(weekdays), isEnabled: isEnabled, soundID: soundID)
+    }
 
     public init(source: ReminderSource = .fichesDuJour, sourceID: String? = nil, count: Int = 1,
                 startMinute: Int = Rules.defaultReminderStartMinute, endMinute: Int = Rules.defaultReminderEndMinute,

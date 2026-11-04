@@ -7,6 +7,16 @@ struct RootView: View {
     let dependencies: AppDependencies
     @State private var feed: FeedViewModel?
     @State private var factory: ScreenFactory?
+    @Environment(\.scenePhase) private var scenePhase
+
+    /// APP-01 : réglage appliqué à toute la fenêtre, sheets comprises.
+    private var colorScheme: ColorScheme? {
+        switch dependencies.store.preferences.appearance {
+        case .automatic: nil
+        case .light: .light
+        case .dark: .dark
+        }
+    }
     #if DEBUG
     @State private var isShowingDemo = DesignSystemDemo.isRequestedAtLaunch
     #endif
@@ -36,6 +46,17 @@ struct RootView: View {
             }
         }
         .background(.vBackground)
+        .preferredColorScheme(colorScheme)
+        .transaction { transaction in
+            if !dependencies.store.preferences.animationsEnabled { transaction.disablesAnimations = true }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .background else { return }
+            Task {
+                await dependencies.reminders.reschedule()
+                dependencies.reminders.submitBackgroundRefresh()
+            }
+        }
         .fullScreenCover(item: $router.fullScreen, onDismiss: { feed?.load() }) { screen in
             switch screen {
             case .migration(let report, let isPremium):
@@ -96,9 +117,9 @@ struct RootView: View {
         case .explore:
             factory.explore()
         case .profile:
-            ComingSoonSheet(title: "Profil", systemImage: "person.crop.circle")
+            factory.profile()
         case .stats:
-            ComingSoonSheet(title: "Stats", systemImage: "chart.bar")
+            factory.stats()
         case .practice:
             factory.practiceHub()
         case .session(let request):

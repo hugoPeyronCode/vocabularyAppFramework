@@ -310,7 +310,7 @@ Le même moteur sert le test (passage automatique) et les défis (`ChallengeRule
 | `onboarding_step_viewed` | step |
 | `onboarding_completed` | mini_test_score, daily_goal, notifications_granted |
 | `paywall_viewed` | source |
-| `trial_started` / `purchase_completed` | product_id |
+| `purchase_completed` | product_id |
 | `fiche_viewed` | fiche_id, family, origin (feed, widget, notification, explore) |
 | `fiche_sorted` | fiche_id, sorting (known, to_learn) |
 | `review_answered` | fiche_id, box, correct |

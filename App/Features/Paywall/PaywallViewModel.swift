@@ -4,15 +4,13 @@ import SagaceCore
 import SagaceUI
 import StoreKit
 
-/// Paywall (PAY-01) : plans annuel et à vie, frise d'essai, rappel de fin d'essai activé par défaut.
+/// Paywall (PAY-01) : une seule offre, hebdomadaire sans essai ou à vie.
 @MainActor @Observable
 final class PaywallViewModel {
-    enum Plan: Hashable { case yearly, lifetime }
+    enum Plan: Hashable { case weekly, lifetime }
 
     let source: PaywallSource
-    var plan: Plan = .yearly
-    /// "Me rappeler avant la fin de l'essai", activé par défaut.
-    var remindBeforeTrialEnds = true
+    var plan: Plan = .weekly
     private(set) var isWorking = false
     var showsPurchaseError = false
     private(set) var didUnlock = false
@@ -25,15 +23,13 @@ final class PaywallViewModel {
         self.source = source; self.entitlements = entitlements; self.haptics = haptics; self.analytics = analytics
     }
 
-    var yearlyPrice: String? { entitlements.products[EntitlementRules.yearlyProductID]?.displayPrice }
+    var weeklyPrice: String? { entitlements.products[EntitlementRules.weeklyProductID]?.displayPrice }
     var lifetimePrice: String? { entitlements.products[EntitlementRules.lifetimeProductID]?.displayPrice }
-    /// L'essai de 3 jours n'est proposé qu'une fois par compte Apple.
-    var offersTrial: Bool { plan == .yearly && entitlements.isTrialEligible }
     var canPurchase: Bool { !isWorking && productID.flatMap { entitlements.products[$0] } != nil }
 
     private var productID: String? {
         switch plan {
-        case .yearly: EntitlementRules.yearlyProductID
+        case .weekly: EntitlementRules.weeklyProductID
         case .lifetime: EntitlementRules.lifetimeProductID
         }
     }
@@ -52,7 +48,7 @@ final class PaywallViewModel {
         isWorking = true
         defer { isWorking = false }
         do {
-            let outcome = try await entitlements.purchase(productID, remindBeforeTrialEnds: offersTrial && remindBeforeTrialEnds, perform: perform)
+            let outcome = try await entitlements.purchase(productID, perform: perform)
             if case .purchased = outcome {
                 haptics.play(.celebration)
                 didUnlock = true

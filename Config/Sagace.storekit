@@ -13,7 +13,7 @@
   "nonRenewingSubscriptions" : [],
   "products" : [
     {
-      "displayPrice" : "49.99",
+      "displayPrice" : "99.99",
       "familyShareable" : true,
       "internalID" : "6470936756",
       "localizations" : [
@@ -96,14 +96,14 @@
         {
           "adHocOffers" : [],
           "codeOffers" : [],
-          "displayPrice" : "2.99",
+          "displayPrice" : "0.99",
           "familyShareable" : true,
-          "groupNumber" : 2,
+          "groupNumber" : 1,
           "internalID" : "6470936240",
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Ancienne offre Words, retirée de la vente",
+              "description" : "Sagace Premium, chaque semaine",
               "displayName" : "Hebdomadaire",
               "locale" : "fr"
             }
@@ -120,17 +120,12 @@
           "codeOffers" : [],
           "displayPrice" : "29.99",
           "familyShareable" : true,
-          "groupNumber" : 1,
+          "groupNumber" : 2,
           "internalID" : "6468040964",
-          "introductoryOffer" : {
-            "internalID" : "5A6E0005",
-            "numberOfPeriods" : 1,
-            "paymentMode" : "free",
-            "subscriptionPeriod" : "P3D"
-          },
+          "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Un an de Sagace Premium",
+              "description" : "Ancienne offre Words, retirée de la vente",
               "displayName" : "Annuel",
               "locale" : "fr"
             }

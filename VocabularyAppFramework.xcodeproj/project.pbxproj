@@ -40,6 +40,7 @@
 		5A6E00000000000000000042 /* SagaceUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SagaceUI; sourceTree = "<group>"; };
 		5A6E00000000000000000043 /* SagaceData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SagaceData; sourceTree = "<group>"; };
 		5A6E00000000000000000072 /* SagaceAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SagaceAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A6E00000000000000000053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -133,6 +134,7 @@
 			children = (
 				5A6E00000000000000000051 /* Sagace.entitlements */,
 				5A6E00000000000000000052 /* Words.storekit */,
+				5A6E00000000000000000053 /* Info.plist */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -426,6 +428,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconBleu AppIconViolet AppIconRouge AppIconBronze AppIconNuit AppIconPapier";
+				INFOPLIST_FILE = Config/Info.plist;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/Sagace.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -459,6 +463,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconBleu AppIconViolet AppIconRouge AppIconBronze AppIconNuit AppIconPapier";
+				INFOPLIST_FILE = Config/Info.plist;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/Sagace.entitlements;
 				CODE_SIGN_STYLE = Automatic;

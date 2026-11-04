@@ -37,10 +37,9 @@ public struct FeedProfile: Equatable, Sendable {
     }
 }
 
-/// Une page du feed.
+/// Une page du feed : le feed ne contient que des mots (les révisions sont dans l'espace Jeux).
 public enum FeedItem: Hashable, Sendable {
     case fiche(String)
-    case review(String)
     /// "C'est tout pour aujourd'hui."
     case end
 }
@@ -156,21 +155,6 @@ public struct FeedEngine: Sendable {
             .filter { $0.review.isDue(at: now) }
             .sorted { ($0.review.nextReviewAt ?? .distantPast, $0.ficheID) < ($1.review.nextReviewAt ?? .distantPast, $1.ficheID) }
             .map(\.ficheID)
-    }
-
-    /// Insère une révision due après chaque groupe de 5 fiches. S'il n'y a plus aucune fiche nouvelle,
-    /// les révisions dues prennent leur place pour que l'utilisateur puisse toujours réviser.
-    public static func interleave(fiches: [String], reviews: [String]) -> [FeedItem] {
-        guard !fiches.isEmpty else { return reviews.map(FeedItem.review) }
-        var items: [FeedItem] = []
-        var pendingReviews = reviews[...]
-        for (index, id) in fiches.enumerated() {
-            items.append(.fiche(id))
-            if (index + 1) % Rules.reviewEveryFiches == 0, let review = pendingReviews.popFirst() {
-                items.append(.review(review))
-            }
-        }
-        return items
     }
 
     /// Graine stable pour un jour : le lot du jour ne change pas d'un lancement à l'autre.
