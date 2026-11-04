@@ -12,5 +12,6 @@ let package = Package(
     ],
     targets: [
         .target(name: "SagaceData", dependencies: ["SagaceCore"]),
+        .testTarget(name: "SagaceDataTests", dependencies: ["SagaceData"]),
     ]
 )

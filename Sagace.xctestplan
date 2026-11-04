@@ -3,20 +3,23 @@
     {
       "id" : "6B1E4C2A-6F0D-4C55-9C4E-5A6E00000001",
       "name" : "Configuration 1",
-      "options" : {
-
-      }
+      "options" : {}
     }
   ],
-  "defaultOptions" : {
-
-  },
+  "defaultOptions" : {},
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:Packages\/SagaceCore",
+        "containerPath" : "container:Packages/SagaceCore",
         "identifier" : "SagaceCoreTests",
         "name" : "SagaceCoreTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages/SagaceData",
+        "identifier" : "SagaceDataTests",
+        "name" : "SagaceDataTests"
       }
     }
   ],
