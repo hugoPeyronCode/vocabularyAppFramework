@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class FillInBlanksViewModel: ObservableObject {
+@MainActor class FillInBlanksViewModel: ObservableObject {
 
   let word: Word
   @Published var fontColor: Color

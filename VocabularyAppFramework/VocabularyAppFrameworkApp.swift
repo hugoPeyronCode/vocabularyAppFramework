@@ -8,7 +8,7 @@
 import SwiftUI
 import AppTrackingTransparency
 
-@main
+// Ancien point d'entrée Words v3, remplacé par SagaceApp (M0). Supprimé au jalon M1.
 struct VocabularyAppFrameworkApp: App {
     
 //    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate

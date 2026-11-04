@@ -15,7 +15,7 @@ struct CustomSlider: UIViewRepresentable {
     var minTrackColor: UIColor
     var maxTrackColor: UIColor
 
-    class Coordinator: NSObject {
+    @MainActor class Coordinator: NSObject {
         var value: Binding<Int>
         
         init(value: Binding<Int>) {

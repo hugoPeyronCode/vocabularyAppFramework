@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@Observable
+@MainActor @Observable
 class WordWritingViewModel {
   let word: Word
   var fontColor: Color

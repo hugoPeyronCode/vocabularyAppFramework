@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@Observable
+@MainActor @Observable
 class HomeViewModel {
   var isShowingPremiumView = false
   var isShowingCategoriesView = false

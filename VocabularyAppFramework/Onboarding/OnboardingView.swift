@@ -53,7 +53,7 @@ struct OnboardingView: View {
 }
 
 extension OnboardingView {
-  class TabViewModel: ObservableObject {
+  @MainActor class TabViewModel: ObservableObject {
     @Published var selectedTab = 0
     
     func moveToNextPage() {
