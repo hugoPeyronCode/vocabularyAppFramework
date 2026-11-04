@@ -128,6 +128,8 @@ struct RootView: View {
             factory.challenge(kind)
         case .levelTest:
             factory.session(.levelTest)
+        case .crossword:
+            factory.crossword()
         case .fiche(let id):
             NavigationStack {
                 SheetContainer {

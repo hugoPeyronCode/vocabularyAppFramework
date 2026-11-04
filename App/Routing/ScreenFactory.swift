@@ -115,6 +115,13 @@ final class ScreenFactory {
         ))
     }
 
+    func crossword() -> some View {
+        CrosswordView(viewModel: CrosswordViewModel(
+            content: content, recorder: dependencies.practice, progress: dependencies.store, entitlements: dependencies.entitlements,
+            haptics: dependencies.haptics, analytics: dependencies.analytics, now: dependencies.now
+        ))
+    }
+
     // MARK: Explorer et bibliothèque
 
     func explore() -> some View {

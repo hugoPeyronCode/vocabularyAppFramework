@@ -8,7 +8,7 @@ import SwiftData
 enum Sheet: Identifiable, Hashable {
     case explore, profile, stats, practice, day(Date)
     case fiche(String), share(String)
-    case session(PracticeRequest), challenge(ChallengeState.Kind), levelTest
+    case session(PracticeRequest), challenge(ChallengeState.Kind), levelTest, crossword
     case paywall(PaywallSource)
 
     var id: Self { self }

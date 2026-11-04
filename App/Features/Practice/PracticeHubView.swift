@@ -78,6 +78,10 @@ struct PracticeHubView: View {
                                     router.open(.session(.game(game)))
                                 }
                             }
+                            Tile(Text("Mot croisé"), systemImage: "square.grid.3x3.fill", detail: Text("Nouveau"),
+                                 badge: viewModel.canPlay ? .none : .locked) {
+                                router.open(.crossword)
+                            }
                         }
                     }
                     section("Défis") {

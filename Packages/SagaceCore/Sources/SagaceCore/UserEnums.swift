@@ -32,6 +32,8 @@ public enum PracticeMode: String, Codable, Sendable, CaseIterable {
     case motJuste, paronymes, justeOuFautif, passePartout, sens, devine
     case rush, sprint, perfection
     case levelTest, review
+    /// Mini mot croisé (Jeux).
+    case crossword
     /// Plusieurs jeux sur une famille, un thème ou une collection.
     case mixed
 }

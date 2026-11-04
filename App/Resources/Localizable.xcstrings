@@ -137,7 +137,10 @@
         }
       }
     },
+    "%lld horizontal" : {},
+    "%lld mots trouvés sur %lld" : {},
     "%lld révisions dues" : {},
+    "%lld vertical" : {},
     "%lld/%lld" : {
       "shouldTranslate" : false
     },
@@ -330,7 +333,10 @@
     "Découvrir" : {},
     "Définition" : {},
     "Définition inexacte" : {},
+    "Définition précédente" : {},
+    "Définition suivante" : {},
     "Défis" : {},
+    "Effacer" : {},
     "Effets" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -375,6 +381,8 @@
     },
     "Féminin" : {},
     "Glissez vers le haut pour la fiche suivante." : {},
+    "Grille révélée." : {},
+    "Grille terminée !" : {},
     "Gérer l'abonnement" : {},
     "Haptiques" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -389,6 +397,7 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Impressionnant. On va viser les pièges plus fins." : {},
+    "Indice" : {},
     "Instagram" : {},
     "Installer le widget" : {},
     "Intensif, 6 minutes" : {
@@ -454,6 +463,7 @@
     "Moins" : {},
     "Moins de 10 réponses" : {},
     "Mot" : {},
+    "Mot croisé" : {},
     "Mot du jour" : {},
     "Mot proposé" : {},
     "Mots masqués" : {},
@@ -474,9 +484,11 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "nouveau" : {},
+    "Nouveau" : {},
     "Nouveau nom, nouvelle app : des fiches pour employer le mot juste, des révisions pour les retenir, un nouveau design clair et sombre." : {},
     "Nouveau record : %lld" : {},
     "Nouvelle collection" : {},
+    "Nouvelle grille" : {},
     "Nuance" : {},
     "Objectif atteint" : {},
     "Objectif atteint · %lld fiches · Série : %lld jours" : {
@@ -534,6 +546,7 @@
     },
     "Partager…" : {},
     "Pas encore assez de fiches pour ce jeu." : {},
+    "Pas encore assez de mots pour une grille." : {},
     "Pas tout à fait." : {},
     "Passe partout" : {},
     "Passer" : {},
@@ -604,6 +617,7 @@
     "Révision aujourd'hui" : {},
     "Révision demain" : {},
     "Révisions du jour" : {},
+    "Révéler" : {},
     "S" : {},
     "S'abonner" : {},
     "S'entraîner" : {},
@@ -762,6 +776,7 @@
     "Votre niveau : %@" : {},
     "Votre session gratuite du jour est jouée." : {},
     "Votre série de %lld jours vous attend." : {},
+    "Vérifier" : {},
     "Widgets" : {},
     "Widgets et rappels personnalisés" : {},
     "Words devient Sagace." : {},

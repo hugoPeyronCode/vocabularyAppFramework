@@ -66,6 +66,29 @@ public enum Rules {
     // MARK: Questions et sessions
 
     public static let defaultChoiceCount = 3
+    /// Mauvaises réponses : une confusion dont la forme est au moins à ce point proche est un paronyme
+    /// (bonne mauvaise réponse) ; en dessous, c'est une confusion de sens, trop fine hors du Juste ou fautif.
+    public static let paronymFormThreshold = 0.5
+    /// Mauvaises réponses tirées parmi les plus proches de la bonne, pour varier d'une partie à l'autre.
+    public static let decoyShortlist = 4
+    /// Proximité : début de mot partagé compté à partir de 3 lettres (4 pour une fin de mot).
+    public static let proximityMinAffix = 3
+    public static let proximityMinKeywordLength = 4
+    public static let proximityStemLength = 6
+    public static let proximityThemeBonus = 0.15
+
+    // MARK: Mot croisé
+
+    /// Mots par grille : on vise 5, on accepte 3.
+    public static let crosswordWordCount = 5
+    public static let crosswordMinWordCount = 3
+    /// Longueur des réponses (lettres) ; un mot plus court ne forme pas une définition.
+    public static let crosswordWordLength = 3...7
+    public static let crosswordMinWordLength = 2
+    /// Côté maximal de la grille, en cases (tient en largeur sur un iPhone).
+    public static let crosswordMaxSide = 7
+    /// Essais de placement ; la grille la plus riche gagne.
+    public static let crosswordAttempts = 40
     public static let justeOuFautifChoiceCount = 2
     public static let sessionLength = 10
     public static let freeSessionsPerDay = 1
