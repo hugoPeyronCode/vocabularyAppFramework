@@ -13,12 +13,12 @@ public struct EntitlementSnapshot: Equatable, Sendable {
 
 /// Règles d'accès premium (`04_MIGRATION.md` section 5, `03_ARCHITECTURE.md` section 10).
 public enum EntitlementRules {
+    /// Abonnement annuel v3, retiré de la vente mais toujours reconnu.
     public static let yearlyProductID = "Yearly"
-    public static let lifetimeProductID = "lifetime"
-    /// Abonnement hebdomadaire v3, retiré de la vente mais toujours reconnu.
     public static let weeklyProductID = "weekly"
-    /// Produits proposés par le paywall, dans l'ordre d'affichage.
-    public static let paywallProductIDs = [yearlyProductID, lifetimeProductID]
+    public static let lifetimeProductID = "lifetime"
+    /// Produits proposés par le paywall, dans l'ordre d'affichage : hebdomadaire sans essai, ou à vie.
+    public static let paywallProductIDs = [weeklyProductID, lifetimeProductID]
 
     /// Premium si un droit actif porte sur un produit premium (dont `Yearly`, `weekly`, `lifetime` de la v3).
     /// Règle 5 : aucune transaction connue de StoreKit mais clé v3 `com.words.premiumAccess` à vrai → premium.
@@ -29,14 +29,6 @@ public enum EntitlementRules {
                 && (entitlement.expirationDate.map { $0 > now } ?? true)
         }
         return active || (legacyPremiumFlag && !hasAnyTransaction)
-    }
-}
-
-/// Rappel de fin d'essai, 24 h avant la fin (activé par défaut sur le paywall).
-public enum TrialReminder {
-    public static func date(trialStart: Date, trialDays: Int = Rules.trialDays, calendar: Calendar = .current) -> Date {
-        let end = calendar.date(byAdding: .day, value: trialDays, to: trialStart) ?? trialStart
-        return end.addingTimeInterval(-TimeInterval(Rules.trialReminderHoursBeforeEnd) * 3_600)
     }
 }
 

@@ -27,12 +27,6 @@ struct PurchasesTests {
         #expect(!EntitlementRules.isPremium([], at: now, hasAnyTransaction: true, legacyPremiumFlag: true))
     }
 
-    @Test("Rappel de fin d'essai : 24 h avant la fin des 3 jours")
-    func trialReminder() {
-        let start = TestClock.date(hour: 10)
-        #expect(TrialReminder.date(trialStart: start, calendar: TestClock.calendar) == TestClock.date(days: 2, hour: 10))
-    }
-
     @Test("Mini test : 5 questions, une par famille principale, au niveau intermédiaire si possible")
     func miniTest() throws {
         let repository = try ContentRepository(data: Data(contentsOf: SeedContent.fichesURL), visibility: .development)

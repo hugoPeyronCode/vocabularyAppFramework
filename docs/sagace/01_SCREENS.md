@@ -111,16 +111,14 @@ Réf. Vocabulary : `B Feed` 01 à 10. Habillage : carte du jour de Sudoku a Day.
 ### FEED-01 Feed, état normal
 De haut en bas :
 1. **Barre du haut** : bouton rond bleu couronne (masqué si premium) · chip série (icône laurier + nombre de jours) · espace · bouton rond Explorer (`square.grid.2x2`) · avatar rond `#D1ADA8` avec l'initiale du prénom (ou icône personne).
-2. **Carte fiche** (`FicheCard`), pleine largeur moins 48 pt, environ 62 % de la hauteur :
-   - Libellé fantôme : la famille (*Paronymes*), en `heroGhost`.
+2. **Carte fiche** (`FicheCard`), pleine largeur moins 48 pt, environ 62 % de la hauteur. Centrée sur le mot, à la Vocabulary (décision d'Hugo, M5) :
+   - Libellé fantôme **Mot du jour** sur la première fiche du jour, en `heroGhost`.
    - Mot en `hero` : **éminent**.
-   - Ligne meta : nature et genre (*adj.*), phonétique `/e.mi.nɑ̃/`, bouton haut parleur.
-   - Définition courte (17 pt) : *Qui s'élève au dessus des autres par son mérite ou son rang.*
-   - Bloc "À ne pas confondre" (si `confusions`) : chip **imminent** → *qui va arriver très bientôt*.
-   - Bloc usage (si `usage`) : deux lignes, icône check vert *On dit : pallier un manque* et icône croix rouge *On évite : pallier à un manque*, avec le verdict (*critiqué*, *fautif*, *toléré*) en petite capsule.
-   - Phrase d'auteur en italique, 15 pt, `textSecondary`, puis *Victor Hugo, Les Misérables (1862)*.
-   - Pilule bas de carte : **S'entraîner** (ouvre Practice).
-3. **Barre d'actions** (4 boutons ronds `surfaceRaised`, 52 pt) : info (fiche détaillée) · partager · **Je savais** (`checkmark`) · **À retenir** (`bookmark`).
+   - Phonétique `/e.mi.nɑ̃/` et bouton haut parleur.
+   - Nature en italique puis définition courte (17 pt) : *adj. Qui s'élève au dessus des autres par son mérite ou son rang.*
+   - Indication *Touchez pour en savoir plus*. Chaque toucher sur la carte dévoile un détail de plus, dans l'ordre : bloc "À ne pas confondre" (chip **imminent** → *qui va arriver très bientôt*), bloc usage (*On dit* / *On évite* et verdict en capsule), un exemple, la phrase d'auteur (*Victor Hugo, Les Misérables (1862)*). S'il manque de hauteur, les premiers détails cèdent la place au dernier.
+   - Pas de bouton d'entraînement sur la carte : le feed ne fait défiler que des mots.
+3. **Barre d'actions** (boutons ronds `surfaceRaised`, 52 pt) : info (fiche détaillée) · partager · pilule **Jeux** (ouvre l'espace Jeux, badge du nombre de révisions dues) · **Je savais** (`checkmark`) · **À retenir** (`bookmark`).
 4. **Frise des jours** (7 jours, lun à dim) : jour, chiffre, anneau de progression de l'objectif. Jour courant en `surfaceSelected`. Après le dernier lot du jour : *Prochain lot dans 6 h* en grisé.
 
 Gestes et règles :
@@ -128,17 +126,16 @@ Gestes et règles :
 - **Je savais** : la fiche est marquée connue, ne revient plus, anneau +1, haptique `.light`, passage automatique à la suivante après 0,3 s.
 - **À retenir** : la fiche entre en révision (boîte 1), anneau +1, bookmark rempli, haptique `.light`, passage automatique.
 - Une fiche simplement glissée sans tri ne compte pas dans l'anneau.
-- Toutes les 5 fiches, si une révision est due : `FEED-02`.
+- Les révisions ne sont plus dans le feed : elles se font dans Jeux › **Révisions du jour** (`FEED-02`).
 - Objectif atteint : `FEED-04`.
 
-### FEED-02 Carte de révision (dans le feed)
-- Même carte, libellé fantôme **Révision**, badge du nombre de jours depuis le tri (*Vu il y a 3 jours*).
-- Une question générée (`QuestionFactory`, type adapté à la famille), 3 `AnswerRow`.
-- Juste : vert, haptique `.success`, boîte +1, texte *Bien retenu. Prochaine révision dans 7 jours.* Faux : rouge, la bonne réponse s'affiche, boîte remise à 1.
-- Passage à la fiche suivante par glisse.
+### FEED-02 Révisions du jour (dans Jeux)
+- Carte **Révisions du jour** en tête de l'espace Jeux dès qu'une révision est due (*À revoir : 4*). Gratuites et illimitées.
+- Session de questions générées (`QuestionFactory`, type adapté à la famille) sur les fiches dues.
+- Juste : vert, haptique `.success`, boîte +1. Faux : rouge, la bonne réponse s'affiche, boîte remise à 1. Dans les deux cas, l'explication s'affiche et l'on passe à la suite avec **Continuer**.
 
 ### FEED-03 Mot maîtrisé
-- Quand une révision réussit en boîte 4 (21 jours) : sheet basse façon "Game Over" inversé, illustration `ill_result_good`, titre **Maîtrisé : éminent**, texte *Vous avez maîtrisé 23 mots.*, bouton **Continuer**. Haptique `.success` puis `.light`.
+- Quand une révision réussit en boîte 4 (21 jours) : ligne **Maîtrisé : éminent** dans le retour de la réponse, haptique de célébration.
 
 ### FEED-04 Objectif du jour atteint
 - L'anneau du jour se ferme, toast en haut : **Objectif atteint · 5 fiches · Série : 12 jours**. Haptique `.success`.
@@ -333,11 +330,9 @@ De haut en bas :
 4. Titre `title` : **Le mot juste, sans limite.**
 5. Texte : *Sagace est une petite app indépendante. Avec Premium, vous débloquez tous les jeux, toutes les familles de fiches, les stats et les widgets, et vous nous aidez à écrire de nouvelles fiches chaque mois.*
 6. Liste de 4 avantages avec icônes : Jeux et défis illimités · Toutes les familles et thèmes · Stats et mots maîtrisés · Widgets et rappels personnalisés.
-7. Plans (lignes, sélection à contour bleu) : **Annuel** · *3 jours gratuits, puis 29,99 € par an* (sélectionné, badge *Le plus choisi*) / **À vie** · *49,99 €, une seule fois*.
-8. Frise d'essai si Annuel : Aujourd'hui *Accès complet* · Jour 2 *Rappel avant la fin de l'essai* · Jour 3 *Début de l'abonnement, annulable à tout moment*.
-9. Toggle **Me rappeler avant la fin de l'essai**, activé par défaut.
-10. Bouton bleu : **Commencer l'essai gratuit** (ou **Acheter** pour À vie).
-11. Pied : Restaurer · Conditions · Confidentialité · *Partage familial inclus*.
+7. Plans (lignes, sélection à contour bleu), sans essai gratuit (décision d'Hugo, M5) : **Hebdomadaire** · *0,99 € par semaine, sans engagement* (sélectionné) / **À vie** · *99,99 €, une seule fois* (badge *Le plus avantageux*). Prix lus dans StoreKit.
+8. Bouton bleu : **S'abonner** (ou **Acheter** pour À vie).
+9. Pied : Restaurer · Conditions · Confidentialité · *Partage familial inclus*.
 
 Points d'entrée (`PaywallSource`) : onboarding, couronne, bandeau PRO, fin de lot gratuit, fiche verrouillée en famille, stats, rappels, voix, widgets.
 

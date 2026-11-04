@@ -14,12 +14,6 @@ enum RepoFiles {
 }
 
 @MainActor
-final class FakeTrialReminders: TrialReminderScheduling {
-    private(set) var dates: [Date] = []
-    func schedule(at date: Date) async { dates.append(date) }
-}
-
-@MainActor
 final class FakePremium: PremiumProviding {
     var isPremium: Bool
     init(_ isPremium: Bool) { self.isPremium = isPremium }

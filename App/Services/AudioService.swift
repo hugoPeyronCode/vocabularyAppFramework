@@ -13,6 +13,22 @@ final class AudioService: Speaking {
     var voiceIdentifier: String?
 
     func speak(_ text: String) {
+        speak(text, with: voice)
+    }
+
+    /// Écoute d'une voix dans VOI-01.
+    func preview(_ text: String, voiceIdentifier: String) {
+        speak(text, with: AVSpeechSynthesisVoice(identifier: voiceIdentifier))
+    }
+
+    /// Voix françaises de l'appareil, les meilleures d'abord (VOI-01).
+    static var frenchVoices: [AVSpeechSynthesisVoice] {
+        AVSpeechSynthesisVoice.speechVoices()
+            .filter { $0.language.hasPrefix("fr") }
+            .sorted { ($0.quality.rawValue, $0.language == "fr-FR" ? 1 : 0, $0.name) > ($1.quality.rawValue, $1.language == "fr-FR" ? 1 : 0, $1.name) }
+    }
+
+    private func speak(_ text: String, with voice: AVSpeechSynthesisVoice?) {
         synthesizer.stopSpeaking(at: .immediate)
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = voice
@@ -23,9 +39,6 @@ final class AudioService: Speaking {
     /// Voix choisie, sinon la meilleure voix fr-FR (Premium, puis Améliorée), sinon fr-CA.
     private var voice: AVSpeechSynthesisVoice? {
         if let voiceIdentifier, let chosen = AVSpeechSynthesisVoice(identifier: voiceIdentifier) { return chosen }
-        let french = AVSpeechSynthesisVoice.speechVoices().filter { $0.language.hasPrefix("fr") }
-        return french
-            .sorted { ($0.quality.rawValue, $0.language == "fr-FR" ? 1 : 0) > ($1.quality.rawValue, $1.language == "fr-FR" ? 1 : 0) }
-            .first ?? AVSpeechSynthesisVoice(language: "fr-FR")
+        return Self.frenchVoices.first ?? AVSpeechSynthesisVoice(language: "fr-FR")
     }
 }

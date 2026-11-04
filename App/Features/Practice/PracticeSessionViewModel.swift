@@ -4,7 +4,8 @@ import SagaceCore
 import SagaceData
 import SagaceUI
 
-/// Session de jeu (PRA-02, PRA-03) et test de précision (PRA-07, PRA-08). Machine à états.
+/// Session de jeu (PRA-02, PRA-03), révisions du jour et test de précision (PRA-07, PRA-08). Machine à états.
+/// Chaque réponse montre son explication ; on passe à la suite avec "Continuer", jamais automatiquement.
 @MainActor @Observable
 final class PracticeSessionViewModel {
     enum Kind: Equatable {
@@ -46,6 +47,9 @@ final class PracticeSessionViewModel {
     private(set) var savedToLearn: Set<String> = []
     private(set) var sessionDays: [Bool] = []
     private(set) var levelOutcome: LevelOutcome?
+    /// Révisions : mot maîtrisé par la dernière réponse.
+    private(set) var justMastered: String?
+    private var reviewed: Set<String> = []
 
     private let content: ContentRepository
     private let factory: QuestionFactory
@@ -108,6 +112,8 @@ final class PracticeSessionViewModel {
         savedToLearn = []
         selected = nil
         levelOutcome = nil
+        justMastered = nil
+        reviewed = []
         phase = .question
         session = recorder.start(mode, at: now())
         shownAt = now()
@@ -140,20 +146,34 @@ final class PracticeSessionViewModel {
         haptics.play(correct ? .success : .error)
         recorder.record(question, correct: correct, responseMs: Int(now().timeIntervalSince(shownAt) * 1000), in: session, at: now())
         answered.append(Answered(question: question, fiche: content.fiche(id: question.ficheID), isCorrect: correct))
+        if case .session(.review) = kind { applyReview(question.ficheID, correct: correct) }
         phase = .answered(correct: correct)
-        if isLevelTest {
-            let answeredIndex = index
-            Task {
-                try? await Task.sleep(for: .seconds(Rules.answerAutoAdvanceDelay))
-                if index == answeredIndex { next() }
-            }
+    }
+
+    /// Révisions : la première réponse sur une fiche fait avancer (ou recule) sa boîte de Leitner.
+    private func applyReview(_ ficheID: String, correct: Bool) {
+        guard reviewed.insert(ficheID).inserted else { return }
+        let result = progress.answerReview(ficheID, correct: correct, at: now())
+        analytics.track(.reviewAnswered(ficheID: ficheID, box: result.previousBox, correct: correct))
+        if result.outcome == .mastered {
+            justMastered = content.fiche(id: ficheID)?.headword
+            haptics.play(.celebration)
+            analytics.track(.ficheMastered(ficheID: ficheID, daysToMaster: result.daysToMaster ?? 0))
         }
+    }
+
+    /// Explication montrée après la réponse : la règle de la question, sinon la définition courte.
+    var explanation: String {
+        guard let question = current else { return "" }
+        if !question.explanation.isEmpty { return question.explanation }
+        return content.fiche(id: question.ficheID)?.shortDefinition ?? ""
     }
 
     func next() {
         guard case .answered = phase else { return }
         index += 1
         selected = nil
+        justMastered = nil
         if index >= questions.count {
             finish()
         } else {
@@ -209,8 +229,7 @@ final class PracticeSessionViewModel {
                 }
             }
             try? await Task.sleep(for: .milliseconds(250))
-            if isAnswered, !isLevelTest { next() }
-            if isLevelTest { try? await Task.sleep(for: .seconds(Rules.answerAutoAdvanceDelay)) }
+            if isAnswered { next() }
         }
     }
 

@@ -14,7 +14,7 @@ protocol PremiumProviding: AnyObject {
 @MainActor @Observable
 final class EntitlementService: PremiumProviding {
     enum PurchaseOutcome: Equatable {
-        case purchased(productID: String, isTrial: Bool)
+        case purchased(productID: String)
         case pending
         case cancelled
     }
@@ -23,13 +23,11 @@ final class EntitlementService: PremiumProviding {
 
     private(set) var isPremium = false
     private(set) var products: [String: Product] = [:]
-    private(set) var isTrialEligible = false
     private(set) var expirationDate: Date?
 
     /// `com.words.premiumAccess` relevé par la migration v3 (règle 5).
     var legacyPremiumFlag = false
 
-    private let trialReminders: any TrialReminderScheduling
     private let analytics: any Analytics
     private let now: () -> Date
     private var updates: Task<Void, Never>?
@@ -37,8 +35,7 @@ final class EntitlementService: PremiumProviding {
     private var refreshGeneration = 0
     private let logger = Logger(subsystem: "com.cortex.VocabularyAppFramework", category: "entitlements")
 
-    init(trialReminders: any TrialReminderScheduling, analytics: any Analytics, now: @escaping () -> Date = { .now }) {
-        self.trialReminders = trialReminders
+    init(analytics: any Analytics, now: @escaping () -> Date = { .now }) {
         self.analytics = analytics
         self.now = now
     }
@@ -62,14 +59,6 @@ final class EntitlementService: PremiumProviding {
         do {
             let loaded = try await Product.products(for: EntitlementRules.paywallProductIDs)
             products = Dictionary(uniqueKeysWithValues: loaded.map { ($0.id, $0) })
-            // L'essai n'est annoncé que si le produit porte vraiment un essai gratuit en offre d'introduction
-            // (StoreKit répond "éligible" même quand aucune offre n'existe).
-            if let subscription = products[EntitlementRules.yearlyProductID]?.subscription {
-                let hasFreeTrial = subscription.introductoryOffer?.paymentMode == .freeTrial
-                isTrialEligible = hasFreeTrial ? await subscription.isEligibleForIntroOffer : false
-            } else {
-                isTrialEligible = false
-            }
         } catch {
             logger.error("Produits indisponibles : \(error)")
         }
@@ -110,27 +99,15 @@ final class EntitlementService: PremiumProviding {
     }
 
     /// Achat d'un produit du paywall. `perform` est l'action d'achat de SwiftUI (ou `product.purchase()` en test).
-    func purchase(
-        _ productID: String,
-        remindBeforeTrialEnds: Bool,
-        perform: (Product) async throws -> Product.PurchaseResult
-    ) async throws -> PurchaseOutcome {
+    func purchase(_ productID: String, perform: (Product) async throws -> Product.PurchaseResult) async throws -> PurchaseOutcome {
         guard let product = products[productID] else { throw PurchaseError.productUnavailable }
         switch try await perform(product) {
         case .success(let verification):
             guard case .verified(let transaction) = verification else { throw PurchaseError.unverified }
             await transaction.finish()
             await refresh()
-            let isTrial = transaction.offer?.type == .introductory
-            if isTrial {
-                analytics.track(.trialStarted(productID: productID))
-                if remindBeforeTrialEnds {
-                    await trialReminders.schedule(at: TrialReminder.date(trialStart: transaction.purchaseDate))
-                }
-            } else {
-                analytics.track(.purchaseCompleted(productID: productID))
-            }
-            return .purchased(productID: productID, isTrial: isTrial)
+            analytics.track(.purchaseCompleted(productID: productID))
+            return .purchased(productID: productID)
         case .pending:
             return .pending
         case .userCancelled:

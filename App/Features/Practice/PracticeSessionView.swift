@@ -52,20 +52,29 @@ struct PracticeSessionView: View {
 
     // MARK: Question (PRA-02)
 
+    /// Si l'explication ne tient pas, la page défile et reste calée en bas sur le bouton Continuer.
     private var questionScreen: some View {
         VStack(spacing: 18) {
             ProgressDots(total: viewModel.questions.count, completed: viewModel.completedCount)
             if let question = viewModel.current {
-                QuestionCard(label: Text(question.game.title), prompt: question.prompt, isSingleWord: question.game == .sens)
-                    .offset(x: dragOffset)
-                    .rotationEffect(.degrees(dragOffset / 40))
-                    .gesture(question.game == .justeOuFautif ? swipeToAnswer : nil)
-                answers(for: question)
-                Spacer(minLength: 0)
-                if case .answered(let correct) = viewModel.phase, !viewModel.isLevelTest {
-                    feedback(question: question, correct: correct)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                ScrollView {
+                    VStack(spacing: 18) {
+                        QuestionCard(label: Text(question.game.title), prompt: question.prompt, isSingleWord: question.game == .sens)
+                            .offset(x: dragOffset)
+                            .rotationEffect(.degrees(dragOffset / 40))
+                            .gesture(question.game == .justeOuFautif ? swipeToAnswer : nil)
+                        answers(for: question)
+                        if case .answered(let correct) = viewModel.phase {
+                            AnswerFeedback(isCorrect: correct, correctAnswer: question.correctChoice, explanation: viewModel.explanation,
+                                           mastered: viewModel.justMastered, onContinue: viewModel.next)
+                                .transition(.move(edge: .bottom).combined(with: .opacity))
+                        }
+                    }
                 }
+                .scrollBounceBehavior(.basedOnSize)
+                .scrollIndicators(.hidden)
+                .defaultScrollAnchor(.top, for: .initialOffset)
+                .defaultScrollAnchor(.bottom, for: .sizeChanges)
             }
         }
         .animation(SagaceMotion.select, value: viewModel.phase)
@@ -96,29 +105,6 @@ struct PracticeSessionView: View {
                 if abs(value.translation.width) > 100 { viewModel.select(.trueFalse(value.translation.width > 0)) }
                 withAnimation(SagaceMotion.press) { dragOffset = 0 }
             }
-    }
-
-    /// Feedback après réponse : "Exact." ou "Pas tout à fait.", la règle, Suivant.
-    private func feedback(question: Question, correct: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Label {
-                Text(correct ? "Exact." : "Pas tout à fait.").textStyle(.title)
-            } icon: {
-                Image(systemName: correct ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundStyle(correct ? Color.vCorrect : .vIncorrect)
-                    .font(.system(size: 26))
-            }
-            if !correct, let answer = question.correctChoice {
-                Text("Bonne réponse : \(answer)").textStyle(.rowTitle)
-            }
-            if !question.explanation.isEmpty {
-                Text(verbatim: question.explanation).textStyle(.body)
-            }
-            PrimaryButton("Suivant", haptic: .selection) { viewModel.next() }
-                .padding(.top, 4)
-        }
-        .padding(20)
-        .background(.vSurfaceRaised, in: .rect(cornerRadius: SagaceMetrics.metricCardRadius, style: .continuous))
     }
 
     // MARK: Résultats (PRA-03, PRA-08)

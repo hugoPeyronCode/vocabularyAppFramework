@@ -72,6 +72,25 @@ final class ScreenFactory {
         ), onFinish: onFinish)
     }
 
+    // MARK: Profil et stats
+
+    func profile() -> some View {
+        ProfileView(viewModel: ProfileViewModel(entitlements: dependencies.entitlements))
+    }
+
+    func stats() -> some View {
+        StatsView(viewModel: StatsViewModel(
+            content: content, topics: topics, progress: dependencies.store, practice: dependencies.practice,
+            profile: dependencies.profile, entitlements: dependencies.entitlements, haptics: dependencies.haptics,
+            day: dependencies.day, now: dependencies.now
+        ))
+    }
+
+    private var settingsViewModel: SettingsViewModel {
+        SettingsViewModel(store: dependencies.store, entitlements: dependencies.entitlements,
+                          haptics: dependencies.haptics, reminders: dependencies.reminders)
+    }
+
     // MARK: Practice
 
     func practiceHub() -> some View {
@@ -92,6 +111,13 @@ final class ScreenFactory {
     func challenge(_ kind: ChallengeState.Kind) -> some View {
         ChallengeView(viewModel: ChallengeViewModel(
             kind: kind, content: content, recorder: dependencies.practice, entitlements: dependencies.entitlements,
+            haptics: dependencies.haptics, analytics: dependencies.analytics, now: dependencies.now
+        ))
+    }
+
+    func crossword() -> some View {
+        CrosswordView(viewModel: CrosswordViewModel(
+            content: content, recorder: dependencies.practice, progress: dependencies.store, entitlements: dependencies.entitlements,
             haptics: dependencies.haptics, analytics: dependencies.analytics, now: dependencies.now
         ))
     }
@@ -135,6 +161,24 @@ final class ScreenFactory {
             OwnWordsView(viewModel: OwnWordsViewModel(library: dependencies.library, haptics: dependencies.haptics))
         case .editFollows:
             EditFollowsView(viewModel: EditFollowsViewModel(topics: topics, store: dependencies.store, haptics: dependencies.haptics))
+        case .settings:
+            SettingsView(viewModel: settingsViewModel)
+        case .appearance:
+            AppearanceView(viewModel: settingsViewModel)
+        case .reminders:
+            RemindersView(viewModel: RemindersViewModel(
+                topics: topics, profile: dependencies.profile, library: dependencies.library,
+                entitlements: dependencies.entitlements, scheduler: dependencies.reminders, haptics: dependencies.haptics
+            ))
+        case .voices:
+            VoicesView(viewModel: VoicesViewModel(store: dependencies.store, audio: dependencies.audio,
+                                                  entitlements: dependencies.entitlements, haptics: dependencies.haptics))
+        case .appIcon:
+            AppIconView(viewModel: AppIconViewModel(haptics: dependencies.haptics))
+        case .about:
+            AboutView()
+        case .widgets:
+            SheetPage("Widgets") { EmptyState(systemImage: "square.text.square", text: "Bientôt disponible.") }
         }
     }
 

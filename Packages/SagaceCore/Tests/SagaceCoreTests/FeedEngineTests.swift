@@ -125,20 +125,6 @@ struct FeedEngineTests {
         #expect(engine.dueReviews(progress, at: now) == ["ancienne", "recente"])
     }
 
-    @Test("Une révision après chaque groupe de 5 fiches")
-    func interleave() {
-        let fiches = (1...11).map { "f\($0)" }
-        let items = FeedEngine.interleave(fiches: fiches, reviews: ["r1", "r2", "r3"])
-        #expect(items[5] == .review("r1"))
-        #expect(items[11] == .review("r2"))
-        #expect(items.count == 13)
-        #expect(FeedEngine.interleave(fiches: ["a", "b"], reviews: ["r"]) == [.fiche("a"), .fiche("b")])
-    }
-
-    @Test("Sans fiche nouvelle, les révisions dues restent accessibles")
-    func reviewsWhenNoNewFiche() {
-        #expect(FeedEngine.interleave(fiches: [], reviews: ["r1", "r2"]) == [.review("r1"), .review("r2")])
-    }
 }
 
 @Suite("Série et objectif")

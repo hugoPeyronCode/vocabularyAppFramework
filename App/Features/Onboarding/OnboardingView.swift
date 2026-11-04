@@ -186,22 +186,36 @@ struct OnboardingView: View {
         VStack(spacing: 18) {
             ProgressDots(total: viewModel.questions.count, completed: viewModel.results.count)
             if let question = viewModel.currentQuestion {
-                QuestionCard(label: Text(question.game.title), prompt: question.prompt, isSingleWord: question.game == .sens)
-                if question.game == .justeOuFautif {
-                    HStack(spacing: 12) {
-                        AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.answer(.trueFalse(true)) }
-                        AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.answer(.trueFalse(false)) }
-                    }
-                } else {
-                    VStack(spacing: SagaceMetrics.rowSpacing) {
-                        ForEach(question.choices.indices, id: \.self) { index in
-                            AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.answer(.choice(index)) }
+                ScrollView {
+                    VStack(spacing: 18) {
+                        QuestionCard(label: Text(question.game.title), prompt: question.prompt, isSingleWord: question.game == .sens)
+                        if question.game == .justeOuFautif {
+                            HStack(spacing: 12) {
+                                AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.answer(.trueFalse(true)) }
+                                AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.answer(.trueFalse(false)) }
+                            }
+                        } else {
+                            VStack(spacing: SagaceMetrics.rowSpacing) {
+                                ForEach(question.choices.indices, id: \.self) { index in
+                                    AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.answer(.choice(index)) }
+                                }
+                            }
+                        }
+                        if let correct = viewModel.answeredCorrectly {
+                            AnswerFeedback(isCorrect: correct, correctAnswer: question.correctChoice, explanation: viewModel.explanation,
+                                           onContinue: viewModel.continueTest)
+                                .transition(.move(edge: .bottom).combined(with: .opacity))
                         }
                     }
+                    .padding(.bottom, 12)
                 }
+                .scrollBounceBehavior(.basedOnSize)
+                .scrollIndicators(.hidden)
+                .defaultScrollAnchor(.top, for: .initialOffset)
+                .defaultScrollAnchor(.bottom, for: .sizeChanges)
             }
-            Spacer()
         }
+        .animation(SagaceMotion.select, value: viewModel.answeredCorrectly)
         .padding(.horizontal, SagaceMetrics.pageMargin)
         .padding(.top, 24)
     }

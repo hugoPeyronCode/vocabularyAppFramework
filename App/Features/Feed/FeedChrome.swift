@@ -42,26 +42,30 @@ struct FeedTopBar: View {
     }
 }
 
-/// Barre d'actions : fiche détaillée, partager, Je savais, À retenir.
+/// Barre d'actions : fiche détaillée, partager, Jeux (avec les révisions dues), Je savais, À retenir.
 struct FeedActionBar: View {
     let sorting: Sorting?
     let canSort: Bool
     let hasFiche: Bool
+    let dueReviews: Int
     let sortTip: SortTip
     let infoTip: InfoTip
     let onInfo: () -> Void
     let onShare: () -> Void
+    let onGames: () -> Void
     let onSort: (Sorting) -> Void
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 10) {
             CircleButton(systemImage: "info", accessibilityLabel: "Fiche détaillée", size: SagaceMetrics.circleButtonLarge, action: onInfo)
                 .popoverTip(infoTip, arrowEdge: .bottom)
                 .disabled(!hasFiche)
             CircleButton(systemImage: "square.and.arrow.up", accessibilityLabel: "Partager", size: SagaceMetrics.circleButtonLarge, action: onShare)
                 .disabled(!hasFiche)
-            Spacer()
-            HStack(spacing: 16) {
+            Spacer(minLength: 0)
+            gamesButton
+            Spacer(minLength: 0)
+            HStack(spacing: 10) {
                 CircleButton(systemImage: "checkmark", accessibilityLabel: "Je savais", size: SagaceMetrics.circleButtonLarge,
                              isActive: sorting == .known, haptic: nil) { onSort(.known) }
                 CircleButton(systemImage: "bookmark", accessibilityLabel: "À retenir", size: SagaceMetrics.circleButtonLarge,
@@ -73,6 +77,35 @@ struct FeedActionBar: View {
         }
         .padding(.horizontal, SagaceMetrics.pageMargin)
         .padding(.vertical, 12)
+    }
+
+    /// L'espace Jeux : jeux, défis, test, et les révisions dues (badge).
+    private var gamesButton: some View {
+        Button(action: onGames) {
+            // Le libellé tombe si la barre manque de place (grands corps de texte) : il reste l'icône.
+            ViewThatFits(in: .horizontal) {
+                Label("Jeux", systemImage: "gamecontroller.fill").fixedSize()
+                Image(systemName: "gamecontroller.fill")
+            }
+                .font(.system(size: 16, weight: .semibold))
+                .lineLimit(1)
+                .foregroundStyle(.vOnInverse)
+                .padding(.horizontal, 14)
+                .frame(height: 44)
+                .background(.vInverse, in: .capsule)
+                .overlay(alignment: .topTrailing) {
+                    if dueReviews > 0 {
+                        Text("\(dueReviews)")
+                            .font(.system(size: 12, weight: .bold).monospacedDigit())
+                            .foregroundStyle(.vOnAccent)
+                            .frame(minWidth: 20, minHeight: 20)
+                            .background(.vBlue, in: .capsule)
+                            .offset(x: 6, y: -6)
+                    }
+                }
+        }
+        .buttonStyle(PressScaleButtonStyle())
+        .accessibilityValue(dueReviews > 0 ? Text("\(dueReviews) révisions dues") : Text(verbatim: ""))
     }
 }
 

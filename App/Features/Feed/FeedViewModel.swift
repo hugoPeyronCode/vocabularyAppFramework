@@ -5,7 +5,8 @@ import SagaceData
 import SagaceUI
 import SwiftUI
 
-/// Feed (FEED-01 à 04) : pages de fiches et de révisions, tri, objectif du jour, frise et série.
+/// Feed (FEED-01, 04, 06) : on fait défiler des mots. Le premier du jour est le mot du jour ; chaque carte
+/// montre l'essentiel et se complète à chaque toucher. Les révisions et les jeux sont dans l'espace Jeux.
 @MainActor @Observable
 final class FeedViewModel {
     struct Page: Identifiable, Hashable {
@@ -14,7 +15,7 @@ final class FeedViewModel {
 
         var ficheID: String? {
             switch item {
-            case .fiche(let id), .review(let id): id
+            case .fiche(let id): id
             case .end: nil
             }
         }
@@ -28,12 +29,12 @@ final class FeedViewModel {
         var id: Date { day }
     }
 
-    struct ReviewCard: Equatable {
-        let ficheID: String
-        let quiz: QuizItem
-        let daysSinceSorted: Int?
-        var selected: Int?
-        var outcome: ReviewOutcome?
+    /// Ce qu'un toucher sur la carte dévoile, dans l'ordre.
+    enum Detail: Hashable {
+        case confusion(Confusion)
+        case usage(UsageNote)
+        case example(String)
+        case quote(AuthorQuote)
     }
 
     struct GoalToast: Equatable {
@@ -41,21 +42,18 @@ final class FeedViewModel {
         let streak: Int
     }
 
-    struct Mastered: Identifiable, Equatable {
-        let headword: String
-        let count: Int
-        var id: String { headword }
-    }
-
     private(set) var pages: [Page] = []
     var currentPageID: String?
     private(set) var sortings: [String: Sorting] = [:]
-    private(set) var reviews: [String: ReviewCard] = [:]
+    /// Nombre de détails dévoilés par page.
+    private(set) var revealed: [String: Int] = [:]
+    private(set) var wordOfTheDayID: String?
+    /// Révisions dues, affichées en badge sur la pilule Jeux.
+    private(set) var dueReviewCount = 0
     private(set) var week: [DayCell] = []
     private(set) var streak = 0
     private(set) var dailyGoal = Rules.defaultDailyGoal
     private(set) var goalToast: GoalToast?
-    var mastered: Mastered?
     var isShowingGameSuggestion = false
 
     private let content: ContentRepository
@@ -136,12 +134,10 @@ final class FeedViewModel {
             profile: feedProfile,
             seed: engine.seed(for: now)
         ).map(\.id)
-        let due = engine.dueReviews(progress.values, at: now).filter { content.fiche(id: $0) != nil }
-
-        reviews = Dictionary(uniqueKeysWithValues: due.compactMap { id in reviewCard(for: id, progress: progress[id], now: now).map { (id, $0) } })
-        pages = FeedEngine.interleave(fiches: carriedOver + picked, reviews: due.filter { reviews[$0] != nil })
-            .map { Page(id: Self.pageID(for: $0), item: $0) } + [Page(id: "end", item: .end)]
+        wordOfTheDayID = seenToday.first(where: { content.fiche(id: $0.ficheID) != nil })?.ficheID ?? picked.first
+        pages = (carriedOver + picked).map { Page(id: Self.pageID(for: .fiche($0)), item: .fiche($0)) } + [Page(id: "end", item: .end)]
         sortings = [:]
+        revealed = [:]
         currentPageID = pages.first?.id
         refreshProgress()
     }
@@ -160,20 +156,9 @@ final class FeedViewModel {
         )
     }
 
-    private func reviewCard(for ficheID: String, progress: FicheProgress?, now: Date) -> ReviewCard? {
-        guard let fiche = content.fiche(id: ficheID), !fiche.quiz.isEmpty else { return nil }
-        let box = max(progress?.review.box ?? 1, 1)
-        return ReviewCard(
-            ficheID: ficheID,
-            quiz: fiche.quiz[(box - 1) % fiche.quiz.count],
-            daysSinceSorted: progress?.sortedAt.map { day.days(from: $0, to: now) }
-        )
-    }
-
     private static func pageID(for item: FeedItem) -> String {
         switch item {
         case .fiche(let id): "fiche:\(id)"
-        case .review(let id): "review:\(id)"
         case .end: "end"
         }
     }
@@ -250,6 +235,26 @@ final class FeedViewModel {
         refreshProgress()
     }
 
+    // MARK: Carte
+
+    /// Détails disponibles d'une fiche : confusion, bon usage, exemple, phrase d'auteur.
+    func details(of fiche: Fiche) -> [Detail] {
+        var details: [Detail] = fiche.confusions.prefix(1).map(Detail.confusion)
+        if let usage = fiche.usage { details.append(.usage(usage)) }
+        if let example = fiche.examples.first { details.append(.example(example)) }
+        if let quote = fiche.authorQuote { details.append(.quote(quote)) }
+        return details
+    }
+
+    /// Un toucher sur la carte dévoile le détail suivant.
+    func reveal(_ pageID: String) {
+        guard let ficheID = pages.first(where: { $0.id == pageID })?.ficheID, let fiche = content.fiche(id: ficheID) else { return }
+        let count = revealed[pageID, default: 0]
+        guard count < details(of: fiche).count else { return }
+        revealed[pageID] = count + 1
+        haptics.play(.soft)
+    }
+
     // MARK: Tri
 
     func sort(_ sorting: Sorting) {
@@ -284,37 +289,6 @@ final class FeedViewModel {
         }
     }
 
-    // MARK: Révision (FEED-02, FEED-03)
-
-    func answerReview(_ ficheID: String, choice: Int) {
-        guard var card = reviews[ficheID], card.selected == nil else { return }
-        let correct = choice == card.quiz.answerIndex
-        let result = store.answerReview(ficheID, correct: correct, at: now())
-        card.selected = choice
-        card.outcome = result.outcome
-        reviews[ficheID] = card
-        analytics.track(.reviewAnswered(ficheID: ficheID, box: result.previousBox, correct: correct))
-        refreshProgress()
-        switch result.outcome {
-        case .mastered:
-            haptics.play(.celebration)
-            analytics.track(.ficheMastered(ficheID: ficheID, daysToMaster: result.daysToMaster ?? 0))
-            if let fiche = content.fiche(id: ficheID) {
-                mastered = Mastered(headword: fiche.headword, count: result.masteredCount)
-            }
-        case .promoted:
-            haptics.play(.success)
-        case .reset:
-            haptics.play(.error)
-        }
-    }
-
-    func answerState(for ficheID: String, choice: Int) -> AnswerRow.State {
-        guard let card = reviews[ficheID], let selected = card.selected else { return .idle }
-        if choice == card.quiz.answerIndex { return .correct }
-        return choice == selected ? .wrong : .dimmed
-    }
-
     // MARK: Frise et série
 
     private func refreshProgress() {
@@ -327,6 +301,7 @@ final class FeedViewModel {
             return DayCell(day: date, progress: Double(sorted) / Double(max(dailyGoal, 1)), isToday: date == today, isFuture: date > today)
         }
         streak = streaks.summary(of: activity, at: now).current
+        dueReviewCount = engine.dueReviews(store.allProgress().values, at: now).filter { content.fiche(id: $0) != nil }.count
     }
 
     /// Retour au premier plan : nouveau lot si la journée Sagace a changé (4 h), sinon frise et série à jour.

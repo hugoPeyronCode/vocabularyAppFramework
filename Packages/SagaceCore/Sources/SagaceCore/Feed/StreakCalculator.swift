@@ -23,6 +23,10 @@ public struct StreakSummary: Equatable, Sendable {
     public let longest: Int
     /// Jours parfaits : objectif atteint.
     public let perfectDays: Int
+
+    public init(current: Int, longest: Int, perfectDays: Int) {
+        self.current = current; self.longest = longest; self.perfectDays = perfectDays
+    }
 }
 
 /// Série de jours actifs (`03_ARCHITECTURE.md` section 7, Objectif et série).

@@ -23,6 +23,7 @@ enum DebugLaunch {
         case "practice": return .practice
         case "paywall": return .paywall(.crown)
         case "levelTest": return .levelTest
+        case "crossword": return .crossword
         case "game": return parts.last.flatMap(GameType.init(rawValue:)).map { .session(.game($0)) }
         case "challenge":
             return ["rush": ChallengeState.Kind.rush, "sprint": .sprint, "perfection": .perfection][parts.last ?? ""].map(Sheet.challenge)

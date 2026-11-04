@@ -36,14 +36,6 @@ struct PaywallView: View {
                 }
                 benefits
                 plans
-                if viewModel.offersTrial {
-                    trialTimeline
-                    Toggle(isOn: $viewModel.remindBeforeTrialEnds) {
-                        Text("Me rappeler avant la fin de l'essai").fontStyle(.rowTitle).foregroundStyle(.vTextPrimary)
-                    }
-                    .tint(.vTextPrimary)
-                    .padding(.horizontal, 4)
-                }
             }
             .padding(.horizontal, SagaceMetrics.pageMargin)
             .padding(.top, 12)
@@ -82,53 +74,24 @@ struct PaywallView: View {
     private var plans: some View {
         VStack(spacing: SagaceMetrics.rowSpacing) {
             OptionRow(
-                "Annuel",
-                description: viewModel.yearlyPrice.map { price in
-                    viewModel.offersTrial ? "3 jours gratuits, puis \(price) par an" : "\(price) par an"
-                } ?? "Chargement des offres…",
-                detail: "Le plus choisi",
-                isSelected: viewModel.plan == .yearly,
+                "Hebdomadaire",
+                description: viewModel.weeklyPrice.map { "\($0) par semaine, sans engagement" } ?? "Chargement des offres…",
+                isSelected: viewModel.plan == .weekly,
                 alwaysShowsDescription: true
-            ) { viewModel.select(.yearly) }
+            ) { viewModel.select(.weekly) }
             OptionRow(
                 "À vie",
                 description: viewModel.lifetimePrice.map { "\($0), une seule fois" } ?? "Chargement des offres…",
+                detail: "Le plus avantageux",
                 isSelected: viewModel.plan == .lifetime,
                 alwaysShowsDescription: true
             ) { viewModel.select(.lifetime) }
         }
     }
 
-    /// Frise d'essai : aujourd'hui, jour 2 (rappel), jour 3 (début de l'abonnement).
-    private var trialTimeline: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            step("Aujourd'hui", detail: "Accès complet", symbol: "lock.open.fill", isFirst: true)
-            step("Jour 2", detail: "Rappel avant la fin de l'essai", symbol: "bell.fill", isFirst: false)
-            step("Jour 3", detail: "Début de l'abonnement, annulable à tout moment", symbol: "star.fill", isFirst: false)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(18)
-        .background(.vSurfaceRaised, in: .rect(cornerRadius: SagaceMetrics.metricCardRadius, style: .continuous))
-    }
-
-    private func step(_ title: LocalizedStringKey, detail: LocalizedStringKey, symbol: String, isFirst: Bool) -> some View {
-        HStack(spacing: 14) {
-            Image(systemName: symbol)
-                .font(.system(size: 14, weight: .bold))
-                .foregroundStyle(isFirst ? Color.vOnAccent : .vTextPrimary)
-                .frame(width: 32, height: 32)
-                .background(isFirst ? Color.vBlue : .vSurfaceSelected, in: .circle)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title).fontStyle(.rowTitle).foregroundStyle(.vTextPrimary)
-                Text(detail).textStyle(.body)
-            }
-        }
-        .accessibilityElement(children: .combine)
-    }
-
     private var footer: some View {
         VStack(spacing: 10) {
-            PrimaryButton(viewModel.offersTrial ? "Commencer l'essai gratuit" : (viewModel.plan == .lifetime ? "Acheter" : "Continuer"), haptic: .light) {
+            PrimaryButton(viewModel.plan == .lifetime ? "Acheter" : "S'abonner", haptic: .light) {
                 Task { await viewModel.purchase { try await purchase($0) } }
             }
             .disabled(!viewModel.canPurchase)

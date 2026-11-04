@@ -22,6 +22,9 @@ final class AppDependencies {
     let store: ProgressStore
     let library: LibraryStore
     let practice: PracticeStore
+    let profile: ProfileStore
+    let reminders: ReminderScheduler
+    let notifications = NotificationRouter()
     let audio = AudioService()
     let router = AppRouter()
     let haptics = HapticsService.shared
@@ -41,10 +44,13 @@ final class AppDependencies {
             container = try! SagaceStore.makeContainer(inMemory: true)
         }
         now = Self.makeClock()
-        entitlements = EntitlementService(trialReminders: TrialReminderScheduler(), analytics: analytics, now: now)
+        entitlements = EntitlementService(analytics: analytics, now: now)
         store = ProgressStore(context: container.mainContext, day: day)
         library = LibraryStore(context: container.mainContext, now: now)
         practice = PracticeStore(context: container.mainContext, day: day)
+        profile = ProfileStore(context: container.mainContext)
+        reminders = ReminderScheduler(progress: store, library: library, profile: profile, entitlements: entitlements, day: day, now: now)
+        notifications.attach(router: router, analytics: analytics)
         haptics.isEnabled = store.preferences.hapticsEnabled
         audio.voiceIdentifier = store.preferences.voiceIdentifier
     }
@@ -84,6 +90,8 @@ final class AppDependencies {
             if router.fullScreen == nil {
                 await entitlements.start(legacyPremiumFlag: store.profile.legacyPremiumFlag)
             }
+            reminders.content = content
+            await reminders.reschedule()
             state = .ready(content: content, topics: topics)
         } catch {
             logger.error("Chargement du contenu impossible : \(error)")

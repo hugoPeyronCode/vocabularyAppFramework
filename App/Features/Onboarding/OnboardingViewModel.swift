@@ -126,16 +126,29 @@ final class OnboardingViewModel {
         let correct = question.isCorrect(answer)
         haptics.play(correct ? .success : .error)
         results.append((question, correct))
-        let answeredIndex = questionIndex
-        Task {
-            try? await Task.sleep(for: .seconds(Rules.answerAutoAdvanceDelay))
-            guard questionIndex == answeredIndex else { return }
-            if questionIndex + 1 < questions.count {
-                questionIndex += 1
-                selected = nil
-            } else {
-                next()
-            }
+    }
+
+    /// Réponse donnée à la question en cours : `nil` tant qu'on n'a pas répondu.
+    var answeredCorrectly: Bool? {
+        guard selected != nil, let last = results.last, last.question.id == currentQuestion?.id else { return nil }
+        return last.correct
+    }
+
+    /// Explication de la question en cours, sinon la définition courte de la fiche.
+    var explanation: String {
+        guard let question = currentQuestion else { return "" }
+        if !question.explanation.isEmpty { return question.explanation }
+        return content.fiche(id: question.ficheID)?.shortDefinition ?? ""
+    }
+
+    /// Après lecture de l'explication : question suivante ou résultat.
+    func continueTest() {
+        guard selected != nil else { return }
+        if questionIndex + 1 < questions.count {
+            questionIndex += 1
+            selected = nil
+        } else {
+            next()
         }
     }
 

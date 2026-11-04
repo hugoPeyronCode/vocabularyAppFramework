@@ -6,12 +6,13 @@ extension Fiche {
     /// Fiche de test complète pour la génération de questions.
     static func word(
         _ headword: String, family: Family = .nuance, pos: PartOfSpeech = .verbe, gender: Gender? = nil, level: Int = 3,
-        example: String? = nil, confusions: [String] = [], synonyms: [String] = [], usage: UsageNote? = nil, quiz: [QuizItem] = []
+        example: String? = nil, confusions: [String] = [], synonyms: [String] = [], usage: UsageNote? = nil, quiz: [QuizItem] = [],
+        meaning: String? = nil
     ) -> Fiche {
         Fiche(
             id: "fr.\(headword)", language: .fr, headword: headword, family: family, themes: [], partOfSpeech: pos,
-            gender: gender, register: .courant, phonetic: "/x/", shortDefinition: "Définition de \(headword)",
-            definition: "Sens complet de \(headword).",
+            gender: gender, register: .courant, phonetic: "/x/", shortDefinition: meaning ?? "Définition de \(headword)",
+            definition: meaning ?? "Sens complet de \(headword).",
             confusions: confusions.map { Confusion(word: $0, meaning: "Sens de \($0)", example: "Exemple.") },
             usage: usage, nuance: nil,
             examples: [example ?? "On emploie **\(headword)** ici.", "Encore **\(headword)**."],
@@ -177,6 +178,54 @@ struct QuestionFactoryTests {
         let questions = QuestionFactory(fiches: repository.fiches).levelTest(seed: 9)
         #expect(questions.count >= 20)
         #expect(Set(questions.map(\.ficheID)).count == questions.count)
+    }
+}
+
+@Suite("Mauvaises réponses proches")
+struct DecoyTests {
+    @Test("Proximité de forme : paronymes proches, confusions de sens lointaines")
+    func form() {
+        #expect(Proximity.form("éminent", "imminent") >= Rules.paronymFormThreshold)
+        #expect(Proximity.form("déceler", "desceller") >= Rules.paronymFormThreshold)
+        #expect(Proximity.form("prolongation", "prolongement") >= Rules.paronymFormThreshold)
+        #expect(Proximity.form("se rappeler", "se souvenir") < Rules.paronymFormThreshold)
+        #expect(Proximity.form("acronyme", "sigle") < Rules.paronymFormThreshold)
+    }
+
+    @Test("Proximité de sens : mots pleins partagés, à la racine près")
+    func meaning() {
+        let a = Proximity.keywords("Garder ou retrouver le souvenir de quelque chose")
+        let b = Proximity.keywords("Perdre tout souvenir d'un événement")
+        let c = Proximity.keywords("Porter un objet jusqu'à un lieu")
+        #expect(Proximity.meaning(a, b) > 0)
+        #expect(Proximity.meaning(a, c) == 0)
+    }
+
+    @Test("Devine le mot : le paronyme de la fiche est proposé, jamais sa confusion de sens", arguments: 0..<10)
+    func paronymKept(seed: UInt64) throws {
+        let target = Fiche.word("éminent", pos: .adjectif, confusions: ["imminent", "célèbre"], meaning: "Qui se distingue par son mérite")
+        let pool = [target] + ["célèbre", "rapide", "joyeux", "fragile", "honnête"].map {
+            Fiche.word($0, pos: .adjectif, meaning: "Adjectif \($0)")
+        }
+        var rng = SeededGenerator(seed: seed)
+        let question = try #require(QuestionFactory(fiches: pool).question(for: target, game: .devine, rng: &rng))
+        #expect(question.choices.contains("imminent"))
+        #expect(!question.choices.contains("célèbre"))
+    }
+
+    @Test("Les mauvaises réponses viennent des mots les plus proches par la forme ou le sens", arguments: 0..<20)
+    func closest(seed: UInt64) throws {
+        let target = Fiche.word("pallier", meaning: "Atténuer un manque provisoirement")
+        let close = [
+            Fiche.word("palper", meaning: "Toucher avec la main"),
+            Fiche.word("parier", meaning: "Miser de l'argent"),
+            Fiche.word("combler", meaning: "Remplir entièrement un manque"),
+            Fiche.word("compenser", meaning: "Équilibrer un manque par un avantage"),
+        ]
+        let far = ["dormir", "chanter", "nager", "bondir"].map { Fiche.word($0, meaning: "Action de \($0)") }
+        var rng = SeededGenerator(seed: seed)
+        let question = try #require(QuestionFactory(fiches: [target] + close + far).question(for: target, game: .devine, rng: &rng))
+        #expect(Set(question.choices).isDisjoint(with: far.map(\.headword)))
     }
 }
 

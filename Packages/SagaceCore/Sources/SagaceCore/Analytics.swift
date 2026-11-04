@@ -15,8 +15,8 @@ public enum AnalyticsEvent: Equatable, Sendable {
     case onboardingStepViewed(step: String)
     case onboardingCompleted(miniTestScore: Int?, dailyGoal: Int, notificationsGranted: Bool)
     case paywallViewed(source: String)
-    case trialStarted(productID: String)
     case purchaseCompleted(productID: String)
+    case notificationOpened(reminderSource: String)
 
     public var name: String {
         switch self {
@@ -33,8 +33,8 @@ public enum AnalyticsEvent: Equatable, Sendable {
         case .onboardingStepViewed: "onboarding_step_viewed"
         case .onboardingCompleted: "onboarding_completed"
         case .paywallViewed: "paywall_viewed"
-        case .trialStarted: "trial_started"
         case .purchaseCompleted: "purchase_completed"
+        case .notificationOpened: "notification_opened"
         }
     }
 
@@ -66,8 +66,10 @@ public enum AnalyticsEvent: Equatable, Sendable {
             ["mini_test_score": score.map(String.init) ?? "", "daily_goal": String(goal), "notifications_granted": String(granted)]
         case let .paywallViewed(source):
             ["source": source]
-        case let .trialStarted(productID), let .purchaseCompleted(productID):
+        case let .purchaseCompleted(productID):
             ["product_id": productID]
+        case let .notificationOpened(source):
+            ["reminder_source": source]
         }
     }
 }
