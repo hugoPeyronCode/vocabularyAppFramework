@@ -61,6 +61,8 @@ final class FeedViewModel {
     private let content: ContentRepository
     private let topics: Topics
     private let store: any ProgressStoring
+    private let library: any LibraryStoring
+    private let audio: any Speaking
     private let entitlements: any PremiumProviding
     private let haptics: any HapticPlaying
     private let analytics: any Analytics
@@ -75,11 +77,12 @@ final class FeedViewModel {
     private static let gameSuggestionDayKey = "feed.gameSuggestionDay"
 
     init(
-        content: ContentRepository, topics: Topics, store: any ProgressStoring, entitlements: any PremiumProviding,
-        haptics: any HapticPlaying, analytics: any Analytics, day: SagaceDay,
-        defaults: UserDefaults = .standard, now: @escaping () -> Date = { .now }
+        content: ContentRepository, topics: Topics, store: any ProgressStoring, library: any LibraryStoring,
+        audio: any Speaking, entitlements: any PremiumProviding, haptics: any HapticPlaying, analytics: any Analytics,
+        day: SagaceDay, defaults: UserDefaults = .standard, now: @escaping () -> Date = { .now }
     ) {
-        self.content = content; self.topics = topics; self.store = store; self.entitlements = entitlements
+        self.content = content; self.topics = topics; self.store = store; self.library = library; self.audio = audio
+        self.entitlements = entitlements
         self.haptics = haptics; self.analytics = analytics; self.day = day; self.defaults = defaults; self.now = now
         self.engine = FeedEngine(day: day)
         self.streaks = StreakCalculator(day: day)
@@ -150,7 +153,8 @@ final class FeedViewModel {
             followedFamilies: Set(preferences.followedFamilies.compactMap(Family.init(rawValue:))),
             followedThemes: Set(preferences.followedThemes),
             showFamiliar: preferences.showFamiliar,
-            mutedTerms: Set(preferences.mutedTerms)
+            mutedTerms: Set(preferences.mutedTerms),
+            followedFicheIDs: library.followedFicheIDs()
         )
     }
 
@@ -219,6 +223,20 @@ final class FeedViewModel {
         let index = pages.firstIndex { $0.id == currentPageID }.map { $0 + 1 } ?? 0
         pages.insert(contentsOf: replayPages, at: index)
         withAnimation(SagaceMotion.page) { currentPageID = first.id }
+    }
+
+    func speak(_ ficheID: String) {
+        guard let fiche = content.fiche(id: ficheID) else { return }
+        audio.speak(fiche.headword)
+    }
+
+    /// Après une sheet (fiche détaillée, Explorer) : tris faits ailleurs, frise et série à jour.
+    func refreshAfterSheet() {
+        let progress = store.allProgress()
+        for id in pages.compactMap(\.ficheID) where progress[id]?.sorting != nil {
+            sortings[id] = progress[id]?.sorting
+        }
+        refreshProgress()
     }
 
     // MARK: Tri

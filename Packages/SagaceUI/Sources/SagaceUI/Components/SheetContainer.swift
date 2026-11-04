@@ -109,9 +109,10 @@ public extension View {
     func floatingSheet<Item: Identifiable, Content: View>(
         item: Binding<Item?>,
         detents: Set<PresentationDetent> = [.floating],
+        onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping (Item) -> Content
     ) -> some View {
-        sheet(item: item) { item in
+        sheet(item: item, onDismiss: onDismiss) { item in
             content(item).modifier(FloatingSheetPresentation(detents: detents))
         }
     }

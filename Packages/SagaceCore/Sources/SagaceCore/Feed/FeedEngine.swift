@@ -23,13 +23,17 @@ public struct FeedProfile: Equatable, Sendable {
     public var followedThemes: Set<String>
     public var showFamiliar: Bool
     public var mutedTerms: Set<String>
+    /// Fiches des collections suivies dans le feed (LIB-03).
+    public var followedFicheIDs: Set<String>
 
     public init(
         level: Level = Rules.defaultLevel, goals: Set<LearningGoal> = [], followedFamilies: Set<Family> = [],
-        followedThemes: Set<String> = [], showFamiliar: Bool = true, mutedTerms: Set<String> = []
+        followedThemes: Set<String> = [], showFamiliar: Bool = true, mutedTerms: Set<String> = [],
+        followedFicheIDs: Set<String> = []
     ) {
         self.level = level; self.goals = goals; self.followedFamilies = followedFamilies
         self.followedThemes = followedThemes; self.showFamiliar = showFamiliar; self.mutedTerms = mutedTerms
+        self.followedFicheIDs = followedFicheIDs
     }
 }
 
@@ -66,10 +70,12 @@ public struct FeedEngine: Sendable {
         }
     }
 
-    /// Aucun suivi : tout passe. Sinon, la fiche passe si sa famille ou un de ses thèmes est suivi.
+    /// Aucun suivi : tout passe. Sinon, la fiche passe si sa famille, un de ses thèmes ou une collection qui la contient est suivi.
     private func follows(_ fiche: Fiche, _ profile: FeedProfile) -> Bool {
-        if profile.followedFamilies.isEmpty && profile.followedThemes.isEmpty { return true }
-        return profile.followedFamilies.contains(fiche.family) || !profile.followedThemes.isDisjoint(with: fiche.themes)
+        if profile.followedFamilies.isEmpty && profile.followedThemes.isEmpty && profile.followedFicheIDs.isEmpty { return true }
+        return profile.followedFamilies.contains(fiche.family)
+            || !profile.followedThemes.isDisjoint(with: fiche.themes)
+            || profile.followedFicheIDs.contains(fiche.id)
     }
 
     // MARK: Pondération et tirage

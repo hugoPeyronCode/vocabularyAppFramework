@@ -33,6 +33,15 @@ public enum Rules {
     /// Une fiche apparue au feed compte comme vue après ce délai à l'écran (secondes).
     public static let ficheViewedDelay: TimeInterval = 1
 
+    // MARK: Explorer et bibliothèque
+
+    /// Gratuit : nombre de fiches visibles dans une famille ou un thème avant le bandeau PRO.
+    public static let freeFichesPerTopic = 3
+    public static let searchMaxResults = 50
+    /// Historique : jours affichés par page ("Voir plus ancien").
+    public static let historyPageDays = 7
+    public static let ownWordMinLength = 1
+
     // MARK: Révisions (Leitner)
 
     public static let maxBox = 4

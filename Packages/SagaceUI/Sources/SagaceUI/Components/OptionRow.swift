@@ -10,7 +10,7 @@ public struct OptionRow: View {
         case outline(Color)
     }
 
-    let title: LocalizedStringKey
+    let title: Text
     let description: LocalizedStringKey?
     let detail: LocalizedStringKey?
     let systemImage: String?
@@ -39,9 +39,25 @@ public struct OptionRow: View {
         haptic: HapticEvent? = .soft,
         action: @escaping () -> Void
     ) {
-        self.title = title; self.description = description; self.detail = detail
+        self.title = Text(title); self.description = description; self.detail = detail
         self.systemImage = systemImage; self.iconTint = iconTint; self.selectionStyle = selectionStyle
         self.isSelected = isSelected; self.boldOnSelection = boldOnSelection; self.haptic = haptic
+        self.action = action
+    }
+
+    /// Ligne dont le titre vient de l'utilisateur ou du contenu (nom de collection, mot) et n'est pas localisé.
+    public init(
+        verbatim title: String,
+        detail: LocalizedStringKey? = nil,
+        systemImage: String? = nil,
+        selectionStyle: SelectionStyle = .outline(.vBlue),
+        isSelected: Bool,
+        haptic: HapticEvent? = .soft,
+        action: @escaping () -> Void
+    ) {
+        self.title = Text(verbatim: title); self.description = nil; self.detail = detail
+        self.systemImage = systemImage; self.iconTint = nil; self.selectionStyle = selectionStyle
+        self.isSelected = isSelected; self.boldOnSelection = false; self.haptic = haptic
         self.action = action
     }
 
@@ -60,7 +76,7 @@ public struct OptionRow: View {
                         .font(.system(size: 13, weight: .bold))
                         .foregroundStyle(isFilled ? foreground : (iconTint ?? .vTextSecondary))
                 }
-                Text(title)
+                title
                     .fontStyle(.rowTitle)
                     .foregroundStyle(foreground)
                 Spacer(minLength: 8)

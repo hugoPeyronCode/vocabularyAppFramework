@@ -21,6 +21,13 @@
         "identifier" : "SagaceDataTests",
         "name" : "SagaceDataTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages/SagaceUI",
+        "identifier" : "SagaceUITests",
+        "name" : "SagaceUITests"
+      }
     }
   ],
   "version" : 1

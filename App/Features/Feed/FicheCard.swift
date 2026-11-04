@@ -8,6 +8,7 @@ import SwiftUI
 struct FicheCard: View {
     let fiche: Fiche
     let familyName: String
+    let onSpeak: () -> Void
     let onPractice: () -> Void
 
     var body: some View {
@@ -50,6 +51,7 @@ struct FicheCard: View {
             HStack(spacing: 8) {
                 Text(fiche.grammarLabel)
                 Text(verbatim: fiche.phonetic)
+                CircleButton(systemImage: "speaker.wave.2", accessibilityLabel: "Écouter", size: 32, isActive: true, action: onSpeak)
             }
             .textStyle(.meta)
             .padding(.top, 4)
