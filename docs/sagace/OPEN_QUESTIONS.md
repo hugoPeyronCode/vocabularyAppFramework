@@ -29,3 +29,11 @@
 | 23 | Le modèle `Collection` de la spec masque `Swift.Collection` | renommé `UserCollection` | M2 |
 | 24 | Test d'interface de la migration (XCUITest) demandé par `04_MIGRATION.md` | migration couverte par 8 tests unitaires + vérification manuelle sur simulateur ; cible XCUITest à créer en M4 avec les tests d'achat | M4 |
 | 25 | Pack embarqué : `content/fr/fiches.json` (sortie du pipeline M8) n'existe pas encore | une phase de script copie `content/fr/seed_fiches.json` vers `Content/fr/fiches.json` dans le bundle ; à pointer sur la sortie du pipeline en M8 | M8 |
+| 26 | Collections : « collections illimitées » en premium, mais quelle limite en gratuit ? | aucune limite en M2, à fixer avec les verrous PRO en M4 | M4 |
+| 27 | Signalements (DET-02) et mots proposés (EXP-03) : l'envoi par mail prérempli de la question n° 8 suppose une adresse de réception | file locale seulement (visible dans Explorer › Signalés) ; envoi à brancher quand l'adresse ou l'endpoint existe | M7 |
+| 28 | SHR-01 « Messages » | affiché seulement si l'appareil peut envoyer des messages ; « Partager… » couvre les autres apps | M2 |
+| 29 | Textes d'état vide non écrits dans la spec (À retenir, Historique, Signalés, collection vide) | textes provisoires courts, à relire par Hugo | M7 |
+| 30 | Collections suggérées (« Écrire au travail », « Pièges des mails », « Bac de français ») : avec quelles fiches ? | créées vides tant qu'il n'y a pas de sélection éditoriale | M8 |
+| 31 | Illustrations des familles, thèmes, états vides et MIG-01 | symboles SF en attendant les images de `08_ILLUSTRATIONS.md` | M7 |
+| 32 | « Suivre » une famille ou un thème (EXP-02) et « Modifier » (EXP-01) | réservés au premium (« tous les filtres de familles et thèmes »), paywall sinon | M4 |
+| 33 | Texte d'autorisation Photos (« Enregistrer l'image ») | en build setting, en français ; à passer dans un `InfoPlist.xcstrings` avec l'anglais (M8) | M8 |

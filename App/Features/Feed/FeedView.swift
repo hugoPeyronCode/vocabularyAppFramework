@@ -100,7 +100,9 @@ struct FeedView: View {
         switch page.item {
         case .fiche(let id):
             if let fiche = viewModel.fiche(id) {
-                FicheCard(fiche: fiche, familyName: viewModel.familyName(of: fiche)) { router.open(.practice) }
+                FicheCard(fiche: fiche, familyName: viewModel.familyName(of: fiche), onSpeak: { viewModel.speak(id) }) {
+                    router.open(.practice)
+                }
             }
         case .review(let id):
             if let card = viewModel.reviews[id] {

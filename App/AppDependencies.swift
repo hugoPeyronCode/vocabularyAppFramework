@@ -20,6 +20,8 @@ final class AppDependencies {
     private(set) var state: State = .loading
     let container: ModelContainer
     let store: ProgressStore
+    let library: LibraryStore
+    let audio = AudioService()
     let router = AppRouter()
     let haptics = HapticsService.shared
     let analytics: any Analytics = ConsoleAnalytics()
@@ -39,7 +41,9 @@ final class AppDependencies {
         }
         now = Self.makeClock()
         store = ProgressStore(context: container.mainContext, day: day)
+        library = LibraryStore(context: container.mainContext, now: now)
         haptics.isEnabled = store.preferences.hapticsEnabled
+        audio.voiceIdentifier = store.preferences.voiceIdentifier
     }
 
     private static func makeClock() -> () -> Date {

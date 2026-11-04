@@ -17,5 +17,6 @@ let package = Package(
             dependencies: ["SagaceCore"],
             resources: [.process("Resources")]
         ),
+        .testTarget(name: "SagaceUITests", dependencies: ["SagaceUI"]),
     ]
 )

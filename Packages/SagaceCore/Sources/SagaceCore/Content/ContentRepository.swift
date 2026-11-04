@@ -24,6 +24,9 @@ public struct ContentRepository: Sendable {
     private let byFamily: [Family: [Fiche]]
     private let byTheme: [String: [Fiche]]
     private let byLevel: [Int: [Fiche]]
+    private let byHeadword: [String: Fiche]
+    /// Index de recherche (EXP-03), construit au chargement.
+    public let searchIndex: SearchIndex
 
     public init(fiches all: [Fiche], visibility: Visibility = .production) {
         let issues = FicheValidator.validate(all)
@@ -36,6 +39,8 @@ public struct ContentRepository: Sendable {
         self.byID = Dictionary(visible.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         self.byFamily = Dictionary(grouping: visible, by: \.family)
         self.byLevel = Dictionary(grouping: visible, by: \.level)
+        self.byHeadword = Dictionary(visible.map { (SearchIndex.normalize($0.headword), $0) }, uniquingKeysWith: { first, _ in first })
+        self.searchIndex = SearchIndex(fiches: visible)
         var byTheme: [String: [Fiche]] = [:]
         for fiche in visible {
             for theme in fiche.themes { byTheme[theme, default: []].append(fiche) }
@@ -75,4 +80,7 @@ public struct ContentRepository: Sendable {
     public func fiches(theme: String) -> [Fiche] { byTheme[theme] ?? [] }
 
     public func fiches(level: Level) -> [Fiche] { byLevel[level.rawValue] ?? [] }
+
+    /// Fiche d'un mot (casse et accents ignorés), pour ouvrir un synonyme depuis la fiche détaillée.
+    public func fiche(headword: String) -> Fiche? { byHeadword[SearchIndex.normalize(headword)] }
 }

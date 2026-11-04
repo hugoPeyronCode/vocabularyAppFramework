@@ -8,6 +8,7 @@ public enum AnalyticsEvent: Equatable, Sendable {
     case ficheMastered(ficheID: String, daysToMaster: Int)
     case dailyGoalCompleted(streak: Int)
     case migrationV3Completed(hadSavedWords: Bool, wasPremium: Bool)
+    case errorReported(ficheID: String, reason: ReportReason)
 
     public var name: String {
         switch self {
@@ -17,6 +18,7 @@ public enum AnalyticsEvent: Equatable, Sendable {
         case .ficheMastered: "fiche_mastered"
         case .dailyGoalCompleted: "daily_goal_completed"
         case .migrationV3Completed: "migration_v3_completed"
+        case .errorReported: "error_reported"
         }
     }
 
@@ -34,6 +36,8 @@ public enum AnalyticsEvent: Equatable, Sendable {
             ["streak": String(streak)]
         case let .migrationV3Completed(hadSavedWords, wasPremium):
             ["had_saved_words": String(hadSavedWords), "was_premium": String(wasPremium)]
+        case let .errorReported(id, reason):
+            ["fiche_id": id, "reason": reason.rawValue]
         }
     }
 }

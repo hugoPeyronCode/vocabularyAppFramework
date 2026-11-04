@@ -1,16 +1,28 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
-    "Fermer" : {
-      "comment" : "Libellé VoiceOver du bouton rond xmark qui ferme une sheet.",
-      "extractionState" : "manual"
-    },
     "Bonne réponse" : {
       "comment" : "Valeur VoiceOver d'une réponse juste.",
       "extractionState" : "manual"
     },
+    "Débloquer" : {
+      "comment" : "Bouton du bandeau PRO, ouvre le paywall.",
+      "extractionState" : "manual"
+    },
+    "Effacer" : {
+      "comment" : "Libellé VoiceOver du bouton qui vide la recherche.",
+      "extractionState" : "manual"
+    },
+    "Fermer" : {
+      "comment" : "Libellé VoiceOver du bouton rond xmark qui ferme une sheet.",
+      "extractionState" : "manual"
+    },
     "Mauvaise réponse" : {
       "comment" : "Valeur VoiceOver d'une réponse fausse.",
+      "extractionState" : "manual"
+    },
+    "Réservé aux membres PRO" : {
+      "comment" : "Bandeau violet et cadenas des fonctions premium.",
       "extractionState" : "manual"
     }
   },

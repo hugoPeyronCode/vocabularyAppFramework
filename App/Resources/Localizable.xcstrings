@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
+    "%@ : %@. Via Sagace." : {},
+    "%@ · %@" : {},
+    "%@ ≠ %@. %@ : %@. %@ : %@. Via Sagace." : {},
     "%@, %@ (%@)" : {
       "shouldTranslate" : false
     },
@@ -9,6 +12,28 @@
     },
     "%lld %%" : {
       "shouldTranslate" : false
+    },
+    "%lld fiches" : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld fiche"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld fiches"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "%lld/%lld" : {
       "shouldTranslate" : false
@@ -48,19 +73,32 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
     },
+    "A à Z" : {},
     "adj." : {},
     "adj. · /e.mi.nɑ̃/" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Adjectif" : {},
     "adv." : {},
+    "Adverbe" : {},
+    "Ajouter" : {},
+    "Ajouter à une collection" : {},
+    "Ajoutez des fiches depuis leur page détaillée." : {},
+    "Ajoutez un mot qui vous pose problème." : {},
     "Annuel" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Annuler" : {},
+    "Au moins un caractère." : {},
+    "Aucune fiche pour « %@ »." : {},
     "Aucune fiche triée ce jour-là." : {},
     "Automatique" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Autre" : {},
     "Avancé" : {},
+    "Bac de français" : {},
+    "Bibliothèque" : {},
     "Bien retenu." : {},
     "Bien retenu. Prochaine révision dans %lld jours." : {
       "localizations" : {
@@ -85,6 +123,7 @@
       }
     },
     "Bientôt disponible." : {},
+    "Bon usage" : {},
     "Boutons" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -92,12 +131,15 @@
     "Carte du jour" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Chercher un mot" : {},
+    "Chez les auteurs" : {},
     "Chips" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Clair" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Collections" : {},
     "Combien de fiches par jour ?" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -113,12 +155,37 @@
     "Continuer" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Copier le texte" : {},
     "Couleurs" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "courant" : {},
     "critiqué" : {},
+    "Créer une collection" : {},
     "Célébration" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "dans %lld jours" : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "dans %lld jour"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "dans %lld jours"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "Design system" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -134,14 +201,25 @@
     },
     "Débutant" : {},
     "Découvrir" : {},
+    "Définition" : {},
+    "Définition inexacte" : {},
     "Effets" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Enregistrer l'image" : {},
+    "Envoyer" : {},
     "Erreur" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Exemple maladroit" : {},
+    "Exemples" : {},
     "Expert" : {},
     "Explorer" : {},
+    "Expression" : {},
+    "familier" : {},
+    "Familles" : {},
+    "Familles et thèmes suivis" : {},
+    "Faute dans le texte" : {},
     "fautif" : {},
     "Fermer" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -152,10 +230,13 @@
     "Fort" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Féminin" : {},
     "Glissez vers le haut pour la fiche suivante." : {},
     "Haptiques" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Historique" : {},
+    "Image enregistrée" : {},
     "imminent" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -166,11 +247,13 @@
     "Je savais" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "je savais" : {},
     "Jeu" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Juste ou fautif" : {},
     "Le contenu n'a pas pu être chargé." : {},
+    "Le feed ne propose que les fiches suivies. Rien de coché : toutes les fiches." : {},
     "Le mot juste" : {},
     "Le mot juste, sans limite." : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -181,27 +264,45 @@
     "Les autres onglets arrivent au jalon M5." : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Les fiches triées « À retenir » apparaîtront ici." : {},
+    "Les fiches vues apparaîtront ici, jour par jour." : {},
     "Lignes d'option" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "littéraire" : {},
     "loc." : {},
     "Léger" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Masculin" : {},
+    "maîtrisé" : {},
     "Maîtrisé : %@" : {},
     "Maîtrisées" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Maîtrisés" : {},
+    "Merci, on corrige sous 7 jours." : {},
+    "Merci, on étudie ce mot." : {},
+    "Mes mots" : {},
+    "Messages" : {},
+    "Modifier" : {},
+    "Mot" : {},
+    "Mot proposé" : {},
+    "mots maîtrisés" : {},
     "n." : {},
     "n. f." : {},
     "n. m." : {},
     "Niveau %lld sur 5" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Nom" : {},
     "Notifications" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "nouveau" : {},
     "Nouveau nom, nouvelle app : des fiches pour employer le mot juste, des révisions pour les retenir, un nouveau design clair et sombre." : {},
+    "Nouvelle collection" : {},
+    "Nuance" : {},
     "Objectif atteint · %lld fiches · Série : %lld jours" : {
       "localizations" : {
         "fr" : {
@@ -236,6 +337,7 @@
     },
     "On dit : %@" : {},
     "On évite : %@" : {},
+    "Ordre d'ajout" : {},
     "Oui, recommencer" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -248,7 +350,9 @@
     "Partager" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Partager…" : {},
     "Passer" : {},
+    "Pièges des mails" : {},
     "Plus tard" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -261,6 +365,8 @@
     "Prochain lot dans %lld h" : {},
     "Prochain lot dans %lld h." : {},
     "Profil" : {},
+    "Proposer ce mot ?" : {},
+    "Précisez si vous le souhaitez" : {},
     "Précision" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -268,6 +374,10 @@
     "Qui s'élève au dessus des autres par son mérite ou son rang." : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Regroupez vos fiches, par exemple « Réunions » ou « Mémoire de fin d'études »." : {},
+    "Renommer" : {},
+    "Renommer la collection" : {},
+    "Retirer de la collection" : {},
     "Retour" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -278,23 +388,40 @@
     "Régulier, 3 minutes" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Réviser maintenant" : {},
     "Révision" : {},
+    "Révision aujourd'hui" : {},
+    "Révision demain" : {},
     "S'entraîner" : {},
     "Sagace Premium" : {},
     "SagaceUI" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
     },
+    "Sens" : {},
     "Sheet et onglets" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Signaler une erreur" : {},
+    "Signalés" : {},
     "Sombre" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Sources" : {},
+    "soutenu" : {},
     "Stats" : {},
     "Succès" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Suggestions" : {},
+    "Suivi" : {},
+    "Suivie" : {},
+    "Suivie dans le feed" : {},
+    "Suivre" : {},
+    "Suivre dans le feed" : {},
+    "Supprimer" : {},
+    "Supprimer cette collection ?" : {},
+    "Synonymes" : {},
     "Sélection" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -320,6 +447,8 @@
         }
       }
     },
+    "Texte copié" : {},
+    "Thèmes" : {},
     "toléré" : {},
     "Touchez i pour les nuances et les sources" : {},
     "Touchez longuement l'écran d'accueil, puis Modifier, puis Ajouter un widget, et cherchez Sagace." : {},
@@ -336,7 +465,10 @@
     "Un jeu de 2 minutes ?" : {},
     "Une fiche sur votre écran d'accueil." : {},
     "v." : {},
+    "Verbe" : {},
+    "Voir plus ancien" : {},
     "Vos mots aimés ont été gardés (%lld)." : {},
+    "Vos signalements et suggestions apparaîtront ici." : {},
     "Votre abonnement est conservé." : {},
     "Vous avez maîtrisé %lld mots." : {
       "localizations" : {
@@ -387,13 +519,17 @@
     "À retenir" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "à retenir" : {},
     "À vie" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Écouter" : {},
+    "Écrire au travail" : {},
     "Élémentaire" : {},
     "éminent" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
-    }
+    },
+    "Étymologie" : {}
   },
   "version" : "1.0"
 }
