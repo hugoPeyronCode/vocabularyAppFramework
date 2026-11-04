@@ -15,12 +15,13 @@ enum DebugLaunch {
 
     static var autoplay: Bool { ProcessInfo.processInfo.arguments.contains("-autoplay") }
 
-    /// `-debugSheet practice | levelTest | game:<jeu> | challenge:<rush|sprint|perfection>`
+    /// `-debugSheet practice | paywall | levelTest | game:<jeu> | challenge:<rush|sprint|perfection>`
     static var sheet: Sheet? {
         guard let value = value(after: "-debugSheet") else { return nil }
         let parts = value.split(separator: ":").map(String.init)
         switch parts.first {
         case "practice": return .practice
+        case "paywall": return .paywall(.crown)
         case "levelTest": return .levelTest
         case "game": return parts.last.flatMap(GameType.init(rawValue:)).map { .session(.game($0)) }
         case "challenge":

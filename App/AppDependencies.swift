@@ -26,7 +26,7 @@ final class AppDependencies {
     let router = AppRouter()
     let haptics = HapticsService.shared
     let analytics: any Analytics = ConsoleAnalytics()
-    let entitlements = EntitlementService()
+    let entitlements: EntitlementService
     let day = SagaceDay()
     /// Horloge de l'app. En debug, `-debugDaysAhead <n>` la décale pour tester révisions et séries.
     let now: () -> Date
@@ -41,6 +41,7 @@ final class AppDependencies {
             container = try! SagaceStore.makeContainer(inMemory: true)
         }
         now = Self.makeClock()
+        entitlements = EntitlementService(trialReminders: TrialReminderScheduler(), analytics: analytics, now: now)
         store = ProgressStore(context: container.mainContext, day: day)
         library = LibraryStore(context: container.mainContext, now: now)
         practice = PracticeStore(context: container.mainContext, day: day)
@@ -81,7 +82,7 @@ final class AppDependencies {
             if !content.issues.isEmpty { logger.error("Fiches écartées : \(content.issues.map(\.description))") }
             await migrateFromV3IfNeeded(content: content)
             if router.fullScreen == nil {
-                await entitlements.refresh(legacyPremiumFlag: store.profile.legacyPremiumFlag)
+                await entitlements.start(legacyPremiumFlag: store.profile.legacyPremiumFlag)
             }
             state = .ready(content: content, topics: topics)
         } catch {
@@ -102,7 +103,7 @@ final class AppDependencies {
         }
         // Les rappels v3 sont retirés ; la replanification selon le nouveau modèle arrive avec ReminderScheduler (M5).
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        await entitlements.refresh(legacyPremiumFlag: report.legacyPremiumFlag)
+        await entitlements.start(legacyPremiumFlag: report.legacyPremiumFlag)
         analytics.track(.migrationV3Completed(hadSavedWords: report.hadSavedWords, wasPremium: entitlements.isPremium))
         router.fullScreen = .migration(report, isPremium: entitlements.isPremium)
     }

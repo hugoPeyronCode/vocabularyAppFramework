@@ -34,6 +34,20 @@
                ReferencedContainer = "container:Packages/SagaceCore">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5A6E00000000000000000070"
+               BuildableName = "SagaceAppTests.xctest"
+               BlueprintName = "SagaceAppTests"
+               ReferencedContainer = "container:VocabularyAppFramework.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

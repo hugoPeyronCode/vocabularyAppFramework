@@ -56,10 +56,12 @@ enum TopicKind: Hashable {
 
 enum FullScreen: Identifiable, Equatable {
     case migration(V3MigrationReport, isPremium: Bool)
+    case onboarding(OnboardingFlow)
 
     var id: String {
         switch self {
         case .migration: "migration"
+        case .onboarding: "onboarding"
         }
     }
 }

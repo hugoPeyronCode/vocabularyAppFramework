@@ -11,6 +11,9 @@ public struct QuestionFactory: Sendable {
         self.fiches = fiches
     }
 
+    /// Tout le pack connu de la fabrique.
+    public var allFiches: [Fiche] { fiches }
+
     // MARK: Sessions
 
     /// Une session d'un jeu : jusqu'à `count` questions, une par fiche, quiz écrits d'abord.

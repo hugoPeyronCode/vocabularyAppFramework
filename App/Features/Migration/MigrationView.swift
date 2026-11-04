@@ -3,11 +3,12 @@ import SagaceUI
 import SwiftUI
 
 /// Écran unique de mise à jour depuis Words v3 (MIG-01).
-/// "Découvrir" mènera au mini test et au rythme quand l'onboarding existera (M4) ; en attendant, les deux boutons ouvrent le feed.
+/// "Découvrir" mène au mini test et au rythme (ONB-05 à 08) ; "Passer" ouvre le feed.
 struct MigrationView: View {
     let report: V3MigrationReport
     let isPremium: Bool
     let onFinish: () -> Void
+    let onDiscover: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -31,7 +32,7 @@ struct MigrationView: View {
                     .textStyle(.body)
             }
             Spacer()
-            PrimaryButton("Découvrir", action: onFinish)
+            PrimaryButton("Découvrir", action: onDiscover)
             Button(action: onFinish) {
                 Text("Passer")
                     .fontStyle(.button)

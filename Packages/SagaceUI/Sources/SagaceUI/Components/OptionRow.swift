@@ -18,6 +18,7 @@ public struct OptionRow: View {
     let selectionStyle: SelectionStyle
     let isSelected: Bool
     let boldOnSelection: Bool
+    let alwaysShowsDescription: Bool
     let haptic: HapticEvent?
     let action: () -> Void
     @Environment(\.haptics) private var haptics
@@ -27,6 +28,7 @@ public struct OptionRow: View {
     ///   - detail: texte court à droite (prix, badge).
     ///   - iconTint: couleur de l'icône au repos (point de niveau).
     ///   - boldOnSelection: texte en gras sur un fond peu contrasté (bronze).
+    ///   - alwaysShowsDescription: description visible même non sélectionnée (plans du paywall).
     public init(
         _ title: LocalizedStringKey,
         description: LocalizedStringKey? = nil,
@@ -36,12 +38,14 @@ public struct OptionRow: View {
         selectionStyle: SelectionStyle = .outline(.vBlue),
         isSelected: Bool,
         boldOnSelection: Bool = false,
+        alwaysShowsDescription: Bool = false,
         haptic: HapticEvent? = .soft,
         action: @escaping () -> Void
     ) {
         self.title = Text(title); self.description = description; self.detail = detail
         self.systemImage = systemImage; self.iconTint = iconTint; self.selectionStyle = selectionStyle
-        self.isSelected = isSelected; self.boldOnSelection = boldOnSelection; self.haptic = haptic
+        self.isSelected = isSelected; self.boldOnSelection = boldOnSelection
+        self.alwaysShowsDescription = alwaysShowsDescription; self.haptic = haptic
         self.action = action
     }
 
@@ -57,7 +61,7 @@ public struct OptionRow: View {
     ) {
         self.title = Text(verbatim: title); self.description = nil; self.detail = detail
         self.systemImage = systemImage; self.iconTint = nil; self.selectionStyle = selectionStyle
-        self.isSelected = isSelected; self.boldOnSelection = false; self.haptic = haptic
+        self.isSelected = isSelected; self.boldOnSelection = false; self.alwaysShowsDescription = false; self.haptic = haptic
         self.action = action
     }
 
@@ -92,7 +96,7 @@ public struct OptionRow: View {
                         .transition(.scale.combined(with: .opacity))
                 }
             }
-            if isSelected, let description {
+            if isSelected || alwaysShowsDescription, let description {
                 Text(description)
                     .fontStyle(.body)
                     .fontWeight(boldOnSelection ? .semibold : .regular)
@@ -105,7 +109,7 @@ public struct OptionRow: View {
         .multilineTextAlignment(.leading)
         .padding(.horizontal, 18)
         .padding(.vertical, 14)
-        .frame(maxWidth: .infinity, minHeight: isSelected && description != nil ? SagaceMetrics.rowExpandedHeight : SagaceMetrics.rowHeight, alignment: .leading)
+        .frame(maxWidth: .infinity, minHeight: (isSelected || alwaysShowsDescription) && description != nil ? SagaceMetrics.rowExpandedHeight : SagaceMetrics.rowHeight, alignment: .leading)
         .background(background, in: .rect(cornerRadius: SagaceMetrics.rowRadius, style: .continuous))
         .overlay {
             if case .outline(let color) = selectionStyle, isSelected {
