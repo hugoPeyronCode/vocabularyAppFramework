@@ -17,5 +17,5 @@
 | 11 | Validation des 25 fiches modèles (`content/fr/seed_fiches.json`, statut draft) | Hugo relit avant le lancement du pipeline | M8 |
 | 12 | Textes de description des 5 niveaux (ligne dépliée de PRA-08 et du sélecteur de niveau) | à écrire par Hugo ; la démo M0 affiche « Niveau n sur 5 » | M3 |
 | 13 | Sheet flottante : sur iOS 26 le système fait déjà flotter la sheet (marge et rayon système, proches de 12 pt et 44 pt) et garde son verre si le fond est transparent | iOS 26 : sheet système flottante avec fond `surface` ; iOS 18 : sheet dessinée par `SheetContainer` à 12 pt des bords (non vérifiée faute de simulateur iOS 18 sur le Mac) | M1 |
-| 14 | Les commandes de CLAUDE.md visent le simulateur `iPhone 16`, absent avec Xcode 26.1 | build et tests faits sur `iPhone 17 Pro` ; mettre à jour CLAUDE.md si Hugo est d'accord | M0 |
+| 14 | Les commandes de CLAUDE.md visaient le simulateur `iPhone 16`, absent avec Xcode 26.1 | tranché : CLAUDE.md passe à `iPhone 17 Pro` | M0 |
 | 15 | Nom affiché sur l'écran d'accueil (`CFBundleDisplayName = Words`) | inchangé jusqu'à M9 (icône, captures, version 4.0) | M9 |

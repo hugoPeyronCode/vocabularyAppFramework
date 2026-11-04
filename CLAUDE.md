@@ -23,8 +23,8 @@ Une app française qui apprend à employer le mot juste au quotidien : une fiche
 3. Écrire les tests de `SagaceCore` avant ou avec le code.
 4. Build et tests à chaque étape :
    ```
-   xcodebuild -scheme VocabularyAppFramework -destination 'platform=iOS Simulator,name=iPhone 16' build
-   xcodebuild -scheme VocabularyAppFramework -destination 'platform=iOS Simulator,name=iPhone 16' test
+   xcodebuild -scheme VocabularyAppFramework -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+   xcodebuild -scheme VocabularyAppFramework -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test
    swift test --package-path Packages/SagaceCore
    ```
 5. Vérifier chaque écran en clair **et** en sombre, en Dynamic Type standard et XXL.
