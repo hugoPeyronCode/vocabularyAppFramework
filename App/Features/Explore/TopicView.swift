@@ -44,6 +44,14 @@ final class TopicViewModel {
 
     var isPremium: Bool { entitlements.isPremium }
 
+    /// "S'entraîner sur cette famille" (EXP-02), ou sur les fiches du thème.
+    var practiceRequest: PracticeRequest {
+        switch kind {
+        case .family(let family): .family(family)
+        case .theme: .fiches(rows.map(\.fiche.id))
+        }
+    }
+
     /// Fiches visibles : toutes en premium, les 3 premières en gratuit.
     var visibleRows: [Row] { isPremium ? rows : Array(rows.prefix(Rules.freeFichesPerTopic)) }
     var isLocked: Bool { !isPremium && rows.count > Rules.freeFichesPerTopic }
@@ -113,7 +121,7 @@ struct TopicView: View {
                                 router.requirePremium(.proBanner, isPremium: viewModel.isPremium) { viewModel.toggleFollow() }
                             }
                         }
-                        SecondaryButton("S'entraîner", systemImage: "play.fill") { router.open(.practice) }
+                        SecondaryButton("S'entraîner", systemImage: "play.fill") { router.open(.session(viewModel.practiceRequest)) }
                     }
                     VStack(spacing: SagaceMetrics.rowSpacing) {
                         ForEach(viewModel.visibleRows) { row in

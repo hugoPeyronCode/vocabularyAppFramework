@@ -21,6 +21,7 @@ final class AppDependencies {
     let container: ModelContainer
     let store: ProgressStore
     let library: LibraryStore
+    let practice: PracticeStore
     let audio = AudioService()
     let router = AppRouter()
     let haptics = HapticsService.shared
@@ -42,6 +43,7 @@ final class AppDependencies {
         now = Self.makeClock()
         store = ProgressStore(context: container.mainContext, day: day)
         library = LibraryStore(context: container.mainContext, now: now)
+        practice = PracticeStore(context: container.mainContext, day: day)
         haptics.isEnabled = store.preferences.hapticsEnabled
         audio.voiceIdentifier = store.preferences.voiceIdentifier
     }

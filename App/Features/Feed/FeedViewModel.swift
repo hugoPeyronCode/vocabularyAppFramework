@@ -62,6 +62,7 @@ final class FeedViewModel {
     private let topics: Topics
     private let store: any ProgressStoring
     private let library: any LibraryStoring
+    private let practice: any PracticeRecording
     private let audio: any Speaking
     private let entitlements: any PremiumProviding
     private let haptics: any HapticPlaying
@@ -78,10 +79,11 @@ final class FeedViewModel {
 
     init(
         content: ContentRepository, topics: Topics, store: any ProgressStoring, library: any LibraryStoring,
-        audio: any Speaking, entitlements: any PremiumProviding, haptics: any HapticPlaying, analytics: any Analytics,
+        practice: any PracticeRecording, audio: any Speaking, entitlements: any PremiumProviding, haptics: any HapticPlaying, analytics: any Analytics,
         day: SagaceDay, defaults: UserDefaults = .standard, now: @escaping () -> Date = { .now }
     ) {
-        self.content = content; self.topics = topics; self.store = store; self.library = library; self.audio = audio
+        self.content = content; self.topics = topics; self.store = store; self.library = library
+        self.practice = practice; self.audio = audio
         self.entitlements = entitlements
         self.haptics = haptics; self.analytics = analytics; self.day = day; self.defaults = defaults; self.now = now
         self.engine = FeedEngine(day: day)
@@ -223,6 +225,15 @@ final class FeedViewModel {
         let index = pages.firstIndex { $0.id == currentPageID }.map { $0 + 1 } ?? 0
         pages.insert(contentsOf: replayPages, at: index)
         withAnimation(SagaceMotion.page) { currentPageID = first.id }
+    }
+
+    /// FEED-04 : trois jeux, ceux de la compétence la plus faible d'abord.
+    var suggestedGames: [GameType] {
+        let stats = PracticeStats(day: day)
+        let accuracy = stats.accuracy(practice.answers(), at: now())
+        let bySkill = Skill.allCases.sorted { (accuracy[$0]?.percent ?? 100) < (accuracy[$1]?.percent ?? 100) }
+        let weakestFirst = stats.suggestedSkill(accuracy) == nil ? [GameType.motJuste, .paronymes, .justeOuFautif] : bySkill.flatMap(\.games)
+        return Array(weakestFirst.prefix(3))
     }
 
     func speak(_ ficheID: String) {

@@ -1,6 +1,30 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
+    "%lld vies" : {
+      "comment" : "VoiceOver des vies restantes en défi Rush.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld vie"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld vies"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Bonne réponse" : {
       "comment" : "Valeur VoiceOver d'une réponse juste.",
       "extractionState" : "manual"
@@ -19,6 +43,10 @@
     },
     "Mauvaise réponse" : {
       "comment" : "Valeur VoiceOver d'une réponse fausse.",
+      "extractionState" : "manual"
+    },
+    "Question %lld sur %lld" : {
+      "comment" : "VoiceOver de la barre de progression d'une session.",
       "extractionState" : "manual"
     },
     "Réservé aux membres PRO" : {

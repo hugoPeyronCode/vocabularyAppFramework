@@ -13,6 +13,104 @@
     "%lld %%" : {
       "shouldTranslate" : false
     },
+    "%lld bonnes réponses" : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld bonne réponse"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld bonnes réponses"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld bonnes réponses d'affilée." : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld bonne réponse d'affilée."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld bonnes réponses d'affilée."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld bonnes réponses sur %lld." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@good@ sur %2$lld."
+          },
+          "substitutions" : {
+            "good" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg bonne réponse"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg bonnes réponses"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld bonnes réponses." : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld bonne réponse."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld bonnes réponses."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld fiches" : {
       "localizations" : {
         "fr" : {
@@ -42,6 +140,7 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
     },
+    "1 session gratuite aujourd'hui" : {},
     "10 fiches" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -59,6 +158,8 @@
     "3 jours gratuits, puis 29,99 € par an" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "30 questions, environ 5 minutes." : {},
+    "30 questions, environ 5 minutes. Pour mesurer votre précision et adapter vos fiches." : {},
     "49,99 €, une seule fois" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -69,6 +170,7 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
     },
+    "60 secondes pour un maximum de bonnes réponses. Les erreurs ne coûtent rien." : {},
     "A B C" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
@@ -124,6 +226,8 @@
     },
     "Bientôt disponible." : {},
     "Bon usage" : {},
+    "Bonne réponse : %@" : {},
+    "bonnes réponses" : {},
     "Boutons" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -136,6 +240,7 @@
     "Chips" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Choix du mot" : {},
     "Clair" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -143,6 +248,7 @@
     "Combien de fiches par jour ?" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Commencer" : {},
     "Commencer l'essai gratuit" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -193,6 +299,7 @@
     "Deux mots qui se ressemblent, deux sens différents." : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Devine le mot" : {},
     "Doux" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -203,6 +310,7 @@
     "Découvrir" : {},
     "Définition" : {},
     "Définition inexacte" : {},
+    "Défis" : {},
     "Effets" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -211,6 +319,7 @@
     "Erreur" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Exact." : {},
     "Exemple maladroit" : {},
     "Exemples" : {},
     "Expert" : {},
@@ -220,7 +329,9 @@
     "Familles" : {},
     "Familles et thèmes suivis" : {},
     "Faute dans le texte" : {},
+    "Fautif" : {},
     "fautif" : {},
+    "Faux" : {},
     "Fermer" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -251,6 +362,8 @@
     "Jeu" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Jeux" : {},
+    "Juste" : {},
     "Juste ou fautif" : {},
     "Le contenu n'a pas pu être chargé." : {},
     "Le feed ne propose que les fiches suivies. Rien de coché : toutes les fiches." : {},
@@ -301,6 +414,7 @@
     },
     "nouveau" : {},
     "Nouveau nom, nouvelle app : des fiches pour employer le mot juste, des révisions pour les retenir, un nouveau design clair et sombre." : {},
+    "Nouveau record : %lld" : {},
     "Nouvelle collection" : {},
     "Nuance" : {},
     "Objectif atteint · %lld fiches · Série : %lld jours" : {
@@ -344,6 +458,7 @@
     "Ouvrir une sheet" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Par famille" : {},
     "Paronymes" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -351,8 +466,13 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Partager…" : {},
+    "Pas encore assez de fiches pour ce jeu." : {},
+    "Pas tout à fait." : {},
+    "Passe partout" : {},
     "Passer" : {},
+    "Perfection" : {},
     "Pièges des mails" : {},
+    "Plus de vies !" : {},
     "Plus tard" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -374,20 +494,25 @@
     "Qui s'élève au dessus des autres par son mérite ou son rang." : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Record : %lld" : {},
     "Regroupez vos fiches, par exemple « Réunions » ou « Mémoire de fin d'études »." : {},
+    "Rejouer" : {},
     "Renommer" : {},
     "Renommer la collection" : {},
+    "Repasser le test" : {},
     "Retirer de la collection" : {},
     "Retour" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Revoir ces fiches" : {},
+    "Rush" : {},
     "Réglages" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Régulier, 3 minutes" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Répondez au plus vite. 5 secondes par question, 3 vies." : {},
     "Réviser maintenant" : {},
     "Révision" : {},
     "Révision aujourd'hui" : {},
@@ -397,6 +522,40 @@
     "SagaceUI" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
+    },
+    "Sans limite de temps. La série s'arrête à la première erreur." : {},
+    "Score : %lld / %lld" : {},
+    "Score : %lld / %lld · %lld points avant %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Score : %1$lld / %2$lld · %#@points@ avant %4$@"
+          },
+          "substitutions" : {
+            "points" : {
+              "argNum" : 3,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg point"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg points"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "Sens" : {},
     "Sheet et onglets" : {
@@ -409,11 +568,14 @@
     },
     "Sources" : {},
     "soutenu" : {},
+    "Sprint" : {},
     "Stats" : {},
     "Succès" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Suggestions" : {},
+    "Suggéré" : {},
+    "Suivant" : {},
     "Suivi" : {},
     "Suivie" : {},
     "Suivie dans le feed" : {},
@@ -447,6 +609,11 @@
         }
       }
     },
+    "Série terminée à %lld." : {},
+    "Temps écoulé !" : {},
+    "Terminer" : {},
+    "Test de précision" : {},
+    "Testez votre précision" : {},
     "Texte copié" : {},
     "Thèmes" : {},
     "toléré" : {},
@@ -464,12 +631,15 @@
     },
     "Un jeu de 2 minutes ?" : {},
     "Une fiche sur votre écran d'accueil." : {},
+    "Usage" : {},
     "v." : {},
     "Verbe" : {},
     "Voir plus ancien" : {},
     "Vos mots aimés ont été gardés (%lld)." : {},
     "Vos signalements et suggestions apparaîtront ici." : {},
     "Votre abonnement est conservé." : {},
+    "Votre niveau : %@" : {},
+    "Votre session gratuite du jour est jouée." : {},
     "Vous avez maîtrisé %lld mots." : {
       "localizations" : {
         "fr" : {

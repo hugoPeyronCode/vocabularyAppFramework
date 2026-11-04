@@ -8,9 +8,30 @@ import SwiftData
 enum Sheet: Identifiable, Hashable {
     case explore, profile, stats, practice, day(Date)
     case fiche(String), share(String)
+    case session(PracticeRequest), challenge(ChallengeState.Kind), levelTest
     case paywall(PaywallSource)
 
     var id: Self { self }
+}
+
+/// Ce qu'on travaille dans une session (PRA-02).
+enum PracticeRequest: Hashable {
+    /// Un des 6 jeux, sur tout le pack.
+    case game(GameType)
+    /// "S'entraîner sur cette famille" (EXP-02).
+    case family(Family)
+    /// Fiches d'un thème ou d'une collection.
+    case fiches([String])
+    /// "Réviser maintenant" (LIB-01) : hors limite gratuite.
+    case review([String])
+
+    var mode: PracticeMode {
+        switch self {
+        case .game(let game): PracticeMode(rawValue: game.rawValue) ?? .mixed
+        case .family, .fiches: .mixed
+        case .review: .review
+        }
+    }
 }
 
 /// Points d'entrée du paywall (PAY-01).

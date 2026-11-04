@@ -55,6 +55,30 @@ final class ScreenFactory {
         AddToCollectionView(viewModel: AddToCollectionViewModel(ficheID: ficheID, library: dependencies.library, haptics: dependencies.haptics))
     }
 
+    // MARK: Practice
+
+    func practiceHub() -> some View {
+        PracticeHubView(viewModel: PracticeHubViewModel(
+            topics: topics, progress: dependencies.store, recorder: dependencies.practice,
+            entitlements: dependencies.entitlements, day: dependencies.day, now: dependencies.now
+        ))
+    }
+
+    func session(_ kind: PracticeSessionViewModel.Kind) -> some View {
+        PracticeSessionView(viewModel: PracticeSessionViewModel(
+            kind: kind, content: content, recorder: dependencies.practice, progress: dependencies.store,
+            entitlements: dependencies.entitlements, haptics: dependencies.haptics, analytics: dependencies.analytics,
+            now: dependencies.now
+        ))
+    }
+
+    func challenge(_ kind: ChallengeState.Kind) -> some View {
+        ChallengeView(viewModel: ChallengeViewModel(
+            kind: kind, content: content, recorder: dependencies.practice, entitlements: dependencies.entitlements,
+            haptics: dependencies.haptics, analytics: dependencies.analytics, now: dependencies.now
+        ))
+    }
+
     // MARK: Explorer et bibliothèque
 
     func explore() -> some View {

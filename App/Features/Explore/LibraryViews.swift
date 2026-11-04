@@ -104,7 +104,7 @@ struct ToLearnView: View {
                     if viewModel.toLearn.isEmpty {
                         EmptyState(systemImage: "bookmark", text: "Les fiches triées « À retenir » apparaîtront ici.")
                     } else {
-                        PrimaryButton("Réviser maintenant", systemImage: "play.fill") { router.open(.practice) }
+                        PrimaryButton("Réviser maintenant", systemImage: "play.fill") { router.open(.session(.review(viewModel.toLearn.map(\.fiche.id)))) }
                             .padding(.bottom, 6)
                         ForEach(viewModel.toLearn) { row in
                             NavigationLink(value: AppRoute.fiche(row.fiche.id)) {

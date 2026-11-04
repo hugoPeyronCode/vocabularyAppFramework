@@ -50,7 +50,8 @@ struct RootView: View {
 
     private func makeFeed(content: ContentRepository, topics: Topics) {
         let viewModel = FeedViewModel(
-            content: content, topics: topics, store: dependencies.store, library: dependencies.library, audio: dependencies.audio,
+            content: content, topics: topics, store: dependencies.store, library: dependencies.library,
+            practice: dependencies.practice, audio: dependencies.audio,
             entitlements: dependencies.entitlements, haptics: dependencies.haptics, analytics: dependencies.analytics,
             day: dependencies.day, now: dependencies.now
         )
@@ -58,6 +59,9 @@ struct RootView: View {
         viewModel.load()
         WidgetTip.daysSinceInstall = dependencies.day.days(from: dependencies.store.profile.createdAt, to: dependencies.now())
         feed = viewModel
+        #if DEBUG
+        if let sheet = DebugLaunch.sheet { dependencies.router.open(sheet) }
+        #endif
     }
 
     @ViewBuilder
@@ -74,7 +78,13 @@ struct RootView: View {
         case .stats:
             ComingSoonSheet(title: "Stats", systemImage: "chart.bar")
         case .practice:
-            ComingSoonSheet(title: "S'entraîner", systemImage: "gamecontroller")
+            factory.practiceHub()
+        case .session(let request):
+            factory.session(.session(request))
+        case .challenge(let kind):
+            factory.challenge(kind)
+        case .levelTest:
+            factory.session(.levelTest)
         case .fiche(let id):
             NavigationStack {
                 SheetContainer {
