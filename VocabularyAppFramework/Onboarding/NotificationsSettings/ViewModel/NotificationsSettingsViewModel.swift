@@ -22,7 +22,7 @@ enum NotificationSound: String, CaseIterable {
 }
 
 extension NotificationsSettingsView {
-    class NotificationManager {
+    @MainActor class NotificationManager {
         static let shared = NotificationManager()
         private let notificationId = "dailyReminder"
 
@@ -74,32 +74,22 @@ extension NotificationsSettingsView {
             sound: NotificationSound,
             completion: @escaping (_ granted: Bool, _ isFirstTime: Bool) -> Void
         ) {
-            UNUserNotificationCenter.current().getNotificationSettings { settings in
-                DispatchQueue.main.async {
-                    switch settings.authorizationStatus {
-                    case .notDetermined:
-                        self.requestNotificationPermission { granted in
-                            if granted {
-                                self.scheduleDailyNotification(at: preferredTime, sound: sound)
-                            }
-                            completion(granted, true)
-                        }
-                    case .authorized, .ephemeral:
-                        self.scheduleDailyNotification(at: preferredTime, sound: sound)
-                        completion(true, false)
-                    case .denied, .provisional:
-                        completion(false, false)
-                    @unknown default:
-                        completion(false, false)
+            Task {
+                let center = UNUserNotificationCenter.current()
+                switch await center.notificationSettings().authorizationStatus {
+                case .notDetermined:
+                    let granted = (try? await center.requestAuthorization(options: [.alert, .sound, .badge])) ?? false
+                    if granted {
+                        scheduleDailyNotification(at: preferredTime, sound: sound)
                     }
-                }
-            }
-        }
-
-        private func requestNotificationPermission(completion: @escaping (Bool) -> Void) {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
-                DispatchQueue.main.async {
-                    completion(granted)
+                    completion(granted, true)
+                case .authorized, .ephemeral:
+                    scheduleDailyNotification(at: preferredTime, sound: sound)
+                    completion(true, false)
+                case .denied, .provisional:
+                    completion(false, false)
+                @unknown default:
+                    completion(false, false)
                 }
             }
         }

@@ -1,0 +1,218 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "/e.mi.nɑ̃/ · 0:09" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "10 fiches" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "12" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "23" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "3 fiches" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "3 jours gratuits, puis 29,99 € par an" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "49,99 €, une seule fois" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "5 fiches" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "50 %" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "A B C" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "adj. · /e.mi.nɑ̃/" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Annuel" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Automatique" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Avancé" : {},
+    "Boutons" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Carte du jour" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Chips" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Clair" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Combien de fiches par jour ?" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Commencer l'essai gratuit" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Compte" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Contenu" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Continuer" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Couleurs" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Célébration" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Design system" : {},
+    "Deux mots qui se ressemblent, deux sens différents." : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Doux" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Débloquer plus de fiches" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Débutant" : {},
+    "Effets" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Erreur" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Expert" : {},
+    "Fermer" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Fiche détaillée" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Fort" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Haptiques" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "imminent" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Intensif, 6 minutes" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Intermédiaire" : {},
+    "Je savais" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Jeu" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Le mot juste, chaque jour." : {},
+    "Le mot juste, sans limite." : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Le plus choisi" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Les autres onglets arrivent au jalon M5." : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Lignes d'option" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Léger" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Maîtrisées" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Niveau %lld sur 5" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Notifications" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Oui, recommencer" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Ouvrir une sheet" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Paronymes" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Partager" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Plus tard" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Premium" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "PRO" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Précision" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Qui s'élève au dessus des autres par son mérite ou son rang." : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Retour" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Réglages" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Régulier, 3 minutes" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Sagace" : {},
+    "SagaceUI" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Sheet et onglets" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Sombre" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Succès" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Sélection" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Tout" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Tranquille, 1 minute" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Typographie" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "À retenir" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "À vie" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    },
+    "Élémentaire" : {},
+    "éminent" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement)."
+    }
+  },
+  "version" : "1.0"
+}

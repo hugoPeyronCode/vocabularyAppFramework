@@ -10,7 +10,7 @@ import SwiftUI
 
 class UserDataStorage {
 
-    static let shared = UserDataStorage()
+    nonisolated(unsafe) static let shared = UserDataStorage()
     
     private let wordsFilename = "savedWords.json"
 

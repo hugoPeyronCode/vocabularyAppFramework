@@ -8,7 +8,7 @@ import Foundation
 import SwiftUI
 
 class WordManager {
-    static let shared = WordManager()
+    nonisolated(unsafe) static let shared = WordManager()
 
     var allWords: Set<Word> = []
     var wordsByCategory: [String: Set<Word>] = [:]

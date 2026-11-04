@@ -8,7 +8,7 @@
 import Foundation
 
 class PremiumStatus {
-    static let shared = PremiumStatus()
+    nonisolated(unsafe) static let shared = PremiumStatus()
     
     private let userDefaults = UserDefaults.standard
     private let premiumAccessKey = "com.words.premiumAccess"

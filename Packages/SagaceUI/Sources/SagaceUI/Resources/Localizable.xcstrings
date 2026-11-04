@@ -1,0 +1,10 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "Fermer" : {
+      "comment" : "Libellé VoiceOver du bouton rond xmark qui ferme une sheet.",
+      "extractionState" : "manual"
+    }
+  },
+  "version" : "1.0"
+}

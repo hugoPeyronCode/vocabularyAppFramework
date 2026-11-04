@@ -65,6 +65,9 @@
 		5032606A2D086DA500F60405 /* VocabularyViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503260692D086DA500F60405 /* VocabularyViewType.swift */; };
 		50BCBBB82CF9E415004D67C8 /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */; };
 		50C039002D0B115B008199F4 /* SharedWordContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C038FF2D0B115B008199F4 /* SharedWordContent.swift */; };
+		5A6E00000000000000000031 /* SagaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6E00000000000000000021 /* SagaceCore */; };
+		5A6E00000000000000000032 /* SagaceUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6E00000000000000000022 /* SagaceUI */; };
+		5A6E00000000000000000033 /* SagaceData in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6E00000000000000000023 /* SagaceData */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -143,6 +146,9 @@
 		503260692D086DA500F60405 /* VocabularyViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyViewType.swift; sourceTree = "<group>"; };
 		50BCBBB72CF9E415004D67C8 /* OnboardingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStep.swift; sourceTree = "<group>"; };
 		50C038FF2D0B115B008199F4 /* SharedWordContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWordContent.swift; sourceTree = "<group>"; };
+		5A6E00000000000000000041 /* SagaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SagaceCore; sourceTree = "<group>"; };
+		5A6E00000000000000000042 /* SagaceUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SagaceUI; sourceTree = "<group>"; };
+		5A6E00000000000000000043 /* SagaceData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SagaceData; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -150,6 +156,7 @@
 		5032606B2D086DDA00F60405 /* FillInBlanks */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FillInBlanks; sourceTree = "<group>"; };
 		5032606E2D086E5100F60405 /* Anagrams */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Anagrams; sourceTree = "<group>"; };
 		50BCBBB92CF9F251004D67C8 /* WordWritingView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WordWritingView; sourceTree = "<group>"; };
+		5A6E00000000000000000001 /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +165,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				43C3F8FD2AC59AD30060B81E /* StoreKit.framework in Frameworks */,
+				5A6E00000000000000000031 /* SagaceCore in Frameworks */,
+				5A6E00000000000000000032 /* SagaceUI in Frameworks */,
+				5A6E00000000000000000033 /* SagaceData in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +419,8 @@
 		43E943A92AB9CDDF008F79B5 = {
 			isa = PBXGroup;
 			children = (
+				5A6E00000000000000000001 /* App */,
+				5A6E00000000000000000040 /* Packages */,
 				43E943B42AB9CDDF008F79B5 /* VocabularyAppFramework */,
 				43E943B92AB9CDE0008F79B5 /* Assets.xcassets */,
 				431C70552AF2629800FB3C36 /* Sounds */,
@@ -644,6 +656,16 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		5A6E00000000000000000040 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				5A6E00000000000000000041 /* SagaceCore */,
+				5A6E00000000000000000042 /* SagaceUI */,
+				5A6E00000000000000000043 /* SagaceData */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -665,9 +687,13 @@
 				5032606B2D086DDA00F60405 /* FillInBlanks */,
 				5032606E2D086E5100F60405 /* Anagrams */,
 				50BCBBB92CF9F251004D67C8 /* WordWritingView */,
+				5A6E00000000000000000001 /* App */,
 			);
 			name = VocabularyAppFramework;
 			packageProductDependencies = (
+				5A6E00000000000000000021 /* SagaceCore */,
+				5A6E00000000000000000022 /* SagaceUI */,
+				5A6E00000000000000000023 /* SagaceData */,
 			);
 			productName = VocabularyAppFramework;
 			productReference = 43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */;
@@ -690,15 +716,19 @@
 			};
 			buildConfigurationList = 43E943AD2AB9CDDF008F79B5 /* Build configuration list for PBXProject "VocabularyAppFramework" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = fr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				fr,
 				en,
 				Base,
 			);
 			mainGroup = 43E943A92AB9CDDF008F79B5;
 			packageReferences = (
 				43C3D5412ACFFE1F002FC3EE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				5A6E00000000000000000011 /* XCLocalSwiftPackageReference "Packages/SagaceCore" */,
+				5A6E00000000000000000012 /* XCLocalSwiftPackageReference "Packages/SagaceUI" */,
+				5A6E00000000000000000013 /* XCLocalSwiftPackageReference "Packages/SagaceData" */,
 			);
 			productRefGroup = 43E943B32AB9CDDF008F79B5 /* Products */;
 			projectDirPath = "";
@@ -839,7 +869,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -895,7 +925,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -928,9 +958,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -938,9 +966,10 @@
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -967,9 +996,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -977,9 +1004,10 @@
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1006,6 +1034,21 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		5A6E00000000000000000011 /* XCLocalSwiftPackageReference "Packages/SagaceCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SagaceCore;
+		};
+		5A6E00000000000000000012 /* XCLocalSwiftPackageReference "Packages/SagaceUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SagaceUI;
+		};
+		5A6E00000000000000000013 /* XCLocalSwiftPackageReference "Packages/SagaceData" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SagaceData;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		43C3D5412ACFFE1F002FC3EE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1016,6 +1059,21 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5A6E00000000000000000021 /* SagaceCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SagaceCore;
+		};
+		5A6E00000000000000000022 /* SagaceUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SagaceUI;
+		};
+		5A6E00000000000000000023 /* SagaceData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SagaceData;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 43E943AA2AB9CDDF008F79B5 /* Project object */;
 }

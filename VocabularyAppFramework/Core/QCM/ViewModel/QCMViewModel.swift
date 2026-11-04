@@ -10,7 +10,7 @@ import SwiftUI
 
 
 extension QCMView {
-    class ViewModel : ObservableObject {
+    @MainActor class ViewModel : ObservableObject {
         var word: Word
         
         var similarWords : [Word] = []

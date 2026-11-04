@@ -30,7 +30,7 @@ extension ThemesCategories {
   }
 }
 
-class ThemesManager : ObservableObject {
+@MainActor class ThemesManager : ObservableObject {
   
   @Published var currentTheme: Theme {
     didSet {
