@@ -12,6 +12,11 @@ public enum AnalyticsEvent: Equatable, Sendable {
     case practiceStarted(mode: PracticeMode)
     case practiceCompleted(mode: PracticeMode, score: Int, total: Int)
     case levelTestCompleted(score: Int, level: Level)
+    case onboardingStepViewed(step: String)
+    case onboardingCompleted(miniTestScore: Int?, dailyGoal: Int, notificationsGranted: Bool)
+    case paywallViewed(source: String)
+    case trialStarted(productID: String)
+    case purchaseCompleted(productID: String)
 
     public var name: String {
         switch self {
@@ -25,6 +30,11 @@ public enum AnalyticsEvent: Equatable, Sendable {
         case .practiceStarted: "practice_started"
         case .practiceCompleted: "practice_completed"
         case .levelTestCompleted: "level_test_completed"
+        case .onboardingStepViewed: "onboarding_step_viewed"
+        case .onboardingCompleted: "onboarding_completed"
+        case .paywallViewed: "paywall_viewed"
+        case .trialStarted: "trial_started"
+        case .purchaseCompleted: "purchase_completed"
         }
     }
 
@@ -50,6 +60,14 @@ public enum AnalyticsEvent: Equatable, Sendable {
             ["mode": mode.rawValue, "score": String(score), "total": String(total)]
         case let .levelTestCompleted(score, level):
             ["score": String(score), "level": String(level.rawValue)]
+        case let .onboardingStepViewed(step):
+            ["step": step]
+        case let .onboardingCompleted(score, goal, granted):
+            ["mini_test_score": score.map(String.init) ?? "", "daily_goal": String(goal), "notifications_granted": String(granted)]
+        case let .paywallViewed(source):
+            ["source": source]
+        case let .trialStarted(productID), let .purchaseCompleted(productID):
+            ["product_id": productID]
         }
     }
 }

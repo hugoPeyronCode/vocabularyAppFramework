@@ -2,11 +2,13 @@
   "sourceLanguage" : "fr",
   "strings" : {
     "%@ : %@. Via Sagace." : {},
+    "%@ par an" : {},
     "%@ · %@" : {},
     "%@ ≠ %@. %@ : %@. %@ : %@. Via Sagace." : {},
     "%@, %@ (%@)" : {
       "shouldTranslate" : false
     },
+    "%@, une seule fois" : {},
     "%lld" : {
       "shouldTranslate" : false
     },
@@ -148,18 +150,24 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
     },
+    "13 à 17" : {},
+    "18 à 24" : {},
     "23" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
     },
+    "25 à 34" : {},
     "3 fiches" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "3 jours gratuits, puis %@ par an" : {},
     "3 jours gratuits, puis 29,99 € par an" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "30 questions, environ 5 minutes." : {},
     "30 questions, environ 5 minutes. Pour mesurer votre précision et adapter vos fiches." : {},
+    "35 à 44" : {},
+    "45 à 54" : {},
     "49,99 €, une seule fois" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -170,12 +178,16 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
     },
+    "55 ans et plus" : {},
     "60 secondes pour un maximum de bonnes réponses. Les erreurs ne coûtent rien." : {},
     "A B C" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "shouldTranslate" : false
     },
     "A à Z" : {},
+    "Accès complet" : {},
+    "Acheter" : {},
+    "Activer les notifications" : {},
     "adj." : {},
     "adj. · /e.mi.nɑ̃/" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -183,6 +195,7 @@
     "Adjectif" : {},
     "adv." : {},
     "Adverbe" : {},
+    "Aider mes enfants" : {},
     "Ajouter" : {},
     "Ajouter à une collection" : {},
     "Ajoutez des fiches depuis leur page détaillée." : {},
@@ -191,9 +204,11 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Annuler" : {},
+    "App Store" : {},
     "Au moins un caractère." : {},
     "Aucune fiche pour « %@ »." : {},
     "Aucune fiche triée ce jour-là." : {},
+    "Aujourd'hui" : {},
     "Automatique" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -224,6 +239,7 @@
         }
       }
     },
+    "Bien vu. Quelques pièges vous ont échappé, c'est exactement ce qu'on va travailler." : {},
     "Bientôt disponible." : {},
     "Bon usage" : {},
     "Bonne réponse : %@" : {},
@@ -231,11 +247,15 @@
     "Boutons" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "C'est normal : ces pièges trompent la plupart des gens. Vous allez vite progresser." : {},
+    "C'est parti" : {},
     "C'est tout pour aujourd'hui." : {},
     "Carte du jour" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Chargement des offres…" : {},
     "Chercher un mot" : {},
+    "Cherchez Sagace et choisissez la fiche du jour." : {},
     "Chez les auteurs" : {},
     "Chips" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -252,9 +272,12 @@
     "Commencer l'essai gratuit" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Comment avez-vous connu Sagace ?" : {},
     "Compte" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Conditions" : {},
+    "Confidentialité" : {},
     "Contenu" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -306,6 +329,7 @@
     "Débloquer plus de fiches" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Début de l'abonnement, annulable à tout moment" : {},
     "Débutant" : {},
     "Découvrir" : {},
     "Définition" : {},
@@ -325,6 +349,8 @@
     "Expert" : {},
     "Explorer" : {},
     "Expression" : {},
+    "Facebook" : {},
+    "Fait à Paris, sans publicité" : {},
     "familier" : {},
     "Familles" : {},
     "Familles et thèmes suivis" : {},
@@ -346,11 +372,15 @@
     "Haptiques" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Heure de la fiche" : {},
     "Historique" : {},
     "Image enregistrée" : {},
     "imminent" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Impressionnant. On va viser les pièges plus fins." : {},
+    "Instagram" : {},
+    "Installer le widget" : {},
     "Intensif, 6 minutes" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -363,11 +393,16 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Jeux" : {},
+    "Jeux et défis illimités" : {},
+    "Jour 2" : {},
+    "Jour 3" : {},
     "Juste" : {},
     "Juste ou fautif" : {},
+    "L'achat n'a pas abouti. Aucun montant n'a été débité." : {},
     "Le contenu n'a pas pu être chargé." : {},
     "Le feed ne propose que les fiches suivies. Rien de coché : toutes les fiches." : {},
     "Le mot juste" : {},
+    "Le mot juste, chaque jour." : {},
     "Le mot juste, sans limite." : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -394,6 +429,7 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Maîtrisés" : {},
+    "Me rappeler avant la fin de l'essai" : {},
     "Merci, on corrige sous 7 jours." : {},
     "Merci, on étudie ce mot." : {},
     "Mes mots" : {},
@@ -449,6 +485,7 @@
         }
       }
     },
+    "OK" : {},
     "On dit : %@" : {},
     "On évite : %@" : {},
     "Ordre d'ajout" : {},
@@ -458,10 +495,13 @@
     "Ouvrir une sheet" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Par curiosité" : {},
     "Par famille" : {},
+    "Parler avec assurance" : {},
     "Paronymes" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Partage familial inclus" : {},
     "Partager" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -471,11 +511,14 @@
     "Passe partout" : {},
     "Passer" : {},
     "Perfection" : {},
+    "Petit test : 5 pièges du quotidien." : {},
     "Pièges des mails" : {},
     "Plus de vies !" : {},
     "Plus tard" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Plusieurs choix possibles." : {},
+    "Pour adapter les exemples à votre quotidien." : {},
     "Premium" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -491,15 +534,21 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "prép." : {},
+    "Qu'aimeriez-vous améliorer ?" : {},
+    "Quel âge avez-vous ?" : {},
+    "Quelques minutes par jour pour parler et écrire avec précision. Sans jargon, sans mots pédants." : {},
     "Qui s'élève au dessus des autres par son mérite ou son rang." : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Rappel avant la fin de l'essai" : {},
+    "Recherche web" : {},
     "Record : %lld" : {},
     "Regroupez vos fiches, par exemple « Réunions » ou « Mémoire de fin d'études »." : {},
     "Rejouer" : {},
     "Renommer" : {},
     "Renommer la collection" : {},
     "Repasser le test" : {},
+    "Restaurer" : {},
     "Retirer de la collection" : {},
     "Retour" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -513,11 +562,13 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Répondez au plus vite. 5 secondes par question, 3 vies." : {},
+    "Réussir un examen ou un concours" : {},
     "Réviser maintenant" : {},
     "Révision" : {},
     "Révision aujourd'hui" : {},
     "Révision demain" : {},
     "S'entraîner" : {},
+    "Sagace est une petite app indépendante. Avec Premium, vous débloquez tous les jeux, toutes les familles de fiches, les stats et les widgets, et vous nous aidez à écrire de nouvelles fiches chaque mois." : {},
     "Sagace Premium" : {},
     "SagaceUI" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
@@ -570,6 +621,7 @@
     "soutenu" : {},
     "Sprint" : {},
     "Stats" : {},
+    "Stats et mots maîtrisés" : {},
     "Succès" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -612,16 +664,21 @@
     "Série terminée à %lld." : {},
     "Temps écoulé !" : {},
     "Terminer" : {},
+    "Terminé" : {},
     "Test de précision" : {},
     "Testez votre précision" : {},
     "Texte copié" : {},
     "Thèmes" : {},
+    "TikTok" : {},
     "toléré" : {},
     "Touchez i pour les nuances et les sources" : {},
     "Touchez longuement l'écran d'accueil, puis Modifier, puis Ajouter un widget, et cherchez Sagace." : {},
+    "Touchez longuement un espace vide de l'écran d'accueil." : {},
+    "Touchez Modifier, puis Ajouter un widget." : {},
     "Tout" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Toutes les familles et thèmes" : {},
     "Tranquille, 1 minute" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -630,7 +687,11 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Un jeu de 2 minutes ?" : {},
+    "Un proche" : {},
+    "Un rappel le soir si la série est en danger" : {},
+    "Une fiche au bon moment." : {},
     "Une fiche sur votre écran d'accueil." : {},
+    "Une minute, pour savoir par où commencer." : {},
     "Usage" : {},
     "v." : {},
     "Verbe" : {},
@@ -638,6 +699,7 @@
     "Vos mots aimés ont été gardés (%lld)." : {},
     "Vos signalements et suggestions apparaîtront ici." : {},
     "Votre abonnement est conservé." : {},
+    "Votre essai gratuit se termine demain." : {},
     "Votre niveau : %@" : {},
     "Votre session gratuite du jour est jouée." : {},
     "Vous avez maîtrisé %lld mots." : {
@@ -662,6 +724,7 @@
         }
       }
     },
+    "Vous pouvez annuler à tout moment depuis les réglages de votre compte Apple." : {},
     "Vu il y a %lld jours" : {
       "localizations" : {
         "fr" : {
@@ -684,7 +747,9 @@
         }
       }
     },
+    "Widgets et rappels personnalisés" : {},
     "Words devient Sagace." : {},
+    "YouTube" : {},
     "À ne pas confondre" : {},
     "À retenir" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -699,6 +764,7 @@
     "éminent" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "éminent ou imminent ? Le départ est imminent, l'invité est éminent." : {},
     "Étymologie" : {}
   },
   "version" : "1.0"

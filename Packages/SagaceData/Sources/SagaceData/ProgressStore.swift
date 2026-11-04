@@ -33,6 +33,26 @@ public protocol ProgressStoring: AnyObject {
     func sortedFiches(on day: Date) -> [(ficheID: String, sorting: Sorting)]
     func masteredCount() -> Int
     func save()
+    /// Fin de l'onboarding (ONB-01 à ONB-09) : profil, rythme, rappel quotidien.
+    func completeOnboarding(_ answers: OnboardingAnswers)
+}
+
+/// Réponses de l'onboarding. `nil` = question passée ou absente du parcours (migration v3).
+public struct OnboardingAnswers: Equatable, Sendable {
+    public var attribution: AttributionSource?
+    public var ageRange: AgeRange?
+    public var goals: Set<LearningGoal>?
+    public var level: Level?
+    public var dailyGoal: Int
+    /// Heure du rappel quotidien en minutes depuis minuit, `nil` si "Plus tard".
+    public var reminderMinute: Int?
+    public var eveningReminder: Bool
+
+    public init(attribution: AttributionSource? = nil, ageRange: AgeRange? = nil, goals: Set<LearningGoal>? = nil, level: Level? = nil,
+                dailyGoal: Int = Rules.defaultDailyGoal, reminderMinute: Int? = nil, eveningReminder: Bool = true) {
+        self.attribution = attribution; self.ageRange = ageRange; self.goals = goals; self.level = level
+        self.dailyGoal = dailyGoal; self.reminderMinute = reminderMinute; self.eveningReminder = eveningReminder
+    }
 }
 
 @MainActor
@@ -154,6 +174,27 @@ public final class ProgressStore: ProgressStoring {
         )
         let states = (try? context.fetch(descriptor)) ?? []
         return states.compactMap { state in state.sorting.map { (state.ficheID, $0) } }
+    }
+
+    public func completeOnboarding(_ answers: OnboardingAnswers) {
+        let profile = profile
+        if let attribution = answers.attribution { profile.attribution = attribution }
+        if let ageRange = answers.ageRange { profile.ageRange = ageRange }
+        if let goals = answers.goals { profile.goals = LearningGoal.allCases.filter(goals.contains) }
+        if let level = answers.level { profile.level = level.rawValue }
+        profile.hasCompletedOnboarding = true
+        let preferences = preferences
+        preferences.dailyGoal = answers.dailyGoal
+        preferences.eveningStreakReminder = answers.eveningReminder
+        if let minute = answers.reminderMinute {
+            let existing = (try? context.fetch(FetchDescriptor<Reminder>())) ?? []
+            if let reminder = existing.first {
+                reminder.startMinute = minute
+            } else {
+                context.insert(Reminder(startMinute: minute, endMinute: minute))
+            }
+        }
+        save()
     }
 
     // MARK: Activité

@@ -113,3 +113,25 @@ struct ProgressStoreTests {
         #expect(today.map(\.sorting) == [.known, .toLearn])
     }
 }
+
+@MainActor
+@Suite("Onboarding")
+struct OnboardingStoreTests {
+    @Test("Les réponses remplissent profil, rythme et rappel ; les questions passées ne touchent à rien")
+    func complete() throws {
+        let (store, _container) = try TestEnv.makeStore()
+        _ = _container
+        store.profile.attribution = .friend
+        store.completeOnboarding(OnboardingAnswers(
+            ageRange: .age25to34, goals: [.examen, .ecrireTravail], level: .avance,
+            dailyGoal: 10, reminderMinute: 9 * 60, eveningReminder: false
+        ))
+        #expect(store.profile.hasCompletedOnboarding)
+        #expect(store.profile.attribution == .friend)
+        #expect(store.profile.ageRange == .age25to34)
+        #expect(store.profile.goals == [.ecrireTravail, .examen])
+        #expect(store.profile.level == 4)
+        #expect(store.preferences.dailyGoal == 10)
+        #expect(!store.preferences.eveningStreakReminder)
+    }
+}

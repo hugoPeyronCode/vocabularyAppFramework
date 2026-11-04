@@ -36,10 +36,20 @@ struct RootView: View {
             }
         }
         .background(.vBackground)
-        .fullScreenCover(item: $router.fullScreen) { screen in
+        .fullScreenCover(item: $router.fullScreen, onDismiss: { feed?.load() }) { screen in
             switch screen {
             case .migration(let report, let isPremium):
-                MigrationView(report: report, isPremium: isPremium) { router.fullScreen = nil }
+                MigrationView(report: report, isPremium: isPremium) {
+                    router.fullScreen = nil
+                } onDiscover: {
+                    router.fullScreen = .onboarding(.afterMigration)
+                }
+            case .onboarding(let flow):
+                if let factory {
+                    factory.onboarding(flow) { router.fullScreen = nil }
+                        .environment(factory)
+                        .environment(dependencies.router)
+                }
             }
         }
         .task { await dependencies.start() }
@@ -56,11 +66,23 @@ struct RootView: View {
             day: dependencies.day, now: dependencies.now
         )
         factory = ScreenFactory(dependencies: dependencies, content: content, topics: topics)
+        if !dependencies.store.profile.hasCompletedOnboarding, dependencies.router.fullScreen == nil, !Self.skipsOnboarding {
+            dependencies.router.fullScreen = .onboarding(.full)
+        }
         viewModel.load()
         WidgetTip.daysSinceInstall = dependencies.day.days(from: dependencies.store.profile.createdAt, to: dependencies.now())
         feed = viewModel
         #if DEBUG
         if let sheet = DebugLaunch.sheet { dependencies.router.open(sheet) }
+        #endif
+    }
+
+    /// `-skipOnboarding` (debug) : ouvre directement le feed.
+    private static var skipsOnboarding: Bool {
+        #if DEBUG
+        ProcessInfo.processInfo.arguments.contains("-skipOnboarding")
+        #else
+        false
         #endif
     }
 
@@ -96,8 +118,8 @@ struct RootView: View {
             .stackedPaywall(dependencies.router)
         case .share(let id):
             factory.share(id)
-        case .paywall:
-            ComingSoonSheet(title: "Sagace Premium", systemImage: "crown")
+        case .paywall(let source):
+            factory.paywall(source)
         }
     }
 }

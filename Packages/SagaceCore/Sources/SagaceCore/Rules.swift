@@ -87,6 +87,7 @@ public enum Rules {
     ]
     public static let miniTestLength = 5
     public static let miniTestQuestionLevel = Level.intermediaire
+    public static let miniTestFamilies: [Family] = [.paronyme, .impropriete, .passePartout, .nuance, .pleonasme]
 
     /// Niveau obtenu au test de précision (30 questions).
     public static func level(forLevelTestScore score: Int) -> Level {
@@ -130,4 +131,5 @@ public enum Rules {
     /// Identifiants reconnus comme premium. Les trois premiers viennent de Words v3 : ne jamais les retirer.
     public static let premiumProductIDs: Set<String> = ["Yearly", "weekly", "lifetime"]
     public static let trialReminderHoursBeforeEnd = 24
+    public static let trialDays = 3
 }

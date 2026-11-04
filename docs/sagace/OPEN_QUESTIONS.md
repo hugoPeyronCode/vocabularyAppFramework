@@ -44,3 +44,11 @@
 | 38 | PRA-08 « Voir mes réponses » | la liste des réponses s'affiche directement sous le résultat | M7 |
 | 39 | Contenu : `fr.acronyme` liste « sigle » à la fois en synonyme et en confusion | la règle « jamais un synonyme en mauvaise réponse » l'emporte : pas de question Paronymes sur cette fiche ; fiche à corriger (n° 11) | M8 |
 | 40 | Texte quand la session gratuite du jour est jouée | « Votre session gratuite du jour est jouée. » + bandeau PRO, provisoire | M4 |
+| 41 | App Store Connect avant la v4 : `Yearly` à 29,99 € avec offre d'introduction de 3 jours gratuits, `lifetime` à 49,99 €, partage familial activé (le paywall l'annonce), `weekly` retiré de la vente | à faire par Hugo ; la configuration locale `Config/Sagace.storekit` reflète cette cible, `Config/Words.storekit` reste l'instantané synchronisé de 2024 | M9 |
+| 42 | PAY-02 offre de bienvenue (offre promotionnelle signée côté serveur) | non faite, faute de serveur (défaut de la question n° 7) | M9 |
+| 43 | Paywall : lien « Confidentialité » sans URL ; « Conditions » | lien Confidentialité masqué tant que l'URL manque ; Conditions = contrat de licence standard d'Apple (n° 10) | M9 |
+| 44 | Texte de la notification de fin d'essai | « Votre essai gratuit se termine demain. » / « Vous pouvez annuler à tout moment depuis les réglages de votre compte Apple. », provisoire | M7 |
+| 45 | ONB-08 : 10 fiches choisies pendant l'onboarding sans finir en premium | rythme ramené à 5 à la fin de l'onboarding | M5 |
+| 46 | Annuel sans essai (déjà utilisé, ou pas d'offre d'introduction) | « 29,99 € par an » et bouton « Continuer », sans frise ni rappel | M4 |
+| 47 | ONB-09 : heure du rappel quotidien | enregistrée (modèle `Reminder`) et autorisation demandée ; planification réelle avec `ReminderScheduler` en M5 | M5 |
+| 48 | Tester les achats dans Xcode | choisir `Config/Sagace.storekit` dans Scheme › Run › Options › StoreKit Configuration ; les tests `SagaceAppTests` l'utilisent déjà sans réglage | M4 |

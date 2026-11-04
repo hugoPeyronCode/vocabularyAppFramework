@@ -55,6 +55,23 @@ final class ScreenFactory {
         AddToCollectionView(viewModel: AddToCollectionViewModel(ficheID: ficheID, library: dependencies.library, haptics: dependencies.haptics))
     }
 
+    // MARK: Onboarding
+
+    func onboarding(_ flow: OnboardingFlow, onFinish: @escaping () -> Void) -> some View {
+        OnboardingView(viewModel: OnboardingViewModel(
+            flow: flow, content: content, store: dependencies.store, entitlements: dependencies.entitlements,
+            haptics: dependencies.haptics, analytics: dependencies.analytics, now: dependencies.now
+        ), onFinish: onFinish)
+    }
+
+    // MARK: Paywall
+
+    func paywall(_ source: PaywallSource, onFinish: (() -> Void)? = nil) -> some View {
+        PaywallView(viewModel: PaywallViewModel(
+            source: source, entitlements: dependencies.entitlements, haptics: dependencies.haptics, analytics: dependencies.analytics
+        ), onFinish: onFinish)
+    }
+
     // MARK: Practice
 
     func practiceHub() -> some View {
@@ -165,11 +182,19 @@ struct SheetPage<Content: View>: View {
 }
 
 extension View {
-    /// Paywall empilé par-dessus la sheet courante (placeholder jusqu'au jalon M4).
+    /// Paywall empilé par-dessus la sheet courante (verrous PRO).
     func stackedPaywall(_ router: AppRouter) -> some View {
-        @Bindable var router = router
-        return floatingSheet(item: $router.stackedPaywall) { _ in
-            ComingSoonSheet(title: "Sagace Premium", systemImage: "crown")
+        modifier(StackedPaywall(router: router))
+    }
+}
+
+private struct StackedPaywall: ViewModifier {
+    @Bindable var router: AppRouter
+    @Environment(ScreenFactory.self) private var factory
+
+    func body(content: Content) -> some View {
+        content.floatingSheet(item: $router.stackedPaywall, detents: [.large]) { source in
+            factory.paywall(source)
         }
     }
 }
