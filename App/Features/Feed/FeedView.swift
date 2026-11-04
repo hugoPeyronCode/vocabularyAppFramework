@@ -56,7 +56,7 @@ struct FeedView: View {
             MasteredSheet(mastered: mastered)
         }
         .floatingSheet(isPresented: $viewModel.isShowingGameSuggestion, detents: [.medium]) {
-            GameSuggestionSheet { router.open(.practice) }
+            GameSuggestionSheet(games: viewModel.suggestedGames) { router.open(.session(.game($0))) }
         }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active { viewModel.sceneDidBecomeActive() }
@@ -146,15 +146,16 @@ struct MasteredSheet: View {
 
 /// Proposition d'un jeu une fois l'objectif atteint (FEED-04), une fois par jour.
 struct GameSuggestionSheet: View {
-    let onPlay: () -> Void
+    let games: [GameType]
+    let onPlay: (GameType) -> Void
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         SheetContainer("Un jeu de 2 minutes ?", systemImage: "gamecontroller") {
             VStack(spacing: SagaceMetrics.rowSpacing) {
-                OptionRow("Le mot juste", systemImage: "text.badge.checkmark", isSelected: false) { play() }
-                OptionRow("Paronymes", systemImage: "arrow.left.arrow.right", isSelected: false) { play() }
-                OptionRow("Juste ou fautif", systemImage: "checkmark.circle", isSelected: false) { play() }
+                ForEach(games, id: \.self) { game in
+                    OptionRow(game.title, systemImage: game.symbol, isSelected: false) { play(game) }
+                }
                 Spacer(minLength: 8)
                 SecondaryButton("Plus tard") { dismiss() }
             }
@@ -162,8 +163,8 @@ struct GameSuggestionSheet: View {
         }
     }
 
-    private func play() {
+    private func play(_ game: GameType) {
         dismiss()
-        onPlay()
+        onPlay(game)
     }
 }

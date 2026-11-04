@@ -10,14 +10,19 @@ public struct AnswerRow: View {
         case dimmed
     }
 
-    let title: String
+    let title: Text
     let state: State
     let action: () -> Void
     @Environment(\.haptics) private var haptics
 
     /// - Parameter title: texte de contenu (réponse issue du pack), non localisé.
     public init(_ title: String, state: State, action: @escaping () -> Void) {
-        self.title = title; self.state = state; self.action = action
+        self.title = Text(verbatim: title); self.state = state; self.action = action
+    }
+
+    /// Réponse dont le libellé est de l'interface ("Juste", "Fautif").
+    public init(localized title: LocalizedStringKey, state: State, action: @escaping () -> Void) {
+        self.title = Text(title); self.state = state; self.action = action
     }
 
     public var body: some View {
@@ -26,7 +31,7 @@ public struct AnswerRow: View {
             action()
         } label: {
             HStack(spacing: 10) {
-                Text(verbatim: title)
+                title
                     .fontStyle(.rowTitle)
                     .multilineTextAlignment(.leading)
                 Spacer(minLength: 8)

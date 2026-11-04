@@ -9,6 +9,9 @@ public enum AnalyticsEvent: Equatable, Sendable {
     case dailyGoalCompleted(streak: Int)
     case migrationV3Completed(hadSavedWords: Bool, wasPremium: Bool)
     case errorReported(ficheID: String, reason: ReportReason)
+    case practiceStarted(mode: PracticeMode)
+    case practiceCompleted(mode: PracticeMode, score: Int, total: Int)
+    case levelTestCompleted(score: Int, level: Level)
 
     public var name: String {
         switch self {
@@ -19,6 +22,9 @@ public enum AnalyticsEvent: Equatable, Sendable {
         case .dailyGoalCompleted: "daily_goal_completed"
         case .migrationV3Completed: "migration_v3_completed"
         case .errorReported: "error_reported"
+        case .practiceStarted: "practice_started"
+        case .practiceCompleted: "practice_completed"
+        case .levelTestCompleted: "level_test_completed"
         }
     }
 
@@ -38,6 +44,12 @@ public enum AnalyticsEvent: Equatable, Sendable {
             ["had_saved_words": String(hadSavedWords), "was_premium": String(wasPremium)]
         case let .errorReported(id, reason):
             ["fiche_id": id, "reason": reason.rawValue]
+        case let .practiceStarted(mode):
+            ["mode": mode.rawValue]
+        case let .practiceCompleted(mode, score, total):
+            ["mode": mode.rawValue, "score": String(score), "total": String(total)]
+        case let .levelTestCompleted(score, level):
+            ["score": String(score), "level": String(level.rawValue)]
         }
     }
 }

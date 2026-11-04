@@ -37,3 +37,10 @@
 | 31 | Illustrations des familles, thèmes, états vides et MIG-01 | symboles SF en attendant les images de `08_ILLUSTRATIONS.md` | M7 |
 | 32 | « Suivre » une famille ou un thème (EXP-02) et « Modifier » (EXP-01) | réservés au premium (« tous les filtres de familles et thèmes »), paywall sinon | M4 |
 | 33 | Texte d'autorisation Photos (« Enregistrer l'image ») | en build setting, en français ; à passer dans un `InfoPlist.xcstrings` avec l'anglais (M8) | M8 |
+| 34 | PRA-03 « phrase selon le score » : textes non écrits pour les sessions | score et « bonnes réponses » seulement, sans phrase | M7 |
+| 35 | Défis en gratuit : PRA-01 les met derrière le bandeau PRO, `03_ARCHITECTURE.md` les compte dans la session gratuite du jour | règle chiffrée de l'architecture : 1 session par jour, défis compris | M4 |
+| 36 | Test de précision avec le pack modèle (25 fiches, aucune de niveau 5) : 25 questions au lieu de 30 | les niveaux manquants sont complétés par les voisins ; les seuils restent ceux de 30 questions, à revoir si le pack final ne permet pas 30 fiches distinctes | M8 |
+| 37 | Sprint et Perfection : quels jeux ? | tous les jeux en alternance ; Rush garde Le mot juste et Paronymes | M3 |
+| 38 | PRA-08 « Voir mes réponses » | la liste des réponses s'affiche directement sous le résultat | M7 |
+| 39 | Contenu : `fr.acronyme` liste « sigle » à la fois en synonyme et en confusion | la règle « jamais un synonyme en mauvaise réponse » l'emporte : pas de question Paronymes sur cette fiche ; fiche à corriger (n° 11) | M8 |
+| 40 | Texte quand la session gratuite du jour est jouée | « Votre session gratuite du jour est jouée. » + bandeau PRO, provisoire | M4 |

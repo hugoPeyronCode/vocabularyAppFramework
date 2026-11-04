@@ -5,6 +5,31 @@ import SagaceCore
 import SagaceUI
 import SwiftUI
 
+/// Options de lancement pour tester un écran directement (debug uniquement).
+enum DebugLaunch {
+    static func value(after flag: String) -> String? {
+        let arguments = ProcessInfo.processInfo.arguments
+        guard let index = arguments.firstIndex(of: flag), arguments.indices.contains(index + 1) else { return nil }
+        return arguments[index + 1]
+    }
+
+    static var autoplay: Bool { ProcessInfo.processInfo.arguments.contains("-autoplay") }
+
+    /// `-debugSheet practice | levelTest | game:<jeu> | challenge:<rush|sprint|perfection>`
+    static var sheet: Sheet? {
+        guard let value = value(after: "-debugSheet") else { return nil }
+        let parts = value.split(separator: ":").map(String.init)
+        switch parts.first {
+        case "practice": return .practice
+        case "levelTest": return .levelTest
+        case "game": return parts.last.flatMap(GameType.init(rawValue:)).map { .session(.game($0)) }
+        case "challenge":
+            return ["rush": ChallengeState.Kind.rush, "sprint": .sprint, "perfection": .perfection][parts.last ?? ""].map(Sheet.challenge)
+        default: return nil
+        }
+    }
+}
+
 enum DesignSystemDemo {
     /// Argument de lancement qui ouvre la démo directement (captures, vérifications).
     static let launchArgument = "-designSystemDemo"

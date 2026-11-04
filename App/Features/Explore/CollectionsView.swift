@@ -162,7 +162,7 @@ struct CollectionDetailView: View {
                                 PrimaryButton("Suivre dans le feed", haptic: nil) { viewModel.toggleFollow(collection) }
                             }
                             CircleButton(systemImage: "play", accessibilityLabel: "S'entraîner", size: SagaceMetrics.buttonHeight, isActive: true) {
-                                router.open(.practice)
+                                router.open(.session(.fiches(collection.ficheIDs)))
                             }
                         }
                         HStack(spacing: 8) {

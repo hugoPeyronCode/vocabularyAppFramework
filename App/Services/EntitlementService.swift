@@ -17,6 +17,12 @@ final class EntitlementService: PremiumProviding {
 
     /// - Parameter legacyPremiumFlag: `com.words.premiumAccess` relevé par la migration v3.
     func refresh(legacyPremiumFlag: Bool) async {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-debugPremium") {
+            isPremium = true
+            return
+        }
+        #endif
         var hasActive = false
         for await result in Transaction.currentEntitlements {
             if case .verified(let transaction) = result,
