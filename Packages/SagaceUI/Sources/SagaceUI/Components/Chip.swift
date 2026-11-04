@@ -3,7 +3,7 @@ import SwiftUI
 /// Capsule 36 pt : filtres de stats, chip série, confusions.
 /// Active en `inverseSurface`, inactive en `surfaceRaised`.
 public struct Chip: View {
-    let title: LocalizedStringKey
+    let title: Text
     let systemImage: String?
     let isActive: Bool
     let haptic: HapticEvent?
@@ -18,7 +18,19 @@ public struct Chip: View {
         haptic: HapticEvent? = .selection,
         action: (() -> Void)? = nil
     ) {
-        self.title = title; self.systemImage = systemImage; self.isActive = isActive
+        self.title = Text(title); self.systemImage = systemImage; self.isActive = isActive
+        self.haptic = haptic; self.action = action
+    }
+
+    /// Chip dont le texte vient du contenu (mot, synonyme) et n'est pas localisé.
+    public init(
+        verbatim title: String,
+        systemImage: String? = nil,
+        isActive: Bool = false,
+        haptic: HapticEvent? = .selection,
+        action: (() -> Void)? = nil
+    ) {
+        self.title = Text(verbatim: title); self.systemImage = systemImage; self.isActive = isActive
         self.haptic = haptic; self.action = action
     }
 
@@ -37,7 +49,7 @@ public struct Chip: View {
             if let systemImage {
                 Image(systemName: systemImage).symbolVariant(.fill)
             }
-            Text(title)
+            title
         }
         .fontStyle(.meta)
         .fontWeight(.semibold)

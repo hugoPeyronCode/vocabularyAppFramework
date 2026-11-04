@@ -28,6 +28,10 @@ public enum Rules {
     public static let workGoalThemes = ["travail", "argent"]
     public static let confidenceGoalThemes = ["relations", "emotions"]
     public static let examGoalFamilies: [Family] = [.impropriete, .motMalCompris]
+    /// Niveau tant que l'onboarding (M4) ne l'a pas fixé.
+    public static let defaultLevel = Level.intermediaire
+    /// Une fiche apparue au feed compte comme vue après ce délai à l'écran (secondes).
+    public static let ficheViewedDelay: TimeInterval = 1
 
     // MARK: Révisions (Leitner)
 

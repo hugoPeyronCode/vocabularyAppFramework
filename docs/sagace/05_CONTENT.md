@@ -120,4 +120,4 @@ Toute fiche avec un problème `bloquant` part en relecture humaine.
 Niveaux : 15 % niveau 1, 25 % niveau 2, 30 % niveau 3, 20 % niveau 4, 10 % niveau 5.
 
 ## 5. Pack anglais historique (option A de `04_MIGRATION.md`)
-Script `content/pipeline/convert_v3_en.py` : lit `VocabularyAppFramework/Data/words.json` (v3), produit `App/Content/en/fiches.json` au format `Fiche` avec `family = motMalCompris`, `reviewStatus = draft`, `quiz` générés (Sens, Devine le mot) depuis définitions et mots voisins de même `Topic`. Visible uniquement si la langue de l'appareil n'est pas le français.
+Script `content/pipeline/convert_v3_en.py` : lit `content/legacy/v3_words.json` (le `Data/words.json` de la v3, déplacé au jalon M1), produit `App/Content/en/fiches.json` au format `Fiche` avec `family = motMalCompris`, `reviewStatus = draft`, `quiz` générés (Sens, Devine le mot) depuis définitions et mots voisins de même `Topic`. Visible uniquement si la langue de l'appareil n'est pas le français.

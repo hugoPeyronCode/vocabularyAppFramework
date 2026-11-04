@@ -47,8 +47,17 @@ private struct CardShadowModifier: ViewModifier {
 }
 
 public extension View {
-    /// Ombre douce de la carte du jour en clair, aucune en sombre.
+    /// Ombre douce de la carte du jour en clair, aucune en sombre. À poser sur une forme, pas sur un conteneur de texte.
     func cardShadow() -> some View {
         modifier(CardShadowModifier())
+    }
+
+    /// Fond de carte du jour : `surface`, rayon 36, ombre douce en clair portée par la forme seule.
+    func cardBackground() -> some View {
+        background {
+            RoundedRectangle(cornerRadius: SagaceMetrics.cardRadius, style: .continuous)
+                .fill(.vSurface)
+                .cardShadow()
+        }
     }
 }

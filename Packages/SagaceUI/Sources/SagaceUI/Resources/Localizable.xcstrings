@@ -4,6 +4,14 @@
     "Fermer" : {
       "comment" : "Libellé VoiceOver du bouton rond xmark qui ferme une sheet.",
       "extractionState" : "manual"
+    },
+    "Bonne réponse" : {
+      "comment" : "Valeur VoiceOver d'une réponse juste.",
+      "extractionState" : "manual"
+    },
+    "Mauvaise réponse" : {
+      "comment" : "Valeur VoiceOver d'une réponse fausse.",
+      "extractionState" : "manual"
     }
   },
   "version" : "1.0"

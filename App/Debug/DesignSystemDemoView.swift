@@ -225,8 +225,7 @@ private struct DemoCard: View {
         }
         .padding(28)
         .frame(maxWidth: .infinity)
-        .background(.vSurface, in: .rect(cornerRadius: SagaceMetrics.cardRadius, style: .continuous))
-        .cardShadow()
+        .cardBackground()
     }
 }
 
