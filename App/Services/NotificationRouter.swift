@@ -20,7 +20,7 @@ final class NotificationRouter: NSObject, UNUserNotificationCenterDelegate, @unc
         let source = info["source"] as? String ?? "evening_streak"
         await MainActor.run {
             analytics?.track(.notificationOpened(reminderSource: source))
-            if let ficheID { router?.open(.fiche(ficheID)) }
+            if let ficheID { router?.open(.fiche(ficheID, origin: .notification)) }
         }
     }
 

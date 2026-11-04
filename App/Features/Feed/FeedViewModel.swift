@@ -143,17 +143,7 @@ final class FeedViewModel {
     }
 
     private var feedProfile: FeedProfile {
-        let profile = store.profile
-        let preferences = store.preferences
-        return FeedProfile(
-            level: Level(rawValue: profile.level) ?? Rules.defaultLevel,
-            goals: Set(profile.goals),
-            followedFamilies: Set(preferences.followedFamilies.compactMap(Family.init(rawValue:))),
-            followedThemes: Set(preferences.followedThemes),
-            showFamiliar: preferences.showFamiliar,
-            mutedTerms: Set(preferences.mutedTerms),
-            followedFicheIDs: library.followedFicheIDs()
-        )
+        FeedProfile(store: store, library: library)
     }
 
     private static func pageID(for item: FeedItem) -> String {

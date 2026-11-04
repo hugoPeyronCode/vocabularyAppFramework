@@ -6,6 +6,17 @@
 	<array>
 		<string>com.cortex.VocabularyAppFramework.refresh</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.cortex.VocabularyAppFramework.widgets</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sagace</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

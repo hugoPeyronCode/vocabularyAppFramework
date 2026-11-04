@@ -289,7 +289,7 @@ Réf. Vocabulary : `D Profil` 01 à 05 ; structure Sudoku a Day (carte violette,
 
 ### PRO-01 Profil
 1. Carte violette **Soutenez une app indépendante** : *Sagace est faite à Paris, sans pub. Une note ou un partage nous aide beaucoup.* Boutons **Noter** · **Partager**.
-2. Carte premium (si gratuit) : *Sagace Premium : jeux illimités, toutes les familles, stats, widgets.* **Essayer gratuitement**. Si premium : *Membre Premium* et date de renouvellement.
+2. Carte premium (si gratuit) : *Sagace Premium : jeux illimités, toutes les familles, stats, widgets.* **Passer à Premium** (pas d'essai, n° 49). Si premium : *Membre Premium* et date de renouvellement.
 3. Liste : Rappels · Widgets · Voix · Apparence · Icône de l'app · Réglages · Envoyer un avis · À propos.
 
 ### SET-01 Réglages (onglets bas : Contenu · Jeu · Effets · Notifications · Compte)

@@ -24,6 +24,7 @@ final class AppDependencies {
     let practice: PracticeStore
     let profile: ProfileStore
     let reminders: ReminderScheduler
+    let widgets: WidgetBridge
     let notifications = NotificationRouter()
     let audio = AudioService()
     let router = AppRouter()
@@ -50,6 +51,7 @@ final class AppDependencies {
         practice = PracticeStore(context: container.mainContext, day: day)
         profile = ProfileStore(context: container.mainContext)
         reminders = ReminderScheduler(progress: store, library: library, profile: profile, entitlements: entitlements, day: day, now: now)
+        widgets = WidgetBridge(progress: store, library: library, entitlements: entitlements, analytics: analytics, day: day, now: now)
         notifications.attach(router: router, analytics: analytics)
         haptics.isEnabled = store.preferences.hapticsEnabled
         audio.voiceIdentifier = store.preferences.voiceIdentifier
@@ -92,6 +94,9 @@ final class AppDependencies {
             }
             reminders.content = content
             await reminders.reschedule()
+            widgets.content = content
+            widgets.applyInbox()
+            widgets.refresh()
             state = .ready(content: content, topics: topics)
         } catch {
             logger.error("Chargement du contenu impossible : \(error)")

@@ -97,7 +97,7 @@ struct ProfileView: View {
             } else {
                 Text("Sagace Premium : jeux illimités, toutes les familles, stats, widgets.")
                     .fontStyle(.rowTitle).foregroundStyle(.vTextPrimary)
-                PrimaryButton("Essayer gratuitement", systemImage: "crown.fill") { router.stackedPaywall = .proBanner }
+                PrimaryButton("Passer à Premium", systemImage: "crown.fill") { router.stackedPaywall = .proBanner }
             }
         }
         .padding(18)

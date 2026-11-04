@@ -213,6 +213,7 @@
     "Aider mes enfants" : {},
     "Ajouter" : {},
     "Ajouter un rappel" : {},
+    "Ajouter un widget" : {},
     "Ajouter à une collection" : {},
     "Ajoutez des fiches depuis leur page détaillée." : {},
     "Ajoutez un mot qui vous pose problème." : {},
@@ -229,6 +230,7 @@
     "Aucun mot masqué." : {},
     "Aucune fiche pour « %@ »." : {},
     "Aucune fiche triée ce jour-là." : {},
+    "Aucune révision due" : {},
     "Aucune voix française sur cet appareil." : {},
     "Automatique" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -254,6 +256,7 @@
     "Chargement des offres…" : {},
     "Chercher un mot" : {},
     "Cherchez Sagace et choisissez la fiche du jour." : {},
+    "Cherchez Sagace et choisissez un widget." : {},
     "Chez les auteurs" : {},
     "Chips" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
@@ -277,6 +280,7 @@
     },
     "Conditions" : {},
     "Confidentialité" : {},
+    "Configurer" : {},
     "Contenu" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -350,7 +354,6 @@
     "Erreur" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
-    "Essayer gratuitement" : {},
     "Et" : {},
     "Exact." : {},
     "Exemple maladroit" : {},
@@ -371,6 +374,7 @@
     "Fermer" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Fiche du jour" : {},
     "Fiche détaillée" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -550,8 +554,10 @@
     "Pas tout à fait." : {},
     "Passe partout" : {},
     "Passer" : {},
+    "Passer à Premium" : {},
     "Perfection" : {},
     "Petit test : 5 pièges du quotidien." : {},
+    "Petit, moyen ou grand. Le grand ajoute la phrase d'auteur ; le moyen et le grand ont « Suivante » et « À retenir »." : {},
     "Pièges des mails" : {},
     "Plus" : {},
     "Plus de vies !" : {},
@@ -612,11 +618,14 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Répondez au plus vite. 5 secondes par question, 3 vies." : {},
+    "Répondez à vos révisions sans ouvrir l'app. Chaque réponse est expliquée, puis « Continuer »." : {},
     "Réussir un examen ou un concours" : {},
     "Réviser maintenant" : {},
+    "Révision" : {},
     "Révision aujourd'hui" : {},
     "Révision demain" : {},
     "Révisions du jour" : {},
+    "Révisions dues : %lld" : {},
     "Révéler" : {},
     "S" : {},
     "S'abonner" : {},
@@ -724,6 +733,7 @@
       }
     },
     "Série actuelle" : {},
+    "Série et écran verrouillé" : {},
     "Série terminée à %lld." : {},
     "Temps écoulé !" : {},
     "Terminer" : {},
@@ -736,6 +746,7 @@
     "toléré" : {},
     "Touchez i pour les nuances et les sources" : {},
     "Touchez longuement l'écran d'accueil, puis Modifier, puis Ajouter un widget, et cherchez Sagace." : {},
+    "Touchez longuement le widget, puis Modifier le widget : famille de fiches, rafraîchissement (toutes les heures, 2 fois par jour, 1 fois par jour), phrase d'auteur." : {},
     "Touchez longuement un espace vide de l'écran d'accueil." : {},
     "Touchez Modifier, puis Ajouter un widget." : {},
     "Touchez pour copier" : {},
@@ -778,6 +789,7 @@
     "Votre série de %lld jours vous attend." : {},
     "Vérifier" : {},
     "Widgets" : {},
+    "Widgets configurables avec Premium" : {},
     "Widgets et rappels personnalisés" : {},
     "Words devient Sagace." : {},
     "YouTube" : {},

@@ -7,7 +7,8 @@ import SwiftData
 /// Sheets ouvertes depuis le feed (`03_ARCHITECTURE.md` section 6).
 enum Sheet: Identifiable, Hashable {
     case explore, profile, stats, practice, day(Date)
-    case fiche(String), share(String)
+    /// - Parameter origin: provenance à journaliser (widget, notification) ; `nil` depuis le feed, déjà compté.
+    case fiche(String, origin: AnalyticsEvent.FicheOrigin? = nil), share(String)
     case session(PracticeRequest), challenge(ChallengeState.Kind), levelTest, crossword
     case paywall(PaywallSource)
 

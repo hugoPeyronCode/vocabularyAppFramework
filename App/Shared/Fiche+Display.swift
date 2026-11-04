@@ -3,7 +3,7 @@ import SwiftUI
 
 extension Fiche {
     /// Nature et genre abrégés : "adj.", "n. f.", "loc.".
-    var grammarLabel: LocalizedStringKey {
+    var grammarLabel: LocalizedStringResource {
         switch (partOfSpeech, gender) {
         case (.nom, .masculin): "n. m."
         case (.nom, .feminin): "n. f."

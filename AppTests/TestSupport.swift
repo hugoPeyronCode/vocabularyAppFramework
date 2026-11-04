@@ -1,4 +1,5 @@
 import Foundation
+import Synchronization
 import SagaceCore
 import SagaceData
 import SagaceUI
@@ -29,8 +30,10 @@ final class SilentAudio: Speaking {
     func speak(_ text: String) {}
 }
 
-struct RecordingAnalytics: Analytics {
-    func track(_ event: AnalyticsEvent) {}
+final class RecordingAnalytics: Analytics {
+    private let recorded = Mutex<[AnalyticsEvent]>([])
+    var events: [AnalyticsEvent] { recorded.withLock { $0 } }
+    func track(_ event: AnalyticsEvent) { recorded.withLock { $0.append(event) } }
 }
 
 /// Dépendances en mémoire pour tester les view models.

@@ -178,7 +178,9 @@ final class ScreenFactory {
         case .about:
             AboutView()
         case .widgets:
-            SheetPage("Widgets") { EmptyState(systemImage: "square.text.square", text: "Bientôt disponible.") }
+            WidgetsView(viewModel: WidgetsViewModel(
+                bridge: dependencies.widgets, entitlements: dependencies.entitlements, day: dependencies.day, now: dependencies.now
+            ))
         }
     }
 
