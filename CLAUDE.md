@@ -6,7 +6,7 @@ Ce dépôt contient l'app iOS **Words** (bundle `com.cortex.VocabularyAppFramewo
 Une app française qui apprend à employer le mot juste au quotidien : une fiche par écran (paronymes, impropriétés, verbes passe partout, nuances, pléonasmes, anglicismes), une phrase d'auteur du domaine public sur chaque fiche, des révisions espacées, des jeux courts, un widget. Design inspiré de Sudoku a Day, clair et sombre.
 
 ## Règles non négociables
-- **Swift 6, SwiftUI, iOS 18.0 minimum**, iPhone uniquement en v4 (retirer l'iPad de `TARGETED_DEVICE_FAMILY`).
+- **Swift 6, SwiftUI, iOS 18.0 minimum**, iPhone et iPad (`TARGETED_DEVICE_FAMILY = 1,2` : Words tournait sur iPad et App Store Connect refuse une mise à jour qui retire un appareil ; mise en page iPhone sur iPad, `OPEN_QUESTIONS.md` n° 88).
 - **MVVM strict** : vues sans logique, view models `@MainActor @Observable`. **Jamais** `ObservableObject`, `@Published`, `@StateObject`, `@EnvironmentObject`.
 - **SwiftData** pour l'état utilisateur, dans le conteneur App Group `group.com.cortex.VocabularyAppFramework`.
 - Le contenu (fiches) est un **pack JSON en lecture seule**, validé par `content/schema/fiche.schema.json`. Jamais de contenu en dur dans le code.

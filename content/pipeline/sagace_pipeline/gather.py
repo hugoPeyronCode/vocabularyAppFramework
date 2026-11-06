@@ -51,17 +51,50 @@ class Lafaye:
         return found[:3]
 
 
+def note_words(note: str) -> list[str]:
+    """Mots cités par la note éditoriale : « à ne pas confondre avec X », « X ou Y ou Z », « préférer X », « au lieu de « X » »."""
+    cited = r"(?:« ([^»]+?) »|([\w'-]+))"
+    words = [quoted or word for quoted, word in re.findall(rf"(?:confondre avec|préférer) {cited}", note)]
+    words += re.findall(r"au lieu de « ([^»]+?) »", note)
+    if re.fullmatch(r"[\w'-]+( ou [\w'-]+)+", note.strip()):
+        words += note.split(" ou ")
+    return list(dict.fromkeys(word.strip() for word in words))
+
+
+VARIANT = re.compile(r"^Variante orthographique de (.+?)\.?$")
+
+
+def parse_resolved(word: str, fetch: Callable[[str], str | None]) -> wiktionary.Entry:
+    """Page du Wiktionnaire ; un sens qui n'est qu'un renvoi d'orthographe (« événement » → « évènement ») est remplacé
+    par les sens de la page visée."""
+    entry = wiktionary.parse(word, fetch(word) or "")
+    senses = []
+    for sense in entry.senses:
+        target = next((match.group(1) for definition in sense.definitions if (match := VARIANT.match(definition))), None)
+        if target and len(sense.definitions) == 1:
+            other = wiktionary.parse(target, fetch(target) or "")
+            senses += other.senses
+            entry.synonyms += [word for word in other.synonyms if word not in entry.synonyms]
+            entry.etymology = entry.etymology or other.etymology
+        else:
+            senses.append(sense)
+    entry.senses = senses
+    return entry
+
+
 def gather_one(candidate: dict[str, str], lexique: Lexique, littre: Littre, lafaye: Lafaye,
                fetch: Callable[[str], str | None]) -> dict[str, Any]:
     headword = candidate["headword"]
-    entry = wiktionary.parse(headword, fetch(headword) or "")
+    entry = parse_resolved(headword, fetch)
     lemma = lexique.best(headword, candidate.get("partOfSpeech") or None) or lexique.best(headword)
     related = {}
-    # Paronymes et synonymes courants : leurs sens servent aux confusions, aux nuances et aux quiz.
-    for word in (entry.paronyms + entry.synonyms)[:8]:
-        if (lexique.rank(word) or 10**9) > MAX_RANK_PARONYM:
+    # Mots de la note éditoriale (toujours), puis paronymes et synonymes courants : leurs sens servent aux confusions,
+    # aux nuances et aux quiz.
+    cited = [word for word in note_words(candidate.get("note", "")) if word.lower() != headword.lower()]
+    for word in list(dict.fromkeys(cited + (entry.paronyms + entry.synonyms)[:8])):
+        if word not in cited and (lexique.rank(word) or 10**9) > MAX_RANK_PARONYM:
             continue
-        other = wiktionary.parse(word, fetch(word) or "")
+        other = parse_resolved(word, fetch)
         if other.senses:
             related[word] = {"definitions": [d for s in other.senses for d in s.definitions][:3],
                              "partOfSpeech": other.senses[0].part_of_speech, "gender": other.senses[0].gender,

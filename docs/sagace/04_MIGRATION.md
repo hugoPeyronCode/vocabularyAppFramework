@@ -36,7 +36,7 @@ Sagace v4.0 est une **mise à jour** de l'app Words existante. Les utilisateurs 
 - Le SDK Facebook et `FacebookAppID` (sauf décision contraire d'Hugo).
 - Les 25 icônes alternatives (remplacées par 6 icônes Sagace).
 - Les fonds d'écran et polices de thèmes v3 (`Backgrounds`, `Sorts_Mill_Goudy`…), `VocabAppContent/` (dossier de travail).
-- Le support iPad (`TARGETED_DEVICE_FAMILY = 1`). Attention : les utilisateurs iPad actuels ne recevront plus de mises à jour sur iPad ; si App Store Connect montre une part iPad notable, garder `1,2` avec la mise en page iPhone centrée.
+- Le support iPad (`TARGETED_DEVICE_FAMILY = 1`). Attention : les utilisateurs iPad actuels ne recevront plus de mises à jour sur iPad ; si App Store Connect montre une part iPad notable, garder `1,2` avec la mise en page iPhone centrée. **Tranché par Apple** : la validation refuse une mise à jour qui ne supporte plus un appareil de la version précédente, donc `1,2` est conservé (`OPEN_QUESTIONS.md` n° 88).
 
 ## 5. Achats : règles
 1. **Réutiliser** `Yearly` (prix nouveau 29,99 €, offre d'introduction 3 jours gratuits à configurer dans App Store Connect pour les nouveaux abonnés) et `lifetime` (49,99 €).

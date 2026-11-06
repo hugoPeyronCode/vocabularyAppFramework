@@ -61,6 +61,7 @@ Règles :
 - shortDefinition : 90 caractères maximum, sans point final.
 - examples : 2 phrases du quotidien moderne (travail, mails, vie courante), le mot entre ** **.
 - quiz : 2 questions dont la bonne réponse est indiscutable selon les sources ; les mauvaises réponses ne doivent jamais être correctes dans la phrase ; mêmes nature et genre que la bonne réponse.
+- Juste ou fautif et Le mot juste : un emploi de verdict "fautif" ou "critique" compte comme fautif (réponse « Fautif », ou mauvaise réponse) ; l'explication dit alors « tournure critiquée » et donne la forme recommandée. Pas de question Juste ou fautif sur un emploi "tolere".
 - Choisis la meilleure phrase d'auteur parmi les candidates fournies, ou null si aucune n'emploie le mot dans ce sens.
 Réponds uniquement par un objet JSON conforme au schéma fourni.
 Extraits : {raw}
@@ -88,6 +89,7 @@ Vérifie la fiche ci-dessous contre les extraits sources, point par point :
 1. La définition est-elle fidèle aux sources ? 2. La règle d'usage et le verdict sont-ils justifiés par les sources ?
 3. Chaque exemple est-il correct, naturel, et emploie-t-il le mot dans le bon sens ? 4. La phrase d'auteur emploie-t-elle le mot dans le sens de la fiche ?
 5. Chaque question de quiz a-t-elle une seule bonne réponse indiscutable ? 6. Y a-t-il une faute de langue dans la fiche ?
+Convention de Sagace, à ne pas signaler : dans les quiz, un emploi de verdict « critique » compte comme fautif (réponse « Fautif », ou mauvaise réponse), comme un emploi « fautif ». Signale en revanche un verdict que les sources ne justifient pas, ou une question Juste ou fautif sur un emploi « tolere ».
 Réponds en JSON : { "ok": bool, "problems": [ { "field": "...", "issue": "...", "severity": "bloquant|mineur" } ] }.
 Fiche : {draft}
 Extraits : {raw}

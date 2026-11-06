@@ -20,8 +20,10 @@ def main() -> None:
     gather.add_argument("--limit", type=int)
     quotes = steps.add_parser("quotes", help="3. phrases d'auteur (Wikisource)")
     quotes.add_argument("--limit", type=int)
-    for name, text in (("draft", "4. rédaction (API Claude)"), ("critic", "6. relecture par l'IA (API Claude)")):
+    for name, text in (("draft", "4. rédaction (agents ou API Claude)"), ("critic", "6. relecture par l'IA (agents ou API Claude)")):
         step = steps.add_parser(name, help=text)
+        step.add_argument("--agent", choices=["export", "import"],
+                          help="sans clé API : exporter les entrées pour des agents Claude Code, puis importer leurs réponses")
         step.add_argument("--sync", action="store_true", help="une requête à la fois (petits essais) au lieu de la Batches API")
         step.add_argument("--confirm", action="store_true", help="envoyer réellement (sinon : estimation seule)")
         if name == "draft":
@@ -44,6 +46,15 @@ def main() -> None:
     elif args.step == "quotes":
         from . import quotes as step
         step.run(args.work, args.limit)
+    elif args.step in ("draft", "critic") and args.agent:
+        from . import agent
+        if args.agent == "export":
+            agent.export(args.step, args.work, getattr(args, "limit", None))
+        else:
+            agent.import_outputs(args.step, args.work)
+            if args.step == "critic":
+                from . import critic
+                critic.write_report(args.work)
     elif args.step == "draft":
         from . import draft as step
         step.run(args.work, args.limit, args.sync, args.confirm)
