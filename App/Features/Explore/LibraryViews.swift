@@ -42,6 +42,8 @@ final class LibraryViewModel {
     private(set) var history: [HistorySection] = []
     private(set) var hasOlderHistory = false
     private(set) var reports: [ReportRow] = []
+    /// Bêta : relectures à envoyer, en CSV.
+    private(set) var reviewExport: String?
     private var historyDays = Rules.historyPageDays
 
     private let content: ContentRepository
@@ -50,8 +52,12 @@ final class LibraryViewModel {
     private let rules: Library
     private let now: () -> Date
 
-    init(content: ContentRepository, store: any ProgressStoring, library: any LibraryStoring, day: SagaceDay, now: @escaping () -> Date) {
-        self.content = content; self.store = store; self.library = library; self.rules = Library(day: day); self.now = now
+    private let showsBetaReview: Bool
+
+    init(content: ContentRepository, store: any ProgressStoring, library: any LibraryStoring, day: SagaceDay,
+         showsBetaReview: Bool = false, now: @escaping () -> Date) {
+        self.content = content; self.store = store; self.library = library; self.rules = Library(day: day)
+        self.showsBetaReview = showsBetaReview; self.now = now
     }
 
     func loadToLearn() {
@@ -83,7 +89,16 @@ final class LibraryViewModel {
     }
 
     func loadReports() {
-        reports = library.reports().map { report in
+        let all = library.reports()
+        if showsBetaReview, !all.isEmpty {
+            reviewExport = ReviewExport.csv(all.map { report in
+                ReviewExport.Entry(
+                    ficheID: report.ficheID, headword: content.fiche(id: report.ficheID)?.headword ?? "",
+                    reason: ReportReason(rawValue: report.reason) ?? .other, comment: report.comment, createdAt: report.createdAt
+                )
+            })
+        }
+        reports = all.map { report in
             let reason = ReportReason(rawValue: report.reason) ?? .other
             let title = reason == .suggestion ? (report.comment ?? "") : (content.fiche(id: report.ficheID)?.headword ?? report.ficheID)
             return ReportRow(id: UUID(), title: title, reason: reason, comment: reason == .suggestion ? nil : report.comment, createdAt: report.createdAt)
@@ -208,6 +223,13 @@ struct ReportsView: View {
                     if viewModel.reports.isEmpty {
                         EmptyState(systemImage: "flag", text: "Vos signalements et suggestions apparaîtront ici.")
                     }
+                    if let export = viewModel.reviewExport {
+                        ShareLink(item: export, subject: Text("Relectures Sagace")) {
+                            Label("Envoyer mes relectures", systemImage: "square.and.arrow.up")
+                        }
+                        .buttonStyle(CapsuleButtonStyle(.primary))
+                        .padding(.bottom, 6)
+                    }
                     ForEach(viewModel.reports) { report in
                         HStack(spacing: 12) {
                             VStack(alignment: .leading, spacing: 4) {
@@ -241,6 +263,7 @@ extension ReportReason {
         case .typo: "Faute dans le texte"
         case .other: "Autre"
         case .suggestion: "Mot proposé"
+        case .confirmed: "Jugée juste"
         }
     }
 }

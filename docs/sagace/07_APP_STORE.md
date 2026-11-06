@@ -1,5 +1,7 @@
 # 07 App Store (v4.0)
 
+Textes prêts à coller, en français et en anglais : `docs/sagace/store/` (décision d'Hugo n° 49 : pas d'essai, offres hebdomadaire et à vie).
+
 ## Identité
 | Champ | Valeur |
 | -- | -- |
@@ -46,7 +48,7 @@ Chaque fiche cite ses sources (Wiktionnaire, Littré, Lexique). Une erreur ? Sig
 Clair ou sombre, sans publicité, fait à Paris.
 
 SAGACE PREMIUM
-Jeux et défis illimités, toutes les familles et tous les thèmes, statistiques, widgets et rappels personnalisés. Essai gratuit de 3 jours sur l'abonnement annuel, avec rappel avant la fin de l'essai. Abonnement renouvelé automatiquement, résiliable à tout moment dans les réglages de votre compte.
+Jeux et défis illimités, toutes les familles et tous les thèmes, statistiques, widgets et rappels personnalisés. Deux formules : un abonnement hebdomadaire, renouvelé automatiquement et résiliable à tout moment dans les réglages de votre compte Apple, ou un achat unique, à vie.
 
 Conditions : {URL}
 Confidentialité : {URL}
@@ -63,7 +65,7 @@ Words devient Sagace. Nouveau nom, nouvelle app : des fiches pour employer le mo
 6. Les stats et mots maîtrisés : *Voyez vos progrès*
 
 ## Notes pour la review Apple
-Cette version renomme l'app Words en Sagace et change sa langue principale en français. Les achats existants (Yearly, weekly, lifetime) restent reconnus. L'app fonctionne hors ligne, sans compte. Pour tester le premium : compte sandbox, abonnement annuel avec essai de 3 jours.
+Cette version renomme l'app Words en Sagace et change sa langue principale en français. Les achats existants (Yearly, weekly, lifetime) restent reconnus. L'app fonctionne hors ligne, sans compte. Pour tester le premium : compte sandbox, abonnement hebdomadaire (sans essai) ou achat à vie. Texte anglais envoyé à Apple : `store/review_notes.txt`.
 
 ## Confidentialité (étiquette App Store)
-Données collectées non liées à l'identité : identifiants (identifiant d'appareil anonyme pour l'analytics), données d'usage (interactions produit), diagnostics. Pas de suivi publicitaire. À ajuster selon l'outil d'analytics retenu.
+v4.0 : « Données non collectées », aucune statistique n'est envoyée (`OPEN_QUESTIONS.md` n° 63) ; manifeste `App/Resources/PrivacyInfo.xcprivacy`. Si un outil d'analytics est branché : données collectées non liées à l'identité, identifiants (identifiant d'appareil anonyme), données d'usage (interactions produit), diagnostics. Pas de suivi publicitaire. Politique : `store/confidentialite.md` et `store/privacy.md`.

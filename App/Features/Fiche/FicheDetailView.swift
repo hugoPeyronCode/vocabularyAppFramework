@@ -20,6 +20,7 @@ struct FicheDetailView: View {
                 ForEach(viewModel.sections, id: \.self) { section in
                     sectionView(section)
                 }
+                if viewModel.showsBetaReview { betaReview }
             }
             .padding(.horizontal, SagaceMetrics.pageMargin)
             .padding(.bottom, 24)
@@ -153,6 +154,20 @@ struct FicheDetailView: View {
                         .foregroundStyle(.vTextPrimary)
                 }
                 .padding(.top, 6)
+            }
+        }
+    }
+
+    /// Bêta TestFlight (`05_CONTENT.md` 3.7) : verdict du testeur sur la fiche.
+    private var betaReview: some View {
+        DetailSection("Relecture bêta") {
+            HStack(spacing: 10) {
+                Button { viewModel.confirm() } label: {
+                    Label(viewModel.isConfirmed ? "Jugée juste" : "Juste", systemImage: viewModel.isConfirmed ? "checkmark.circle.fill" : "checkmark")
+                }
+                .buttonStyle(CapsuleButtonStyle(.secondary))
+                .disabled(viewModel.isConfirmed)
+                SecondaryButton("À corriger", systemImage: "pencil") { modal = .report }
             }
         }
     }

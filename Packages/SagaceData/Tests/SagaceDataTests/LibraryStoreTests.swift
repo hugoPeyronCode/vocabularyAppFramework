@@ -71,4 +71,13 @@ struct LibraryStoreTests {
         #expect(reports.first { $0.reason == ReportReason.suggestion.rawValue }?.comment == "sérendipité")
         #expect(reports.allSatisfy { !$0.sent })
     }
+
+    @Test("Bêta : « Juste » enregistré une seule fois par fiche")
+    func confirm() {
+        store.confirm(ficheID: "fr.eminent")
+        store.confirm(ficheID: "fr.eminent")
+        store.report(ficheID: "fr.pallier", reason: .definition, comment: nil)
+        #expect(store.confirmedFicheIDs() == ["fr.eminent"])
+        #expect(store.reports().count == 2)
+    }
 }

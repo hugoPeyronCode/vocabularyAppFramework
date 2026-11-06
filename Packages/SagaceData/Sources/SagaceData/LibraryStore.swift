@@ -26,6 +26,10 @@ public protocol LibraryStoring: AnyObject {
 
     func reports() -> [ErrorReport]
     func report(ficheID: String, reason: ReportReason, comment: String?)
+    /// Bêta : fiches jugées justes par le testeur (`ReportReason.confirmed`).
+    func confirmedFicheIDs() -> Set<String>
+    /// Bêta : « Juste », une seule fois par fiche.
+    func confirm(ficheID: String)
 }
 
 @MainActor
@@ -122,6 +126,17 @@ public final class LibraryStore: LibraryStoring {
         let trimmed = comment?.trimmingCharacters(in: .whitespacesAndNewlines)
         context.insert(ErrorReport(ficheID: ficheID, reason: reason.rawValue, comment: trimmed?.isEmpty == false ? trimmed : nil, createdAt: now()))
         save()
+    }
+
+    public func confirmedFicheIDs() -> Set<String> {
+        let confirmed = ReportReason.confirmed.rawValue
+        let reports = (try? context.fetch(FetchDescriptor<ErrorReport>(predicate: #Predicate { $0.reason == confirmed }))) ?? []
+        return Set(reports.map(\.ficheID))
+    }
+
+    public func confirm(ficheID: String) {
+        guard !confirmedFicheIDs().contains(ficheID) else { return }
+        report(ficheID: ficheID, reason: .confirmed, comment: nil)
     }
 
     private func save() {

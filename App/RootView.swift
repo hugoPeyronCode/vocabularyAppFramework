@@ -102,6 +102,9 @@ struct RootView: View {
     }
 
     private func makeFeed(content: ContentRepository, topics: Topics) {
+        #if DEBUG
+        DebugLaunch.seedDemoProgressIfRequested(store: dependencies.store, content: content, day: dependencies.day, now: dependencies.now())
+        #endif
         let viewModel = FeedViewModel(
             content: content, topics: topics, store: dependencies.store, library: dependencies.library,
             practice: dependencies.practice, audio: dependencies.audio,
