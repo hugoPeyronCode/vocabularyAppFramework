@@ -46,6 +46,9 @@ def finalize(draft: dict[str, Any], raw: dict[str, Any], quotes: list[dict[str, 
     fiche["authorQuote"] = candidates.get(quote["text"]) if quote else None
     lexique = raw.get("lexique") or {}
     fiche["frequencyRank"] = lexique.get("rank")
+    # Niveau de Lexique 3 (fréquence), comme l'identifiant : pas laissé au rédacteur.
+    if lexique.get("level"):
+        fiche["level"] = lexique["level"]
     return fiche
 
 

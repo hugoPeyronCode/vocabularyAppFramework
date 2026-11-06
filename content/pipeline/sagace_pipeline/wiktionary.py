@@ -86,15 +86,65 @@ def clean(text: str) -> str:
     """Wikicode → texte lisible (liens, modèles courants, gras/italique, références)."""
     text = re.sub(r"<ref[^>]*>.*?</ref>|<ref[^/]*/>", "", text, flags=re.S)
     text = re.sub(r"<[^>]+>", "", text)
+    # Images (« [[Fichier:x.jpg|thumb|Faire à manger.]] ») : retirées, légende comprise.
+    text = re.sub(r"\[\[(?:Fichier|Image|File):(?:[^\[\]]|\[\[[^\]]*\]\])*\]\]", "", text)
     text = re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]", r"\1", text)
     # Modèles de contexte ({{figuré|fr}}) → (figuré) ; modèles « lien » → leur texte.
     text = re.sub(r"\{\{(?:lien|l|w)\|([^|}]+)[^}]*\}\}", r"\1", text)
+    # Renvoi d'orthographe : {{variante ortho de|évènement|fr}} → Variante orthographique de évènement.
+    text = re.sub(r"\{\{variante(?: ortho| orthographique)? de\|([^|}]+)[^}]*\}\}", r"Variante orthographique de \1", text)
+    # {{composé de|prolonger|-ment|lang=fr}} → Composé de prolonger et -ment.
+    text = re.sub(r"\{\{composé de\|([^}]*)\}\}",
+                  lambda match: "Composé de " + " et ".join(part for part in match.group(1).split("|") if "=" not in part), text)
+    text = re.sub(r"\{\{(?:dénominal|déverbal)\|[^}]*?de=([^|}]+)[^}]*\}\}", r"Dérivé de \1", text)
     # Étymologie : {{étyl|la|fr|mot=eminens}} → latin eminens.
     text = re.sub(r"\{\{étyl\|([^}]*)\}\}", _etymon, text)
     text = re.sub(r"\{\{([^|}]+)\|fr\}\}", r"(\1)", text)
     text = re.sub(r"\{\{[^}]*\}\}", "", text)
     text = text.replace("'''", "").replace("''", "")
     return re.sub(r"\s+", " ", text).strip(" :")
+
+
+def _split_template(inner: str) -> list[str]:
+    """Paramètres d'un modèle, sans couper les modèles et liens imbriqués."""
+    params, depth, current = [], 0, ""
+    for index, char in enumerate(inner):
+        pair = inner[index:index + 2]
+        if pair in ("{{", "[["):
+            depth += 1
+        elif pair in ("}}", "]]") and depth > 0:
+            depth -= 1
+        if char == "|" and depth == 0:
+            params.append(current)
+            current = ""
+        else:
+            current += char
+    return params + [current]
+
+
+def examples_in(body: str) -> list[str]:
+    """Exemples `{{exemple|texte|source=...}}` (sur une ou plusieurs lignes) : « texte — source »."""
+    found = []
+    for match in re.finditer(r"\{\{exemple", body):
+        depth, end = 0, None
+        for index in range(match.start(), len(body) - 1):
+            if body[index:index + 2] == "{{":
+                depth += 1
+            elif body[index:index + 2] == "}}":
+                depth -= 1
+                if depth == 0:
+                    end = index
+                    break
+        if end is None:
+            continue
+        params = _split_template(body[match.start() + 2:end])[1:]
+        positional = [param for param in params if not re.match(r"\s*\w+\s*=", param)]
+        named = {key.strip(): value for key, _, value in (param.partition("=") for param in params if re.match(r"\s*\w+\s*=", param))}
+        text = clean(positional[0]) if positional else ""
+        if text:
+            source = clean(named.get("source", ""))
+            found.append(f"{text} — {source}" if source else text)
+    return found
 
 
 def _links(block: str) -> list[str]:
@@ -131,15 +181,17 @@ def parse(title: str, wikitext: str) -> Entry:
             if "{{mf}}" in body or "{{épicène}}" in body:
                 gender = "epicene"
             current = Sense(part_of_speech(name), gender)
+            current.examples = examples_in(body)[:6]
             for line in body.splitlines():
                 if re.match(r"#[^*:#]", line):
                     definition = clean(line[1:])
-                    if definition:
+                    # Définition pas encore rédigée sur le Wiktionnaire : « (figuré) … ».
+                    if re.sub(r"\([^)]*\)", "", definition).strip(" .…"):
                         current.definitions.append(definition)
                         current.markers += _markers(line)
-                elif line.startswith("#*") and "''" in line:
+                elif line.startswith("#*") and "''" in line and "{{exemple" not in line:
                     example = clean(line[2:])
-                    if example:
+                    if example and len(current.examples) < 6:
                         current.examples.append(example)
             current.markers = sorted(set(current.markers))
             entry.senses.append(current)

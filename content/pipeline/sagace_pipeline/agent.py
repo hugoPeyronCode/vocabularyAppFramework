@@ -53,6 +53,12 @@ def draft_instructions(seeds: list[dict[str, Any]]) -> str:
 2. Rédige la fiche, en t'appuyant uniquement sur ces extraits.
 3. Écris l'objet JSON seul, sans texte autour, dans `out/<id>.json` (même nom de fichier).
 
+Précisions :
+- `synonyms` : seulement des mots donnés par les extraits (synonymes du Wiktionnaire, mots liés), sinon une liste vide.
+- Les exemples du Wiktionnaire (`examples`, avec leur source) montrent les constructions courantes ; ne les recopie pas dans `examples`, qui reste 2 phrases du quotidien moderne.
+- `level` et `frequencyRank` viennent de Lexique : ils seront remplacés à l'import.
+- Phrase d'auteur : préfère un auteur de langue française à une traduction, et une phrase qui se comprend seule ; null plutôt qu'une phrase où le mot n'a pas le sens de la fiche.
+
 Les champs `id`, `language`, `headword`, `family`, `sources` et `reviewStatus` seront remplacés par ceux des extraits : remplis les quand même. `authorQuote` : recopie exactement une des candidates (texte, auteur, œuvre, année, url), ou null.
 
 ## Schéma JSON d'une fiche

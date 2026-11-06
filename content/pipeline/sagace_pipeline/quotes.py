@@ -19,6 +19,8 @@ WIKISOURCE_SITE = "https://fr.wikisource.org"
 MIN_WORDS, MAX_WORDS = 8, 35
 MAX_YEAR = 1955
 CANDIDATES_PER_FICHE = 3
+# Textes téléchargés au plus par mot (un chapitre rendu pèse souvent plusieurs centaines de Ko).
+MAX_FETCHED = 6
 
 
 def plain_text(wikitext: str) -> str:
@@ -86,12 +88,16 @@ def quotes_for(raw: dict[str, Any], search: Callable[[str], list[str]], describe
     (auteur et traducteur morts depuis plus de 70 ans)."""
     forms = word_forms(raw["headword"], (raw.get("lexique") or {}).get("forms", []))
     found: list[dict[str, Any]] = []
+    fetched = 0
     for title, described in describe(search(raw["headword"])).items():
+        if fetched >= MAX_FETCHED:
+            break
         deaths = [died(author) for author in described["authors"]]
         provisional = metadata(described["wikitext"], "", described["categories"], title)
         if not public_domain({**provisional, "author": "?"}, None if not deaths or None in deaths else max(deaths)):
             continue
         rendered = page(title)
+        fetched += 1
         if not rendered:
             continue
         # Auteur définitif : attribut du wikicode, sinon premier lien `Auteur:` de l'en-tête rendu (les liens de la page

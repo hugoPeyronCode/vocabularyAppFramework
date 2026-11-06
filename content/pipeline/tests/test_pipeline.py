@@ -61,6 +61,19 @@ class Wiktionary(unittest.TestCase):
         self.assertIn("eminens", entry.etymology)
 
 
+class WiktionaryExamples(unittest.TestCase):
+    def test_multiline_examples_with_source(self):
+        body = ("# Faire des [[effort]]s.\n"
+                "#* {{exemple| Sa mère '''tâchait''' de s’interposer. |source= {{w|Gustave Flaubert}}, ''L’Éducation sentimentale'', 1891|lang=fr}}\n"
+                "#* {{exemple | lang=fr\n | Mais '''tâchons''' donc que tout se passe bien.\n | source=[[w:Émile Thirion|Émile Thirion]], ''La Politique au village'', 1896}}\n")
+        self.assertEqual(wiktionary.examples_in(body), [
+            "Sa mère tâchait de s’interposer. — Gustave Flaubert, L’Éducation sentimentale, 1891",
+            "Mais tâchons donc que tout se passe bien. — Émile Thirion, La Politique au village, 1896",
+        ])
+        self.assertEqual(wiktionary.part_of_speech("locution conjonctive"), "locution")
+        self.assertEqual(wiktionary.part_of_speech("adjectif indéfini"), "adjectif")
+
+
 class Selection(unittest.TestCase):
     def test_editorial_kept_frequent_words_only_quotas(self):
         lexique = Lexique.load(FIXTURES / "lexique.tsv")
