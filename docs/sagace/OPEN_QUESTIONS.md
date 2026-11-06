@@ -28,7 +28,7 @@
 | 22 | Écrans des jalons suivants appelés depuis le feed (Explorer, Profil, Stats, Practice, fiche détaillée, partage, paywall) | sheet provisoire « Bientôt disponible. » | M2 à M5 |
 | 23 | Le modèle `Collection` de la spec masque `Swift.Collection` | renommé `UserCollection` | M2 |
 | 24 | Test d'interface de la migration (XCUITest) demandé par `04_MIGRATION.md` | migration couverte par 8 tests unitaires + vérification manuelle sur simulateur ; cible XCUITest à créer en M4 avec les tests d'achat | M4 |
-| 25 | Pack embarqué : `content/fr/fiches.json` (sortie du pipeline M8) n'existe pas encore | une phase de script copie `content/fr/seed_fiches.json` vers `Content/fr/fiches.json` dans le bundle ; à pointer sur la sortie du pipeline en M8 | M8 |
+| 25 | ~~Pack embarqué : `content/fr/fiches.json` (sortie du pipeline M8) n'existe pas encore~~ résolu en M8 (n° 73) | une phase de script copie `content/fr/seed_fiches.json` vers `Content/fr/fiches.json` dans le bundle ; à pointer sur la sortie du pipeline en M8 | M8 |
 | 26 | Collections : « collections illimitées » en premium, mais quelle limite en gratuit ? | aucune limite en M2, à fixer avec les verrous PRO en M4 | M4 |
 | 27 | Signalements (DET-02) et mots proposés (EXP-03) : l'envoi par mail prérempli de la question n° 8 suppose une adresse de réception | file locale seulement (visible dans Explorer › Signalés) ; envoi à brancher quand l'adresse ou l'endpoint existe | M7 |
 | 28 | SHR-01 « Messages » | affiché seulement si l'appareil peut envoyer des messages ; « Partager… » couvre les autres apps | M2 |
@@ -36,7 +36,7 @@
 | 30 | Collections suggérées (« Écrire au travail », « Pièges des mails », « Bac de français ») : avec quelles fiches ? | créées vides tant qu'il n'y a pas de sélection éditoriale | M8 |
 | 31 | Illustrations des familles, thèmes, états vides et MIG-01 | symboles SF en attendant les images de `08_ILLUSTRATIONS.md` | M7 |
 | 32 | « Suivre » une famille ou un thème (EXP-02) et « Modifier » (EXP-01) | réservés au premium (« tous les filtres de familles et thèmes »), paywall sinon | M4 |
-| 33 | Texte d'autorisation Photos (« Enregistrer l'image ») | en build setting, en français ; à passer dans un `InfoPlist.xcstrings` avec l'anglais (M8) | M8 |
+| 33 | ~~Texte d'autorisation Photos (« Enregistrer l'image »)~~ résolu en M8 : `App/Resources/InfoPlist.xcstrings`, français et anglais | en build setting, en français ; à passer dans un `InfoPlist.xcstrings` avec l'anglais (M8) | M8 |
 | 34 | PRA-03 « phrase selon le score » : textes non écrits pour les sessions | score et « bonnes réponses » seulement, sans phrase | M7 |
 | 35 | Défis en gratuit : PRA-01 les met derrière le bandeau PRO, `03_ARCHITECTURE.md` les compte dans la session gratuite du jour | règle chiffrée de l'architecture : 1 session par jour, défis compris | M4 |
 | 36 | Test de précision avec le pack modèle (25 fiches, aucune de niveau 5) : 25 questions au lieu de 30 | les niveaux manquants sont complétés par les voisins ; les seuils restent ceux de 30 questions, à revoir si le pack final ne permet pas 30 fiches distinctes | M8 |
@@ -71,3 +71,11 @@
 | 65 | Hors ligne : liens externes (sources, phrases d'auteur, confidentialité) et offres du paywall | liens grisés avec la mention « hors ligne » ; paywall : « Hors ligne : les offres s'afficheront une fois connecté. », rechargées au retour du réseau | M7 |
 | 66 | Page Sources et licences | sources comptées à partir du pack (nom, site, nombre de fiches), phrases d'auteur, licences CC BY-SA 4.0 et domaine public, aucune bibliothèque tierce ; texte des licences à relire par Hugo | M9 |
 | 67 | « Réduire les animations » d'iOS | traité comme le réglage « Animations » désactivé | M7 |
+| 68 | Pack anglais historique (option A) : la v3 n'a ni nature, ni prononciation, ni genre, et parfois un seul exemple | `partOfSpeech = inconnu`, phonétique vide, 0 à 3 exemples ; ces exceptions valent pour `language = en` seulement (schéma `allOf` et `FicheValidator`) ; une fiche française garde toutes les règles. L'app masque nature et phonétique quand elles manquent | M8 |
+| 69 | Statut des fiches anglaises : la spec dit `draft`, invisible en production | `autoChecked` (contenu publié en v3 depuis des années), source « Words (v3) » sans URL | M8 |
+| 70 | Langue du pack | pack anglais quand la langue de l'appareil n'est pas le français et que le pack est présent ; sinon le pack français. Pas de réglage dans l'app | M8 |
+| 71 | Taille du pack anglais : 24 909 fiches, 24 Mo (4,3 Mo compressé dans l'IPA), chargement < 1 s en Release après le retrait des expressions régulières du validateur | gardé tel quel ; à alléger (champs vides omis, découpage) si la taille de l'app gêne | M9 |
+| 72 | Pipeline : la spec parle des dumps du Wiktionnaire et de Wikisource | lecture par les API MediaWiki publiques, une requête toutes les 0,5 s, mise en cache dans `content/pipeline/work/cache/` : pas de dump de plusieurs Go à télécharger. Lexique 3, XMLittré et Lafaye restent des fichiers à fournir par Hugo | M8 |
+| 73 | Pack embarqué | `content/fr/fiches.json`, écrit par `build` du pipeline ; d'ici le premier lot, copie des 25 fiches modèles (version 0 dans `fiches.version`) | M8 |
+| 74 | Lot test de 200 fiches et lot de 1 000 : téléchargement de Lexique 3, clé API Claude et coût (environ 25 $ pour 200 fiches, 175 $ pour 1 500, Batches API, estimation grossière affichée par `draft` sans `--confirm`) | non lancés : à décider par Hugo, qui relit ensuite l'échantillon (taux d'erreur ≤ 2 %) | M8 |
+| 75 | Traduction anglaise de l'interface (448 chaînes de l'app, 43 des widgets, 8 de SagaceUI) faite par Claude | à relire par Hugo, ou par un traducteur natif avant la sortie ; les textes d'exemple en français (fiches modèles, aperçus) restent en français | M9 |

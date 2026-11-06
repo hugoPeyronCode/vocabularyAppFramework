@@ -62,6 +62,8 @@ public enum Family: String, Codable, Sendable, CaseIterable {
 
 public enum PartOfSpeech: String, Codable, Sendable, CaseIterable {
     case nom, verbe, adjectif, adverbe, locution, preposition
+    /// Pack anglais historique (Words v3) : nature non renseignée, jamais pour une fiche française.
+    case inconnu
 }
 
 public enum Gender: String, Codable, Sendable, CaseIterable {

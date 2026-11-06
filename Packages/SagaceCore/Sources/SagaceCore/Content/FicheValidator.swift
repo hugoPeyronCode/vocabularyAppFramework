@@ -35,11 +35,14 @@ public enum FicheValidator {
             issues.append(FicheIssue(ficheID: fiche.id, field: field, message: message))
         }
 
-        if fiche.id.wholeMatch(of: /(fr|en)\.[a-z0-9_]+/) == nil { fail("id", "format attendu fr.mot_compose") }
+        if !isValidID(fiche.id) { fail("id", "format attendu fr.mot_compose") }
         if !fiche.id.hasPrefix(fiche.language.rawValue + ".") { fail("id", "préfixe différent de la langue") }
         if fiche.headword.isEmpty { fail("headword", "vide") }
         if fiche.partOfSpeech == .nom && fiche.gender == nil { fail("gender", "obligatoire pour un nom") }
-        if fiche.phonetic.wholeMatch(of: /\/.+\//) == nil { fail("phonetic", "doit être entre barres obliques") }
+        // Le pack anglais historique (v3) n'a ni prononciation ni nature : seules les fiches françaises les exigent.
+        let isFrench = fiche.language == .fr
+        if isFrench || !fiche.phonetic.isEmpty, !isBetweenSlashes(fiche.phonetic) { fail("phonetic", "doit être entre barres obliques") }
+        if isFrench && fiche.partOfSpeech == .inconnu { fail("partOfSpeech", "nature obligatoire pour une fiche française") }
 
         let short = fiche.shortDefinition
         if short.count < 5 || short.count > Rules.shortDefinitionMaxLength {
@@ -55,8 +58,9 @@ public enum FicheValidator {
             fail("nuance", "plus de \(Rules.nuanceMaxLength) caractères")
         }
 
-        if !Rules.examplesRange.contains(fiche.examples.count) { fail("examples", "2 ou 3 exemples attendus") }
-        for example in fiche.examples where example.firstMatch(of: /\*\*.+\*\*/) == nil {
+        let examplesRange = isFrench ? Rules.examplesRange : Rules.legacyExamplesRange
+        if !examplesRange.contains(fiche.examples.count) { fail("examples", "\(examplesRange.lowerBound) à \(examplesRange.upperBound) exemples attendus") }
+        for example in fiche.examples where !hasBoldWord(example) {
             fail("examples", "le mot doit être entre ** ** : \(example)")
         }
 
@@ -80,8 +84,28 @@ public enum FicheValidator {
         }
 
         if fiche.sources.isEmpty { fail("sources", "au moins une source") }
-        if !fiche.sources.contains(where: { $0.url.hasPrefix("http") }) { fail("sources", "au moins une source avec URL") }
+        // Le pack anglais historique cite Words v3, sans URL.
+        if isFrench, !fiche.sources.contains(where: { $0.url.hasPrefix("http") }) { fail("sources", "au moins une source avec URL") }
 
         return issues
+    }
+
+    // Contrôles de forme sans expressions régulières : ~25 000 fiches validées à chaque lancement (pack anglais).
+
+    /// `(fr|en)\.[a-z0-9_]+`
+    static func isValidID(_ id: String) -> Bool {
+        guard id.hasPrefix("fr.") || id.hasPrefix("en."), id.utf8.count > 3 else { return false }
+        return id.utf8.dropFirst(3).allSatisfy { (0x61...0x7A).contains($0) || (0x30...0x39).contains($0) || $0 == 0x5F }
+    }
+
+    /// `/.+/`
+    static func isBetweenSlashes(_ text: String) -> Bool {
+        text.count > 2 && text.hasPrefix("/") && text.hasSuffix("/")
+    }
+
+    /// `\*\*.+\*\*` : un passage d'au moins un caractère entre deux `**`.
+    static func hasBoldWord(_ text: String) -> Bool {
+        guard let open = text.range(of: "**"), let close = text.range(of: "**", range: open.upperBound..<text.endIndex) else { return false }
+        return close.lowerBound > open.upperBound
     }
 }

@@ -22,36 +22,110 @@
               }
             }
           }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld life"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lives"
+                }
+              }
+            }
+          }
         }
       }
     },
     "Bonne réponse" : {
       "comment" : "Valeur VoiceOver d'une réponse juste.",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct answer"
+          }
+        }
+      }
     },
     "Débloquer" : {
       "comment" : "Bouton du bandeau PRO, ouvre le paywall.",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock"
+          }
+        }
+      }
     },
     "Effacer" : {
       "comment" : "Libellé VoiceOver du bouton qui vide la recherche.",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear"
+          }
+        }
+      }
     },
     "Fermer" : {
       "comment" : "Libellé VoiceOver du bouton rond xmark qui ferme une sheet.",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
     },
     "Mauvaise réponse" : {
       "comment" : "Valeur VoiceOver d'une réponse fausse.",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wrong answer"
+          }
+        }
+      }
     },
     "Question %lld sur %lld" : {
       "comment" : "VoiceOver de la barre de progression d'une session.",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Question %lld of %lld"
+          }
+        }
+      }
     },
     "Réservé aux membres PRO" : {
       "comment" : "Bandeau violet et cadenas des fonctions premium.",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For PRO members only"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

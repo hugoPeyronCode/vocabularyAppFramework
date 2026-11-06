@@ -154,6 +154,8 @@ public enum Rules {
     public static let usageExplanationMaxLength = 200
     public static let nuanceMaxLength = 300
     public static let examplesRange = 2...3
+    /// Pack anglais historique : la v3 ne donne qu'une phrase de contexte, parfois aucune.
+    public static let legacyExamplesRange = 0...3
     public static let quizChoicesRange = 2...3
 
     // MARK: Achats

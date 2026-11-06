@@ -1,0 +1,1594 @@
+[
+  {
+    "id": "fr.eminent",
+    "language": "fr",
+    "headword": "éminent",
+    "family": "paronyme",
+    "themes": [
+      "societe",
+      "travail"
+    ],
+    "partOfSpeech": "adjectif",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/e.mi.nɑ̃/",
+    "shortDefinition": "Qui se distingue des autres par son mérite ou son rang",
+    "definition": "Qui s'élève au-dessus des autres par sa valeur, son mérite ou sa position.",
+    "confusions": [
+      {
+        "word": "imminent",
+        "meaning": "Qui va se produire très prochainement",
+        "example": "Le départ est imminent : les valises sont prêtes."
+      }
+    ],
+    "usage": null,
+    "nuance": null,
+    "examples": [
+      "Le colloque a réuni plusieurs **éminents** spécialistes.",
+      "Elle a joué un rôle **éminent** dans la négociation."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "remarquable",
+      "illustre",
+      "supérieur"
+    ],
+    "etymology": "Du latin eminens, « qui s'élève ».",
+    "level": 2,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "paronymes",
+        "prompt": "Un ___ chercheur ouvrira le congrès.",
+        "choices": [
+          "éminent",
+          "imminent"
+        ],
+        "answerIndex": 0,
+        "explanation": "Éminent : remarquable. Imminent : qui va arriver."
+      },
+      {
+        "game": "paronymes",
+        "prompt": "L'orage est ___, rentrons vite.",
+        "choices": [
+          "éminent",
+          "imminent"
+        ],
+        "answerIndex": 1,
+        "explanation": "Imminent : qui va se produire très bientôt."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/%C3%A9minent"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.conjoncture",
+    "language": "fr",
+    "headword": "conjoncture",
+    "family": "paronyme",
+    "themes": [
+      "argent",
+      "societe"
+    ],
+    "partOfSpeech": "nom",
+    "gender": "feminin",
+    "register": "courant",
+    "phonetic": "/kɔ̃.ʒɔ̃k.tyʁ/",
+    "shortDefinition": "Situation qui résulte d'un ensemble de circonstances",
+    "definition": "Ensemble des circonstances qui caractérisent une situation à un moment donné, notamment en économie.",
+    "confusions": [
+      {
+        "word": "conjecture",
+        "meaning": "Supposition fondée sur des indices, sans preuve",
+        "example": "Ce ne sont que des conjectures : rien n'est confirmé."
+      }
+    ],
+    "usage": null,
+    "nuance": null,
+    "examples": [
+      "Dans la **conjoncture** actuelle, mieux vaut reporter l'investissement.",
+      "La **conjoncture** économique pèse sur les embauches."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "situation",
+      "contexte",
+      "circonstances"
+    ],
+    "etymology": "Du latin conjungere, « joindre ensemble ».",
+    "level": 3,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "paronymes",
+        "prompt": "Les analystes se perdent en ___ sur la date de l'annonce.",
+        "choices": [
+          "conjonctures",
+          "conjectures"
+        ],
+        "answerIndex": 1,
+        "explanation": "Conjecture : supposition. Conjoncture : situation."
+      },
+      {
+        "game": "motJuste",
+        "prompt": "La ___ économique est défavorable cette année.",
+        "choices": [
+          "conjecture",
+          "conjoncture",
+          "conjonction"
+        ],
+        "answerIndex": 1,
+        "explanation": "Conjoncture : ensemble des circonstances."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/conjoncture"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.effraction",
+    "language": "fr",
+    "headword": "effraction",
+    "family": "paronyme",
+    "themes": [
+      "droit"
+    ],
+    "partOfSpeech": "nom",
+    "gender": "feminin",
+    "register": "courant",
+    "phonetic": "/e.fʁak.sjɔ̃/",
+    "shortDefinition": "Bris d'une clôture ou d'une serrure pour entrer",
+    "definition": "Fait de forcer une porte, une fenêtre ou une serrure pour pénétrer dans un lieu.",
+    "confusions": [
+      {
+        "word": "infraction",
+        "meaning": "Violation d'une loi ou d'un règlement",
+        "example": "Rouler sans permis est une infraction."
+      }
+    ],
+    "usage": null,
+    "nuance": null,
+    "examples": [
+      "Les cambrioleurs sont entrés par **effraction**.",
+      "Aucune trace d'**effraction** n'a été relevée."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "forcement",
+      "bris"
+    ],
+    "etymology": "Du latin effringere, « briser ».",
+    "level": 2,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "paronymes",
+        "prompt": "Stationner sur une place handicapé est une ___.",
+        "choices": [
+          "effraction",
+          "infraction"
+        ],
+        "answerIndex": 1,
+        "explanation": "Infraction : violation d'une règle. Effraction : forcer une entrée."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/effraction"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.prolongation",
+    "language": "fr",
+    "headword": "prolongation",
+    "family": "paronyme",
+    "themes": [
+      "travail",
+      "droit"
+    ],
+    "partOfSpeech": "nom",
+    "gender": "feminin",
+    "register": "courant",
+    "phonetic": "/pʁɔ.lɔ̃.ɡa.sjɔ̃/",
+    "shortDefinition": "Allongement dans le temps",
+    "definition": "Action de prolonger quelque chose dans le temps ; délai supplémentaire.",
+    "confusions": [
+      {
+        "word": "prolongement",
+        "meaning": "Allongement dans l'espace",
+        "example": "Le prolongement de la ligne de métro est prévu."
+      }
+    ],
+    "usage": null,
+    "nuance": "Prolongation pour la durée, prolongement pour la distance.",
+    "examples": [
+      "J'ai obtenu une **prolongation** de mon contrat de trois mois.",
+      "Le match s'est joué en **prolongation**."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "report",
+      "sursis",
+      "rallonge"
+    ],
+    "etymology": null,
+    "level": 2,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "paronymes",
+        "prompt": "Les travaux de ___ de l'autoroute commencent en mai.",
+        "choices": [
+          "prolongation",
+          "prolongement"
+        ],
+        "answerIndex": 1,
+        "explanation": "Dans l'espace : prolongement."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/prolongation"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.pallier",
+    "language": "fr",
+    "headword": "pallier",
+    "family": "impropriete",
+    "themes": [
+      "travail"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/pa.lje/",
+    "shortDefinition": "Atténuer un manque, y remédier provisoirement",
+    "definition": "Remédier à une difficulté, à un manque, de façon souvent provisoire. Verbe transitif direct.",
+    "confusions": [],
+    "usage": {
+      "correct": "Pallier un manque de personnel.",
+      "avoid": "Pallier à un manque de personnel.",
+      "verdict": "critique",
+      "explanation": "On pallie quelque chose, sans « à ». Construction critiquée par l'Académie, très répandue."
+    },
+    "nuance": "Pallier se construit comme « remédier », mais sans préposition.",
+    "examples": [
+      "Les heures supplémentaires ont permis de **pallier** l'absence de deux collègues.",
+      "Rien ne peut **pallier** un manque de préparation."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "compenser",
+      "remédier à",
+      "atténuer"
+    ],
+    "etymology": "Du latin pallium, « manteau » : couvrir, masquer.",
+    "level": 3,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "justeOuFautif",
+        "prompt": "« Nous devons pallier ce retard. »",
+        "choices": [
+          "Juste",
+          "Fautif"
+        ],
+        "answerIndex": 0,
+        "explanation": "Pallier quelque chose : construction correcte."
+      },
+      {
+        "game": "justeOuFautif",
+        "prompt": "« Il faut pallier à ce problème. »",
+        "choices": [
+          "Juste",
+          "Fautif"
+        ],
+        "answerIndex": 1,
+        "explanation": "On dit « pallier ce problème », sans « à »."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/pallier"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.se_rappeler",
+    "language": "fr",
+    "headword": "se rappeler",
+    "family": "impropriete",
+    "themes": [
+      "relations"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/sə ʁa.ple/",
+    "shortDefinition": "Garder ou retrouver le souvenir de quelque chose",
+    "definition": "Faire revenir à sa mémoire. Se construit sans « de » devant un nom : se rappeler quelque chose.",
+    "confusions": [
+      {
+        "word": "se souvenir",
+        "meaning": "Se construit avec « de » : se souvenir de quelque chose",
+        "example": "Je me souviens de cette histoire."
+      }
+    ],
+    "usage": {
+      "correct": "Je me rappelle cette histoire.",
+      "avoid": "Je me rappelle de cette histoire.",
+      "verdict": "critique",
+      "explanation": "On se rappelle quelque chose, mais on se souvient de quelque chose."
+    },
+    "nuance": null,
+    "examples": [
+      "Je me **rappelle** très bien ce voyage.",
+      "Tu te **rappelles** son prénom ?"
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "se souvenir de",
+      "se remémorer"
+    ],
+    "etymology": null,
+    "level": 2,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "justeOuFautif",
+        "prompt": "« Je m'en rappelle parfaitement. »",
+        "choices": [
+          "Juste",
+          "Fautif"
+        ],
+        "answerIndex": 1,
+        "explanation": "On dit « je me le rappelle » ou « je m'en souviens »."
+      },
+      {
+        "game": "motJuste",
+        "prompt": "Je ___ de notre première rencontre.",
+        "choices": [
+          "me rappelle",
+          "me souviens",
+          "me remémore"
+        ],
+        "answerIndex": 1,
+        "explanation": "Se souvenir de : avec « de »."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/se_rappeler"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.consequent",
+    "language": "fr",
+    "headword": "conséquent",
+    "family": "impropriete",
+    "themes": [
+      "argent",
+      "travail"
+    ],
+    "partOfSpeech": "adjectif",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/kɔ̃.se.kɑ̃/",
+    "shortDefinition": "Qui agit avec logique ; qui découle de ce qui précède",
+    "definition": "Qui agit ou raisonne avec cohérence ; qui est la suite logique de quelque chose. Le sens « important » est critiqué.",
+    "confusions": [],
+    "usage": {
+      "correct": "Une somme importante.",
+      "avoid": "Une somme conséquente.",
+      "verdict": "critique",
+      "explanation": "Au sens d'« important », conséquent est familier et critiqué."
+    },
+    "nuance": null,
+    "examples": [
+      "Il est resté **conséquent** avec ses principes.",
+      "Par **conséquent**, la réunion est reportée."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "logique",
+      "cohérent"
+    ],
+    "etymology": "Du latin consequens, « qui suit ».",
+    "level": 3,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "motJuste",
+        "prompt": "Le projet a demandé un budget ___.",
+        "choices": [
+          "conséquent",
+          "important",
+          "conséquence"
+        ],
+        "answerIndex": 1,
+        "explanation": "Important : le sens « grand » de conséquent est critiqué."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/cons%C3%A9quent"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.resoudre",
+    "language": "fr",
+    "headword": "résoudre",
+    "family": "impropriete",
+    "themes": [
+      "travail"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/ʁe.zudʁ/",
+    "shortDefinition": "Trouver la solution d'un problème",
+    "definition": "Trouver la solution d'une difficulté, d'un problème, d'une équation.",
+    "confusions": [
+      {
+        "word": "solutionner",
+        "meaning": "Synonyme critiqué, jugé lourd",
+        "example": "On évite « solutionner un problème »."
+      }
+    ],
+    "usage": {
+      "correct": "Résoudre un problème.",
+      "avoid": "Solutionner un problème.",
+      "verdict": "critique",
+      "explanation": "« Solutionner » existe mais est critiqué : résoudre est plus précis et plus élégant."
+    },
+    "nuance": null,
+    "examples": [
+      "Nous avons **résolu** la panne en une heure.",
+      "Ce n'est pas en ignorant le conflit qu'on le **résoudra**."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "régler",
+      "dénouer",
+      "trancher"
+    ],
+    "etymology": "Du latin resolvere, « délier ».",
+    "level": 1,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "passePartout",
+        "prompt": "Il faut ___ ce bug avant la mise en ligne.",
+        "choices": [
+          "solutionner",
+          "résoudre",
+          "faire"
+        ],
+        "answerIndex": 1,
+        "explanation": "Résoudre un problème."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/r%C3%A9soudre"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.achalande",
+    "language": "fr",
+    "headword": "achalandé",
+    "family": "motMalCompris",
+    "themes": [
+      "argent",
+      "cuisine"
+    ],
+    "partOfSpeech": "adjectif",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/a.ʃa.lɑ̃.de/",
+    "shortDefinition": "Qui a beaucoup de clients",
+    "definition": "Se dit d'un commerce qui attire de nombreux clients (les chalands). Le sens « bien approvisionné » est critiqué.",
+    "confusions": [],
+    "usage": {
+      "correct": "Une épicerie bien approvisionnée.",
+      "avoid": "Une épicerie bien achalandée (au sens de « pleine de produits »).",
+      "verdict": "critique",
+      "explanation": "Les chalands sont les clients : une boutique achalandée a du monde, pas forcément du stock."
+    },
+    "nuance": null,
+    "examples": [
+      "Ce marché est très **achalandé** le dimanche matin.",
+      "Une boulangerie bien **achalandée** dès 7 heures."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "fréquenté"
+    ],
+    "etymology": "De chaland, « client ».",
+    "level": 4,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "sens",
+        "prompt": "achalandé",
+        "choices": [
+          "Qui a beaucoup de clients",
+          "Qui a beaucoup de marchandises",
+          "Qui est bien décoré"
+        ],
+        "answerIndex": 0,
+        "explanation": "Les chalands sont les clients."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/achaland%C3%A9"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.alternative",
+    "language": "fr",
+    "headword": "alternative",
+    "family": "motMalCompris",
+    "themes": [
+      "travail",
+      "societe"
+    ],
+    "partOfSpeech": "nom",
+    "gender": "feminin",
+    "register": "courant",
+    "phonetic": "/al.tɛʁ.na.tiv/",
+    "shortDefinition": "Choix entre deux possibilités",
+    "definition": "Situation où l'on doit choisir entre deux possibilités qui s'excluent. Au sens d'« autre solution », emploi critiqué.",
+    "confusions": [],
+    "usage": {
+      "correct": "Il n'y a pas d'autre solution.",
+      "avoid": "Il n'y a pas d'alternative.",
+      "verdict": "critique",
+      "explanation": "Au sens strict, l'alternative est le choix lui-même, pas l'une des options."
+    },
+    "nuance": null,
+    "examples": [
+      "L'**alternative** est simple : partir maintenant ou attendre demain.",
+      "Nous voilà devant une **alternative** difficile."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "choix",
+      "dilemme"
+    ],
+    "etymology": "Du latin alternus, « l'un après l'autre ».",
+    "level": 3,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "sens",
+        "prompt": "une alternative",
+        "choices": [
+          "Un choix entre deux possibilités",
+          "Une solution de secours",
+          "Une option originale"
+        ],
+        "answerIndex": 0,
+        "explanation": "L'alternative, c'est le choix entre deux voies."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/alternative"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.se_rendre_compte",
+    "language": "fr",
+    "headword": "se rendre compte",
+    "family": "anglicisme",
+    "themes": [
+      "travail",
+      "relations"
+    ],
+    "partOfSpeech": "locution",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/sə ʁɑ̃dʁ kɔ̃t/",
+    "shortDefinition": "Prendre conscience de quelque chose",
+    "definition": "Comprendre, prendre conscience d'un fait. À préférer à « réaliser » dans ce sens, qui vient de l'anglais to realize.",
+    "confusions": [
+      {
+        "word": "réaliser",
+        "meaning": "Rendre réel, accomplir",
+        "example": "Elle a réalisé son projet de tour du monde."
+      }
+    ],
+    "usage": {
+      "correct": "Je me suis rendu compte de mon erreur.",
+      "avoid": "J'ai réalisé mon erreur.",
+      "verdict": "tolere",
+      "explanation": "« Réaliser » au sens de « comprendre » est un anglicisme aujourd'hui admis, mais « se rendre compte » est plus juste."
+    },
+    "nuance": null,
+    "examples": [
+      "Je me suis **rendu compte** trop tard que la réunion était annulée.",
+      "Tu te **rends compte** du travail que ça représente ?"
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "prendre conscience",
+      "comprendre",
+      "s'apercevoir"
+    ],
+    "etymology": null,
+    "level": 2,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "motJuste",
+        "prompt": "Il a fallu une heure pour ___ que le fichier était vide.",
+        "choices": [
+          "réaliser",
+          "se rendre compte",
+          "réaliser compte"
+        ],
+        "answerIndex": 1,
+        "explanation": "Se rendre compte : prendre conscience."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/se_rendre_compte"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.assurement",
+    "language": "fr",
+    "headword": "assurément",
+    "family": "anglicisme",
+    "themes": [
+      "relations"
+    ],
+    "partOfSpeech": "adverbe",
+    "gender": null,
+    "register": "soutenu",
+    "phonetic": "/a.sy.ʁe.mɑ̃/",
+    "shortDefinition": "Certainement, sans aucun doute",
+    "definition": "De façon certaine. À préférer à « définitivement » employé au sens de l'anglais definitely.",
+    "confusions": [
+      {
+        "word": "définitivement",
+        "meaning": "De manière définitive, pour toujours",
+        "example": "Le magasin a fermé définitivement."
+      }
+    ],
+    "usage": {
+      "correct": "C'est assurément le meilleur film de l'année.",
+      "avoid": "C'est définitivement le meilleur film de l'année.",
+      "verdict": "critique",
+      "explanation": "Définitivement veut dire « pour toujours ». Au sens de « sans aucun doute », c'est un calque de l'anglais."
+    },
+    "nuance": null,
+    "examples": [
+      "C'est **assurément** la meilleure option.",
+      "Elle viendra, **assurément**."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "certainement",
+      "sans aucun doute",
+      "incontestablement"
+    ],
+    "etymology": null,
+    "level": 3,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "justeOuFautif",
+        "prompt": "« Ce restaurant est définitivement le meilleur du quartier. »",
+        "choices": [
+          "Juste",
+          "Fautif"
+        ],
+        "answerIndex": 1,
+        "explanation": "Calque de definitely : dites « assurément » ou « sans conteste »."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/assur%C3%A9ment"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.toucher",
+    "language": "fr",
+    "headword": "toucher",
+    "family": "anglicisme",
+    "themes": [
+      "travail",
+      "societe"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/tu.ʃe/",
+    "shortDefinition": "Avoir un effet sur quelqu'un ou quelque chose",
+    "definition": "Atteindre, concerner, avoir des conséquences sur. À préférer à « impacter », néologisme critiqué.",
+    "confusions": [
+      {
+        "word": "impacter",
+        "meaning": "Néologisme critiqué, tiré de l'anglais to impact",
+        "example": "On évite « impacter nos clients »."
+      }
+    ],
+    "usage": {
+      "correct": "Cette décision touche nos clients.",
+      "avoid": "Cette décision impacte nos clients.",
+      "verdict": "critique",
+      "explanation": "« Impacter » est entré dans certains dictionnaires mais reste critiqué : toucher, affecter, avoir des effets sur."
+    },
+    "nuance": null,
+    "examples": [
+      "La hausse des prix **touche** surtout les ménages modestes.",
+      "Ces mesures **toucheront** toutes les équipes."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "affecter",
+      "concerner",
+      "frapper"
+    ],
+    "etymology": null,
+    "level": 2,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "passePartout",
+        "prompt": "La grève va ___ les livraisons de la semaine.",
+        "choices": [
+          "impacter",
+          "perturber",
+          "faire"
+        ],
+        "answerIndex": 1,
+        "explanation": "Perturber, affecter, toucher : plus précis que « impacter »."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/toucher"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.emmener",
+    "language": "fr",
+    "headword": "emmener",
+    "family": "nuance",
+    "themes": [
+      "voyage",
+      "relations"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/ɑ̃m.ne/",
+    "shortDefinition": "Mener quelqu'un avec soi d'un lieu à un autre",
+    "definition": "Prendre avec soi une personne ou un animal qui se déplace, en partant d'un lieu.",
+    "confusions": [
+      {
+        "word": "emporter",
+        "meaning": "Prendre avec soi un objet qu'on porte",
+        "example": "N'oublie pas d'emporter ton parapluie."
+      }
+    ],
+    "usage": null,
+    "nuance": "On emmène ce qui marche, on emporte ce qu'on porte.",
+    "examples": [
+      "J'**emmène** les enfants à la piscine.",
+      "Il a **emmené** son chien en vacances."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "conduire",
+      "accompagner"
+    ],
+    "etymology": null,
+    "level": 1,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "motJuste",
+        "prompt": "N'oublie pas d'___ ton ordinateur en réunion.",
+        "choices": [
+          "emmener",
+          "emporter",
+          "amener"
+        ],
+        "answerIndex": 1,
+        "explanation": "Un objet qu'on porte : emporter."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/emmener"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.apporter",
+    "language": "fr",
+    "headword": "apporter",
+    "family": "nuance",
+    "themes": [
+      "cuisine",
+      "relations"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/a.pɔʁ.te/",
+    "shortDefinition": "Porter un objet jusqu'à un lieu ou une personne",
+    "definition": "Porter quelque chose jusqu'à quelqu'un ou jusqu'à l'endroit où il se trouve.",
+    "confusions": [
+      {
+        "word": "amener",
+        "meaning": "Conduire une personne ou un animal jusqu'à un lieu",
+        "example": "Amène ta sœur à la fête."
+      }
+    ],
+    "usage": {
+      "correct": "Apporte ton gâteau samedi.",
+      "avoid": "Amène ton gâteau samedi.",
+      "verdict": "critique",
+      "explanation": "On apporte un objet, on amène une personne. « Amener un objet » est courant à l'oral mais critiqué."
+    },
+    "nuance": null,
+    "examples": [
+      "Chacun **apporte** un plat pour le dîner.",
+      "Le serveur nous a **apporté** l'addition."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "porter",
+      "fournir"
+    ],
+    "etymology": null,
+    "level": 1,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "motJuste",
+        "prompt": "Peux-tu ___ du pain en venant ?",
+        "choices": [
+          "amener",
+          "apporter",
+          "emmener"
+        ],
+        "answerIndex": 1,
+        "explanation": "Un objet : apporter."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/apporter"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.regarder",
+    "language": "fr",
+    "headword": "regarder",
+    "family": "nuance",
+    "themes": [
+      "culture"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/ʁə.ɡaʁ.de/",
+    "shortDefinition": "Diriger volontairement les yeux vers quelque chose",
+    "definition": "Porter son regard sur quelque chose ou quelqu'un, avec une intention.",
+    "confusions": [
+      {
+        "word": "voir",
+        "meaning": "Percevoir par les yeux, même sans le vouloir",
+        "example": "Je l'ai vu passer sans le regarder."
+      }
+    ],
+    "usage": null,
+    "nuance": "Voir est subi, regarder est voulu ; de même, entendre est subi, écouter est voulu.",
+    "examples": [
+      "Il **regarde** le paysage défiler.",
+      "**Regarde** bien avant de traverser."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "observer",
+      "contempler",
+      "examiner"
+    ],
+    "etymology": null,
+    "level": 1,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "motJuste",
+        "prompt": "J'ai ___ un accident en rentrant, par hasard.",
+        "choices": [
+          "regardé",
+          "vu",
+          "observé"
+        ],
+        "answerIndex": 1,
+        "explanation": "Sans le vouloir : voir."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/regarder"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.empecher",
+    "language": "fr",
+    "headword": "empêcher",
+    "family": "nuance",
+    "themes": [
+      "societe",
+      "droit"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/ɑ̃.pe.ʃe/",
+    "shortDefinition": "Rendre impossible, faire obstacle",
+    "definition": "Faire en sorte qu'une chose ne se produise pas ou qu'une personne ne puisse pas agir.",
+    "confusions": [
+      {
+        "word": "éviter",
+        "meaning": "Échapper à quelque chose, ou faire en sorte qu'il n'arrive pas",
+        "example": "Il a évité l'accident de justesse."
+      }
+    ],
+    "usage": null,
+    "nuance": "On évite ce qui menace, on empêche ce qu'un autre voudrait faire.",
+    "examples": [
+      "La pluie nous a **empêchés** de sortir.",
+      "Rien ne l'**empêchera** de partir."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "interdire",
+      "entraver",
+      "bloquer"
+    ],
+    "etymology": null,
+    "level": 2,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "motJuste",
+        "prompt": "Le bruit m'___ de me concentrer.",
+        "choices": [
+          "évite",
+          "empêche",
+          "interdit"
+        ],
+        "answerIndex": 1,
+        "explanation": "Faire obstacle : empêcher."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/emp%C3%AAcher"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.prevoir",
+    "language": "fr",
+    "headword": "prévoir",
+    "family": "pleonasme",
+    "themes": [
+      "travail"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/pʁe.vwaʁ/",
+    "shortDefinition": "Envisager ce qui doit arriver ; organiser à l'avance",
+    "definition": "Voir d'avance ce qui va se produire ; organiser en vue de quelque chose. Le préfixe pré- contient déjà l'idée d'« avance ».",
+    "confusions": [],
+    "usage": {
+      "correct": "Prévoyez une heure de trajet.",
+      "avoid": "Prévoyez à l'avance une heure de trajet.",
+      "verdict": "critique",
+      "explanation": "« Prévoir à l'avance » est un pléonasme : pré- signifie déjà « avant »."
+    },
+    "nuance": null,
+    "examples": [
+      "Nous avons **prévu** une salle plus grande.",
+      "Il faut **prévoir** des imprévus."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "anticiper",
+      "envisager",
+      "planifier"
+    ],
+    "etymology": "Du latin praevidere, « voir avant ».",
+    "level": 1,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "justeOuFautif",
+        "prompt": "« Il faut prévoir à l'avance le budget. »",
+        "choices": [
+          "Juste",
+          "Fautif"
+        ],
+        "answerIndex": 1,
+        "explanation": "Pléonasme : « prévoir » suffit."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/pr%C3%A9voir"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.aujourd_hui",
+    "language": "fr",
+    "headword": "au jour d'aujourd'hui",
+    "family": "pleonasme",
+    "themes": [
+      "societe"
+    ],
+    "partOfSpeech": "locution",
+    "gender": null,
+    "register": "familier",
+    "phonetic": "/o ʒuʁ do.ʒuʁ.dɥi/",
+    "shortDefinition": "Formule redondante pour dire « aujourd'hui »",
+    "definition": "Locution plaisante ou maladroite qui répète l'idée de jour : « aujourd'hui » contient déjà « jour » et « hui » (ce jour).",
+    "confusions": [],
+    "usage": {
+      "correct": "Aujourd'hui, ou à l'heure actuelle.",
+      "avoid": "Au jour d'aujourd'hui.",
+      "verdict": "critique",
+      "explanation": "Pléonasme : à réserver à l'effet comique."
+    },
+    "nuance": null,
+    "examples": [
+      "**Aujourd'hui**, tout se règle en ligne.",
+      "À l'heure **actuelle**, rien n'est décidé."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "aujourd'hui",
+      "actuellement",
+      "de nos jours"
+    ],
+    "etymology": "Hui vient du latin hodie, « ce jour ».",
+    "level": 1,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "justeOuFautif",
+        "prompt": "« Au jour d'aujourd'hui, le télétravail est courant. »",
+        "choices": [
+          "Juste",
+          "Fautif"
+        ],
+        "answerIndex": 1,
+        "explanation": "Pléonasme : « aujourd'hui » suffit."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/au_jour_d%27aujourd%27hui"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.prononcer",
+    "language": "fr",
+    "headword": "prononcer",
+    "family": "passePartout",
+    "themes": [
+      "travail",
+      "culture"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/pʁɔ.nɔ̃.se/",
+    "shortDefinition": "Dire à voix haute, devant un public",
+    "definition": "Dire, articuler ; déclarer solennellement. Plus précis que « faire » pour un discours ou un éloge.",
+    "confusions": [],
+    "usage": {
+      "correct": "Prononcer un discours.",
+      "avoid": "Faire un discours.",
+      "verdict": "tolere",
+      "explanation": "« Faire un discours » est correct, mais « prononcer » est plus précis."
+    },
+    "nuance": null,
+    "examples": [
+      "La directrice a **prononcé** un discours émouvant.",
+      "Le juge **prononcera** sa décision demain."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "dire",
+      "déclarer",
+      "articuler"
+    ],
+    "etymology": null,
+    "level": 2,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "passePartout",
+        "prompt": "Le témoin a ___ un éloge du défunt.",
+        "choices": [
+          "fait",
+          "prononcé",
+          "mis"
+        ],
+        "answerIndex": 1,
+        "explanation": "Un éloge, un discours : on les prononce."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/prononcer"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.instaurer",
+    "language": "fr",
+    "headword": "instaurer",
+    "family": "passePartout",
+    "themes": [
+      "travail",
+      "societe"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "soutenu",
+    "phonetic": "/ɛ̃s.to.ʁe/",
+    "shortDefinition": "Établir quelque chose de nouveau et durable",
+    "definition": "Établir pour la première fois une règle, un usage, une institution.",
+    "confusions": [],
+    "usage": {
+      "correct": "Instaurer une règle.",
+      "avoid": "Mettre en place une règle.",
+      "verdict": "tolere",
+      "explanation": "« Mettre en place » est correct mais vague : instaurer, établir ou créer disent mieux l'idée."
+    },
+    "nuance": null,
+    "examples": [
+      "La mairie a **instauré** une zone piétonne.",
+      "Il faut **instaurer** un climat de confiance."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "établir",
+      "créer",
+      "fonder"
+    ],
+    "etymology": "Du latin instaurare, « renouveler, établir ».",
+    "level": 3,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "passePartout",
+        "prompt": "L'entreprise va ___ le télétravail deux jours par semaine.",
+        "choices": [
+          "mettre",
+          "instaurer",
+          "faire"
+        ],
+        "answerIndex": 1,
+        "explanation": "Établir une règle nouvelle : instaurer."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/instaurer"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.acronyme",
+    "language": "fr",
+    "headword": "acronyme",
+    "family": "motMalCompris",
+    "themes": [
+      "sciences"
+    ],
+    "partOfSpeech": "nom",
+    "gender": "masculin",
+    "register": "courant",
+    "phonetic": "/a.kʁɔ.nim/",
+    "shortDefinition": "Sigle qui se prononce comme un mot",
+    "definition": "Sigle formé d'initiales que l'on prononce comme un mot ordinaire (Otan, Unesco, ovni).",
+    "confusions": [
+      {
+        "word": "sigle",
+        "meaning": "Suite d'initiales que l'on épelle",
+        "example": "SNCF est un sigle : on l'épelle lettre par lettre."
+      }
+    ],
+    "usage": null,
+    "nuance": "Tout acronyme est un sigle, mais un sigle qu'on épelle n'est pas un acronyme.",
+    "examples": [
+      "« Ovni » est un **acronyme** devenu un nom commun.",
+      "L'**acronyme** Unesco se lit comme un mot."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "sigle"
+    ],
+    "etymology": "Du grec akros, « extrême », et onoma, « nom ».",
+    "level": 3,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "sens",
+        "prompt": "un acronyme",
+        "choices": [
+          "Un sigle prononcé comme un mot",
+          "N'importe quelle abréviation",
+          "Un mot inventé"
+        ],
+        "answerIndex": 0,
+        "explanation": "Otan, Unesco : on les prononce comme des mots."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/acronyme"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.probleme",
+    "language": "fr",
+    "headword": "problème",
+    "family": "motMalCompris",
+    "themes": [
+      "travail"
+    ],
+    "partOfSpeech": "nom",
+    "gender": "masculin",
+    "register": "courant",
+    "phonetic": "/pʁɔ.blɛm/",
+    "shortDefinition": "Difficulté à résoudre",
+    "definition": "Question à résoudre, difficulté. À ne pas remplacer par « problématique », qui désigne l'ensemble des questions posées par un sujet.",
+    "confusions": [
+      {
+        "word": "problématique",
+        "meaning": "Ensemble des questions que pose un sujet",
+        "example": "La problématique de ce mémoire porte sur l'accès au logement."
+      }
+    ],
+    "usage": {
+      "correct": "Nous avons un problème de délai.",
+      "avoid": "Nous avons une problématique de délai.",
+      "verdict": "critique",
+      "explanation": "Une problématique est une manière de poser les questions d'un sujet, pas un simple problème."
+    },
+    "nuance": null,
+    "examples": [
+      "On a un **problème** avec l'imprimante.",
+      "Ce n'est pas un **problème** d'argent, mais de temps."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "difficulté",
+      "souci",
+      "question"
+    ],
+    "etymology": null,
+    "level": 1,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "motJuste",
+        "prompt": "Le client signale un ___ de connexion.",
+        "choices": [
+          "problématique",
+          "problème",
+          "problémation"
+        ],
+        "answerIndex": 1,
+        "explanation": "Une difficulté concrète : un problème."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/probl%C3%A8me"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.au_temps_pour_moi",
+    "language": "fr",
+    "headword": "au temps pour moi",
+    "family": "expression",
+    "themes": [
+      "relations"
+    ],
+    "partOfSpeech": "locution",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/o tɑ̃ puʁ mwa/",
+    "shortDefinition": "Je reconnais mon erreur",
+    "definition": "Formule pour reconnaître qu'on s'est trompé. Elle viendrait du commandement militaire « Au temps ! » qui fait reprendre un mouvement mal exécuté.",
+    "confusions": [],
+    "usage": {
+      "correct": "Au temps pour moi, c'était mardi.",
+      "avoid": "Autant pour moi, c'était mardi.",
+      "verdict": "tolere",
+      "explanation": "La graphie « autant pour moi » est très répandue et parfois admise ; l'Académie recommande « au temps pour moi »."
+    },
+    "nuance": null,
+    "examples": [
+      "**Au temps pour moi**, la réunion est bien à 15 heures.",
+      "Ah, **au temps pour moi**, je t'avais mal compris."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "je me suis trompé",
+      "mea culpa"
+    ],
+    "etymology": null,
+    "level": 4,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "sens",
+        "prompt": "au temps pour moi",
+        "choices": [
+          "Je reconnais mon erreur",
+          "Je n'ai pas le temps",
+          "C'est mon tour"
+        ],
+        "answerIndex": 0,
+        "explanation": "Formule pour reconnaître une erreur."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/au_temps_pour_moi"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "fr.deceler",
+    "language": "fr",
+    "headword": "déceler",
+    "family": "paronyme",
+    "themes": [
+      "sciences",
+      "sante"
+    ],
+    "partOfSpeech": "verbe",
+    "gender": null,
+    "register": "courant",
+    "phonetic": "/de.sle/",
+    "shortDefinition": "Découvrir ce qui était caché",
+    "definition": "Parvenir à découvrir, à remarquer quelque chose de caché ou de peu visible.",
+    "confusions": [
+      {
+        "word": "desceller",
+        "meaning": "Détacher ce qui était scellé",
+        "example": "Ils ont descellé la plaque du mur."
+      },
+      {
+        "word": "desseller",
+        "meaning": "Retirer la selle d'un cheval",
+        "example": "Elle a dessellé son cheval après la balade."
+      }
+    ],
+    "usage": null,
+    "nuance": null,
+    "examples": [
+      "Le médecin a **décelé** une anomalie.",
+      "Je n'ai **décelé** aucune erreur dans le dossier."
+    ],
+    "authorQuote": null,
+    "synonyms": [
+      "détecter",
+      "découvrir",
+      "repérer"
+    ],
+    "etymology": null,
+    "level": 4,
+    "frequencyRank": null,
+    "quiz": [
+      {
+        "game": "paronymes",
+        "prompt": "L'analyse a permis de ___ une fraude.",
+        "choices": [
+          "déceler",
+          "desceller",
+          "desseller"
+        ],
+        "answerIndex": 0,
+        "explanation": "Découvrir ce qui est caché : déceler."
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiktionnaire",
+        "url": "https://fr.wiktionary.org/wiki/d%C3%A9celer"
+      },
+      {
+        "name": "Lexique 3",
+        "url": "http://www.lexique.org/"
+      }
+    ],
+    "reviewStatus": "draft"
+  }
+]

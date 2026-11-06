@@ -1,0 +1,2 @@
+# Étape 5 (contrôle 8) : un mot par ligne ; toute fiche dont le mot, un exemple ou la phrase d'auteur contient
+# l'un d'eux est rejetée pour la v4 (sexualité, insultes, violence). Liste à compléter par Hugo.

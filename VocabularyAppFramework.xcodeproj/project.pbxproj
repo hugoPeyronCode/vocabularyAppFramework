@@ -401,8 +401,9 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/content/fr/seed_fiches.json",
+				"$(SRCROOT)/content/fr/fiches.json",
 				"$(SRCROOT)/content/fr/topics.json",
+				"$(SRCROOT)/content/en/fiches.json",
 			);
 			name = "Copy content pack";
 			outputFileListPaths = (
@@ -410,10 +411,11 @@
 			outputPaths = (
 				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Content/fr/fiches.json",
 				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Content/fr/topics.json",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Content/en/fiches.json",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\ndest=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Content/fr\"\nmkdir -p \"$dest\"\n# Pack de développement jusqu'au pipeline M8 (content/pipeline build).\ncp \"${SRCROOT}/content/fr/seed_fiches.json\" \"$dest/fiches.json\"\ncp \"${SRCROOT}/content/fr/topics.json\" \"$dest/topics.json\"\n";
+			shellScript = "set -e\nroot=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Content\"\nmkdir -p \"$root/fr\" \"$root/en\"\n# Pack produit par le pipeline (content/pipeline, étape build) ; pack anglais historique (convert-en).\ncp \"${SRCROOT}/content/fr/fiches.json\" \"$root/fr/fiches.json\"\ncp \"${SRCROOT}/content/fr/topics.json\" \"$root/fr/topics.json\"\ncp \"${SRCROOT}/content/en/fiches.json\" \"$root/en/fiches.json\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

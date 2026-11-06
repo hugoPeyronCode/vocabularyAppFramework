@@ -1,12 +1,66 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
-    "1 fois par jour" : {},
-    "2 fois par jour" : {},
-    "Anglicismes et faux amis" : {},
-    "Aucune révision due. À demain !" : {},
-    "Bonne réponse : %@" : {},
-    "Continuer" : {},
+    "1 fois par jour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Once a day"
+          }
+        }
+      }
+    },
+    "2 fois par jour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twice a day"
+          }
+        }
+      }
+    },
+    "Anglicismes et faux amis" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anglicisms and false friends"
+          }
+        }
+      }
+    },
+    "Aucune révision due. À demain !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No reviews due. See you tomorrow!"
+          }
+        }
+      }
+    },
+    "Bonne réponse : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct answer: %@"
+          }
+        }
+      }
+    },
+    "Continuer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
     "Encore %lld révisions dans l'app." : {
       "localizations" : {
         "fr" : {
@@ -26,35 +80,287 @@
               }
             }
           }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld more review in the app."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld more reviews in the app."
+                }
+              }
+            }
+          }
         }
       }
     },
-    "Exact." : {},
-    "Expressions" : {},
-    "Famille" : {},
-    "Fiche" : {},
-    "Fiche du jour" : {},
-    "Fiche suivante" : {},
-    "Impropriétés" : {},
-    "Les révisions reviennent quand un mot « À retenir » est mûr." : {},
-    "Mot du jour" : {},
-    "Mots mal compris" : {},
-    "Nuances" : {},
-    "Ouvrez Sagace" : {},
-    "Ouvrez Sagace pour préparer vos révisions." : {},
-    "Ouvrez Sagace pour voir votre fiche du jour." : {},
-    "Paronymes" : {},
-    "Pas tout à fait." : {},
-    "Phrase d'auteur (grand widget)" : {},
-    "Pléonasmes" : {},
-    "Rafraîchissement" : {},
-    "Retenue" : {},
-    "Répondez à vos révisions sans ouvrir l'app." : {},
-    "Répondre à une révision" : {},
-    "Réponse" : {},
-    "Révision" : {},
-    "Suivante" : {},
-    "Série" : {},
+    "Exact." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct."
+          }
+        }
+      }
+    },
+    "Expressions" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expressions"
+          }
+        }
+      }
+    },
+    "Famille" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Family"
+          }
+        }
+      }
+    },
+    "Fiche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Card"
+          }
+        }
+      }
+    },
+    "Fiche du jour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Card of the day"
+          }
+        }
+      }
+    },
+    "Fiche suivante" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next card"
+          }
+        }
+      }
+    },
+    "Impropriétés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Misused words"
+          }
+        }
+      }
+    },
+    "Les révisions reviennent quand un mot « À retenir » est mûr." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reviews come back when a “To learn” word is due."
+          }
+        }
+      }
+    },
+    "Mot du jour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Word of the day"
+          }
+        }
+      }
+    },
+    "Mots mal compris" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Misunderstood words"
+          }
+        }
+      }
+    },
+    "Nuances" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuances"
+          }
+        }
+      }
+    },
+    "Ouvrez Sagace" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sagace"
+          }
+        }
+      }
+    },
+    "Ouvrez Sagace pour préparer vos révisions." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sagace to get your reviews ready."
+          }
+        }
+      }
+    },
+    "Ouvrez Sagace pour voir votre fiche du jour." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sagace to see your card of the day."
+          }
+        }
+      }
+    },
+    "Paronymes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paronyms"
+          }
+        }
+      }
+    },
+    "Pas tout à fait." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not quite."
+          }
+        }
+      }
+    },
+    "Phrase d'auteur (grand widget)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Author quote (large widget)"
+          }
+        }
+      }
+    },
+    "Pléonasmes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pleonasms"
+          }
+        }
+      }
+    },
+    "Rafraîchissement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh"
+          }
+        }
+      }
+    },
+    "Retenue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved"
+          }
+        }
+      }
+    },
+    "Répondez à vos révisions sans ouvrir l'app." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answer your reviews without opening the app."
+          }
+        }
+      }
+    },
+    "Répondre à une révision" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answer a review"
+          }
+        }
+      }
+    },
+    "Réponse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answer"
+          }
+        }
+      }
+    },
+    "Révision" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review"
+          }
+        }
+      }
+    },
+    "Suivante" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "Série" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streak"
+          }
+        }
+      }
+    },
     "Série : %lld jours" : {
       "localizations" : {
         "fr" : {
@@ -74,18 +380,117 @@
               }
             }
           }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Streak: %lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Streak: %lld days"
+                }
+              }
+            }
+          }
         }
       }
     },
-    "Toutes les familles" : {},
-    "Toutes les heures" : {},
-    "Un mot juste, chaque jour, sur votre écran d'accueil." : {},
-    "Une fiche sur votre écran d'accueil." : {},
-    "Verbes passe-partout" : {},
-    "Votre série de jours et l'objectif du jour." : {},
-    "Widget" : {},
-    "À ne pas confondre : %@" : {},
-    "À retenir" : {}
+    "Toutes les familles" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All families"
+          }
+        }
+      }
+    },
+    "Toutes les heures" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every hour"
+          }
+        }
+      }
+    },
+    "Un mot juste, chaque jour, sur votre écran d'accueil." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The right word, every day, on your Home Screen."
+          }
+        }
+      }
+    },
+    "Une fiche sur votre écran d'accueil." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A card on your Home Screen."
+          }
+        }
+      }
+    },
+    "Verbes passe-partout" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catch-all verbs"
+          }
+        }
+      }
+    },
+    "Votre série de jours et l'objectif du jour." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your day streak and today's goal."
+          }
+        }
+      }
+    },
+    "Widget" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget"
+          }
+        }
+      }
+    },
+    "À ne pas confondre : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not to be confused with %@"
+          }
+        }
+      }
+    },
+    "À retenir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To learn"
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }

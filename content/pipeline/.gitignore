@@ -1,0 +1,3 @@
+# Données de travail du pipeline (dumps, caches, brouillons) : jamais versionnées.
+work/
+__pycache__/

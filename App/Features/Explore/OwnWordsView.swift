@@ -53,11 +53,11 @@ final class OwnWordsViewModel {
 extension PartOfSpeech {
     var formLabel: LocalizedStringKey {
         switch self {
-        case .nom: "Nom"
+        case .nom: "Nom commun"
         case .verbe: "Verbe"
         case .adjectif: "Adjectif"
         case .adverbe: "Adverbe"
-        case .locution, .preposition: "Expression"
+        case .locution, .preposition, .inconnu: "Expression"
         }
     }
 }

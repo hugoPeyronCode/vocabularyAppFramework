@@ -28,7 +28,8 @@ final class ShareViewModel {
         ShareCard(
             familyName: familyName,
             headword: fiche.headword,
-            meta: Text("\(Text(fiche.grammarLabel)) · \(fiche.phonetic)"),
+            meta: fiche.hasGrammar && fiche.hasPhonetic ? Text("\(Text(fiche.grammarLabel)) · \(fiche.phonetic)")
+                : fiche.hasGrammar ? Text(fiche.grammarLabel) : Text(verbatim: fiche.phonetic),
             definition: fiche.shortDefinition,
             confusion: fiche.confusions.first.map { ShareCard.Confusion(word: $0.word, meaning: $0.meaning) }
         )
