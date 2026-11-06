@@ -188,8 +188,10 @@ struct AppearanceView: View {
 
 @MainActor @Observable
 final class AppIconViewModel {
-    /// Icônes alternatives provisoires, en attendant l'icône définitive (M9).
+    /// "Bleu" est l'icône principale (`AppIcon`), les autres sont des icônes alternatives `AppIcon<Nom>`.
     static let icons = ["Bleu", "Violet", "Rouge", "Bronze", "Nuit", "Papier"]
+    static let primary = "Bleu"
+    /// Icône affichée : `nil` pour l'icône principale.
     private(set) var current: String?
     private let haptics: any HapticPlaying
 
@@ -198,8 +200,16 @@ final class AppIconViewModel {
         current = UIApplication.shared.alternateIconName
     }
 
+    func isCurrent(_ name: String) -> Bool {
+        current == Self.iconName(name)
+    }
+
+    private static func iconName(_ name: String) -> String? {
+        name == primary ? nil : "AppIcon\(name)"
+    }
+
     func select(_ name: String) async {
-        let iconName = "AppIcon\(name)"
+        let iconName = Self.iconName(name)
         guard current != iconName else { return }
         do {
             try await UIApplication.shared.setAlternateIconName(iconName)
@@ -224,7 +234,7 @@ struct AppIconView: View {
                             .scaledToFit()
                             .clipShape(.rect(cornerRadius: 22, style: .continuous))
                             .overlay(alignment: .bottomTrailing) {
-                                if viewModel.current == "AppIcon\(name)" {
+                                if viewModel.isCurrent(name) {
                                     Image(systemName: "checkmark.circle.fill")
                                         .font(.system(size: 24))
                                         .foregroundStyle(.vOnAccent, .vBlue)
@@ -234,7 +244,7 @@ struct AppIconView: View {
                     }
                     .buttonStyle(PressScaleButtonStyle())
                     .accessibilityLabel(Text(verbatim: name))
-                    .accessibilityAddTraits(viewModel.current == "AppIcon\(name)" ? .isSelected : [])
+                    .accessibilityAddTraits(viewModel.isCurrent(name) ? .isSelected : [])
                 }
             }
             .padding(.horizontal, SagaceMetrics.pageMargin)

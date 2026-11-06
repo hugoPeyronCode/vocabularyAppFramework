@@ -18,6 +18,8 @@ public enum ReportReason: String, Codable, Sendable, CaseIterable {
     case definition, example, typo, other
     /// "Proposer ce mot ?" depuis une recherche sans résultat.
     case suggestion
+    /// Bêta : la fiche est jugée juste par le testeur.
+    case confirmed
 }
 
 /// Listes de la bibliothèque (LIB-01, LIB-02, LIB-05). Pures, à partir de la progression.

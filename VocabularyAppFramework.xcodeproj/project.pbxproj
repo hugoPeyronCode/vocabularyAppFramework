@@ -591,7 +591,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconBleu AppIconViolet AppIconRouge AppIconBronze AppIconNuit AppIconPapier";
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconViolet AppIconRouge AppIconBronze AppIconNuit AppIconPapier";
 				INFOPLIST_FILE = Config/Info.plist;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/Sagace.entitlements;
@@ -600,7 +600,7 @@
 				DEVELOPMENT_TEAM = YA24P24868;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Words;
+				INFOPLIST_KEY_CFBundleDisplayName = Sagace;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Pour enregistrer la carte d'une fiche dans vos photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -612,7 +612,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
@@ -626,7 +626,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconBleu AppIconViolet AppIconRouge AppIconBronze AppIconNuit AppIconPapier";
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconViolet AppIconRouge AppIconBronze AppIconNuit AppIconPapier";
 				INFOPLIST_FILE = Config/Info.plist;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/Sagace.entitlements;
@@ -635,7 +635,7 @@
 				DEVELOPMENT_TEAM = YA24P24868;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Words;
+				INFOPLIST_KEY_CFBundleDisplayName = Sagace;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Pour enregistrer la carte d'une fiche dans vos photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -647,7 +647,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
@@ -712,7 +712,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework.SagaceWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -739,7 +739,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework.SagaceWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

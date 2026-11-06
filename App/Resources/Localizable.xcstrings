@@ -1722,6 +1722,16 @@
         }
       }
     },
+    "Envoyer mes relectures" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send my reviews"
+          }
+        }
+      }
+    },
     "Envoyer un avis" : {
       "localizations" : {
         "en" : {
@@ -2257,6 +2267,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Perfect days"
+          }
+        }
+      }
+    },
+    "Jugée juste" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marked correct"
           }
         }
       }
@@ -3514,6 +3534,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Play again"
+          }
+        }
+      }
+    },
+    "Relecture bêta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta review"
+          }
+        }
+      }
+    },
+    "Relectures Sagace" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sagace reviews"
           }
         }
       }
@@ -4818,6 +4858,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YouTube"
+          }
+        }
+      }
+    },
+    "À corriger" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Needs fixing"
           }
         }
       }

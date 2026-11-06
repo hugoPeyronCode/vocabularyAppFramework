@@ -30,8 +30,9 @@ final class ScreenFactory {
             if let fiche = content.fiche(id: ficheID) {
                 FicheDetailView(viewModel: FicheDetailViewModel(
                     fiche: fiche, familyName: familyName(fiche.family), content: content, store: dependencies.store,
-                    audio: dependencies.audio, haptics: dependencies.haptics, analytics: dependencies.analytics,
-                    origin: origin, now: dependencies.now
+                    library: dependencies.library, audio: dependencies.audio, haptics: dependencies.haptics,
+                    analytics: dependencies.analytics, origin: origin, showsBetaReview: dependencies.showsBetaReview,
+                    now: dependencies.now
                 ))
             }
         }
@@ -132,7 +133,10 @@ final class ScreenFactory {
     }
 
     private var libraryViewModel: LibraryViewModel {
-        LibraryViewModel(content: content, store: dependencies.store, library: dependencies.library, day: dependencies.day, now: dependencies.now)
+        LibraryViewModel(
+            content: content, store: dependencies.store, library: dependencies.library, day: dependencies.day,
+            showsBetaReview: dependencies.showsBetaReview, now: dependencies.now
+        )
     }
 
     @ViewBuilder

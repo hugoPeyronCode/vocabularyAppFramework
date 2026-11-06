@@ -2,6 +2,7 @@
 import Foundation
 import Observation
 import SagaceCore
+import SagaceData
 import SagaceUI
 import SwiftUI
 
@@ -15,7 +16,20 @@ enum DebugLaunch {
 
     static var autoplay: Bool { ProcessInfo.processInfo.arguments.contains("-autoplay") }
 
-    /// `-debugSheet practice | paywall | levelTest | game:<jeu> | challenge:<rush|sprint|perfection>`
+    /// `-demoProgress` (captures App Store) : une série de 14 jours, une fiche triée par jour et deux aujourd'hui,
+    /// en laissant des fiches au feed ; seulement si la progression est vide.
+    @MainActor static func seedDemoProgressIfRequested(store: ProgressStore, content: ContentRepository, day: SagaceDay, now: Date) {
+        guard ProcessInfo.processInfo.arguments.contains("-demoProgress"), store.activity().isEmpty else { return }
+        let plan = Array((1..<14).reversed()) + [0, 0]
+        for (fiche, daysAgo) in zip(content.fiches, plan) {
+            let date = day.calendar.date(byAdding: .day, value: -daysAgo, to: now) ?? now
+            store.markSeen(fiche.id, at: date)
+            _ = store.sort(fiche.id, as: daysAgo % 3 == 0 ? .toLearn : .known, at: date)
+        }
+        store.save()
+    }
+
+    /// `-debugSheet practice | paywall | levelTest | crossword | stats | fiche:<id> | game:<jeu> | challenge:<rush|sprint|perfection>`
     static var sheet: Sheet? {
         guard let value = value(after: "-debugSheet") else { return nil }
         let parts = value.split(separator: ":").map(String.init)
@@ -24,6 +38,8 @@ enum DebugLaunch {
         case "paywall": return .paywall(.crown)
         case "levelTest": return .levelTest
         case "crossword": return .crossword
+        case "stats": return .stats
+        case "fiche": return parts.count > 1 ? .fiche(parts[1]) : nil
         case "game": return parts.last.flatMap(GameType.init(rawValue:)).map { .session(.game($0)) }
         case "challenge":
             return ["rush": ChallengeState.Kind.rush, "sprint": .sprint, "perfection": .perfection][parts.last ?? ""].map(Sheet.challenge)

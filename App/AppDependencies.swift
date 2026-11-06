@@ -33,6 +33,16 @@ final class AppDependencies {
     let analytics: any Analytics = ConsoleAnalytics()
     let entitlements: EntitlementService
     let day = SagaceDay()
+    /// Développement, TestFlight ou App Store : lu au lancement, avant le chargement du pack.
+    private(set) var channel: DistributionChannel = .appStore
+
+    /// Boutons de relecture bêta. En debug, `-hideBetaReview` les masque (captures App Store).
+    var showsBetaReview: Bool {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-hideBetaReview") { return false }
+        #endif
+        return channel.showsBetaReview
+    }
     /// Horloge de l'app. En debug, `-debugDaysAhead <n>` la décale pour tester révisions et séries.
     let now: () -> Date
 
@@ -68,14 +78,6 @@ final class AppDependencies {
         return { .now }
     }
 
-    /// Les brouillons ne sont visibles qu'en debug, tant que le pack n'est pas contrôlé (M8).
-    private static var visibility: ContentRepository.Visibility {
-        #if DEBUG
-        .development
-        #else
-        .production
-        #endif
-    }
 
     func start() async {
         guard case .loading = state else { return }
@@ -87,8 +89,9 @@ final class AppDependencies {
             state = .failed
             return
         }
+        channel = await DistributionChannel.current()
         do {
-            let content = try await ContentRepository.load(contentsOf: fichesURL, visibility: Self.visibility)
+            let content = try await ContentRepository.load(contentsOf: fichesURL, visibility: channel.contentVisibility)
             let topics = try JSONDecoder().decode(Topics.self, from: Data(contentsOf: topicsURL))
             if !content.issues.isEmpty { logger.error("Fiches écartées : \(content.issues.map(\.description))") }
             await migrateFromV3IfNeeded(content: content)
