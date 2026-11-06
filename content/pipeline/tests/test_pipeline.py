@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from sagace_pipeline import build, check, convert_v3_en, draft, llm, quotes, review, schema, select, wiktionary
+from sagace_pipeline import agent, build, check, convert_v3_en, draft, llm, quotes, review, schema, select, wiktionary
 from sagace_pipeline.common import SCHEMA_PATH, SEED_PATH, contains_form, fiche_id, read_json, word_forms, write_json
 from sagace_pipeline.lexique import Lexique
 
@@ -93,6 +93,24 @@ class Quotes(unittest.TestCase):
         rendered = quotes.metadata('<pages index="x" header=1 titre="[[Illusions perdues]]" />',
                                    '<a href="/wiki/Auteur:Honor%C3%A9_de_Balzac">Balzac</a>', ["Romans parus en 1839"], "Illusions perdues/Chapitre")
         self.assertEqual(rendered, {"author": "Honoré de Balzac", "work": "Illusions perdues", "year": 1839})
+
+    def test_text_fetched_only_for_public_domain_works(self):
+        sentence = "Le plus éminent des orateurs de la Chambre se leva lentement pour répondre à ses adversaires."
+        header = '<pages index="x" titre="[[Les Misérables]]" annee="1862" />'
+        described = {
+            "Traduction récente": {"wikitext": header, "categories": [], "authors": ["Victor Hugo", "Traducteur Vivant"]},
+            "Les Misérables/Tome 1": {"wikitext": header, "categories": [], "authors": ["Armand Carrel", "Victor Hugo"]},
+        }
+        fetched = []
+        def page(title):
+            fetched.append(title)
+            return f'<div><a href="/wiki/Auteur:Victor_Hugo">Victor Hugo</a>.</div><p>{sentence}</p>'
+        deaths = {"Victor Hugo": 1885, "Armand Carrel": 1836}
+        found = quotes.quotes_for({"headword": "éminent", "lexique": None}, lambda word: list(described), lambda titles: described,
+                                  page, deaths.get)
+        # Traducteur vivant : texte jamais téléchargé ; auteur pris dans l'en-tête, pas le premier lien alphabétique.
+        self.assertEqual(fetched, ["Les Misérables/Tome 1"])
+        self.assertEqual([(quote["text"], quote["author"], quote["work"]) for quote in found], [(sentence, "Victor Hugo", "Les Misérables")])
 
 
 class Prompts(unittest.TestCase):
@@ -207,3 +225,35 @@ class ReviewAndBuild(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AgentMode(unittest.TestCase):
+    """Sans clé API : export des entrées, réponse d'un agent, import avec les mêmes règles d'ancrage que l'API."""
+
+    def test_draft_and_critic_round_trip(self):
+        fiche = seed()
+        raw = raw_for(fiche)
+        with tempfile.TemporaryDirectory() as folder:
+            work = Path(folder)
+            (work / "candidats.csv").write_text(f"id,headword,family\n{fiche['id']},{fiche['headword']},{fiche['family']}\n", encoding="utf-8")
+            write_json(work / "raw" / f"{fiche['id']}.json", raw)
+            self.assertEqual(agent.export("draft", work), [fiche["id"]])
+            self.assertIn(draft.RULES, (work / "agent" / "draft" / "CONSIGNES.md").read_text(encoding="utf-8"))
+
+            answer = {**fiche, "id": "fr.autre", "reviewStatus": "humanChecked",
+                      "authorQuote": {"text": "Phrase inventée", "author": "X", "work": "Y", "year": 1850, "url": "https://fr.wikisource.org/x"}}
+            write_json(work / "agent" / "draft" / "out" / f"{fiche['id']}.json", answer)
+            (work / "agent" / "draft" / "out" / "fr.casse.json").write_text("{", encoding="utf-8")
+            imported, failures = agent.import_outputs("draft", work)
+            self.assertEqual(imported, 1)
+            self.assertEqual(len(failures), 1)
+            drafted = read_json(work / "drafts" / f"{fiche['id']}.json")
+            self.assertEqual((drafted["id"], drafted["reviewStatus"], drafted["authorQuote"]), (fiche["id"], "draft", None))
+            # Déjà rédigée : plus rien à exporter.
+            self.assertEqual(agent.export("draft", work), [])
+
+            write_json(work / "checked" / f"{fiche['id']}.json", drafted)
+            self.assertEqual(agent.export("critic", work), [fiche["id"]])
+            write_json(work / "agent" / "critic" / "out" / f"{fiche['id']}.json", {"ok": True, "problems": []})
+            self.assertEqual(agent.import_outputs("critic", work)[0], 1)
+            self.assertTrue((work / "critic" / f"{fiche['id']}.json").exists())

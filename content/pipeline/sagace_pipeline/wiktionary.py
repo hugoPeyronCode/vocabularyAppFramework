@@ -12,6 +12,21 @@ POS = {"nom": "nom", "nom commun": "nom", "verbe": "verbe", "adjectif": "adjecti
        "locution nominale": "locution", "locution verbale": "locution", "locution adverbiale": "locution",
        "locution adjectivale": "locution", "locution": "locution", "préposition": "preposition",
        "locution prépositive": "preposition", "interjection": "locution"}
+
+
+def part_of_speech(name: str) -> str | None:
+    """Nature d'une section : exacte (`POS`), puis par famille (« adjectif indéfini », « locution conjonctive »,
+    « locution-phrase ») ; le schéma n'a pas de conjonction ni de pronom, rangés avec les locutions."""
+    if name in POS:
+        return POS[name]
+    for prefix, value in (("locution prépositi", "preposition"), ("adjectif", "adjectif"), ("adverbe", "adverbe"),
+                          ("verbe", "verbe"), ("nom ", "nom"), ("locution", "locution"), ("conjonction", "locution"),
+                          ("pronom", "locution")):
+        if name.startswith(prefix):
+            return value
+    return None
+
+
 # Marqueurs d'usage repérés dans les définitions et les notes (sélection des familles, verdict).
 USAGE_MARKERS = {
     "critiqué": "critique", "critique": "critique", "pléonasme": "pleonasme", "anglicisme": "anglicisme",
@@ -50,6 +65,23 @@ def french_section(wikitext: str) -> str:
     return match.group(1) if match else ""
 
 
+# Langues d'origine les plus courantes des modèles {{étyl}} ; un code inconnu est gardé tel quel.
+LANGUAGES = {
+    "la": "latin", "grc": "grec ancien", "el": "grec", "en": "anglais", "it": "italien", "de": "allemand", "es": "espagnol",
+    "pt": "portugais", "nl": "néerlandais", "ar": "arabe", "frk": "francique", "fro": "ancien français", "frm": "moyen français",
+    "pro": "ancien occitan", "oc": "occitan", "gaul": "gaulois", "la-cla": "latin classique", "la-ecc": "latin ecclésiastique",
+    "la-med": "latin médiéval", "bas-latin": "bas latin", "gem": "germanique", "hbo": "hébreu ancien", "tr": "turc",
+}
+
+
+def _etymon(match: re.Match[str]) -> str:
+    """{{étyl|la|fr|mot=eminens}} → « latin eminens » ; sans mot, la langue seule."""
+    parts = match.group(1).split("|")
+    language = LANGUAGES.get(parts[0].strip(), parts[0].strip()) if parts else ""
+    word = next((part.split("=", 1)[1] for part in parts if part.startswith("mot=")), "")
+    return f"{language} {word}".strip()
+
+
 def clean(text: str) -> str:
     """Wikicode → texte lisible (liens, modèles courants, gras/italique, références)."""
     text = re.sub(r"<ref[^>]*>.*?</ref>|<ref[^/]*/>", "", text, flags=re.S)
@@ -57,8 +89,8 @@ def clean(text: str) -> str:
     text = re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]", r"\1", text)
     # Modèles de contexte ({{figuré|fr}}) → (figuré) ; modèles « lien » → leur texte.
     text = re.sub(r"\{\{(?:lien|l|w)\|([^|}]+)[^}]*\}\}", r"\1", text)
-    # Étymologie : {{étyl|la|fr|mot=eminens}} → eminens.
-    text = re.sub(r"\{\{étyl\|[^}]*?mot=([^|}]+)[^}]*\}\}", r"\1", text)
+    # Étymologie : {{étyl|la|fr|mot=eminens}} → latin eminens.
+    text = re.sub(r"\{\{étyl\|([^}]*)\}\}", _etymon, text)
     text = re.sub(r"\{\{([^|}]+)\|fr\}\}", r"(\1)", text)
     text = re.sub(r"\{\{[^}]*\}\}", "", text)
     text = text.replace("'''", "").replace("''", "")
@@ -94,11 +126,11 @@ def parse(title: str, wikitext: str) -> Entry:
         if name == "étymologie":
             lines = [clean(line.lstrip(": ")) for line in body.splitlines() if line.startswith(":")]
             entry.etymology = " ".join(line for line in lines if line) or None
-        elif name in POS:
+        elif part_of_speech(name):
             gender = "masculin" if "{{m}}" in body else "feminin" if "{{f}}" in body else None
             if "{{mf}}" in body or "{{épicène}}" in body:
                 gender = "epicene"
-            current = Sense(POS[name], gender)
+            current = Sense(part_of_speech(name), gender)
             for line in body.splitlines():
                 if re.match(r"#[^*:#]", line):
                     definition = clean(line[1:])

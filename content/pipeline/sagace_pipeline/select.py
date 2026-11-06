@@ -15,6 +15,9 @@ from .common import (CANDIDATE_RATIO, FAMILIES, LAUNCH_VOLUMES, LISTS, MAX_RANK,
 from .lexique import Lexique
 
 FIELDS = ["id", "headword", "family", "partOfSpeech", "rank", "origin", "note"]
+# Recherches automatiques : mots pleins d'au moins 4 lettres (« de », « ne », « à » ont aussi une section paronymes).
+CONTENT_WORDS = {"nom", "verbe", "adjectif", "adverbe"}
+MIN_LETTERS = 4
 
 
 def search_titles(query: str, limit: int = 10_000) -> list[str]:
@@ -46,16 +49,18 @@ def select(lexique: Lexique, config: dict, editorial: list[dict[str, str]],
 
     def add(headword: str, family: str, origin: str, note: str = "", max_rank: int = MAX_RANK) -> None:
         lemma = lexique.best(headword)
-        # Expressions et locutions (plusieurs mots) : pas dans Lexique, retenues si la liste éditoriale les donne.
-        if lemma is None and (" " not in headword or origin != "editorial"):
+        # Mot absent de Lexique (locution, mot rare ou récent) : retenu seulement si la liste éditoriale le donne.
+        if lemma is None and origin != "editorial":
             return
         if lemma is not None and lemma.rank > max_rank:
+            return
+        if origin != "editorial" and (lemma is None or lemma.part_of_speech not in CONTENT_WORDS or len(headword) < MIN_LETTERS):
             return
         identifier = fiche_id("fr", headword)
         if identifier in rows:
             return
         rows[identifier] = {"id": identifier, "headword": headword, "family": family,
-                            "partOfSpeech": lemma.part_of_speech if lemma else "locution",
+                            "partOfSpeech": lemma.part_of_speech if lemma else ("locution" if " " in headword else ""),
                             "rank": lemma.rank if lemma else "", "origin": origin, "note": note}
 
     for row in editorial:
@@ -74,13 +79,14 @@ def select(lexique: Lexique, config: dict, editorial: list[dict[str, str]],
                 add(title, family, f"recherche:{query}", max_rank=MAX_RANK_PARONYM if family == "paronyme" else MAX_RANK)
 
     # Quotas : 1,5 candidat par fiche visée, les plus fréquents d'abord, liste éditoriale toujours gardée.
+    # La liste éditoriale passe en tête, toutes familles : un lot test (`--limit 200`) la prend en premier.
     selected: list[dict[str, Any]] = []
     for family in FAMILIES:
         quota = round(LAUNCH_VOLUMES[family] * CANDIDATE_RATIO)
         members = sorted((row for row in rows.values() if row["family"] == family),
                          key=lambda row: (row["origin"] != "editorial", row["rank"] or 0))
         selected += members[:max(quota, sum(row["origin"] == "editorial" for row in members))]
-    return selected
+    return sorted(selected, key=lambda row: row["origin"] != "editorial")
 
 
 def run(lexique_path: Path, work: Path = WORK) -> Path:

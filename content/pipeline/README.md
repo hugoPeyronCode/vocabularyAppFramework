@@ -7,7 +7,7 @@ python3 -m sagace_pipeline --help
 python3 -m unittest discover tests     # tests, sans réseau ni API
 ```
 
-Seules les étapes IA (`draft`, `critic`) ont besoin d'un paquet : `pip install -r requirements.txt` (SDK `anthropic`). Les autres étapes n'utilisent que la bibliothèque standard.
+Toutes les étapes n'utilisent que la bibliothèque standard. Les étapes IA (`draft`, `critic`) se font **sans clé API**, par des agents Claude Code (section suivante). Le mode API (`--confirm`, SDK `anthropic` de `requirements.txt`) reste disponible, mais il n'est pas utilisé.
 
 ## Avant de commencer
 
@@ -19,9 +19,21 @@ Seules les étapes IA (`draft`, `critic`) ont besoin d'un paquet : `pip install 
 | Liste éditoriale | `content/fr/listes/editorial.csv` (`headword,family,note`) | select |
 | Mots sensibles | `content/fr/listes/sensibles.txt` | check |
 | Requêtes par famille | `content/fr/listes/selection.json` | select |
-| Clé API Claude | `ANTHROPIC_API_KEY`, ou un profil `ant auth login` | draft, critic |
 
 Le Wiktionnaire et Wikisource sont lus par leurs API publiques, mises en cache dans `work/cache/` : pas de dump à télécharger. Les données de travail vont dans `work/`, non versionné.
+
+## Rédaction et relecture sans clé API (mode agent)
+
+```bash
+python3 -m sagace_pipeline draft --agent export --limit 200   # work/agent/draft/CONSIGNES.md + in/<id>.json
+# des agents Claude Code lisent CONSIGNES.md et écrivent out/<id>.json, un fichier par fiche
+python3 -m sagace_pipeline draft --agent import               # → work/drafts/ (mêmes règles d'ancrage que l'API)
+python3 -m sagace_pipeline check --lexique work/data/Lexique383.tsv
+python3 -m sagace_pipeline critic --agent export              # work/agent/critic/
+python3 -m sagace_pipeline critic --agent import              # → work/critic/, rapport_critic.csv
+```
+
+À l'import, l'identifiant, la famille, les sources et le statut viennent des extraits, et une phrase d'auteur n'est gardée que si elle fait partie des candidates. Une réponse illisible est signalée et reste à refaire.
 
 ## Les 8 étapes
 

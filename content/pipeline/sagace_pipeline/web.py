@@ -42,7 +42,8 @@ WIKIDATA = "https://www.wikidata.org/w/api.php"
 
 
 def page_wikitext(api: str, title: str) -> str | None:
-    data = get_json(api, {"action": "query", "prop": "revisions", "rvprop": "content", "rvslots": "main", "titles": title})
+    # Redirections suivies : « à l'envi » renvoie à « à l’envi ».
+    data = get_json(api, {"action": "query", "prop": "revisions", "rvprop": "content", "rvslots": "main", "titles": title, "redirects": 1})
     pages = data.get("query", {}).get("pages", [])
     if not pages or pages[0].get("missing"):
         return None

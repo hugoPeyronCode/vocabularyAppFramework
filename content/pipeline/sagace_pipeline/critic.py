@@ -50,6 +50,11 @@ def run(work: Path = WORK, sync: bool = False, confirm: bool = False) -> None:
             write_json(out / f"{result.custom_id}.json", report)
     elif not confirm:
         print("Rien n'est envoyé sans --confirm.")
+    write_report(work)
+
+
+def write_report(work: Path = WORK) -> None:
+    out = stage_dir("critic", work)
     rows = []
     for path in sorted(out.glob("*.json")):
         report = read_json(path)

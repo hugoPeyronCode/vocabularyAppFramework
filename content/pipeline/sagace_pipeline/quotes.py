@@ -80,18 +80,26 @@ def public_domain(meta: dict[str, Any], died: int | None, today: datetime.date |
 CATEGORIES = "Romans|Romans_français|Nouvelles|Contes|Théâtre|Essais|Mémoires|Poèmes"
 
 
-def quotes_for(raw: dict[str, Any], search: Callable[[str], list[str]], page: Callable[[str], dict[str, Any] | None],
-               died: Callable[[str], int | None]) -> list[dict[str, Any]]:
+def quotes_for(raw: dict[str, Any], search: Callable[[str], list[str]], describe: Callable[[list[str]], dict[str, dict[str, Any]]],
+               page: Callable[[str], str | None], died: Callable[[str], int | None]) -> list[dict[str, Any]]:
+    """Métadonnées de tous les résultats d'un coup ; le texte n'est téléchargé que pour une œuvre du domaine public
+    (auteur et traducteur morts depuis plus de 70 ans)."""
     forms = word_forms(raw["headword"], (raw.get("lexique") or {}).get("forms", []))
     found: list[dict[str, Any]] = []
-    for title in search(raw["headword"]):
-        content = page(title)
-        if not content:
+    for title, described in describe(search(raw["headword"])).items():
+        deaths = [died(author) for author in described["authors"]]
+        provisional = metadata(described["wikitext"], "", described["categories"], title)
+        if not public_domain({**provisional, "author": "?"}, None if not deaths or None in deaths else max(deaths)):
             continue
-        meta = metadata(content["wikitext"], content["html"], content["categories"], title)
-        if not public_domain(meta, died(meta["author"]) if meta["author"] else None):
+        rendered = page(title)
+        if not rendered:
             continue
-        for sentence in sentences_with(plain_text(content["html"]), forms)[:1]:
+        # Auteur définitif : attribut du wikicode, sinon premier lien `Auteur:` de l'en-tête rendu (les liens de la page
+        # arrivent par ordre alphabétique, pas dans l'ordre du texte).
+        meta = metadata(described["wikitext"], rendered, described["categories"], title)
+        if meta["author"] not in described["authors"]:
+            continue
+        for sentence in sentences_with(plain_text(rendered), forms)[:1]:
             found.append({"text": sentence, "author": meta["author"], "work": meta["work"], "year": meta["year"],
                           "url": web.page_url(WIKISOURCE_SITE, title)})
         if len(found) >= CANDIDATES_PER_FICHE:
@@ -104,13 +112,31 @@ def search_wikisource(word: str) -> list[str]:
     return [hit["title"] for hit in data.get("query", {}).get("search", [])]
 
 
-def fetch_page(title: str) -> dict[str, Any] | None:
-    """Texte rendu (les chapitres ne font que transclure les pages scannées), wikicode et catégories."""
-    data = web.get_json(web.WIKISOURCE, {"action": "parse", "page": title, "prop": "text|categories"})
-    if "parse" not in data:
-        return None
-    categories = [category.get("category", "").replace("_", " ") for category in data["parse"].get("categories", [])]
-    return {"html": data["parse"]["text"], "wikitext": web.page_wikitext(web.WIKISOURCE, title) or "", "categories": categories}
+def describe_pages(titles: list[str]) -> dict[str, dict[str, Any]]:
+    """Une seule requête pour tous les résultats : wikicode d'en-tête, catégories et tous les auteurs liens `Auteur:`
+    (traducteurs compris), dans l'ordre de la recherche."""
+    if not titles:
+        return {}
+    data = web.get_json(web.WIKISOURCE, {"action": "query", "prop": "revisions|categories|links", "rvprop": "content", "rvslots": "main",
+                                         "plnamespace": 102, "pllimit": "max", "cllimit": "max", "titles": "|".join(titles)})
+    described = {}
+    for item in data.get("query", {}).get("pages", []):
+        if item.get("missing"):
+            continue
+        wikitext = item.get("revisions", [{}])[0].get("slots", {}).get("main", {}).get("content", "")
+        authors = [link["title"].removeprefix("Auteur:") for link in item.get("links", [])]
+        categories = [category["title"].removeprefix("Catégorie:") for category in item.get("categories", [])]
+        named = metadata(wikitext)["author"]
+        described[item["title"]] = {"wikitext": wikitext, "categories": categories,
+                                    "authors": list(dict.fromkeys(([named] if named else []) + authors))}
+    order = {title: index for index, title in enumerate(titles)}
+    return dict(sorted(described.items(), key=lambda pair: order.get(pair[0], len(order))))
+
+
+def fetch_page(title: str) -> str | None:
+    """Texte rendu : les chapitres ne font que transclure les pages scannées."""
+    data = web.get_json(web.WIKISOURCE, {"action": "parse", "page": title, "prop": "text"})
+    return data["parse"]["text"] if "parse" in data else None
 
 
 def run(work: Path = WORK, limit: int | None = None) -> None:
@@ -121,5 +147,5 @@ def run(work: Path = WORK, limit: int | None = None) -> None:
         raw_path = work / "raw" / f"{candidate['id']}.json"
         if path.exists() or not raw_path.exists():
             continue
-        write_json(path, quotes_for(read_json(raw_path), search_wikisource, fetch_page, death_year))
+        write_json(path, quotes_for(read_json(raw_path), search_wikisource, describe_pages, fetch_page, death_year))
     print(f"phrases d'auteur → {out}")
