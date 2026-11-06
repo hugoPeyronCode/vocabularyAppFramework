@@ -123,6 +123,8 @@ struct FeedView: View {
             Button("Fiche suivante") { viewModel.showPage(offset: 1) }
                 .keyboardShortcut(.downArrow, modifiers: [])
         }
+        // Une sheet ouverte garde les flèches pour elle.
+        .disabled(router.sheet != nil)
         .opacity(0)
         .accessibilityHidden(true)
     }

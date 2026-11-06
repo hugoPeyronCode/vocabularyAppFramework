@@ -130,7 +130,7 @@ Tous les styles utilisent `relativeTo:` pour suivre Dynamic Type. Le mot du jour
 | Grille 2 × 2 de métriques | carte `surfaceRaised` rayon 24 pt, gouttière 16 pt |
 | Ombres | aucune en sombre. En clair : carte du jour `y 10, blur 30, noir 8 %` |
 
-iPad (`09_IPAD.md`), dans `SagaceMetrics` : colonne de lecture 640 pt, écran de concentration 560 × 860 pt (onboarding, question de jeu), sheet 700 × 880 pt au plus (Explorer 900 pt de large, colonne de gauche 340 pt), colonne de la carte 520 pt quand le feed est en deux colonnes. La mise en page suit `LayoutWidth` : `compact` sous 600 pt (iPhone, Split View étroit, Slide Over), `regular` de 600 à 1 000 pt, `wide` au delà (feed en deux colonnes).
+iPad (`09_IPAD.md`), dans `SagaceMetrics` : colonne de lecture 640 pt, écran de concentration 560 × 860 pt (onboarding, question de jeu), sheet 700 × 880 pt au plus (Explorer 900 pt de large, colonne de gauche 360 pt), colonne de la carte 520 pt quand le feed est en deux colonnes. La mise en page suit `LayoutWidth` : `compact` sous 600 pt (iPhone, Split View étroit, Slide Over), `regular` de 600 à 1 000 pt, `wide` au delà (feed en deux colonnes).
 
 ## 5. Composants, et ce qu'ils deviennent chez nous
 

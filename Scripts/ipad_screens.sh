@@ -4,6 +4,7 @@
 # Simulateur dédié « Sagace iPad UX » (iPad Pro 11 pouces), créé au besoin ; app réinstallée à neuf.
 # Sortie : docs/sagace/ipad/raw/ (non versionné ; les captures retenues pour la PR vont dans docs/sagace/ipad/).
 # Usage : Scripts/ipad_screens.sh [série…]   séries : clair, sombre, clair-xxl, sombre-xxl (toutes par défaut).
+#         ONLY=test03Explorer Scripts/ipad_screens.sh   pour refaire un seul écran.
 set -euo pipefail
 
 ROOT=${0:A:h:h}
@@ -41,8 +42,10 @@ for serie in "${series[@]}"; do
   echo "Série $name…"
   xcrun simctl ui "$UDID" appearance "$appearance"
   xcrun simctl ui "$UDID" content_size "$size"
+  # Le simulateur met quelques secondes à propager la taille du texte.
+  sleep 5
   TEST_RUNNER_IPAD_SCREENS_DIR="$OUT" TEST_RUNNER_IPAD_SCREENS_SUFFIX="-$name" xcodebuild test-without-building -scheme VocabularyAppFramework \
-    -destination "id=$UDID" -derivedDataPath "$DERIVED" -only-testing:"SagaceAppUITests/IPadScreens" -quiet || echo "Série $name : échecs, voir ci-dessus"
+    -destination "id=$UDID" -derivedDataPath "$DERIVED" -only-testing:"SagaceAppUITests/IPadScreens${ONLY:+/$ONLY}" -quiet || echo "Série $name : échecs, voir ci-dessus"
 done
 
 xcrun simctl ui "$UDID" appearance light
@@ -52,7 +55,7 @@ xcrun simctl status_bar "$UDID" clear
 # L'écran du simulateur est capturé dans son sens natif (portrait) : on redresse les captures en paysage.
 for file in "$OUT"/*-paysage-*.png(N); do
   if (( $(sips -g pixelHeight "$file" | awk '/pixelHeight/ {print $2}') > $(sips -g pixelWidth "$file" | awk '/pixelWidth/ {print $2}') )); then
-    sips -r 90 "$file" >/dev/null
+    sips -r 270 "$file" >/dev/null
   fi
 done
 echo "Captures prêtes dans $OUT."

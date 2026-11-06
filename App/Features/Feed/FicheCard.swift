@@ -39,7 +39,9 @@ struct FicheCard: View {
         .contentShape(.rect(cornerRadius: SagaceMetrics.cardRadius))
         .onTapGesture { if revealsDetails { onReveal() } }
         .animation(SagaceMotion.select, value: revealed)
-        .accessibilityAction(named: Text("En savoir plus")) { if revealsDetails { onReveal() } }
+        .accessibilityActions {
+            if revealsDetails { Button("En savoir plus", action: onReveal) }
+        }
     }
 
     private var header: some View {

@@ -20,7 +20,7 @@ Interface iPad, écran par écran. Proposition validée par Hugo le 6 novembre 2
 - Sheet flottante centrée (voir Sheets ci dessous), contenu dans la colonne de lecture.
 
 ### Explorer et bibliothèque (EXP, LIB)
-- Sheet large (900 pt au plus) en **deux colonnes** (dessinées à la main plutôt qu'avec `NavigationSplitView`, qui se replie en pile dans une sheet ; `OPEN_QUESTIONS.md` n° 90) : à gauche, l'Explorer actuel (bibliothèque, familles, thèmes, recherche) en colonne de 340 pt ; à droite, la page choisie (À retenir, une famille, une collection…), et la fiche détaillée qui s'y empile au toucher d'une ligne. Ouverture sur À retenir.
+- Sheet large (900 pt au plus) en **deux colonnes** (dessinées à la main plutôt qu'avec `NavigationSplitView`, qui se replie en pile dans une sheet ; `OPEN_QUESTIONS.md` n° 90) : à gauche, l'Explorer actuel (bibliothèque, familles, thèmes, recherche) en colonne de 360 pt ; à droite, la page choisie (À retenir, une famille, une collection…), et la fiche détaillée qui s'y empile au toucher d'une ligne. Ouverture sur À retenir.
 - *Variante possible : Explorer comme sur iPhone, mais avec des grilles de 3 ou 4 colonnes et une navigation par pile.*
 
 ### Jeux (PRA) et révisions

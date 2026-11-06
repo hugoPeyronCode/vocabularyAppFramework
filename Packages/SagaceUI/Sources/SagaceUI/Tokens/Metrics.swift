@@ -42,7 +42,7 @@ public enum SagaceMetrics {
     /// Marge minimale entre une sheet iPad et les bords de la fenêtre, pour qu'elle reste flottante.
     public static let sheetWindowMargin: CGFloat = 40
     /// Colonne de gauche d'une sheet en deux colonnes.
-    public static let sidebarWidth: CGFloat = 340
+    public static let sidebarWidth: CGFloat = 360
     /// Colonne de la carte quand le feed est en deux colonnes.
     public static let feedCardColumnWidth: CGFloat = 520
     /// Largeur à partir de laquelle la mise en page s'élargit (`LayoutWidth.regular`).
