@@ -4,7 +4,7 @@ import SagaceUI
 import SwiftUI
 import WidgetKit
 
-/// Fiche du jour : petit, moyen, grand, et écran verrouillé (rectangulaire, en ligne).
+/// Fiche du jour : petit, moyen, grand, très grand (iPad), et écran verrouillé (rectangulaire, en ligne).
 struct FicheWidget: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: "FicheWidget", intent: FicheWidgetConfiguration.self, provider: FicheProvider()) { entry in
@@ -12,7 +12,7 @@ struct FicheWidget: Widget {
         }
         .configurationDisplayName("Fiche du jour")
         .description("Un mot juste, chaque jour, sur votre écran d'accueil.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular, .accessoryInline])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .systemExtraLarge, .accessoryRectangular, .accessoryInline])
     }
 }
 
@@ -78,6 +78,8 @@ struct FicheWidgetView: View {
                         Text(verbatim: card.shortDefinition).font(.caption).lineLimit(2)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                case .systemExtraLarge:
+                    extraLarge(card)
                 default:
                     home(card)
                 }
@@ -92,6 +94,33 @@ struct FicheWidgetView: View {
         .containerBackground(for: .widget) { Color.vSurface }
     }
 
+    /// Très grand (écran d'accueil de l'iPad) : la fiche à gauche, l'exemple et la phrase d'auteur à droite.
+    private func extraLarge(_ card: WidgetSnapshot.Card) -> some View {
+        HStack(alignment: .top, spacing: 20) {
+            home(card)
+            VStack(alignment: .leading, spacing: 12) {
+                if let example = card.example {
+                    Text(verbatim: example)
+                        .font(.subheadline)
+                        .foregroundStyle(.vTextPrimary)
+                        .lineLimit(3)
+                }
+                if entry.showsQuote, let quote = card.quote {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(verbatim: "« \(quote) »").italic().lineLimit(6)
+                        if let source = card.quoteSource { Text(verbatim: source).font(.caption) }
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(.vTextSecondary)
+                }
+                Spacer(minLength: 0)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding(.leading, 20)
+            .overlay(alignment: .leading) { Rectangle().fill(.vSeparator).frame(width: 1) }
+        }
+    }
+
     private func home(_ card: WidgetSnapshot.Card) -> some View {
         VStack(alignment: .leading, spacing: family == .systemSmall ? 4 : 6) {
             Text(entry.isWordOfTheDay ? "Mot du jour" : "Fiche")
@@ -99,7 +128,7 @@ struct FicheWidgetView: View {
                 .textCase(.uppercase)
                 .foregroundStyle(.vTextSecondary)
             Text(verbatim: card.headword)
-                .font(.system(size: family == .systemSmall ? 22 : 28, weight: .heavy))
+                .font(.system(size: family == .systemSmall ? 22 : (family == .systemExtraLarge ? 40 : 28), weight: .heavy))
                 .foregroundStyle(.vTextPrimary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
@@ -112,7 +141,7 @@ struct FicheWidgetView: View {
             Text(verbatim: card.shortDefinition)
                 .font(family == .systemSmall ? .caption : .subheadline)
                 .foregroundStyle(.vTextPrimary)
-                .lineLimit(family == .systemLarge ? 4 : (family == .systemSmall ? 3 : 2))
+                .lineLimit(family == .systemLarge || family == .systemExtraLarge ? 4 : (family == .systemSmall ? 3 : 2))
             if family != .systemSmall, let confusion = card.confusion {
                 Label { Text("À ne pas confondre : \(confusion)") } icon: { Image(systemName: "arrow.left.arrow.right") }
                     .font(.caption.weight(.semibold))

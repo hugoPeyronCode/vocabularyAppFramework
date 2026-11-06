@@ -7,6 +7,8 @@ struct OnboardingView: View {
     @State var viewModel: OnboardingViewModel
     let onFinish: () -> Void
     @Environment(ScreenFactory.self) private var factory
+    /// iPad (`09_IPAD.md`) : une colonne centrée au milieu de l'écran.
+    @State private var layout = LayoutWidth.compact
 
     var body: some View {
         VStack(spacing: 0) {
@@ -32,6 +34,13 @@ struct OnboardingView: View {
             .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity), removal: .opacity))
             .id(viewModel.step)
         }
+        .frame(
+            maxWidth: layout.isRegular ? SagaceMetrics.focusWidth : .infinity,
+            maxHeight: layout.isRegular ? SagaceMetrics.focusHeight : .infinity
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .readsLayoutWidth($layout)
+        .environment(\.layoutWidth, layout)
         .background(viewModel.step == .paywall ? Color.vSurface : .vBackground)
         .animation(SagaceMotion.page, value: viewModel.step)
         .onAppear { viewModel.onAppear() }
@@ -89,7 +98,7 @@ struct OnboardingView: View {
     private func illustration(_ symbol: String) -> some View {
         Image(systemName: symbol)
             .symbolVariant(.fill)
-            .font(.system(size: 76))
+            .font(.system(size: layout.isRegular ? 110 : 76))
             .foregroundStyle(.vBlue)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 28)
@@ -192,12 +201,15 @@ struct OnboardingView: View {
                         if question.game == .justeOuFautif {
                             HStack(spacing: 12) {
                                 AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.answer(.trueFalse(true)) }
+                                    .trueFalseShortcut(true)
                                 AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.answer(.trueFalse(false)) }
+                                    .trueFalseShortcut(false)
                             }
                         } else {
                             VStack(spacing: SagaceMetrics.rowSpacing) {
                                 ForEach(question.choices.indices, id: \.self) { index in
                                     AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.answer(.choice(index)) }
+                                        .answerShortcut(index)
                                 }
                             }
                         }

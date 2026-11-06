@@ -41,6 +41,7 @@ struct MigrationView: View {
             }
         }
         .padding(SagaceMetrics.pageMargin)
+        .frame(maxWidth: SagaceMetrics.focusWidth)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.vBackground)
     }

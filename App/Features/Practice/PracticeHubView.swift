@@ -52,8 +52,6 @@ struct PracticeHubView: View {
     @State var viewModel: PracticeHubViewModel
     @Environment(AppRouter.self) private var router
 
-    private let columns = [GridItem(.flexible(), spacing: SagaceMetrics.gutter), GridItem(.flexible(), spacing: SagaceMetrics.gutter)]
-
     var body: some View {
         SheetContainer("Jeux", systemImage: "gamecontroller") {
             ScrollView {
@@ -70,7 +68,7 @@ struct PracticeHubView: View {
                         }
                     }
                     section("Jeux") {
-                        LazyVGrid(columns: columns, spacing: SagaceMetrics.gutter) {
+                        AdaptiveGrid {
                             ForEach(GameType.allCases, id: \.self) { game in
                                 Tile(Text(game.title), systemImage: game.symbol,
                                      detail: viewModel.suggestedGame == game ? Text("Suggéré") : nil,
@@ -85,7 +83,7 @@ struct PracticeHubView: View {
                         }
                     }
                     section("Défis") {
-                        LazyVGrid(columns: columns, spacing: SagaceMetrics.gutter) {
+                        AdaptiveGrid {
                             ForEach(ChallengeState.Kind.allCases, id: \.self) { kind in
                                 Tile(Text(kind.title), systemImage: kind.symbol,
                                      detail: viewModel.records[kind].map { Text("Record : \($0)") },

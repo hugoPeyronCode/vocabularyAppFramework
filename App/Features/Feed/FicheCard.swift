@@ -5,23 +5,28 @@ import SwiftUI
 /// Carte fiche du feed (FEED-01), centrée sur le mot à la Vocabulary : mot en héros, phonétique et écoute,
 /// nature et définition courte. Chaque toucher dévoile un détail de plus (confusion, bon usage, exemple,
 /// phrase d'auteur) ; s'il manque de hauteur, les premiers détails cèdent la place au dernier dévoilé.
+/// En deux colonnes sur iPad, la fiche détaillée est à côté : la carte ne montre que le mot (`revealsDetails` faux).
 struct FicheCard: View {
     let fiche: Fiche
     let isWordOfTheDay: Bool
     let details: [FeedViewModel.Detail]
     let revealed: Int
+    var revealsDetails = true
     let onSpeak: () -> Void
     let onReveal: () -> Void
+    @Environment(\.layoutWidth) private var layoutWidth
+
+    private var shownCount: Int { revealsDetails ? revealed : 0 }
 
     var body: some View {
         VStack(spacing: 0) {
             ViewThatFits(in: .vertical) {
-                ForEach(0...revealed, id: \.self) { dropped in
-                    content(shown: Array(details.prefix(revealed).dropFirst(dropped)))
+                ForEach(0...shownCount, id: \.self) { dropped in
+                    content(shown: Array(details.prefix(shownCount).dropFirst(dropped)))
                 }
             }
             .frame(maxHeight: .infinity, alignment: .center)
-            if revealed < details.count {
+            if revealsDetails, revealed < details.count {
                 Label("Touchez pour en savoir plus", systemImage: "hand.tap")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.vTextSecondary)
@@ -32,9 +37,9 @@ struct FicheCard: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .cardBackground()
         .contentShape(.rect(cornerRadius: SagaceMetrics.cardRadius))
-        .onTapGesture(perform: onReveal)
+        .onTapGesture { if revealsDetails { onReveal() } }
         .animation(SagaceMotion.select, value: revealed)
-        .accessibilityAction(named: Text("En savoir plus"), onReveal)
+        .accessibilityAction(named: Text("En savoir plus")) { if revealsDetails { onReveal() } }
     }
 
     private var header: some View {
@@ -46,7 +51,7 @@ struct FicheCard: View {
                     .minimumScaleFactor(0.6)
             }
             Text(verbatim: fiche.headword)
-                .textStyle(.hero)
+                .textStyle(layoutWidth.isRegular ? .heroLarge : .hero)
                 .lineLimit(2)
                 .minimumScaleFactor(0.6)
                 .padding(.top, isWordOfTheDay ? -8 : 0)
@@ -61,7 +66,7 @@ struct FicheCard: View {
             .textStyle(.meta)
             .padding(.top, 4)
             (fiche.hasGrammar ? Text("\(Text(fiche.grammarLabel).italic()) \(fiche.shortDefinition)") : Text(verbatim: fiche.shortDefinition))
-                .textStyle(.definition)
+                .textStyle(layoutWidth.isRegular ? .definitionLarge : .definition)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 14)
         }

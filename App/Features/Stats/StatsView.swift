@@ -192,7 +192,7 @@ struct StatsView: View {
             .scrollIndicators(.hidden)
             ZStack(alignment: .center) {
                 VStack(alignment: .leading, spacing: 20) {
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: SagaceMetrics.gutter), GridItem(.flexible())], spacing: SagaceMetrics.gutter) {
+                    AdaptiveGrid(regularColumns: 4) {
                         progressCell("Fiches vues", value: viewModel.summary.seen, symbol: "eye")
                         progressCell("À retenir", value: viewModel.summary.toLearn, symbol: "bookmark")
                         progressCell("Maîtrisées", value: viewModel.summary.mastered, symbol: "checkmark.seal")

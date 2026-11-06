@@ -14,6 +14,7 @@ Mise à jour v4.0 de l'app Words, reconstruite sous le nom **Sagace : Coach de v
 | 6 | `06_BUILD_PLAN.md` | Jalons ordonnés avec tâches et critères d'acceptation |
 | 7 | `07_APP_STORE.md` | Métadonnées App Store en français, captures, notes pour la review |
 | 8 | `08_ILLUSTRATIONS.md` | Brief et prompt Astra pour les 53 illustrations |
+| 9 | `09_IPAD.md` | Interface iPad : feed en une ou deux colonnes, Explorer en deux colonnes, sheets, multitâche |
 
 Fichiers de données :
 - `content/schema/fiche.schema.json` : schéma JSON d'une fiche (source de vérité du format).

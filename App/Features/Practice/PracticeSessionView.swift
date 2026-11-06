@@ -22,6 +22,7 @@ struct PracticeSessionView: View {
                 }
             }
             .padding(.horizontal, SagaceMetrics.pageMargin)
+            .readableColumn(SagaceMetrics.focusWidth)
         }
         .stackedPaywall(router)
         .interactiveDismissDisabled(viewModel.isInProgress)
@@ -87,14 +88,17 @@ struct PracticeSessionView: View {
             HStack(spacing: 12) {
                 AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.select(.trueFalse(true)) }
                     .accessibilityIdentifier("answer.juste")
+                    .trueFalseShortcut(true)
                 AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.select(.trueFalse(false)) }
                     .accessibilityIdentifier("answer.fautif")
+                    .trueFalseShortcut(false)
             }
         } else {
             VStack(spacing: SagaceMetrics.rowSpacing) {
                 ForEach(question.choices.indices, id: \.self) { index in
                     AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.select(.choice(index)) }
                         .accessibilityIdentifier("answer.\(index)")
+                        .answerShortcut(index)
                 }
             }
         }

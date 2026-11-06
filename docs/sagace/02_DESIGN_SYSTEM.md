@@ -109,6 +109,8 @@ Tout en **SF Pro** (police système), comme Sudoku a Day. Tailles relevées sur 
 | `button` | `.system(size: 20, weight: .semibold)` | "Continue", "Undo Last Move" | CTA |
 | `tab` | `.system(size: 17, weight: .semibold)` | "Gameplay", "Limits" | Onglets de sheet |
 | `keypad` | `.system(size: 30, weight: .regular)` | pavé numérique | Lettres du jeu "tape le mot" |
+| `heroLarge` | `.system(size: 56, weight: .heavy)` | | Le mot sur la carte, sur iPad (`09_IPAD.md`) |
+| `definitionLarge` | `.system(size: 21, weight: .regular)` | | Définition sous le mot, sur iPad |
 
 Tous les styles utilisent `relativeTo:` pour suivre Dynamic Type. Le mot du jour reste en SF Pro Heavy. **New York Bold** (la serif système d'Apple) peut devenir une option d'affichage premium, pas le défaut.
 
@@ -127,6 +129,8 @@ Tous les styles utilisent `relativeTo:` pour suivre Dynamic Type. Le mot du jour
 | Chip | capsule 36 pt, actif `inverseSurface`, inactif `surfaceRaised` |
 | Grille 2 × 2 de métriques | carte `surfaceRaised` rayon 24 pt, gouttière 16 pt |
 | Ombres | aucune en sombre. En clair : carte du jour `y 10, blur 30, noir 8 %` |
+
+iPad (`09_IPAD.md`), dans `SagaceMetrics` : colonne de lecture 640 pt, écran de concentration 560 × 860 pt (onboarding, question de jeu), sheet 700 × 880 pt au plus (Explorer 900 pt de large, colonne de gauche 340 pt), colonne de la carte 520 pt quand le feed est en deux colonnes. La mise en page suit `LayoutWidth` : `compact` sous 600 pt (iPhone, Split View étroit, Slide Over), `regular` de 600 à 1 000 pt, `wide` au delà (feed en deux colonnes).
 
 ## 5. Composants, et ce qu'ils deviennent chez nous
 

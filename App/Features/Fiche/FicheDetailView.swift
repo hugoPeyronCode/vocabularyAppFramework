@@ -3,8 +3,10 @@ import SagaceUI
 import SwiftUI
 
 /// Fiche détaillée (DET-01) : sections qui n'apparaissent que si la fiche les remplit.
+/// Intégrée au feed en deux colonnes (iPad paysage), elle perd sa barre basse : partage et tri sont dans la barre du feed.
 struct FicheDetailView: View {
     @State var viewModel: FicheDetailViewModel
+    var isEmbedded = false
     @Environment(ScreenFactory.self) private var factory
     @State private var modal: Modal?
 
@@ -25,7 +27,7 @@ struct FicheDetailView: View {
             .padding(.horizontal, SagaceMetrics.pageMargin)
             .padding(.bottom, 24)
         }
-        .safeAreaInset(edge: .bottom) { bottomBar }
+        .safeAreaInset(edge: .bottom) { if !isEmbedded { bottomBar } }
         .background(.vSurface)
         .onAppear { viewModel.onAppear() }
         .floatingSheet(item: $modal) { modal in
@@ -41,9 +43,16 @@ struct FicheDetailView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(verbatim: viewModel.familyName)
-                .textStyle(.heroGhost)
-                .accessibilityHidden(true)
+            HStack(alignment: .top) {
+                Text(verbatim: viewModel.familyName)
+                    .textStyle(.heroGhost)
+                    .accessibilityHidden(true)
+                if isEmbedded {
+                    Spacer()
+                    collectionButton(size: SagaceMetrics.circleButtonSmall)
+                        .padding(.top, 12)
+                }
+            }
             Text(verbatim: viewModel.fiche.headword)
                 .textStyle(.hero)
                 .padding(.top, -12)
@@ -192,9 +201,7 @@ struct FicheDetailView: View {
             CircleButton(systemImage: "square.and.arrow.up", accessibilityLabel: "Partager", size: SagaceMetrics.circleButtonLarge) {
                 modal = .share
             }
-            CircleButton(systemImage: "folder.badge.plus", accessibilityLabel: "Ajouter à une collection", size: SagaceMetrics.circleButtonLarge) {
-                modal = .collection
-            }
+            collectionButton(size: SagaceMetrics.circleButtonLarge)
             Spacer()
             CircleButton(systemImage: "checkmark", accessibilityLabel: "Je savais", size: SagaceMetrics.circleButtonLarge,
                          isActive: viewModel.sorting == .known, haptic: nil) { viewModel.sort(.known) }
@@ -204,6 +211,12 @@ struct FicheDetailView: View {
         .padding(.horizontal, SagaceMetrics.pageMargin)
         .padding(.vertical, 10)
         .background(.vSurface)
+    }
+
+    private func collectionButton(size: CGFloat) -> some View {
+        CircleButton(systemImage: "folder.badge.plus", accessibilityLabel: "Ajouter à une collection", size: size) {
+            modal = .collection
+        }
     }
 }
 
