@@ -1,0 +1,5 @@
+This version renames the app Words to Sagace and makes French its primary language. On devices set to another language, the app keeps the English word pack from Words v3, with an English interface.
+
+Existing purchases (Yearly, weekly, lifetime) are still recognized as premium. The app works offline and has no account or sign in.
+
+To test premium: use a sandbox account and buy the weekly subscription (no free trial) or the lifetime purchase from the paywall (crown button at the top left of the main screen). Restore purchases is at the bottom of the paywall.

@@ -1,0 +1,2 @@
+# Étapes 4 (draft) et 6 (critic) seulement ; les autres étapes n'utilisent que la bibliothèque standard.
+anthropic>=0.70

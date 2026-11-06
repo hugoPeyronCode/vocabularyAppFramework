@@ -1,0 +1,114 @@
+{
+  "families": [
+    {
+      "id": "paronyme",
+      "name": "Paronymes",
+      "intro": "Deux mots qui se ressemblent, deux sens différents.",
+      "illustration": "ill_topic_paronymes"
+    },
+    {
+      "id": "impropriete",
+      "name": "Impropriétés",
+      "intro": "Des tournures courantes, mais fautives ou critiquées.",
+      "illustration": "ill_topic_improprietes"
+    },
+    {
+      "id": "passePartout",
+      "name": "Verbes passe-partout",
+      "intro": "Remplacer faire, mettre, dire par le verbe précis.",
+      "illustration": "ill_topic_passe_partout"
+    },
+    {
+      "id": "nuance",
+      "name": "Nuances",
+      "intro": "Choisir le bon mot entre deux voisins.",
+      "illustration": "ill_topic_nuances"
+    },
+    {
+      "id": "pleonasme",
+      "name": "Pléonasmes",
+      "intro": "Dire la même chose deux fois, sans s'en rendre compte.",
+      "illustration": "ill_topic_pleonasmes"
+    },
+    {
+      "id": "anglicisme",
+      "name": "Anglicismes et faux amis",
+      "intro": "Retrouver le mot français juste.",
+      "illustration": "ill_topic_anglicismes"
+    },
+    {
+      "id": "motMalCompris",
+      "name": "Mots mal compris",
+      "intro": "Des mots qu'on croit connaître.",
+      "illustration": "ill_topic_expressions"
+    },
+    {
+      "id": "expression",
+      "name": "Expressions",
+      "intro": "Le sens exact des formules du quotidien.",
+      "illustration": "ill_topic_expressions"
+    }
+  ],
+  "themes": [
+    {
+      "id": "travail",
+      "name": "Travail",
+      "illustration": "ill_topic_travail"
+    },
+    {
+      "id": "emotions",
+      "name": "Émotions",
+      "illustration": "ill_topic_emotions"
+    },
+    {
+      "id": "relations",
+      "name": "Relations",
+      "illustration": "ill_topic_relations"
+    },
+    {
+      "id": "societe",
+      "name": "Société",
+      "illustration": "ill_topic_societe"
+    },
+    {
+      "id": "argent",
+      "name": "Argent",
+      "illustration": "ill_topic_economie"
+    },
+    {
+      "id": "sante",
+      "name": "Santé",
+      "illustration": "ill_topic_medecine"
+    },
+    {
+      "id": "droit",
+      "name": "Droit",
+      "illustration": "ill_topic_droit"
+    },
+    {
+      "id": "sciences",
+      "name": "Sciences et tech",
+      "illustration": "ill_topic_sciences"
+    },
+    {
+      "id": "culture",
+      "name": "Culture",
+      "illustration": "ill_topic_arts"
+    },
+    {
+      "id": "cuisine",
+      "name": "Cuisine",
+      "illustration": "ill_topic_cuisine"
+    },
+    {
+      "id": "voyage",
+      "name": "Voyage",
+      "illustration": "ill_topic_voyage"
+    },
+    {
+      "id": "nature",
+      "name": "Nature",
+      "illustration": "ill_topic_nature"
+    }
+  ]
+}
