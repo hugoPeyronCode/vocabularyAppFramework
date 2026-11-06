@@ -9,7 +9,7 @@ public enum Rules {
     /// Choix de rythme proposés (fiches nouvelles par jour).
     public static let dailyGoalOptions = [3, 5, 10]
     public static let defaultDailyGoal = 5
-    /// Rythme réservé au premium (choisissable pendant l'essai).
+    /// Rythme réservé au premium.
     public static let premiumDailyGoal = 10
     /// Écart de niveau accepté autour du niveau de l'utilisateur.
     public static let feedLevelSpread = 1
@@ -76,6 +76,17 @@ public enum Rules {
     public static let proximityMinKeywordLength = 4
     public static let proximityStemLength = 6
     public static let proximityThemeBonus = 0.15
+
+    // MARK: Widgets
+
+    /// Fiches préparées pour les widgets (fiche du jour d'abord).
+    public static let widgetCardCount = 24
+    /// Premium : fiches par famille, pour les widgets filtrés.
+    public static let widgetCardsPerFamily = 8
+    /// Révisions dues préparées en questions pour le widget de révision.
+    public static let widgetReviewCount = 5
+    /// Rafraîchissement "Toutes les heures" : entrées de la frise (une journée).
+    public static let widgetHourlyEntries = 24
 
     // MARK: Mot croisé
 

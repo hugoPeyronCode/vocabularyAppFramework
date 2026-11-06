@@ -1,4 +1,5 @@
 import Foundation
+import SagaceCore
 import SwiftData
 
 /// Conteneur SwiftData de l'app, partagé avec les widgets par l'App Group.

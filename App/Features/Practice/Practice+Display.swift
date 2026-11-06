@@ -2,7 +2,7 @@ import SagaceCore
 import SwiftUI
 
 extension GameType {
-    var title: LocalizedStringKey {
+    var title: LocalizedStringResource {
         switch self {
         case .motJuste: "Le mot juste"
         case .paronymes: "Paronymes"

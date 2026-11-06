@@ -51,10 +51,29 @@ struct RootView: View {
             if !dependencies.store.preferences.animationsEnabled { transaction.disablesAnimations = true }
         }
         .onChange(of: scenePhase) { _, phase in
-            guard phase == .background else { return }
-            Task {
-                await dependencies.reminders.reschedule()
-                dependencies.reminders.submitBackgroundRefresh()
+            switch phase {
+            case .active:
+                // Révisions et "À retenir" faits depuis les widgets pendant que l'app dormait.
+                if dependencies.widgets.applyInbox() { feed?.load() }
+                dependencies.widgets.refresh()
+            case .background:
+                dependencies.widgets.refresh()
+                Task {
+                    await dependencies.reminders.reschedule()
+                    dependencies.reminders.submitBackgroundRefresh()
+                }
+            default:
+                break
+            }
+        }
+        .onChange(of: dependencies.entitlements.isPremium) { dependencies.widgets.refresh() }
+        .onOpenURL { url in
+            guard let link = WidgetLink(url: url) else { return }
+            dependencies.analytics.track(.widgetInteraction(kind: link.kind, action: .open))
+            switch link {
+            case .fiche(let id): dependencies.router.open(.fiche(id, origin: .widget))
+            case .revision: dependencies.router.open(.practice)
+            case .serie: dependencies.router.open(.stats)
             }
         }
         .fullScreenCover(item: $router.fullScreen, onDismiss: { feed?.load() }) { screen in
@@ -130,10 +149,10 @@ struct RootView: View {
             factory.session(.levelTest)
         case .crossword:
             factory.crossword()
-        case .fiche(let id):
+        case .fiche(let id, let origin):
             NavigationStack {
                 SheetContainer {
-                    factory.ficheDetail(id, origin: nil)
+                    factory.ficheDetail(id, origin: origin)
                 }
                 .toolbar(.hidden, for: .navigationBar)
                 .navigationDestination(for: AppRoute.self) { factory.destination($0) }

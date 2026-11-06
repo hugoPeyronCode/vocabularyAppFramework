@@ -1,0 +1,91 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "1 fois par jour" : {},
+    "2 fois par jour" : {},
+    "Anglicismes et faux amis" : {},
+    "Aucune révision due. À demain !" : {},
+    "Bonne réponse : %@" : {},
+    "Continuer" : {},
+    "Encore %lld révisions dans l'app." : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Encore %lld révision dans l'app."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Encore %lld révisions dans l'app."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Exact." : {},
+    "Expressions" : {},
+    "Famille" : {},
+    "Fiche" : {},
+    "Fiche du jour" : {},
+    "Fiche suivante" : {},
+    "Impropriétés" : {},
+    "Les révisions reviennent quand un mot « À retenir » est mûr." : {},
+    "Mot du jour" : {},
+    "Mots mal compris" : {},
+    "Nuances" : {},
+    "Ouvrez Sagace" : {},
+    "Ouvrez Sagace pour préparer vos révisions." : {},
+    "Ouvrez Sagace pour voir votre fiche du jour." : {},
+    "Paronymes" : {},
+    "Pas tout à fait." : {},
+    "Phrase d'auteur (grand widget)" : {},
+    "Pléonasmes" : {},
+    "Rafraîchissement" : {},
+    "Retenue" : {},
+    "Répondez à vos révisions sans ouvrir l'app." : {},
+    "Répondre à une révision" : {},
+    "Réponse" : {},
+    "Révision" : {},
+    "Suivante" : {},
+    "Série" : {},
+    "Série : %lld jours" : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Série : %lld jour"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Série : %lld jours"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Toutes les familles" : {},
+    "Toutes les heures" : {},
+    "Un mot juste, chaque jour, sur votre écran d'accueil." : {},
+    "Une fiche sur votre écran d'accueil." : {},
+    "Verbes passe-partout" : {},
+    "Votre série de jours et l'objectif du jour." : {},
+    "Widget" : {},
+    "À ne pas confondre : %@" : {},
+    "À retenir" : {}
+  },
+  "version" : "1.0"
+}

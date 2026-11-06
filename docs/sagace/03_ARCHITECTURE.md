@@ -292,12 +292,12 @@ Le même moteur sert le test (passage automatique) et les défis (`ChallengeRule
 ## 9. Widgets
 - L'app écrit un **snapshot** JSON dans l'App Group à chaque changement utile (`WidgetSnapshot` : 24 prochaines fiches par configuration, prochaine révision due, série). Le widget ne fait aucun calcul lourd.
 - **Fiche du jour** (small, medium, large) : mot, définition courte, confusion principale ; large ajoute la phrase d'auteur. Boutons interactifs (`Button(intent:)`) : suivante, À retenir.
-- **Révision** (medium) : question + 3 réponses ; `AnswerReviewIntent` met à jour `FicheState` dans SwiftData partagé, puis recharge la timeline.
+- **Révision** (medium) : question + 3 réponses ; `AnswerReviewIntent` note la réponse dans la boîte d'envoi de l'App Group (`WidgetInbox`) et affiche l'explication jusqu'à « Continuer ». L'app applique la boîte d'envoi à l'ouverture et au retour au premier plan (`WidgetBridge`) : la boîte de Leitner de la fiche est mise à jour à l'heure de la réponse. Seule l'app ouvre la base SwiftData (`OPEN_QUESTIONS.md` n° 57).
 - **Série** (small) : flamme, nombre de jours, anneau du jour.
 - **Écran verrouillé** : `accessoryRectangular` (mot + définition courte), `accessoryInline` (mot ≠ confusion).
 - Rafraîchissement : toutes les heures, 2 fois par jour, 1 fois par jour (par défaut).
 - Apparence système, rendu teinté géré via `widgetRenderingMode`.
-- `WidgetBridge.reload()` après tri, révision, session, changement de réglages.
+- `WidgetBridge.refresh()` au lancement, au retour au premier plan, au passage en arrière-plan et au changement de premium (les widgets ne sont visibles que l'app en arrière-plan).
 
 ## 10. Achats (détail dans `04_MIGRATION.md`)
 - `EntitlementService` écoute `Transaction.updates` et lit `Transaction.currentEntitlements` au lancement.

@@ -184,7 +184,7 @@ final class OnboardingViewModel {
 
     func finish() {
         let level = questions.isEmpty ? nil : Rules.level(forMiniTestScore: score)
-        // Le rythme de 10 fiches est réservé au premium, choisissable pendant l'essai.
+        // Le rythme de 10 fiches est réservé au premium.
         let goal = dailyGoal == Rules.premiumDailyGoal && !isPremium ? Rules.defaultDailyGoal : dailyGoal
         let components = Calendar.current.dateComponents([.hour, .minute], from: reminderTime)
         store.completeOnboarding(OnboardingAnswers(

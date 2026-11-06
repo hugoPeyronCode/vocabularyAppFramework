@@ -15,6 +15,9 @@
 		5A6E00000000000000000031 /* SagaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6E00000000000000000021 /* SagaceCore */; };
 		5A6E00000000000000000032 /* SagaceUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6E00000000000000000022 /* SagaceUI */; };
 		5A6E00000000000000000033 /* SagaceData in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6E00000000000000000023 /* SagaceData */; };
+		5A6E00000000000000000099 /* SagaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6E0000000000000000009B /* SagaceCore */; };
+		5A6E0000000000000000009A /* SagaceUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6E0000000000000000009C /* SagaceUI */; };
+		5A6E0000000000000000009D /* SagaceWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5A6E00000000000000000092 /* SagaceWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,7 +28,28 @@
 			remoteGlobalIDString = 43E943B12AB9CDDF008F79B5;
 			remoteInfo = VocabularyAppFramework;
 		};
+		5A6E0000000000000000009F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43E943AA2AB9CDDF008F79B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A6E00000000000000000091;
+			remoteInfo = SagaceWidgets;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5A6E0000000000000000009E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5A6E0000000000000000009D /* SagaceWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		431C705B2AF2677300FB3C36 /* classical.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = classical.caf; sourceTree = "<group>"; };
@@ -41,11 +65,24 @@
 		5A6E00000000000000000043 /* SagaceData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SagaceData; sourceTree = "<group>"; };
 		5A6E00000000000000000072 /* SagaceAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SagaceAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A6E00000000000000000053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A6E00000000000000000092 /* SagaceWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SagaceWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A6E000000000000000000A2 /* SagaceWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SagaceWidgets.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5A6E000000000000000000A1 /* Exceptions for "SagaceWidgets" folder in "SagaceWidgets" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5A6E00000000000000000091 /* SagaceWidgets */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5A6E00000000000000000001 /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
 		5A6E00000000000000000071 /* AppTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AppTests; sourceTree = "<group>"; };
+		5A6E00000000000000000090 /* SagaceWidgets */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (5A6E000000000000000000A1 /* Exceptions for "SagaceWidgets" folder in "SagaceWidgets" target */, ); explicitFileTypes = {}; explicitFolders = (); path = SagaceWidgets; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +101,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A6E00000000000000000094 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A6E00000000000000000099 /* SagaceCore in Frameworks */,
+				5A6E0000000000000000009A /* SagaceUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +147,7 @@
 			children = (
 				5A6E00000000000000000001 /* App */,
 				5A6E00000000000000000071 /* AppTests */,
+				5A6E00000000000000000090 /* SagaceWidgets */,
 				5A6E00000000000000000040 /* Packages */,
 				5A6E00000000000000000050 /* Config */,
 				43E943B92AB9CDE0008F79B5 /* Assets.xcassets */,
@@ -115,6 +162,7 @@
 			children = (
 				43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */,
 				5A6E00000000000000000072 /* SagaceAppTests.xctest */,
+				5A6E00000000000000000092 /* SagaceWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				5A6E00000000000000000051 /* Sagace.entitlements */,
+				5A6E000000000000000000A2 /* SagaceWidgets.entitlements */,
 				5A6E00000000000000000052 /* Words.storekit */,
 				5A6E00000000000000000053 /* Info.plist */,
 			);
@@ -150,10 +199,12 @@
 				43E943AF2AB9CDDF008F79B5 /* Frameworks */,
 				43E943B02AB9CDDF008F79B5 /* Resources */,
 				5A6E00000000000000000060 /* Copy content pack */,
+				5A6E0000000000000000009E /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5A6E000000000000000000A0 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				5A6E00000000000000000001 /* App */,
@@ -189,6 +240,30 @@
 			productReference = 5A6E00000000000000000072 /* SagaceAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		5A6E00000000000000000091 /* SagaceWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A6E00000000000000000096 /* Build configuration list for PBXNativeTarget "SagaceWidgets" */;
+			buildPhases = (
+				5A6E00000000000000000093 /* Sources */,
+				5A6E00000000000000000094 /* Frameworks */,
+				5A6E00000000000000000095 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5A6E00000000000000000090 /* SagaceWidgets */,
+			);
+			name = SagaceWidgets;
+			packageProductDependencies = (
+				5A6E0000000000000000009B /* SagaceCore */,
+				5A6E0000000000000000009C /* SagaceUI */,
+			);
+			productName = SagaceWidgets;
+			productReference = 5A6E00000000000000000092 /* SagaceWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -205,6 +280,9 @@
 					5A6E00000000000000000070 = {
 						CreatedOnToolsVersion = 26.1;
 						TestTargetID = 43E943B12AB9CDDF008F79B5;
+					};
+					5A6E00000000000000000091 = {
+						CreatedOnToolsVersion = 26.1;
 					};
 				};
 			};
@@ -229,6 +307,7 @@
 			targets = (
 				43E943B12AB9CDDF008F79B5 /* VocabularyAppFramework */,
 				5A6E00000000000000000070 /* SagaceAppTests */,
+				5A6E00000000000000000091 /* SagaceWidgets */,
 			);
 		};
 /* End PBXProject section */
@@ -246,6 +325,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5A6E00000000000000000075 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A6E00000000000000000095 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -295,6 +381,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5A6E00000000000000000093 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -302,6 +395,11 @@
 			isa = PBXTargetDependency;
 			target = 43E943B12AB9CDDF008F79B5 /* VocabularyAppFramework */;
 			targetProxy = 5A6E00000000000000000076 /* PBXContainerItemProxy */;
+		};
+		5A6E000000000000000000A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A6E00000000000000000091 /* SagaceWidgets */;
+			targetProxy = 5A6E0000000000000000009F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -532,6 +630,60 @@
 			};
 			name = Release;
 		};
+		5A6E00000000000000000097 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/SagaceWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YA24P24868;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SagaceWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Sagace;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 3.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework.SagaceWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		5A6E00000000000000000098 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/SagaceWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YA24P24868;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SagaceWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Sagace;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 3.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework.SagaceWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -558,6 +710,15 @@
 			buildConfigurations = (
 				5A6E00000000000000000079 /* Debug */,
 				5A6E0000000000000000007A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A6E00000000000000000096 /* Build configuration list for PBXNativeTarget "SagaceWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A6E00000000000000000097 /* Debug */,
+				5A6E00000000000000000098 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -591,6 +752,14 @@
 		5A6E00000000000000000023 /* SagaceData */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SagaceData;
+		};
+		5A6E0000000000000000009B /* SagaceCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SagaceCore;
+		};
+		5A6E0000000000000000009C /* SagaceUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SagaceUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

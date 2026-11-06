@@ -17,6 +17,7 @@ public enum AnalyticsEvent: Equatable, Sendable {
     case paywallViewed(source: String)
     case purchaseCompleted(productID: String)
     case notificationOpened(reminderSource: String)
+    case widgetInteraction(kind: WidgetKind, action: WidgetAction)
 
     public var name: String {
         switch self {
@@ -35,6 +36,7 @@ public enum AnalyticsEvent: Equatable, Sendable {
         case .paywallViewed: "paywall_viewed"
         case .purchaseCompleted: "purchase_completed"
         case .notificationOpened: "notification_opened"
+        case .widgetInteraction: "widget_interaction"
         }
     }
 
@@ -70,8 +72,15 @@ public enum AnalyticsEvent: Equatable, Sendable {
             ["product_id": productID]
         case let .notificationOpened(source):
             ["reminder_source": source]
+        case let .widgetInteraction(kind, action):
+            ["kind": kind.rawValue, "action": action.rawValue]
         }
     }
+}
+
+/// Geste fait sur un widget (`widget_interaction`).
+public enum WidgetAction: String, Sendable {
+    case open, answer, next, toLearn = "to_learn"
 }
 
 /// Émetteur d'événements. Implémentation console en M1, outil définitif en M7 (`OPEN_QUESTIONS.md` n° 5).

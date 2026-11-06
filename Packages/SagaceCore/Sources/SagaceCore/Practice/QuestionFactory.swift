@@ -92,10 +92,11 @@ public struct QuestionFactory: Sendable {
     }
 
     /// Révision de fiches données (LIB-01 "Réviser maintenant"), dans le jeu adapté à chaque famille.
-    public func review(_ pool: [Fiche], count: Int, seed: UInt64) -> [Question] {
+    /// - Parameter excluding: jeux à écarter (le widget de révision n'affiche que des questions à choix).
+    public func review(_ pool: [Fiche], count: Int, seed: UInt64, excluding: Set<GameType> = []) -> [Question] {
         var rng = SeededGenerator(seed: seed)
         return pool.shuffled(using: &rng).prefix(count).compactMap { fiche in
-            let games = [GameType.preferred(for: fiche.family)] + GameType.allCases
+            let games = ([GameType.preferred(for: fiche.family)] + GameType.allCases).filter { !excluding.contains($0) }
             for game in games {
                 if let question = question(for: fiche, game: game, rng: &rng) { return question }
             }
