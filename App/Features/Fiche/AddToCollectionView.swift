@@ -54,6 +54,11 @@ struct AddToCollectionView: View {
         SheetContainer("Collections", systemImage: "folder") {
             ScrollView {
                 VStack(spacing: SagaceMetrics.rowSpacing) {
+                    if viewModel.collections.isEmpty {
+                        Text("Aucune collection pour l'instant : créez la première.")
+                            .textStyle(.body)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                     ForEach(viewModel.collections) { collection in
                         OptionRow(
                             verbatim: collection.name,

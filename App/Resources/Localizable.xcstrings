@@ -137,8 +137,52 @@
         }
       }
     },
+    "%lld fiches, chacune avec ses sources, visibles en bas de la fiche détaillée." : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld fiche, avec ses sources, visibles en bas de la fiche détaillée."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld fiches, chacune avec ses sources, visibles en bas de la fiche détaillée."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld horizontal" : {},
     "%lld mots trouvés sur %lld" : {},
+    "%lld phrases d'auteurs du domaine public, citées depuis Wikisource avec l'auteur, l'œuvre et l'année." : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld phrase d'auteur du domaine public, citée depuis Wikisource avec l'auteur, l'œuvre et l'année."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld phrases d'auteurs du domaine public, citées depuis Wikisource avec l'auteur, l'œuvre et l'année."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld révisions dues" : {},
     "%lld vertical" : {},
     "%lld/%lld" : {
@@ -228,6 +272,7 @@
     "Au moins un caractère." : {},
     "Aucun achat à restaurer." : {},
     "Aucun mot masqué." : {},
+    "Aucune collection pour l'instant : créez la première." : {},
     "Aucune fiche pour « %@ »." : {},
     "Aucune fiche triée ce jour-là." : {},
     "Aucune révision due" : {},
@@ -262,6 +307,28 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Choix du mot" : {},
+    "Citée par %lld fiches" : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Citée par %lld fiche"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Citée par %lld fiches"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Clair" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -394,6 +461,8 @@
     "Hebdomadaire" : {},
     "Heure de la fiche" : {},
     "Historique" : {},
+    "hors ligne" : {},
+    "Hors ligne : les offres s'afficheront une fois connecté." : {},
     "Icône de l'app" : {},
     "Identifiant utilisateur" : {},
     "Image enregistrée" : {},
@@ -424,6 +493,7 @@
     "Juste ou fautif" : {},
     "L" : {},
     "L'achat n'a pas abouti. Aucun montant n'a été débité." : {},
+    "L'app" : {},
     "Le contenu n'a pas pu être chargé." : {},
     "Le départ est imminent, l'invité est éminent." : {},
     "Le feed ne propose que les fiches suivies. Rien de coché : toutes les fiches." : {},
@@ -436,15 +506,19 @@
     "Le plus choisi" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Le Wiktionnaire et Lexique 3 sont publiés sous licence Creative Commons Attribution, partage dans les mêmes conditions (CC BY-SA 4.0). Le Littré, le Dictionnaire des synonymes de Lafaye et les textes de Wikisource sont dans le domaine public. Les fiches qui en dérivent sont publiées sous la même licence CC BY-SA 4.0." : {},
     "Les autres onglets arrivent au jalon M5." : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
-    "Les fiches s'appuient sur le Wiktionnaire et Lexique 3 (licence CC BY-SA 4.0), le Littré et le Dictionnaire des synonymes de Lafaye (domaine public), et les textes de Wikisource. Les fiches dérivées sont publiées sous la même licence CC BY-SA 4.0." : {},
     "Les fiches triées « À retenir » apparaîtront ici." : {},
     "Les fiches vues apparaîtront ici, jour par jour." : {},
+    "Licences" : {},
+    "Lien indisponible hors ligne" : {},
+    "Ligne %lld, colonne %lld" : {},
     "Lignes d'option" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Lire la licence CC BY-SA 4.0" : {},
     "littéraire" : {},
     "loc." : {},
     "Léger" : {
@@ -534,6 +608,7 @@
     "Oui, recommencer" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
+    "Ouvrir %@" : {},
     "Ouvrir une sheet" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
@@ -551,6 +626,7 @@
     "Partager…" : {},
     "Pas encore assez de fiches pour ce jeu." : {},
     "Pas encore assez de mots pour une grille." : {},
+    "Pas encore de fiche ici. De nouvelles arrivent chaque mois." : {},
     "Pas tout à fait." : {},
     "Passe partout" : {},
     "Passer" : {},
@@ -558,6 +634,7 @@
     "Perfection" : {},
     "Petit test : 5 pièges du quotidien." : {},
     "Petit, moyen ou grand. Le grand ajoute la phrase d'auteur ; le moyen et le grand ont « Suivante » et « À retenir »." : {},
+    "Phrases d'auteur" : {},
     "Pièges des mails" : {},
     "Plus" : {},
     "Plus de vies !" : {},
@@ -633,6 +710,7 @@
     "Sagace : le mot juste, chaque jour." : {},
     "Sagace est faite à Paris, sans pub. Une note ou un partage nous aide beaucoup." : {},
     "Sagace est une petite app indépendante. Avec Premium, vous débloquez tous les jeux, toutes les familles de fiches, les stats et les widgets, et vous nous aidez à écrire de nouvelles fiches chaque mois." : {},
+    "Sagace n'embarque aucune bibliothèque tierce ni publicité. Icônes : SF Symbols ; voix : synthèse vocale d'iOS." : {},
     "Sagace Premium" : {},
     "Sagace Premium : jeux illimités, toutes les familles, stats, widgets." : {},
     "SagaceUI" : {
@@ -687,6 +765,7 @@
     "Sons" : {},
     "Source" : {},
     "Sources" : {},
+    "Sources des fiches" : {},
     "Sources et licences" : {},
     "Soutenez une app indépendante" : {},
     "soutenu" : {},
@@ -779,6 +858,7 @@
     "v." : {},
     "Verbe" : {},
     "Version %@" : {},
+    "vide" : {},
     "Voir plus ancien" : {},
     "Voix" : {},
     "Vos mots aimés ont été gardés (%lld)." : {},
@@ -805,6 +885,7 @@
       "comment" : "Page de démonstration SagaceUI (debug uniquement)."
     },
     "Écouter" : {},
+    "Écouter la prononciation" : {},
     "Écrire au travail" : {},
     "Élémentaire" : {},
     "éminent" : {

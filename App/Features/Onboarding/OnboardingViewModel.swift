@@ -40,6 +40,7 @@ final class OnboardingViewModel {
     var eveningReminder = true
     private(set) var notificationsGranted = false
     private(set) var showsWidgetSteps = false
+    private var trackedSteps: Set<OnboardingStep> = []
     private(set) var isFinished = false
 
     private let content: ContentRepository
@@ -75,6 +76,12 @@ final class OnboardingViewModel {
     }
 
     func onAppear() {
+        trackStep()
+    }
+
+    /// `onboarding_step_viewed` une seule fois par étape, même si l'écran réapparaît.
+    private func trackStep() {
+        guard trackedSteps.insert(step).inserted else { return }
         analytics.track(.onboardingStepViewed(step: step.rawValue))
     }
 
@@ -82,7 +89,7 @@ final class OnboardingViewModel {
         guard index + 1 < steps.count else { return finish() }
         index += 1
         haptics.play(.selection)
-        analytics.track(.onboardingStepViewed(step: step.rawValue))
+        trackStep()
         if step == .test { startTest() }
     }
 

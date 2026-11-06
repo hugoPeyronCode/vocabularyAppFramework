@@ -8,6 +8,7 @@ struct RootView: View {
     @State private var feed: FeedViewModel?
     @State private var factory: ScreenFactory?
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     /// APP-01 : réglage appliqué à toute la fenêtre, sheets comprises.
     private var colorScheme: ColorScheme? {
@@ -48,7 +49,8 @@ struct RootView: View {
         .background(.vBackground)
         .preferredColorScheme(colorScheme)
         .transaction { transaction in
-            if !dependencies.store.preferences.animationsEnabled { transaction.disablesAnimations = true }
+            // Réglage « Animations » de l'app, ou « Réduire les animations » d'iOS.
+            if !dependencies.store.preferences.animationsEnabled || reduceMotion { transaction.disablesAnimations = true }
         }
         .onChange(of: scenePhase) { _, phase in
             switch phase {
@@ -67,6 +69,7 @@ struct RootView: View {
             }
         }
         .onChange(of: dependencies.entitlements.isPremium) { dependencies.widgets.refresh() }
+        .onChange(of: router.fullScreen == nil) { _, visible in feed?.setObscured(!visible) }
         .onOpenURL { url in
             guard let link = WidgetLink(url: url) else { return }
             dependencies.analytics.track(.widgetInteraction(kind: link.kind, action: .open))
@@ -109,6 +112,7 @@ struct RootView: View {
         if !dependencies.store.profile.hasCompletedOnboarding, dependencies.router.fullScreen == nil, !Self.skipsOnboarding {
             dependencies.router.fullScreen = .onboarding(.full)
         }
+        viewModel.setObscured(dependencies.router.fullScreen != nil)
         viewModel.load()
         WidgetTip.daysSinceInstall = dependencies.day.days(from: dependencies.store.profile.createdAt, to: dependencies.now())
         feed = viewModel

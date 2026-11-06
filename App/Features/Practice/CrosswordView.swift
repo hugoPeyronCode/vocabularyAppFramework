@@ -149,7 +149,10 @@ private struct CrosswordCellView: View {
         }
         .frame(width: side, height: side)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(cell.isOpen ? Text(verbatim: cell.letter.map(String.init) ?? "") : Text(verbatim: ""))
+        .accessibilityLabel(Text("Ligne \(cell.position.row + 1), colonne \(cell.position.column + 1)"))
+        .accessibilityValue(cell.letter.map { Text(verbatim: String($0)) } ?? Text("vide"))
+        .accessibilityAddTraits(cell.isOpen ? [.isButton] : [])
+        .accessibilityAddTraits(cell.highlight == .current ? [.isSelected] : [])
         .accessibilityHidden(!cell.isOpen)
     }
 

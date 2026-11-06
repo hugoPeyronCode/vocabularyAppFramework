@@ -10,6 +10,12 @@ struct PaywallView: View {
     var onFinish: (() -> Void)?
     @Environment(\.dismiss) private var dismiss
     @Environment(\.purchase) private var purchase
+    @Environment(Connectivity.self) private var connectivity
+
+    /// Hors ligne, les prix de l'App Store ne peuvent pas être chargés.
+    private var offersPlaceholder: LocalizedStringKey {
+        connectivity.isOnline ? "Chargement des offres…" : "Hors ligne : les offres s'afficheront une fois connecté."
+    }
 
     var body: some View {
         ScrollView {
@@ -46,6 +52,7 @@ struct PaywallView: View {
             Button("OK", role: .cancel) {}
         }
         .task { await viewModel.onAppear() }
+        .onChange(of: connectivity.isOnline) { _, online in if online { Task { await viewModel.loadOffers() } } }
         .onChange(of: viewModel.didUnlock) { _, unlocked in if unlocked { close() } }
     }
 
@@ -75,13 +82,13 @@ struct PaywallView: View {
         VStack(spacing: SagaceMetrics.rowSpacing) {
             OptionRow(
                 "Hebdomadaire",
-                description: viewModel.weeklyPrice.map { "\($0) par semaine, sans engagement" } ?? "Chargement des offres…",
+                description: viewModel.weeklyPrice.map { "\($0) par semaine, sans engagement" } ?? offersPlaceholder,
                 isSelected: viewModel.plan == .weekly,
                 alwaysShowsDescription: true
             ) { viewModel.select(.weekly) }
             OptionRow(
                 "À vie",
-                description: viewModel.lifetimePrice.map { "\($0), une seule fois" } ?? "Chargement des offres…",
+                description: viewModel.lifetimePrice.map { "\($0), une seule fois" } ?? offersPlaceholder,
                 detail: "Le plus avantageux",
                 isSelected: viewModel.plan == .lifetime,
                 alwaysShowsDescription: true

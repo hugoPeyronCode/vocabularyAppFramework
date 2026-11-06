@@ -66,3 +66,8 @@
 | 60 | Widget Série : « flamme » dans l'architecture, laurier dans l'app | laurier, comme la puce de série du feed | M6 |
 | 61 | Haptique dans les widgets | WidgetKit ne permet pas d'haptique : aucune, les gestes des widgets n'en ont pas | M6 |
 | 62 | Nom affiché dans la galerie de widgets | « Words » tant que l'app garde son nom v3 (renommage en Sagace en M9) | M9 |
+| 63 | Outil d'analytics (n° 5 : TelemetryDeck par défaut) : c'est un SDK tiers, à n'ajouter qu'avec l'accord explicite d'Hugo | événements émis en console (`ConsoleAnalytics`, OSLog catégorie `analytics`), tous vérifiés en M7 ; brancher l'outil retenu se fait derrière le protocole `Analytics`, sans toucher aux points d'émission | M9 |
+| 64 | VoiceOver lit mal l'alphabet phonétique | phonétique masquée pour VoiceOver, le bouton « Écouter la prononciation » fait entendre le mot | M7 |
+| 65 | Hors ligne : liens externes (sources, phrases d'auteur, confidentialité) et offres du paywall | liens grisés avec la mention « hors ligne » ; paywall : « Hors ligne : les offres s'afficheront une fois connecté. », rechargées au retour du réseau | M7 |
+| 66 | Page Sources et licences | sources comptées à partir du pack (nom, site, nombre de fiches), phrases d'auteur, licences CC BY-SA 4.0 et domaine public, aucune bibliothèque tierce ; texte des licences à relire par Hugo | M9 |
+| 67 | « Réduire les animations » d'iOS | traité comme le réglage « Animations » désactivé | M7 |

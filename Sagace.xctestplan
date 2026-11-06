@@ -35,6 +35,13 @@
         "identifier" : "5A6E00000000000000000070",
         "name" : "SagaceAppTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:VocabularyAppFramework.xcodeproj",
+        "identifier" : "5A6E000000000000000000B0",
+        "name" : "SagaceAppUITests"
+      }
     }
   ],
   "version" : 1

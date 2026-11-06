@@ -36,6 +36,11 @@ final class PaywallViewModel {
 
     func onAppear() async {
         analytics.track(.paywallViewed(source: source.rawValue))
+        await loadOffers()
+    }
+
+    /// Offres App Store ; rappelé au retour du réseau si elles n'ont pas pu être chargées.
+    func loadOffers() async {
         if entitlements.products.isEmpty { await entitlements.loadProducts() }
     }
 

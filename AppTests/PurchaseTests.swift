@@ -10,6 +10,7 @@ import Testing
 @Suite("Achats (StoreKit local)", .serialized)
 struct PurchaseTests {
     let session: SKTestSession
+    let analytics = RecordingAnalytics()
 
     init() throws {
         session = try SKTestSession(contentsOf: RepoFiles.storeKitConfiguration)
@@ -20,7 +21,7 @@ struct PurchaseTests {
     }
 
     private func makeService(legacyPremiumFlag: Bool = false) async -> EntitlementService {
-        let service = EntitlementService(analytics: RecordingAnalytics())
+        let service = EntitlementService(analytics: analytics)
         await service.start(legacyPremiumFlag: legacyPremiumFlag)
         return service
     }
@@ -48,6 +49,7 @@ struct PurchaseTests {
         let outcome = try await service.purchase("weekly", perform: buy)
         #expect(outcome == .purchased(productID: "weekly"))
         #expect(service.isPremium)
+        #expect(analytics.events == [.purchaseCompleted(productID: "weekly")])
     }
 
     @Test("Achat à vie : premium")

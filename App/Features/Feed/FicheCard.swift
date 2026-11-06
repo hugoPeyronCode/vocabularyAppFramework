@@ -52,8 +52,9 @@ struct FicheCard: View {
                 .padding(.top, isWordOfTheDay ? -8 : 0)
                 .accessibilityAddTraits(.isHeader)
             HStack(spacing: 8) {
-                Text(verbatim: fiche.phonetic)
-                CircleButton(systemImage: "speaker.wave.2", accessibilityLabel: "Écouter", size: 32, isActive: true, action: onSpeak)
+                // L'alphabet phonétique est illisible pour VoiceOver : le bouton fait entendre le mot.
+                Text(verbatim: fiche.phonetic).accessibilityHidden(true)
+                CircleButton(systemImage: "speaker.wave.2", accessibilityLabel: "Écouter la prononciation", size: 32, isActive: true, action: onSpeak)
             }
             .textStyle(.meta)
             .padding(.top, 4)

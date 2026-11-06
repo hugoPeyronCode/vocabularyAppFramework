@@ -28,6 +28,7 @@ final class AppDependencies {
     let notifications = NotificationRouter()
     let audio = AudioService()
     let router = AppRouter()
+    let connectivity = Connectivity()
     let haptics = HapticsService.shared
     let analytics: any Analytics = ConsoleAnalytics()
     let entitlements: EntitlementService
