@@ -62,6 +62,15 @@ class Wiktionary(unittest.TestCase):
         self.assertIn("eminens", entry.etymology)
 
 
+    def test_level_five_notes_and_sub_senses(self):
+        wikitext = ("== {{langue|fr}} ==\n=== {{S|adverbe|fr}} ===\n'''au final''' {{pron|o fi.nal|fr}}\n"
+                    "# Finalement.\n## {{critiqué|fr}} En fin de compte.\n"
+                    "===== {{S|notes}} =====\n: L’Académie française considère « au final » comme une construction fautive.\n")
+        entry = wiktionary.parse("au final", wikitext)
+        self.assertEqual(entry.senses[0].definitions, ["Finalement.", "(critiqué) En fin de compte."])
+        self.assertEqual(len(entry.notes), 1)
+
+
 class WiktionaryExamples(unittest.TestCase):
     def test_multiline_examples_with_source(self):
         body = ("# Faire des [[effort]]s.\n"

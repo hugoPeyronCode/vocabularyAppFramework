@@ -172,7 +172,8 @@ def parse(title: str, wikitext: str) -> Entry:
     if not section:
         return entry
     entry.phonetic = phonetic(section)
-    parts = re.split(r"\n(={3,4}\s*\{\{S\|[^}]+\}\}[^\n]*)", "\n" + section)
+    # Niveaux 3 à 5 : les notes d'usage sont souvent rangées sous la nature (« ===== {{S|notes}} ===== »).
+    parts = re.split(r"\n(={3,5}\s*\{\{S\|[^}]+\}\}[^\n]*)", "\n" + section)
     current: Sense | None = None
     for index in range(1, len(parts), 2):
         header, body = parts[index], parts[index + 1]
@@ -191,8 +192,9 @@ def parse(title: str, wikitext: str) -> Entry:
             current = Sense(part_of_speech(name), gender)
             current.examples = examples_in(body)[:6]
             for line in body.splitlines():
-                if re.match(r"#[^*:#]", line):
-                    definition = clean(line[1:])
+                # Sens et sous-sens (« ## ») : la critique d'un emploi figure souvent dans le sous-sens.
+                if re.match(r"##?[^*:#]", line):
+                    definition = clean(line.lstrip("#"))
                     # Définition pas encore rédigée sur le Wiktionnaire : « (figuré) … ».
                     if re.sub(r"\([^)]*\)", "", definition).strip(" .…"):
                         current.definitions.append(definition)
