@@ -168,7 +168,11 @@ class Checks(unittest.TestCase):
         self.assertTrue(any("synonyme" in p for p in self.problems(fiche)))
         fiche = seed()
         fiche["quiz"][0]["choices"] = ["éminent", "maison"]
+        fiche["quiz"][0]["game"] = "motJuste"
         self.assertTrue(any("natures" in p for p in self.problems(fiche)))
+        # Paronymes : des natures différentes sont normales (différend / différent).
+        fiche["quiz"][0]["game"] = "paronymes"
+        self.assertFalse(any("natures" in p for p in self.problems(fiche)))
         fiche = seed()
         fiche["partOfSpeech"] = "verbe"
         self.assertTrue(any("nature" in p for p in self.problems(fiche)))

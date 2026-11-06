@@ -51,7 +51,9 @@ def metadata(wikitext: str, rendered: str = "", categories: list[str] | None = N
     author = unlink(field("auteur") or "")
     if not author and (link := re.search(r'href="/wiki/Auteur:([^"#]+)"', rendered)):
         author = urllib.parse.unquote(link.group(1)).replace("_", " ")
-    work = unlink(field("titre") or "") or title.split("/")[0]
+    # Titre absent ou modèle non développé ({{BASEPAGENAME}}) : page racine.
+    work = unlink(field("titre") or "")
+    work = title.split("/")[0] if not work or "{{" in work else work
     year_text = field("annee") or field("date") or " ".join(categories or [])
     year = re.search(r"\b(1[0-9]{3})\b", year_text)
     return {"author": author or None, "work": work or None, "year": int(year.group(1)) if year else None}
