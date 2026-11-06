@@ -15,6 +15,7 @@ Vérifie la fiche ci-dessous contre les extraits sources, point par point :
 1. La définition est-elle fidèle aux sources ? 2. La règle d'usage et le verdict sont-ils justifiés par les sources ?
 3. Chaque exemple est-il correct, naturel, et emploie-t-il le mot dans le bon sens ? 4. La phrase d'auteur emploie-t-elle le mot dans le sens de la fiche ?
 5. Chaque question de quiz a-t-elle une seule bonne réponse indiscutable ? 6. Y a-t-il une faute de langue dans la fiche ?
+Convention de Sagace, à ne pas signaler : dans les quiz, un emploi de verdict « critique » compte comme fautif (réponse « Fautif », ou mauvaise réponse), comme un emploi « fautif ». Signale en revanche un verdict que les sources ne justifient pas, ou une question Juste ou fautif sur un emploi « tolere ».
 Réponds en JSON : { "ok": bool, "problems": [ { "field": "...", "issue": "...", "severity": "bloquant|mineur" } ] }."""
 
 SCHEMA = {

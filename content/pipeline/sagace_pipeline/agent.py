@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from . import critic, draft
-from .common import SCHEMA_PATH, SEED_PATH, WORK, read_csv, read_json, stage_dir, write_json
+from .common import SCHEMA_PATH, SEED_PATH, WORK, read_json, stage_dir, write_json
 
 STEPS = ("draft", "critic")
 
@@ -21,23 +21,6 @@ def folders(step: str, work: Path) -> tuple[Path, Path, Path]:
     inputs.mkdir(parents=True, exist_ok=True)
     outputs.mkdir(parents=True, exist_ok=True)
     return root, inputs, outputs
-
-
-def draft_pending(work: Path, limit: int | None) -> list[tuple[str, dict[str, Any], list[dict[str, Any]]]]:
-    """Candidats avec des extraits et au moins un sens, sans brouillon : mêmes critères que l'étape draft."""
-    done = work / "drafts"
-    pending = []
-    for candidate in read_csv(work / "candidats.csv")[:limit]:
-        identifier = candidate["id"]
-        raw_path = work / "raw" / f"{identifier}.json"
-        if (done / f"{identifier}.json").exists() or not raw_path.exists():
-            continue
-        raw = read_json(raw_path)
-        if not raw["wiktionary"]["senses"]:
-            continue
-        quotes_path = work / "quotes" / f"{identifier}.json"
-        pending.append((identifier, raw, read_json(quotes_path) if quotes_path.exists() else []))
-    return pending
 
 
 def draft_instructions(seeds: list[dict[str, Any]]) -> str:
@@ -91,7 +74,7 @@ def export(step: str, work: Path = WORK, limit: int | None = None, seeds_path: P
     identifiers = []
     if step == "draft":
         (root / "CONSIGNES.md").write_text(draft_instructions(read_json(seeds_path)), encoding="utf-8")
-        for identifier, raw, quotes in draft_pending(work, limit):
+        for identifier, raw, quotes in draft.pending(work, limit):
             extracts = {key: raw[key] for key in ("headword", "family", "note", "lexique", "wiktionary", "related", "littre", "lafaye")}
             write_json(inputs / f"{identifier}.json", {"id": identifier, "extracts": extracts, "quotes": quotes})
             identifiers.append(identifier)

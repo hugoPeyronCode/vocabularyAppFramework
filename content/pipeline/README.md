@@ -35,6 +35,8 @@ python3 -m sagace_pipeline critic --agent import              # → work/critic/
 
 À l'import, l'identifiant, la famille, les sources et le statut viennent des extraits, et une phrase d'auteur n'est gardée que si elle fait partie des candidates. Une réponse illisible est signalée et reste à refaire.
 
+Une impropriété ou un anglicisme dont le Wiktionnaire ne confirme pas le piège (note d'usage, marque, étymologie) n'est pas exporté : il est listé dans `work/sans_source.csv`.
+
 ## Les 8 étapes
 
 ```bash

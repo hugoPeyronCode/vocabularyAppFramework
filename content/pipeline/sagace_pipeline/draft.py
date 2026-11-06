@@ -6,11 +6,12 @@ extraits, pas du modèle ; la phrase d'auteur n'est gardée que si elle est l'un
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
 from . import llm
-from .common import SCHEMA_PATH, SEED_PATH, WORK, read_csv, read_json, stage_dir, write_json
+from .common import SCHEMA_PATH, SEED_PATH, WORK, read_csv, read_json, stage_dir, write_csv, write_json
 
 RULES = """Tu rédiges une fiche pour Sagace, une app qui aide des francophones adultes à employer le mot juste au quotidien.
 Règles :
@@ -20,6 +21,7 @@ Règles :
 - shortDefinition : 90 caractères maximum, sans point final.
 - examples : 2 phrases du quotidien moderne (travail, mails, vie courante), le mot entre ** **.
 - quiz : 2 questions dont la bonne réponse est indiscutable selon les sources ; les mauvaises réponses ne doivent jamais être correctes dans la phrase ; mêmes nature et genre que la bonne réponse.
+- Juste ou fautif et Le mot juste : un emploi de verdict "fautif" ou "critique" compte comme fautif (réponse « Fautif », ou mauvaise réponse) ; l'explication dit alors « tournure critiquée » et donne la forme recommandée. Pas de question Juste ou fautif sur un emploi "tolere".
 - Choisis la meilleure phrase d'auteur parmi les candidates fournies, ou null si aucune n'emploie le mot dans ce sens.
 Réponds uniquement par un objet JSON conforme au schéma fourni."""
 
@@ -36,6 +38,45 @@ def system_blocks(family: str, seeds: list[dict[str, Any]], schema: dict[str, An
 def user_prompt(raw: dict[str, Any], quotes: list[dict[str, Any]]) -> str:
     extracts = {key: raw[key] for key in ("headword", "family", "note", "lexique", "wiktionary", "related", "littre", "lafaye")}
     return f"Extraits : {json.dumps(extracts, ensure_ascii=False)}\nPhrases candidates : {json.dumps(quotes, ensure_ascii=False)}"
+
+
+# Familles qui n'ont de sens qu'avec une règle d'usage : le piège de la liste éditoriale doit être confirmé par le
+# Wiktionnaire (note d'usage, marque, étymologie), sinon la fiche n'enseigne rien (OPEN_QUESTIONS n° 86). Les pléonasmes
+# n'y sont pas soumis : la définition suffit souvent à montrer la redondance.
+USAGE_FAMILIES = {"impropriete", "anglicisme"}
+USAGE_MARKS = re.compile(r"critiqu|anglicism|impropr|abusi|fauti|incorrect|à éviter|évite[rz]|déconseill|condamn|barbarism|"
+                         r"solécism|Académie|puris|calque|faux.ami|de l[’']anglais", re.I)
+
+
+def pitfall_attested(raw: dict[str, Any]) -> bool:
+    wiktionary = raw["wiktionary"]
+    texts = [*(wiktionary.get("notes") or []), json.dumps(wiktionary.get("markers"), ensure_ascii=False), wiktionary.get("etymology") or ""]
+    texts += [definition for sense in wiktionary["senses"] for definition in sense["definitions"]]
+    return any(USAGE_MARKS.search(text) for text in texts)
+
+
+def pending(work: Path, limit: int | None) -> list[tuple[str, dict[str, Any], list[dict[str, Any]]]]:
+    """Candidats à rédiger : des extraits, au moins un sens, pas encore de brouillon, et un piège attesté pour les
+    familles d'usage. Les candidats écartés faute de source sont listés dans `work/sans_source.csv`."""
+    done = work / "drafts"
+    found, unsourced = [], []
+    for candidate in read_csv(work / "candidats.csv")[:limit]:
+        identifier = candidate["id"]
+        raw_path = work / "raw" / f"{identifier}.json"
+        if (done / f"{identifier}.json").exists() or not raw_path.exists():
+            continue
+        raw = read_json(raw_path)
+        if not raw["wiktionary"]["senses"]:
+            continue
+        if raw["family"] in USAGE_FAMILIES and not pitfall_attested(raw):
+            unsourced.append({"id": identifier, "headword": raw["headword"], "family": raw["family"], "note": raw.get("note") or ""})
+            continue
+        quotes_path = work / "quotes" / f"{identifier}.json"
+        found.append((identifier, raw, read_json(quotes_path) if quotes_path.exists() else []))
+    if unsourced:
+        write_csv(work / "sans_source.csv", unsourced, ["id", "headword", "family", "note"])
+        print(f"{len(unsourced)} candidats écartés : piège non confirmé par le Wiktionnaire (work/sans_source.csv)")
+    return found
 
 
 def finalize(draft: dict[str, Any], raw: dict[str, Any], quotes: list[dict[str, Any]]) -> dict[str, Any]:
@@ -60,16 +101,7 @@ def run(work: Path = WORK, limit: int | None = None, sync: bool = False, confirm
     seeds = read_json(seeds_path)
     out = stage_dir("drafts", work)
     requests, context = [], {}
-    for candidate in read_csv(work / "candidats.csv")[:limit]:
-        identifier = candidate["id"]
-        raw_path = work / "raw" / f"{identifier}.json"
-        if (out / f"{identifier}.json").exists() or not raw_path.exists():
-            continue
-        raw = read_json(raw_path)
-        if not raw["wiktionary"]["senses"]:
-            continue
-        quotes_path = work / "quotes" / f"{identifier}.json"
-        quotes = read_json(quotes_path) if quotes_path.exists() else []
+    for identifier, raw, quotes in pending(work, limit):
         context[identifier] = (raw, quotes)
         requests.append({"custom_id": identifier, "params": llm.params(system_blocks(raw["family"], seeds, schema), user_prompt(raw, quotes), schema)})
     print(llm.estimate(requests, batch=not sync))

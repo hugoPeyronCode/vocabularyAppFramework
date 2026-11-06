@@ -6,6 +6,7 @@ import json
 import sys
 import tempfile
 import unittest
+from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -124,6 +125,30 @@ class Quotes(unittest.TestCase):
         # Traducteur vivant : texte jamais téléchargé ; auteur pris dans l'en-tête, pas le premier lien alphabétique.
         self.assertEqual(fetched, ["Les Misérables/Tome 1"])
         self.assertEqual([(quote["text"], quote["author"], quote["work"]) for quote in found], [(sentence, "Victor Hugo", "Les Misérables")])
+
+    def test_only_the_work_text_is_quoted(self):
+        rendered = ('<div id="headertemplate"><a href="/wiki/Auteur:Denis_Diderot">Denis Diderot</a> Jacques le Fataliste.</div>'
+                    '<div class="ws-summary"><h2>TABLE DES MATIÈRES</h2><div class="tableItem"><span>Où Jacques fait preuve de son habileté au jeu des cartes</span>'
+                    '<div class="ws-noexport"><div class="tablePage">12</div></div></div></div>'
+                    '<p>Le maître admirait en silence l’habileté avec laquelle Jacques menait son cheval sur la route.<sup class="reference">[1]</sup></p>'
+                    '<ol class="references"><li><span class="reference-text">Tronchin n’évita pas l’accusation de charlatanisme malgré son habileté reconnue.</span></li></ol>'
+                    '<p>RÉCITS D’UNE TANTE, MÉMOIRES DE LA COMTESSE, AVEC UNE HABILETÉ CONSOMMÉE ET RARE.</p>')
+        self.assertEqual(quotes.sentences_with(quotes.visible_text(rendered), word_forms("habileté")),
+                         ["Le maître admirait en silence l’habileté avec laquelle Jacques menait son cheval sur la route."])
+
+    def test_work_year_and_quotes_per_work(self):
+        sentence = "Le maître admirait en silence l’habileté avec laquelle Jacques menait son cheval sur la route."
+        described = {"Jacques le Fataliste et son maître": {"wikitext": '<pages titre="[[Jacques le Fataliste et son maître]]" annee="1875" />',
+                                                            "categories": [], "authors": ["Denis Diderot"]}}
+        page = lambda title: f'<div><a href="/wiki/Auteur:Denis_Diderot">Denis Diderot</a></div><p>{sentence}</p>'
+        used = Counter()
+        found = quotes.quotes_for({"headword": "habileté", "lexique": None}, lambda word: list(described), lambda titles: described,
+                                  page, lambda author: 1784, lambda title: 1796, used)
+        # Année de l'œuvre (Wikidata), pas celle de l'édition numérisée.
+        self.assertEqual([quote["year"] for quote in found], [1796])
+        used["Jacques le Fataliste et son maître"] = quotes.MAX_PER_WORK
+        self.assertEqual(quotes.quotes_for({"headword": "habileté", "lexique": None}, lambda word: list(described), lambda titles: described,
+                                           page, lambda author: 1784, lambda title: 1796, used), [])
 
 
 class Prompts(unittest.TestCase):
@@ -274,3 +299,18 @@ class AgentMode(unittest.TestCase):
             write_json(work / "agent" / "critic" / "out" / f"{fiche['id']}.json", {"ok": True, "problems": []})
             self.assertEqual(agent.import_outputs("critic", work)[0], 1)
             self.assertTrue((work / "critic" / f"{fiche['id']}.json").exists())
+
+    def test_usage_pitfall_must_be_sourced(self):
+        fiche = seed()
+        with tempfile.TemporaryDirectory() as folder:
+            work = Path(folder)
+            rows = ["id,headword,family"]
+            for identifier, note in (("fr.excuser", None), ("fr.solutionner", "Dupré juge l'emploi critiqué : préférer résoudre.")):
+                raw = {**raw_for(fiche), "id": identifier, "family": "impropriete"}
+                raw["wiktionary"] = {**raw["wiktionary"], "notes": [note] if note else [], "markers": []}
+                write_json(work / "raw" / f"{identifier}.json", raw)
+                rows.append(f"{identifier},{identifier[3:]},impropriete")
+            (work / "candidats.csv").write_text("\n".join(rows) + "\n", encoding="utf-8")
+            # Impropriété que le Wiktionnaire ne confirme pas : pas rédigée, listée pour Hugo.
+            self.assertEqual([identifier for identifier, _, _ in draft.pending(work, None)], ["fr.solutionner"])
+            self.assertIn("fr.excuser", (work / "sans_source.csv").read_text(encoding="utf-8"))
