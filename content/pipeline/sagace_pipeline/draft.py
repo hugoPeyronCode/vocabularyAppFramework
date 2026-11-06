@@ -44,6 +44,9 @@ def finalize(draft: dict[str, Any], raw: dict[str, Any], quotes: list[dict[str, 
     quote = fiche.get("authorQuote")
     candidates = {candidate["text"]: candidate for candidate in quotes}
     fiche["authorQuote"] = candidates.get(quote["text"]) if quote else None
+    # Prononciation du Wiktionnaire quand elle existe : jamais celle du rédacteur.
+    if raw.get("wiktionary", {}).get("phonetic"):
+        fiche["phonetic"] = raw["wiktionary"]["phonetic"]
     lexique = raw.get("lexique") or {}
     fiche["frequencyRank"] = lexique.get("rank")
     # Niveau de Lexique 3 (fréquence), comme l'identifiant : pas laissé au rédacteur.

@@ -60,6 +60,15 @@ class Entry:
         return asdict(self)
 
 
+def phonetic(section: str) -> str | None:
+    """Première prononciation française : {{pron|nwe|nu.e|fr}}, sinon le modèle de flexion {{fr-rég|nwe}}."""
+    for template in re.findall(r"\{\{(?:pron|fr-rég|fr-inv)\|([^}]*)\}\}", section):
+        values = [value.strip() for value in template.split("|") if value.strip() and "=" not in value and value.strip() != "fr"]
+        if values:
+            return f"/{values[0]}/"
+    return None
+
+
 def french_section(wikitext: str) -> str:
     match = re.search(r"==\s*\{\{langue\|fr\}\}\s*==(.*?)(?=\n==\s*\{\{langue\||\Z)", wikitext, re.S)
     return match.group(1) if match else ""
@@ -162,8 +171,7 @@ def parse(title: str, wikitext: str) -> Entry:
     entry = Entry(title=title)
     if not section:
         return entry
-    pron = re.search(r"\{\{pron\|([^|}]+)\|fr\}\}", section)
-    entry.phonetic = f"/{pron.group(1)}/" if pron else None
+    entry.phonetic = phonetic(section)
     parts = re.split(r"\n(={3,4}\s*\{\{S\|[^}]+\}\}[^\n]*)", "\n" + section)
     current: Sense | None = None
     for index in range(1, len(parts), 2):
