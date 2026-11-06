@@ -86,12 +86,15 @@ struct PracticeSessionView: View {
         if question.game == .justeOuFautif {
             HStack(spacing: 12) {
                 AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.select(.trueFalse(true)) }
+                    .accessibilityIdentifier("answer.juste")
                 AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.select(.trueFalse(false)) }
+                    .accessibilityIdentifier("answer.fautif")
             }
         } else {
             VStack(spacing: SagaceMetrics.rowSpacing) {
                 ForEach(question.choices.indices, id: \.self) { index in
                     AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.select(.choice(index)) }
+                        .accessibilityIdentifier("answer.\(index)")
                 }
             }
         }

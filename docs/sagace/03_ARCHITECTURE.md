@@ -316,7 +316,8 @@ Le même moteur sert le test (passage automatique) et les défis (`ChallengeRule
 | `review_answered` | fiche_id, box, correct |
 | `fiche_mastered` | fiche_id, days_to_master |
 | `daily_goal_completed` | streak |
-| `practice_started` / `practice_completed` | mode, score, total |
+| `practice_started` | mode |
+| `practice_completed` | mode, score, total |
 | `level_test_completed` | score, level |
 | `widget_interaction` | kind, action |
 | `notification_opened` | reminder_source |

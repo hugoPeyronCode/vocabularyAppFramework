@@ -49,8 +49,11 @@ final class WidgetBridge {
             case let .toLearn(ficheID, at):
                 analytics.track(.widgetInteraction(kind: .ficheDuJour, action: .toLearn))
                 guard progress.allProgress()[ficheID]?.sorting == nil else { continue }
-                _ = progress.sort(ficheID, as: .toLearn, at: at)
+                let result = progress.sort(ficheID, as: .toLearn, at: at)
                 analytics.track(.ficheSorted(ficheID: ficheID, sorting: .toLearn))
+                if result.goalJustReached {
+                    analytics.track(.dailyGoalCompleted(streak: StreakCalculator(day: day).summary(of: progress.activity(), at: now()).current))
+                }
                 changed = true
             case .nextCard:
                 analytics.track(.widgetInteraction(kind: .ficheDuJour, action: .next))

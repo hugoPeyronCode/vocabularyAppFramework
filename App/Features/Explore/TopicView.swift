@@ -124,6 +124,9 @@ struct TopicView: View {
                         SecondaryButton("S'entraîner", systemImage: "play.fill") { router.open(.session(viewModel.practiceRequest)) }
                     }
                     VStack(spacing: SagaceMetrics.rowSpacing) {
+                        if viewModel.visibleRows.isEmpty {
+                            EmptyState(systemImage: "rectangle.stack", text: "Pas encore de fiche ici. De nouvelles arrivent chaque mois.")
+                        }
                         ForEach(viewModel.visibleRows) { row in
                             NavigationLink(value: AppRoute.fiche(row.fiche.id)) {
                                 FicheRow(fiche: row.fiche, status: row.status)

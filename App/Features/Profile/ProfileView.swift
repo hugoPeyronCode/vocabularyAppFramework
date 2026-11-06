@@ -345,9 +345,18 @@ struct AboutView: View {
                     Text(verbatim: "Sagace").textStyle(.hero)
                     Text("Version \(version)").textStyle(.meta)
                     Text("Fait à Paris, sans publicité.").textStyle(.definition)
-                    Text("Sources et licences").textStyle(.sheetTitle).padding(.top, 8)
-                    Text("Les fiches s'appuient sur le Wiktionnaire et Lexique 3 (licence CC BY-SA 4.0), le Littré et le Dictionnaire des synonymes de Lafaye (domaine public), et les textes de Wikisource. Les fiches dérivées sont publiées sous la même licence CC BY-SA 4.0.")
-                        .textStyle(.body)
+                    NavigationLink(value: AppRoute.sources) {
+                        HStack {
+                            Label("Sources et licences", systemImage: "books.vertical").fontStyle(.rowTitle)
+                            Spacer()
+                            Image(systemName: "chevron.right").font(.system(size: 13, weight: .bold)).foregroundStyle(.vTextSecondary)
+                        }
+                        .foregroundStyle(.vTextPrimary)
+                        .padding(16)
+                        .background(.vSurfaceRaised, in: .rect(cornerRadius: SagaceMetrics.rowRadius, style: .continuous))
+                    }
+                    .buttonStyle(PressScaleButtonStyle())
+                    .padding(.top, 8)
                 }
                 .padding(.horizontal, SagaceMetrics.pageMargin)
             }

@@ -46,7 +46,7 @@ enum AppRoute: Hashable {
     case fiche(String)
     case topic(TopicKind)
     case toLearn, mastered, collections, ownWords, history, reports, editFollows
-    case reminders, voices, appearance, appIcon, settings, about, widgets
+    case reminders, voices, appearance, appIcon, settings, about, widgets, sources
     case collection(PersistentIdentifier)
 }
 

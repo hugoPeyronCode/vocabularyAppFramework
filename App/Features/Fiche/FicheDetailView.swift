@@ -48,8 +48,8 @@ struct FicheDetailView: View {
                 .padding(.top, -12)
                 .accessibilityAddTraits(.isHeader)
             HStack(spacing: 10) {
-                Text(verbatim: viewModel.fiche.phonetic).textStyle(.meta)
-                CircleButton(systemImage: "speaker.wave.2", accessibilityLabel: "Écouter", size: 36, isActive: true) {
+                Text(verbatim: viewModel.fiche.phonetic).textStyle(.meta).accessibilityHidden(true)
+                CircleButton(systemImage: "speaker.wave.2", accessibilityLabel: "Écouter la prononciation", size: 36, isActive: true) {
                     viewModel.speak()
                 }
                 Text(viewModel.fiche.grammarLabel).textStyle(.meta)
@@ -117,7 +117,7 @@ struct FicheDetailView: View {
                 DetailSection("Chez les auteurs") {
                     Text(verbatim: "« \(quote.text) »").textStyle(.definition).italic()
                     if let url = URL(string: quote.url) {
-                        Link(destination: url) {
+                        ExternalLink(url: url) {
                             Label("\(quote.author), \(quote.work) (\(String(quote.year)))", systemImage: "book")
                                 .textStyle(.body)
                         }
@@ -134,7 +134,7 @@ struct FicheDetailView: View {
             DetailSection("Sources") {
                 ForEach(fiche.sources, id: \.name) { source in
                     if let url = URL(string: source.url), source.url.hasPrefix("http") {
-                        Link(destination: url) {
+                        ExternalLink(url: url) {
                             Label { Text(verbatim: source.name) } icon: { Image(systemName: "link") }
                                 .textStyle(.body)
                         }

@@ -157,13 +157,21 @@ final class FeedViewModel {
 
     /// Appelé quand une page devient visible.
     func pageDidAppear(_ pageID: String?) {
-        guard let page = pages.first(where: { $0.id == pageID }) else { return }
+        guard !isObscured, let page = pages.first(where: { $0.id == pageID }) else { return }
         if case .fiche(let id) = page.item, let fiche = content.fiche(id: id), viewedThisSession.insert(page.id).inserted {
             store.markSeen(id, at: now())
             store.save()
             analytics.track(.ficheViewed(ficheID: id, family: fiche.family, origin: .feed))
         }
         if page.item == .end, isPremium { appendNextBatch() }
+    }
+
+    /// Recouvert par la migration ou l'onboarding : la fiche à l'écran n'est pas vue.
+    private(set) var isObscured = false
+
+    func setObscured(_ obscured: Bool) {
+        isObscured = obscured
+        if !obscured { pageDidAppear(currentPageID) }
     }
 
     func pageDidChange() {

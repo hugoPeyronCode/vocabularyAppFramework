@@ -177,6 +177,8 @@ final class ScreenFactory {
             AppIconView(viewModel: AppIconViewModel(haptics: dependencies.haptics))
         case .about:
             AboutView()
+        case .sources:
+            SourcesView(viewModel: SourcesViewModel(content: content))
         case .widgets:
             WidgetsView(viewModel: WidgetsViewModel(
                 bridge: dependencies.widgets, entitlements: dependencies.entitlements, day: dependencies.day, now: dependencies.now

@@ -19,6 +19,7 @@ struct SagaceApp: App {
         WindowGroup {
             RootView(dependencies: dependencies)
                 .environment(dependencies.router)
+                .environment(dependencies.connectivity)
                 .environment(\.haptics, dependencies.haptics)
         }
         .backgroundTask(.appRefresh(ReminderScheduler.refreshTaskIdentifier)) {

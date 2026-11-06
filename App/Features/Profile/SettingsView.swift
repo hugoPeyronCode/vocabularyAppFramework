@@ -258,10 +258,10 @@ struct SettingsView: View {
         }
         .buttonStyle(PressScaleButtonStyle())
         if let privacy = AppLinks.privacy {
-            Link(destination: privacy) { settingRow("Confidentialité", symbol: "hand.raised", trailing: Image(systemName: "arrow.up.right")) }
+            ExternalLink(url: privacy) { settingRow("Confidentialité", symbol: "hand.raised", trailing: Image(systemName: "arrow.up.right")) }
         }
         if let terms = AppLinks.terms {
-            Link(destination: terms) { settingRow("Conditions", symbol: "doc.text", trailing: Image(systemName: "arrow.up.right")) }
+            ExternalLink(url: terms) { settingRow("Conditions", symbol: "doc.text", trailing: Image(systemName: "arrow.up.right")) }
         }
     }
 
