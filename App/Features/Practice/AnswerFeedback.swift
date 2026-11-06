@@ -33,6 +33,7 @@ struct AnswerFeedback: View {
                     .foregroundStyle(.vCorrect)
             }
             PrimaryButton("Continuer", haptic: .selection, action: onContinue)
+                .keyboardShortcut(.defaultAction)
                 .padding(.top, 4)
         }
         .padding(20)

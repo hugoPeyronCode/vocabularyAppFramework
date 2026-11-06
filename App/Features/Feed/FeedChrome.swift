@@ -48,6 +48,8 @@ struct FeedActionBar: View {
     let canSort: Bool
     let hasFiche: Bool
     let dueReviews: Int
+    /// Masqué quand la fiche détaillée est déjà à côté de la carte (iPad paysage).
+    var showsInfo = true
     let sortTip: SortTip
     let infoTip: InfoTip
     let onInfo: () -> Void
@@ -57,9 +59,11 @@ struct FeedActionBar: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            CircleButton(systemImage: "info", accessibilityLabel: "Fiche détaillée", size: SagaceMetrics.circleButtonLarge, action: onInfo)
-                .popoverTip(infoTip, arrowEdge: .bottom)
-                .disabled(!hasFiche)
+            if showsInfo {
+                CircleButton(systemImage: "info", accessibilityLabel: "Fiche détaillée", size: SagaceMetrics.circleButtonLarge, action: onInfo)
+                    .popoverTip(infoTip, arrowEdge: .bottom)
+                    .disabled(!hasFiche)
+            }
             CircleButton(systemImage: "square.and.arrow.up", accessibilityLabel: "Partager", size: SagaceMetrics.circleButtonLarge, action: onShare)
                 .disabled(!hasFiche)
             Spacer(minLength: 0)

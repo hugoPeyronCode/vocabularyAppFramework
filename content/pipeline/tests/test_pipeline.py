@@ -6,11 +6,12 @@ import json
 import sys
 import tempfile
 import unittest
+from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from sagace_pipeline import build, check, convert_v3_en, draft, llm, quotes, review, schema, select, wiktionary
+from sagace_pipeline import agent, build, check, convert_v3_en, draft, llm, quotes, review, schema, select, wiktionary
 from sagace_pipeline.common import SCHEMA_PATH, SEED_PATH, contains_form, fiche_id, read_json, word_forms, write_json
 from sagace_pipeline.lexique import Lexique
 
@@ -61,6 +62,28 @@ class Wiktionary(unittest.TestCase):
         self.assertIn("eminens", entry.etymology)
 
 
+    def test_level_five_notes_and_sub_senses(self):
+        wikitext = ("== {{langue|fr}} ==\n=== {{S|adverbe|fr}} ===\n'''au final''' {{pron|o fi.nal|fr}}\n"
+                    "# Finalement.\n## {{critiqué|fr}} En fin de compte.\n"
+                    "===== {{S|notes}} =====\n: L’Académie française considère « au final » comme une construction fautive.\n")
+        entry = wiktionary.parse("au final", wikitext)
+        self.assertEqual(entry.senses[0].definitions, ["Finalement.", "(critiqué) En fin de compte."])
+        self.assertEqual(len(entry.notes), 1)
+
+
+class WiktionaryExamples(unittest.TestCase):
+    def test_multiline_examples_with_source(self):
+        body = ("# Faire des [[effort]]s.\n"
+                "#* {{exemple| Sa mère '''tâchait''' de s’interposer. |source= {{w|Gustave Flaubert}}, ''L’Éducation sentimentale'', 1891|lang=fr}}\n"
+                "#* {{exemple | lang=fr\n | Mais '''tâchons''' donc que tout se passe bien.\n | source=[[w:Émile Thirion|Émile Thirion]], ''La Politique au village'', 1896}}\n")
+        self.assertEqual(wiktionary.examples_in(body), [
+            "Sa mère tâchait de s’interposer. — Gustave Flaubert, L’Éducation sentimentale, 1891",
+            "Mais tâchons donc que tout se passe bien. — Émile Thirion, La Politique au village, 1896",
+        ])
+        self.assertEqual(wiktionary.part_of_speech("locution conjonctive"), "locution")
+        self.assertEqual(wiktionary.part_of_speech("adjectif indéfini"), "adjectif")
+
+
 class Selection(unittest.TestCase):
     def test_editorial_kept_frequent_words_only_quotas(self):
         lexique = Lexique.load(FIXTURES / "lexique.tsv")
@@ -93,6 +116,48 @@ class Quotes(unittest.TestCase):
         rendered = quotes.metadata('<pages index="x" header=1 titre="[[Illusions perdues]]" />',
                                    '<a href="/wiki/Auteur:Honor%C3%A9_de_Balzac">Balzac</a>', ["Romans parus en 1839"], "Illusions perdues/Chapitre")
         self.assertEqual(rendered, {"author": "Honoré de Balzac", "work": "Illusions perdues", "year": 1839})
+
+    def test_text_fetched_only_for_public_domain_works(self):
+        sentence = "Le plus éminent des orateurs de la Chambre se leva lentement pour répondre à ses adversaires."
+        header = '<pages index="x" titre="[[Les Misérables]]" annee="1862" />'
+        described = {
+            "Traduction récente": {"wikitext": header, "categories": [], "authors": ["Victor Hugo", "Traducteur Vivant"]},
+            "Les Misérables/Tome 1": {"wikitext": header, "categories": [], "authors": ["Armand Carrel", "Victor Hugo"]},
+        }
+        fetched = []
+        def page(title):
+            fetched.append(title)
+            return f'<div><a href="/wiki/Auteur:Victor_Hugo">Victor Hugo</a>.</div><p>{sentence}</p>'
+        deaths = {"Victor Hugo": 1885, "Armand Carrel": 1836}
+        found = quotes.quotes_for({"headword": "éminent", "lexique": None}, lambda word: list(described), lambda titles: described,
+                                  page, deaths.get)
+        # Traducteur vivant : texte jamais téléchargé ; auteur pris dans l'en-tête, pas le premier lien alphabétique.
+        self.assertEqual(fetched, ["Les Misérables/Tome 1"])
+        self.assertEqual([(quote["text"], quote["author"], quote["work"]) for quote in found], [(sentence, "Victor Hugo", "Les Misérables")])
+
+    def test_only_the_work_text_is_quoted(self):
+        rendered = ('<div id="headertemplate"><a href="/wiki/Auteur:Denis_Diderot">Denis Diderot</a> Jacques le Fataliste.</div>'
+                    '<div class="ws-summary"><h2>TABLE DES MATIÈRES</h2><div class="tableItem"><span>Où Jacques fait preuve de son habileté au jeu des cartes</span>'
+                    '<div class="ws-noexport"><div class="tablePage">12</div></div></div></div>'
+                    '<p>Le maître admirait en silence l’habileté avec laquelle Jacques menait son cheval sur la route.<sup class="reference">[1]</sup></p>'
+                    '<ol class="references"><li><span class="reference-text">Tronchin n’évita pas l’accusation de charlatanisme malgré son habileté reconnue.</span></li></ol>'
+                    '<p>RÉCITS D’UNE TANTE, MÉMOIRES DE LA COMTESSE, AVEC UNE HABILETÉ CONSOMMÉE ET RARE.</p>')
+        self.assertEqual(quotes.sentences_with(quotes.visible_text(rendered), word_forms("habileté")),
+                         ["Le maître admirait en silence l’habileté avec laquelle Jacques menait son cheval sur la route."])
+
+    def test_work_year_and_quotes_per_work(self):
+        sentence = "Le maître admirait en silence l’habileté avec laquelle Jacques menait son cheval sur la route."
+        described = {"Jacques le Fataliste et son maître": {"wikitext": '<pages titre="[[Jacques le Fataliste et son maître]]" annee="1875" />',
+                                                            "categories": [], "authors": ["Denis Diderot"]}}
+        page = lambda title: f'<div><a href="/wiki/Auteur:Denis_Diderot">Denis Diderot</a></div><p>{sentence}</p>'
+        used = Counter()
+        found = quotes.quotes_for({"headword": "habileté", "lexique": None}, lambda word: list(described), lambda titles: described,
+                                  page, lambda author: 1784, lambda title: 1796, used)
+        # Année de l'œuvre (Wikidata), pas celle de l'édition numérisée.
+        self.assertEqual([quote["year"] for quote in found], [1796])
+        used["Jacques le Fataliste et son maître"] = quotes.MAX_PER_WORK
+        self.assertEqual(quotes.quotes_for({"headword": "habileté", "lexique": None}, lambda word: list(described), lambda titles: described,
+                                           page, lambda author: 1784, lambda title: 1796, used), [])
 
 
 class Prompts(unittest.TestCase):
@@ -137,7 +202,11 @@ class Checks(unittest.TestCase):
         self.assertTrue(any("synonyme" in p for p in self.problems(fiche)))
         fiche = seed()
         fiche["quiz"][0]["choices"] = ["éminent", "maison"]
+        fiche["quiz"][0]["game"] = "motJuste"
         self.assertTrue(any("natures" in p for p in self.problems(fiche)))
+        # Paronymes : des natures différentes sont normales (différend / différent).
+        fiche["quiz"][0]["game"] = "paronymes"
+        self.assertFalse(any("natures" in p for p in self.problems(fiche)))
         fiche = seed()
         fiche["partOfSpeech"] = "verbe"
         self.assertTrue(any("nature" in p for p in self.problems(fiche)))
@@ -207,3 +276,50 @@ class ReviewAndBuild(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AgentMode(unittest.TestCase):
+    """Sans clé API : export des entrées, réponse d'un agent, import avec les mêmes règles d'ancrage que l'API."""
+
+    def test_draft_and_critic_round_trip(self):
+        fiche = seed()
+        raw = raw_for(fiche)
+        with tempfile.TemporaryDirectory() as folder:
+            work = Path(folder)
+            (work / "candidats.csv").write_text(f"id,headword,family\n{fiche['id']},{fiche['headword']},{fiche['family']}\n", encoding="utf-8")
+            write_json(work / "raw" / f"{fiche['id']}.json", raw)
+            self.assertEqual(agent.export("draft", work), [fiche["id"]])
+            self.assertIn(draft.RULES, (work / "agent" / "draft" / "CONSIGNES.md").read_text(encoding="utf-8"))
+
+            answer = {**fiche, "id": "fr.autre", "reviewStatus": "humanChecked",
+                      "authorQuote": {"text": "Phrase inventée", "author": "X", "work": "Y", "year": 1850, "url": "https://fr.wikisource.org/x"}}
+            write_json(work / "agent" / "draft" / "out" / f"{fiche['id']}.json", answer)
+            (work / "agent" / "draft" / "out" / "fr.casse.json").write_text("{", encoding="utf-8")
+            imported, failures = agent.import_outputs("draft", work)
+            self.assertEqual(imported, 1)
+            self.assertEqual(len(failures), 1)
+            drafted = read_json(work / "drafts" / f"{fiche['id']}.json")
+            self.assertEqual((drafted["id"], drafted["reviewStatus"], drafted["authorQuote"]), (fiche["id"], "draft", None))
+            # Déjà rédigée : plus rien à exporter.
+            self.assertEqual(agent.export("draft", work), [])
+
+            write_json(work / "checked" / f"{fiche['id']}.json", drafted)
+            self.assertEqual(agent.export("critic", work), [fiche["id"]])
+            write_json(work / "agent" / "critic" / "out" / f"{fiche['id']}.json", {"ok": True, "problems": []})
+            self.assertEqual(agent.import_outputs("critic", work)[0], 1)
+            self.assertTrue((work / "critic" / f"{fiche['id']}.json").exists())
+
+    def test_usage_pitfall_must_be_sourced(self):
+        fiche = seed()
+        with tempfile.TemporaryDirectory() as folder:
+            work = Path(folder)
+            rows = ["id,headword,family"]
+            for identifier, note in (("fr.excuser", None), ("fr.solutionner", "Dupré juge l'emploi critiqué : préférer résoudre.")):
+                raw = {**raw_for(fiche), "id": identifier, "family": "impropriete"}
+                raw["wiktionary"] = {**raw["wiktionary"], "notes": [note] if note else [], "markers": []}
+                write_json(work / "raw" / f"{identifier}.json", raw)
+                rows.append(f"{identifier},{identifier[3:]},impropriete")
+            (work / "candidats.csv").write_text("\n".join(rows) + "\n", encoding="utf-8")
+            # Impropriété que le Wiktionnaire ne confirme pas : pas rédigée, listée pour Hugo.
+            self.assertEqual([identifier for identifier, _, _ in draft.pending(work, None)], ["fr.solutionner"])
+            self.assertIn("fr.excuser", (work / "sans_source.csv").read_text(encoding="utf-8"))

@@ -78,3 +78,15 @@ public struct AnswerRow: View {
         }
     }
 }
+
+public extension View {
+    /// Clavier matériel de l'iPad : 1, 2, 3… choisissent la réponse `index` (à partir de 0).
+    func answerShortcut(_ index: Int) -> some View {
+        keyboardShortcut(KeyEquivalent(Character(String(index + 1))), modifiers: [])
+    }
+
+    /// Juste ou fautif au clavier, comme la glisse : → Juste, ← Fautif.
+    func trueFalseShortcut(_ isTrue: Bool) -> some View {
+        keyboardShortcut(isTrue ? .rightArrow : .leftArrow, modifiers: [])
+    }
+}

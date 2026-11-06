@@ -13,6 +13,9 @@ enum Sheet: Identifiable, Hashable {
     case paywall(PaywallSource)
 
     var id: Self { self }
+
+    /// Sur iPad, Explorer s'ouvre en deux colonnes, dans une sheet plus large (`09_IPAD.md`).
+    var isTwoColumn: Bool { self == .explore }
 }
 
 /// Ce qu'on travaille dans une session (PRA-02).

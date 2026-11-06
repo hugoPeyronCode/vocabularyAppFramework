@@ -41,6 +41,7 @@ public struct SheetContainer<Content: View, BottomBar: View>: View {
         }
         .modifier(LegacyFloatingChrome())
         .ignoresSafeArea(.container, edges: .bottom)
+        .measuresLayoutWidth()
     }
 
     @ViewBuilder
@@ -106,34 +107,49 @@ public extension PresentationDetent {
 
 public extension View {
     /// Présente `content` (en général un `SheetContainer`) en sheet flottante.
+    /// - Parameter width: largeur maximale sur iPad (`09_IPAD.md`) ; sur iPhone, la sheet prend toute la largeur.
     func floatingSheet<Item: Identifiable, Content: View>(
         item: Binding<Item?>,
         detents: Set<PresentationDetent> = [.floating],
+        width: CGFloat = SagaceMetrics.sheetMaxSize.width,
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping (Item) -> Content
     ) -> some View {
         sheet(item: item, onDismiss: onDismiss) { item in
-            content(item).modifier(FloatingSheetPresentation(detents: detents))
+            content(item).modifier(FloatingSheetPresentation(detents: detents, width: width))
         }
     }
 
     func floatingSheet<Content: View>(
         isPresented: Binding<Bool>,
         detents: Set<PresentationDetent> = [.floating],
+        width: CGFloat = SagaceMetrics.sheetMaxSize.width,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View {
         sheet(isPresented: isPresented) {
-            content().modifier(FloatingSheetPresentation(detents: detents))
+            content().modifier(FloatingSheetPresentation(detents: detents, width: width))
         }
+    }
+}
+
+/// Sur iPad : grande carte centrée au lieu de la petite fenêtre système (`09_IPAD.md`, section 3).
+/// Sans effet sur iPhone, où la sheet suit ses crans.
+struct SagaceSheetSizing: PresentationSizing {
+    let width: CGFloat
+
+    func proposedSize(for root: PresentationSizingRoot, context: PresentationSizingContext) -> ProposedViewSize {
+        ProposedViewSize(width: width, height: SagaceMetrics.sheetMaxSize.height)
     }
 }
 
 private struct FloatingSheetPresentation: ViewModifier {
     let detents: Set<PresentationDetent>
+    let width: CGFloat
 
     func body(content: Content) -> some View {
         content
             .modifier(FloatingSheetBackground())
+            .presentationSizing(SagaceSheetSizing(width: width))
             .presentationDetents(detents)
             .presentationDragIndicator(.hidden)
             .presentationCornerRadius(SagaceMetrics.sheetRadius)

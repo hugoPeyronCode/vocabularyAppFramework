@@ -23,16 +23,23 @@ def schema_errors(fiche: dict[str, Any], schema: dict[str, Any]) -> list[str]:
 
 
 def check(fiche: dict[str, Any], raw: dict[str, Any], schema: dict[str, Any], sensitive: set[str],
-          lexique_pos: dict[str, str] | None = None) -> list[str]:
+          lexique_pos: dict[str, str | set[str]] | None = None) -> list[str]:
     problems = schema_errors(fiche, schema)
     if problems:
         return problems
     lexique = raw.get("lexique") or {}
     senses = raw["wiktionary"]["senses"]
     # 2. Nature et genre identiques à Lexique et au Wiktionnaire.
-    if lexique and fiche["partOfSpeech"] != lexique["partOfSpeech"]:
-        problems.append(f"nature : {fiche['partOfSpeech']} ≠ Lexique {lexique['partOfSpeech']}")
-    if senses and fiche["partOfSpeech"] not in {sense["part_of_speech"] for sense in senses}:
+    # Toutes les natures du mot dans Lexique (« car » : conjonction et nom), pas seulement la plus fréquente.
+    natures = lexique_pos.get(fold(fiche["headword"])) if lexique_pos else None
+    lexique_natures = ({natures} if isinstance(natures, str) else set(natures or ())) or ({lexique["partOfSpeech"]} if lexique else set())
+    # Le schéma range conjonctions et pronoms avec les locutions : Lexique ne les décrit pas.
+    if lexique_natures and fiche["partOfSpeech"] not in lexique_natures and fiche["partOfSpeech"] != "locution":
+        problems.append(f"nature : {fiche['partOfSpeech']} ≠ Lexique {sorted(lexique_natures)}")
+    # Une expression (plusieurs mots) est rangée en locution, quelle que soit sa nature au Wiktionnaire.
+    is_phrase = " " in fiche["headword"].strip()
+    if senses and not (is_phrase and fiche["partOfSpeech"] == "locution") \
+            and fiche["partOfSpeech"] not in {sense["part_of_speech"] for sense in senses}:
         problems.append(f"nature : {fiche['partOfSpeech']} absente du Wiktionnaire")
     if fiche["partOfSpeech"] == "nom":
         genders = {lexique.get("gender")} | {sense["gender"] for sense in senses if sense["part_of_speech"] == "nom"}
@@ -41,9 +48,15 @@ def check(fiche: dict[str, Any], raw: dict[str, Any], schema: dict[str, Any], se
             problems.append(f"genre : {fiche.get('gender')} ≠ sources {sorted(genders)}")
     # 3. Le mot (ou une forme fléchie) dans chaque exemple et dans la phrase d'auteur.
     forms = word_forms(fiche["headword"], lexique.get("forms", []))
+    # Expression conjuguée (« fait florès », « à mon corps défendant ») : la moitié au moins de ses mots pleins.
+    words = [word for word in re.findall(r"[\w-]+", fold(fiche["headword"])) if len(word) > 2]
+    def shows_phrase(part: str) -> bool:
+        present = set(re.findall(r"[\w-]+", fold(part)))
+        return bool(words) and sum(word in present for word in words) * 2 >= len(words)
     for example in fiche["examples"]:
         bold = re.findall(r"\*\*(.+?)\*\*", example)
-        if not bold or not any(contains_form(part, forms) or fold(part).startswith(fold(fiche["headword"])[:4]) for part in bold):
+        if not bold or not any(contains_form(part, forms) or fold(part).startswith(fold(fiche["headword"])[:4])
+                               or (is_phrase and shows_phrase(part)) for part in bold):
             problems.append(f"exemple sans le mot en gras : {example}")
     quote = fiche.get("authorQuote")
     if quote and not contains_form(quote["text"], forms):
@@ -61,12 +74,14 @@ def check(fiche: dict[str, Any], raw: dict[str, Any], schema: dict[str, Any], se
         wrong = [choice for position, choice in enumerate(item["choices"]) if position != item["answerIndex"]]
         if any(fold(choice) in synonyms for choice in wrong):
             problems.append(f"quiz[{index}] : un synonyme est proposé comme mauvaise réponse")
-        if lexique_pos and item["game"] != "justeOuFautif":
+        # Paronymes : les choix diffèrent souvent de nature (différend, nom / différent, adjectif).
+        if lexique_pos and item["game"] not in ("justeOuFautif", "paronymes"):
             right = item["choices"][item["answerIndex"]]
-            natures = {lexique_pos.get(fold(choice)) for choice in [right, *wrong] if " " not in choice}
-            natures.discard(None)
-            if len(natures) > 1:
-                problems.append(f"quiz[{index}] : choix de natures différentes {sorted(natures)}")
+            # Une forme peut avoir plusieurs natures (« accompli » : verbe et adjectif) : il faut une nature commune.
+            known = [lexique_pos[fold(choice)] for choice in [right, *wrong] if " " not in choice and fold(choice) in lexique_pos]
+            sets = [{value} if isinstance(value, str) else set(value) for value in known]
+            if len(sets) > 1 and not set.intersection(*sets):
+                problems.append(f"quiz[{index}] : choix de natures différentes {sorted(set.union(*sets))}")
     # 7. Au moins une source avec URL.
     if not any(source.get("url", "").startswith("http") for source in fiche["sources"]):
         problems.append("aucune source avec URL")
@@ -84,8 +99,9 @@ def run(work: Path = WORK, lexique_path: Path | None = None) -> None:
     if lexique_path:
         from .lexique import Lexique
         lexique_pos = {}
-        for (word, pos), _ in Lexique.load(lexique_path).lemmas.items():
-            lexique_pos.setdefault(fold(word), pos)
+        for (word, pos), lemma in Lexique.load(lexique_path).lemmas.items():
+            for form in {word, *lemma.forms}:
+                lexique_pos.setdefault(fold(form), set()).add(pos)
     out = stage_dir("checked", work)
     rows, seen_ids, seen_words = [], set(), set()
     for path in sorted((work / "drafts").glob("*.json")):

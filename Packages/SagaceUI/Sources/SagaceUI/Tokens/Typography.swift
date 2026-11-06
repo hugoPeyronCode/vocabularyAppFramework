@@ -4,17 +4,19 @@ import UIKit
 /// Styles de texte de `02_DESIGN_SYSTEM.md` section 3, tous en SF Pro.
 /// Les tailles sont celles d'un écran de 393 pt et suivent Dynamic Type via le style de référence.
 public enum SagaceTextStyle: CaseIterable, Sendable {
-    case hero, heroGhost, title, sheetTitle, rowTitle, body, definition, meta, metricValue, metricLabel, button, tab, keypad
+    case hero, heroLarge, heroGhost, title, sheetTitle, rowTitle, body, definition, definitionLarge, meta, metricValue, metricLabel, button, tab, keypad
 
     var size: CGFloat {
         switch self {
         case .hero: 40
+        case .heroLarge: 56
         case .heroGhost: 36
         case .title: 26
         case .sheetTitle: 20
         case .rowTitle: 19
         case .body: 15
         case .definition: 17
+        case .definitionLarge: 21
         case .meta: 15
         case .metricValue: 28
         case .metricLabel: 12
@@ -26,11 +28,11 @@ public enum SagaceTextStyle: CaseIterable, Sendable {
 
     var weight: Font.Weight {
         switch self {
-        case .hero, .heroGhost: .heavy
+        case .hero, .heroLarge, .heroGhost: .heavy
         case .title, .sheetTitle, .metricValue: .bold
         case .rowTitle, .metricLabel, .button, .tab: .semibold
         case .meta: .medium
-        case .body, .definition, .keypad: .regular
+        case .body, .definition, .definitionLarge, .keypad: .regular
         }
     }
 
@@ -39,10 +41,10 @@ public enum SagaceTextStyle: CaseIterable, Sendable {
     /// Style système dont la courbe Dynamic Type est appliquée.
     var relativeTo: UIFont.TextStyle {
         switch self {
-        case .hero, .heroGhost: .largeTitle
+        case .hero, .heroLarge, .heroGhost: .largeTitle
         case .title, .metricValue, .keypad: .title1
         case .sheetTitle, .button: .title3
-        case .rowTitle, .definition, .tab: .body
+        case .rowTitle, .definition, .definitionLarge, .tab: .body
         case .body, .meta: .subheadline
         case .metricLabel: .caption1
         }
