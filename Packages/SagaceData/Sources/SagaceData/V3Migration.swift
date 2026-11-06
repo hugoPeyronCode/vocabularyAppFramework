@@ -85,7 +85,10 @@ public struct V3Migration {
 
     /// Chaque mot aimé qui correspond à une fiche anglaise (même mot, casse ignorée) entre en révision.
     /// Les autres sont gardés dans le profil pour l'arrivée du pack anglais historique (M8).
-    func importLikedWords(_ headwords: [String], at now: Date) -> Int {
+    /// Mots aimés v3 → « À retenir », par le pack anglais historique. Ceux qui n'y sont pas restent en attente
+    /// (`UserProfile.pendingV3Headwords`) ; l'app les retente quand elle charge le pack anglais.
+    @discardableResult
+    public func importLikedWords(_ headwords: [String], at now: Date) -> Int {
         let english = Dictionary(
             content.fiches.filter { $0.language == .en }.map { ($0.headword.lowercased(), $0.id) },
             uniquingKeysWith: { first, _ in first }

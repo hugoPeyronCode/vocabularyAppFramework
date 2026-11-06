@@ -27,7 +27,7 @@ final class SilentHaptics: HapticPlaying {
 
 @MainActor
 final class SilentAudio: Speaking {
-    func speak(_ text: String) {}
+    func speak(_ text: String, language: Language) {}
 }
 
 final class RecordingAnalytics: Analytics {

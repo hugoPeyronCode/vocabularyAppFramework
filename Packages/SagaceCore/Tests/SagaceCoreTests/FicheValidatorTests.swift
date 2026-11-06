@@ -97,3 +97,21 @@ struct FicheValidatorTests {
         #expect(issues.contains { $0.field == "headword" })
     }
 }
+
+@Suite("Contrôles de forme")
+struct ShapeChecks {
+    @Test("Identifiant, prononciation, mot en gras : mêmes règles que le schéma")
+    func shapes() {
+        #expect(FicheValidator.isValidID("fr.au_jour_d_aujourd_hui"))
+        #expect(FicheValidator.isValidID("en.word2"))
+        #expect(!FicheValidator.isValidID("fr."))
+        #expect(!FicheValidator.isValidID("de.mot"))
+        #expect(!FicheValidator.isValidID("fr.Éminent"))
+        #expect(FicheValidator.isBetweenSlashes("/e.mi.nɑ̃/"))
+        #expect(!FicheValidator.isBetweenSlashes("//"))
+        #expect(!FicheValidator.isBetweenSlashes("e.mi.nɑ̃"))
+        #expect(FicheValidator.hasBoldWord("Un **éminent** savant."))
+        #expect(!FicheValidator.hasBoldWord("Un **** savant."))
+        #expect(!FicheValidator.hasBoldWord("Un **éminent savant."))
+    }
+}

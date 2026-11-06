@@ -10,7 +10,8 @@ final class AccessibilityAuditTests: XCTestCase {
 
     private func launch(_ arguments: [String], textSize: String? = nil) -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments = ["-skipOnboarding", "-hideTips"] + arguments
+        // Libellés attendus en français, quelle que soit la langue du simulateur (l'app est aussi traduite en anglais).
+        app.launchArguments = ["-skipOnboarding", "-hideTips", "-AppleLanguages", "(fr)", "-AppleLocale", "fr_FR"] + arguments
             + (textSize.map { ["-UIPreferredContentSizeCategoryName", $0] } ?? [])
         app.launch()
         return app

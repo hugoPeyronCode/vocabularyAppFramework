@@ -4,69 +4,323 @@
   "title": "Fiche Sagace",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "language", "headword", "family", "themes", "partOfSpeech", "register", "phonetic", "shortDefinition", "definition", "confusions", "examples", "synonyms", "level", "quiz", "sources", "reviewStatus"],
+  "required": [
+    "id",
+    "language",
+    "headword",
+    "family",
+    "themes",
+    "partOfSpeech",
+    "register",
+    "phonetic",
+    "shortDefinition",
+    "definition",
+    "confusions",
+    "examples",
+    "synonyms",
+    "level",
+    "quiz",
+    "sources",
+    "reviewStatus"
+  ],
   "properties": {
-    "id": { "type": "string", "pattern": "^(fr|en)\\.[a-z0-9_]+$" },
-    "language": { "enum": ["fr", "en"] },
-    "headword": { "type": "string", "minLength": 1 },
-    "family": { "enum": ["paronyme", "impropriete", "passePartout", "nuance", "pleonasme", "anglicisme", "motMalCompris", "expression"] },
-    "themes": { "type": "array", "items": { "type": "string" } },
-    "partOfSpeech": { "enum": ["nom", "verbe", "adjectif", "adverbe", "locution", "preposition"] },
-    "gender": { "enum": ["masculin", "feminin", "epicene", null] },
-    "register": { "enum": ["courant", "soutenu", "familier", "litteraire"] },
-    "phonetic": { "type": "string", "pattern": "^/.+/$" },
-    "shortDefinition": { "type": "string", "minLength": 5, "maxLength": 90 },
-    "definition": { "type": "string", "minLength": 5 },
+    "id": {
+      "type": "string",
+      "pattern": "^(fr|en)\\.[a-z0-9_]+$"
+    },
+    "language": {
+      "enum": [
+        "fr",
+        "en"
+      ]
+    },
+    "headword": {
+      "type": "string",
+      "minLength": 1
+    },
+    "family": {
+      "enum": [
+        "paronyme",
+        "impropriete",
+        "passePartout",
+        "nuance",
+        "pleonasme",
+        "anglicisme",
+        "motMalCompris",
+        "expression"
+      ]
+    },
+    "themes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "partOfSpeech": {
+      "enum": [
+        "nom",
+        "verbe",
+        "adjectif",
+        "adverbe",
+        "locution",
+        "preposition",
+        "inconnu"
+      ]
+    },
+    "gender": {
+      "enum": [
+        "masculin",
+        "feminin",
+        "epicene",
+        null
+      ]
+    },
+    "register": {
+      "enum": [
+        "courant",
+        "soutenu",
+        "familier",
+        "litteraire"
+      ]
+    },
+    "phonetic": {
+      "type": "string",
+      "pattern": "^(/.+/)?$"
+    },
+    "shortDefinition": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 90
+    },
+    "definition": {
+      "type": "string",
+      "minLength": 5
+    },
     "confusions": {
       "type": "array",
       "items": {
-        "type": "object", "additionalProperties": false,
-        "required": ["word", "meaning", "example"],
-        "properties": { "word": { "type": "string" }, "meaning": { "type": "string" }, "example": { "type": "string" } }
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "word",
+          "meaning",
+          "example"
+        ],
+        "properties": {
+          "word": {
+            "type": "string"
+          },
+          "meaning": {
+            "type": "string"
+          },
+          "example": {
+            "type": "string"
+          }
+        }
       }
     },
     "usage": {
-      "type": ["object", "null"], "additionalProperties": false,
-      "required": ["correct", "avoid", "verdict", "explanation"],
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "correct",
+        "avoid",
+        "verdict",
+        "explanation"
+      ],
       "properties": {
-        "correct": { "type": "string" },
-        "avoid": { "type": "string" },
-        "verdict": { "enum": ["fautif", "critique", "tolere"] },
-        "explanation": { "type": "string", "maxLength": 200 }
+        "correct": {
+          "type": "string"
+        },
+        "avoid": {
+          "type": "string"
+        },
+        "verdict": {
+          "enum": [
+            "fautif",
+            "critique",
+            "tolere"
+          ]
+        },
+        "explanation": {
+          "type": "string",
+          "maxLength": 200
+        }
       }
     },
-    "nuance": { "type": ["string", "null"], "maxLength": 300 },
-    "examples": { "type": "array", "minItems": 2, "maxItems": 3, "items": { "type": "string", "pattern": "\\*\\*.+\\*\\*" } },
-    "authorQuote": {
-      "type": ["object", "null"], "additionalProperties": false,
-      "required": ["text", "author", "work", "year", "url"],
-      "properties": {
-        "text": { "type": "string" }, "author": { "type": "string" }, "work": { "type": "string" },
-        "year": { "type": "integer" }, "url": { "type": "string", "pattern": "^https://fr\\.wikisource\\.org/" }
-      }
+    "nuance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 300
     },
-    "synonyms": { "type": "array", "items": { "type": "string" } },
-    "etymology": { "type": ["string", "null"] },
-    "level": { "type": "integer", "minimum": 1, "maximum": 5 },
-    "frequencyRank": { "type": ["integer", "null"] },
-    "quiz": {
-      "type": "array", "minItems": 1,
+    "examples": {
+      "type": "array",
+      "maxItems": 3,
       "items": {
-        "type": "object", "additionalProperties": false,
-        "required": ["game", "prompt", "choices", "answerIndex", "explanation"],
+        "type": "string",
+        "pattern": "\\*\\*.+\\*\\*"
+      }
+    },
+    "authorQuote": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "author",
+        "work",
+        "year",
+        "url"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "work": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://fr\\.wikisource\\.org/"
+        }
+      }
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "etymology": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "frequencyRank": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "quiz": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "game",
+          "prompt",
+          "choices",
+          "answerIndex",
+          "explanation"
+        ],
         "properties": {
-          "game": { "enum": ["motJuste", "paronymes", "justeOuFautif", "passePartout", "sens", "devine"] },
-          "prompt": { "type": "string" },
-          "choices": { "type": "array", "minItems": 2, "maxItems": 3, "items": { "type": "string" } },
-          "answerIndex": { "type": "integer", "minimum": 0, "maximum": 2 },
-          "explanation": { "type": "string", "maxLength": 160 }
+          "game": {
+            "enum": [
+              "motJuste",
+              "paronymes",
+              "justeOuFautif",
+              "passePartout",
+              "sens",
+              "devine"
+            ]
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "choices": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 3,
+            "items": {
+              "type": "string"
+            }
+          },
+          "answerIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2
+          },
+          "explanation": {
+            "type": "string",
+            "maxLength": 160
+          }
         }
       }
     },
     "sources": {
-      "type": "array", "minItems": 1,
-      "items": { "type": "object", "additionalProperties": false, "required": ["name", "url"], "properties": { "name": { "type": "string" }, "url": { "type": "string" } } }
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "url"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      }
     },
-    "reviewStatus": { "enum": ["draft", "autoChecked", "humanChecked"] }
-  }
+    "reviewStatus": {
+      "enum": [
+        "draft",
+        "autoChecked",
+        "humanChecked"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "Fiches françaises : prononciation, nature et deux exemples obligatoires. Le pack anglais historique (v3) n'a ni nature ni prononciation (OPEN_QUESTIONS n° 68).",
+      "if": {
+        "properties": {
+          "language": {
+            "const": "fr"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "phonetic": {
+            "pattern": "^/.+/$"
+          },
+          "examples": {
+            "minItems": 2
+          },
+          "partOfSpeech": {
+            "not": {
+              "const": "inconnu"
+            }
+          }
+        }
+      }
+    }
+  ]
 }

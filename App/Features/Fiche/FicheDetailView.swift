@@ -48,11 +48,15 @@ struct FicheDetailView: View {
                 .padding(.top, -12)
                 .accessibilityAddTraits(.isHeader)
             HStack(spacing: 10) {
-                Text(verbatim: viewModel.fiche.phonetic).textStyle(.meta).accessibilityHidden(true)
+                if viewModel.fiche.hasPhonetic {
+                    Text(verbatim: viewModel.fiche.phonetic).textStyle(.meta).accessibilityHidden(true)
+                }
                 CircleButton(systemImage: "speaker.wave.2", accessibilityLabel: "Écouter la prononciation", size: 36, isActive: true) {
                     viewModel.speak()
                 }
-                Text(viewModel.fiche.grammarLabel).textStyle(.meta)
+                if viewModel.fiche.hasGrammar {
+                    Text(viewModel.fiche.grammarLabel).textStyle(.meta)
+                }
                 Text(viewModel.fiche.register.label)
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.vTextSecondary)

@@ -1,8 +1,9 @@
 import AVFoundation
+import SagaceCore
 
 @MainActor
 protocol Speaking: AnyObject {
-    func speak(_ text: String)
+    func speak(_ text: String, language: Language)
 }
 
 /// Prononciation des mots avec une voix française de l'appareil (`03_ARCHITECTURE.md` section 1).
@@ -12,8 +13,9 @@ final class AudioService: Speaking {
     private let synthesizer = AVSpeechSynthesizer()
     var voiceIdentifier: String?
 
-    func speak(_ text: String) {
-        speak(text, with: voice)
+    /// Mot d'une fiche : voix française choisie, ou meilleure voix anglaise pour le pack anglais historique.
+    func speak(_ text: String, language: Language = .fr) {
+        speak(text, with: language == .fr ? voice : Self.bestVoice(prefix: "en") ?? AVSpeechSynthesisVoice(language: "en-US"))
     }
 
     /// Écoute d'une voix dans VOI-01.
@@ -26,6 +28,10 @@ final class AudioService: Speaking {
         AVSpeechSynthesisVoice.speechVoices()
             .filter { $0.language.hasPrefix("fr") }
             .sorted { ($0.quality.rawValue, $0.language == "fr-FR" ? 1 : 0, $0.name) > ($1.quality.rawValue, $1.language == "fr-FR" ? 1 : 0, $1.name) }
+    }
+
+    private static func bestVoice(prefix: String) -> AVSpeechSynthesisVoice? {
+        AVSpeechSynthesisVoice.speechVoices().filter { $0.language.hasPrefix(prefix) }.max { $0.quality.rawValue < $1.quality.rawValue }
     }
 
     private func speak(_ text: String, with voice: AVSpeechSynthesisVoice?) {

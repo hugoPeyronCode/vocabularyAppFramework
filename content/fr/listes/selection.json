@@ -1,0 +1,11 @@
+{
+  "_comment": "Étape 1 du pipeline (05_CONTENT.md section 3.1). Requêtes de recherche du Wiktionnaire par famille, croisées avec Lexique 3. Ajuster ici, pas dans le code.",
+  "paronyme": {"search": ["insource:\"S|paronymes\""], "annexes": ["Annexe:Paronymes en français"]},
+  "impropriete": {"search": ["incategory:\"Usages critiqués en français\"", "insource:\"critiqué|fr\""]},
+  "pleonasme": {"search": ["insource:\"pléonasme\" incategory:\"Lemmes en français\""]},
+  "anglicisme": {"search": ["incategory:\"Anglicismes en français\"", "insource:\"faux-ami\" incategory:\"Lemmes en français\""]},
+  "passePartout": {"verbs": ["faire", "mettre", "dire", "avoir", "donner", "prendre", "gérer", "voir"]},
+  "nuance": {"search": ["insource:\"S|synonymes\" insource:\"Lafaye\""], "synonymPagesFromTop": 4000},
+  "motMalCompris": {"search": []},
+  "expression": {"search": []}
+}

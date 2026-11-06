@@ -79,7 +79,9 @@ final class AppDependencies {
 
     func start() async {
         guard case .loading = state else { return }
-        guard let fichesURL = Bundle.main.url(forResource: "fiches", withExtension: "json", subdirectory: "Content/fr"),
+        let englishPack = Bundle.main.url(forResource: "fiches", withExtension: "json", subdirectory: "Content/en")
+        let language = ContentLanguage.preferred(Locale.preferredLanguages, englishPackAvailable: englishPack != nil)
+        guard let fichesURL = language == .en ? englishPack : Bundle.main.url(forResource: "fiches", withExtension: "json", subdirectory: "Content/fr"),
               let topicsURL = Bundle.main.url(forResource: "topics", withExtension: "json", subdirectory: "Content/fr") else {
             logger.error("Pack de contenu absent du bundle")
             state = .failed
@@ -90,6 +92,7 @@ final class AppDependencies {
             let topics = try JSONDecoder().decode(Topics.self, from: Data(contentsOf: topicsURL))
             if !content.issues.isEmpty { logger.error("Fiches écartées : \(content.issues.map(\.description))") }
             await migrateFromV3IfNeeded(content: content)
+            importPendingV3Words(content: content)
             if router.fullScreen == nil {
                 await entitlements.start(legacyPremiumFlag: store.profile.legacyPremiumFlag)
             }
@@ -106,6 +109,15 @@ final class AppDependencies {
     }
 
     // MARK: Migration Words v3 (04_MIGRATION.md section 7)
+
+    /// Mots aimés v3 restés en attente (pack anglais absent à la migration) : importés dès que le pack anglais est chargé.
+    private func importPendingV3Words(content: ContentRepository) {
+        let pending = store.profile.pendingV3Headwords
+        guard !pending.isEmpty, content.fiches.contains(where: { $0.language == .en }),
+              let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let imported = V3Migration(defaults: .standard, documentsURL: documents, store: store, content: content).importLikedWords(pending, at: now())
+        logger.info("Mots aimés v3 importés : \(imported)")
+    }
 
     private func migrateFromV3IfNeeded(content: ContentRepository) async {
         guard let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }

@@ -139,7 +139,11 @@ struct RemindersView: View {
     @State var viewModel: RemindersViewModel
     @Environment(AppRouter.self) private var router
 
-    private let weekdayLetters: [(Int, LocalizedStringKey)] = [(1, "L"), (2, "M"), (3, "M"), (4, "J"), (5, "V"), (6, "S"), (7, "D")]
+    /// Initiales des jours du lundi (1) au dimanche (7), dans la langue de l'appareil (L M M J V S D, M T W T F S S).
+    private let weekdayLetters: [(Int, String)] = {
+        let symbols = Calendar.current.veryShortStandaloneWeekdaySymbols
+        return (1...7).map { ($0, symbols[$0 % 7]) }
+    }()
 
     var body: some View {
         SheetPage("Rappels") {
@@ -229,12 +233,13 @@ struct RemindersView: View {
             ForEach(weekdayLetters, id: \.0) { weekday, letter in
                 let active = reminder.weekdays.contains(weekday)
                 Button { viewModel.toggle(weekday: weekday) } label: {
-                    Text(letter)
+                    Text(verbatim: letter)
                         .font(.system(size: 15, weight: .bold))
                         .foregroundStyle(active ? Color.vOnInverse : .vTextPrimary)
                         .frame(maxWidth: .infinity, minHeight: 40)
                         .background(active ? Color.vInverse : .vSurfaceRaised, in: .circle)
                 }
+                .accessibilityLabel(Text(verbatim: Calendar.current.standaloneWeekdaySymbols[weekday % 7]))
                 .accessibilityAddTraits(active ? .isSelected : [])
             }
         }

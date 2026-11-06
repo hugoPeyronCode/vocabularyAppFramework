@@ -221,7 +221,7 @@ final class FeedViewModel {
 
     func speak(_ ficheID: String) {
         guard let fiche = content.fiche(id: ficheID) else { return }
-        audio.speak(fiche.headword)
+        audio.speak(fiche.headword, language: fiche.language)
     }
 
     /// Après une sheet (fiche détaillée, Explorer) : tris faits ailleurs, frise et série à jour.

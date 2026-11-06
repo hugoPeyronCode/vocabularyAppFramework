@@ -53,12 +53,14 @@ struct FicheCard: View {
                 .accessibilityAddTraits(.isHeader)
             HStack(spacing: 8) {
                 // L'alphabet phonétique est illisible pour VoiceOver : le bouton fait entendre le mot.
-                Text(verbatim: fiche.phonetic).accessibilityHidden(true)
+                if fiche.hasPhonetic {
+                    Text(verbatim: fiche.phonetic).accessibilityHidden(true)
+                }
                 CircleButton(systemImage: "speaker.wave.2", accessibilityLabel: "Écouter la prononciation", size: 32, isActive: true, action: onSpeak)
             }
             .textStyle(.meta)
             .padding(.top, 4)
-            Text("\(Text(fiche.grammarLabel).italic()) \(fiche.shortDefinition)")
+            (fiche.hasGrammar ? Text("\(Text(fiche.grammarLabel).italic()) \(fiche.shortDefinition)") : Text(verbatim: fiche.shortDefinition))
                 .textStyle(.definition)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 14)

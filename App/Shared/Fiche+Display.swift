@@ -13,8 +13,13 @@ extension Fiche {
         case (.adverbe, _): "adv."
         case (.locution, _): "loc."
         case (.preposition, _): "prép."
+        case (.inconnu, _): ""
         }
     }
+
+    /// Nature connue (le pack anglais historique n'en a pas).
+    var hasGrammar: Bool { partOfSpeech != .inconnu }
+    var hasPhonetic: Bool { !phonetic.isEmpty }
 }
 
 extension UsageNote.Verdict {

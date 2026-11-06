@@ -84,3 +84,12 @@ public struct ContentRepository: Sendable {
     /// Fiche d'un mot (casse et accents ignorés), pour ouvrir un synonyme depuis la fiche détaillée.
     public func fiche(headword: String) -> Fiche? { byHeadword[SearchIndex.normalize(headword)] }
 }
+
+/// Langue du pack chargé (option A de `04_MIGRATION.md`) : le pack français, sauf sur un appareil réglé dans une autre
+/// langue, qui retrouve le pack anglais historique de Words v3 s'il est embarqué.
+public enum ContentLanguage {
+    public static func preferred(_ languages: [String], englishPackAvailable: Bool) -> Language {
+        guard englishPackAvailable, let first = languages.first else { return .fr }
+        return first.lowercased().hasPrefix("fr") ? .fr : .en
+    }
+}

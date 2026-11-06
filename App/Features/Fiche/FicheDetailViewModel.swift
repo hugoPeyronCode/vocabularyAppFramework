@@ -40,7 +40,7 @@ final class FicheDetailViewModel {
     }
 
     func speak() {
-        audio.speak(fiche.headword)
+        audio.speak(fiche.headword, language: fiche.language)
     }
 
     func sort(_ sorting: Sorting) {

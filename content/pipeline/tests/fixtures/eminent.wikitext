@@ -1,0 +1,21 @@
+== {{langue|fr}} ==
+=== {{S|étymologie}} ===
+: Du {{étyl|la|fr|mot=eminens}}, « qui s'élève ».
+
+=== {{S|adjectif|fr}} ===
+{{fr-accord-cons|e.mi.n|ɑ̃|t}}
+'''éminent''' {{pron|e.mi.nɑ̃|fr}}
+# Qui s'élève au-dessus des autres par son [[mérite]] ou son [[rang]].
+#* ''Un '''éminent''' spécialiste.''
+# {{figuré|fr}} Qui [[dominer|domine]].
+
+==== {{S|synonymes}} ====
+* [[remarquable]]
+* [[illustre]]
+
+==== {{S|paronymes}} ====
+* [[imminent]]
+
+== {{langue|en}} ==
+=== {{S|adjectif|en}} ===
+# Eminent.
