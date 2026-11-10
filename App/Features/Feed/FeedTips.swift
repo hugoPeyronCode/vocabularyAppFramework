@@ -11,7 +11,7 @@ struct SwipeTip: Tip {
 struct SortTip: Tip {
     @Parameter static var hasSwiped: Bool = false
 
-    var title: Text { Text("Triez : je savais, ou à retenir.") }
+    var title: Text { Text("Choisissez « Je connais » ou « À retenir » sur la carte.", tableName: "FeedControls") }
     var image: Image? { Image(systemName: "checkmark.circle") }
     var rules: [Rule] { #Rule(Self.$hasSwiped) { $0 } }
 }
@@ -19,8 +19,8 @@ struct SortTip: Tip {
 struct InfoTip: Tip {
     @Parameter static var hasSorted: Bool = false
 
-    var title: Text { Text("Touchez i pour les nuances et les sources") }
-    var image: Image? { Image(systemName: "info.circle") }
+    var title: Text { Text("Le menu de la carte donne accès aux détails et au partage.", tableName: "FeedControls") }
+    var image: Image? { Image(systemName: "ellipsis.circle") }
     var rules: [Rule] { #Rule(Self.$hasSorted) { $0 } }
 }
 

@@ -1,6 +1,7 @@
 import SagaceCore
 import SagaceUI
 import SwiftUI
+import TipKit
 
 /// Carte fiche du feed (FEED-01), centrée sur le mot à la Vocabulary : mot en héros, phonétique et écoute,
 /// nature et définition courte. Chaque toucher dévoile un détail de plus (confusion, bon usage, exemple,
@@ -12,36 +13,99 @@ struct FicheCard: View {
     let details: [FeedViewModel.Detail]
     let revealed: Int
     var revealsDetails = true
+    let sorting: Sorting?
+    let isCurrent: Bool
     let onSpeak: () -> Void
     let onReveal: () -> Void
+    let onInfo: () -> Void
+    let onShare: () -> Void
+    let onSort: (Sorting) -> Void
+    private let sortTip = SortTip()
+    private let infoTip = InfoTip()
     @Environment(\.layoutWidth) private var layoutWidth
 
     private var shownCount: Int { revealsDetails ? revealed : 0 }
 
     var body: some View {
         VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                actionsMenu
+            }
+            .padding(.horizontal, 12)
+            .padding(.top, 8)
             ViewThatFits(in: .vertical) {
                 ForEach(0...shownCount, id: \.self) { dropped in
                     content(shown: Array(details.prefix(shownCount).dropFirst(dropped)))
                 }
             }
-            .frame(maxHeight: .infinity, alignment: .center)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .contentShape(.rect)
+            .onTapGesture { if revealsDetails { onReveal() } }
+            .accessibilityActions {
+                if revealsDetails { Button("En savoir plus", action: onReveal) }
+            }
             if revealsDetails, revealed < details.count {
                 Label("Touchez pour en savoir plus", systemImage: "hand.tap")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.vTextSecondary)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 10)
                     .transition(.opacity)
             }
+            HStack(spacing: 10) {
+                sortButton(.known, title: Text("Je connais", tableName: "FeedControls"), symbol: "checkmark", identifier: "feed.known")
+                sortButton(.toLearn, title: Text("À retenir"), symbol: "bookmark", identifier: "feed.learn")
+            }
+            .popoverTip(isCurrent ? sortTip : nil, arrowEdge: .bottom)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .cardBackground()
-        .contentShape(.rect(cornerRadius: SagaceMetrics.cardRadius))
-        .onTapGesture { if revealsDetails { onReveal() } }
         .animation(SagaceMotion.select, value: revealed)
-        .accessibilityActions {
-            if revealsDetails { Button("En savoir plus", action: onReveal) }
+    }
+
+    private var actionsMenu: some View {
+        Menu {
+            Button {
+                infoTip.invalidate(reason: .actionPerformed)
+                onInfo()
+            } label: { Label("Fiche détaillée", systemImage: "info.circle") }
+            Button(action: onShare) { Label("Partager", systemImage: "square.and.arrow.up") }
+        } label: {
+            Image(systemName: "ellipsis")
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(.vTextSecondary)
+                .frame(width: 44, height: 44)
+                .contentShape(.rect)
         }
+        .accessibilityLabel(Text("Options de la fiche", tableName: "FeedControls"))
+        .accessibilityIdentifier("feed.card.options")
+        .popoverTip(isCurrent ? infoTip : nil, arrowEdge: .top)
+    }
+
+    private func sortButton(_ value: Sorting, title: Text, symbol: String, identifier: String) -> some View {
+        Button {
+            sortTip.invalidate(reason: .actionPerformed)
+            InfoTip.hasSorted = true
+            onSort(value)
+        } label: {
+            ViewThatFits(in: .horizontal) {
+                Label { title } icon: { Image(systemName: symbol) }.fixedSize()
+                title.multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
+            }
+            .font(.subheadline.weight(.semibold))
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, minHeight: 48)
+            .foregroundStyle(sorting == value ? Color.vOnInverse : .vTextPrimary)
+            .background(sorting == value ? Color.vInverse : .vSurfaceRaised, in: .capsule)
+            .contentShape(.capsule)
+        }
+        .buttonStyle(PressScaleButtonStyle())
+        .accessibilityIdentifier(identifier)
+        .accessibilityLabel(title)
+        .accessibilityAddTraits(sorting == value ? .isSelected : [])
     }
 
     private var header: some View {

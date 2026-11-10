@@ -1,7 +1,6 @@
 import SagaceCore
 import SagaceUI
 import SwiftUI
-import TipKit
 
 /// Barre du haut du feed : couronne (gratuit), chip série, Explorer, avatar.
 struct FeedTopBar: View {
@@ -42,115 +41,80 @@ struct FeedTopBar: View {
     }
 }
 
-/// Barre d'actions : fiche détaillée, partager, Jeux (avec les révisions dues), Je savais, À retenir.
-struct FeedActionBar: View {
-    let sorting: Sorting?
-    let canSort: Bool
-    let hasFiche: Bool
+/// Accès permanent aux jeux : action principale du bas du feed.
+struct FeedGamesButton: View {
     let dueReviews: Int
-    /// Masqué quand la fiche détaillée est déjà à côté de la carte (iPad paysage).
-    var showsInfo = true
-    let sortTip: SortTip
-    let infoTip: InfoTip
-    let onInfo: () -> Void
-    let onShare: () -> Void
     let onGames: () -> Void
-    let onSort: (Sorting) -> Void
 
     var body: some View {
-        HStack(spacing: 10) {
-            if showsInfo {
-                CircleButton(systemImage: "info", accessibilityLabel: "Fiche détaillée", size: SagaceMetrics.circleButtonLarge, action: onInfo)
-                    .popoverTip(infoTip, arrowEdge: .bottom)
-                    .disabled(!hasFiche)
-            }
-            CircleButton(systemImage: "square.and.arrow.up", accessibilityLabel: "Partager", size: SagaceMetrics.circleButtonLarge, action: onShare)
-                .disabled(!hasFiche)
-            Spacer(minLength: 0)
-            gamesButton
-            Spacer(minLength: 0)
-            HStack(spacing: 10) {
-                CircleButton(systemImage: "checkmark", accessibilityLabel: "Je savais", size: SagaceMetrics.circleButtonLarge,
-                             isActive: sorting == .known, haptic: nil) { onSort(.known) }
-                CircleButton(systemImage: "bookmark", accessibilityLabel: "À retenir", size: SagaceMetrics.circleButtonLarge,
-                             isActive: sorting == .toLearn, haptic: nil) { onSort(.toLearn) }
-            }
-            .popoverTip(sortTip, arrowEdge: .bottom)
-            .disabled(!canSort)
-            .opacity(canSort ? 1 : 0.4)
-        }
-        .padding(.horizontal, SagaceMetrics.pageMargin)
-        .padding(.vertical, 12)
-    }
-
-    /// L'espace Jeux : jeux, défis, test, et les révisions dues (badge).
-    private var gamesButton: some View {
         Button(action: onGames) {
-            // Le libellé tombe si la barre manque de place (grands corps de texte) : il reste l'icône.
-            ViewThatFits(in: .horizontal) {
-                Label("Jeux", systemImage: "gamecontroller.fill").fixedSize()
-                Image(systemName: "gamecontroller.fill")
-            }
-                .font(.system(size: 16, weight: .semibold))
-                .lineLimit(1)
-                .foregroundStyle(.vOnInverse)
-                .padding(.horizontal, 14)
-                .frame(height: 44)
-                .background(.vInverse, in: .capsule)
-                .overlay(alignment: .topTrailing) {
-                    if dueReviews > 0 {
-                        Text("\(dueReviews)")
-                            .font(.system(size: 12, weight: .bold).monospacedDigit())
-                            .foregroundStyle(.vOnAccent)
-                            .frame(minWidth: 20, minHeight: 20)
-                            .background(.vBlue, in: .capsule)
-                            .offset(x: 6, y: -6)
-                    }
+            HStack(spacing: 16) {
+                Spacer(minLength: 0)
+                Label("Jeux", systemImage: "gamecontroller.fill")
+                    .font(.title3.weight(.bold))
+                if dueReviews > 0 {
+                    Text("\(dueReviews)")
+                        .font(.subheadline.weight(.bold).monospacedDigit())
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
+                        .background(.vBlue, in: .capsule)
+                        .accessibilityHidden(true)
                 }
+                Spacer(minLength: 0)
+            }
+            .foregroundStyle(.vOnInverse)
+            .frame(maxWidth: .infinity, minHeight: 64)
+            .background(.vInverse, in: .capsule)
+            .contentShape(.capsule)
         }
         .buttonStyle(PressScaleButtonStyle())
+        .accessibilityIdentifier("feed.games")
         .accessibilityValue(dueReviews > 0 ? Text("\(dueReviews) révisions dues") : Text(verbatim: ""))
+        .padding(.horizontal, SagaceMetrics.pageMargin)
+        .padding(.vertical, 8)
     }
 }
 
 /// Frise des jours (lundi à dimanche) avec l'anneau de l'objectif.
 struct DayStrip: View {
     let week: [FeedViewModel.DayCell]
-    let hoursToNextBatch: Int?
     let onSelect: (Date) -> Void
 
     var body: some View {
-        VStack(spacing: 6) {
+        VStack(alignment: .leading, spacing: 3) {
+            Text("Objectif quotidien", tableName: "FeedControls")
+                .font(.caption.weight(.medium))
+                .foregroundStyle(.vTextSecondary)
             HStack(spacing: 4) {
                 ForEach(week) { cell in
                     Button { onSelect(cell.day) } label: { cellView(cell) }
                         .buttonStyle(PressScaleButtonStyle())
                         .disabled(cell.isFuture)
+                        .accessibilityIdentifier(cell.isToday ? "feed.day.today" : "feed.day.other")
+                        .accessibilityHint(Text("Voir les mots classés ce jour-là", tableName: "FeedControls"))
                 }
             }
-            if let hours = hoursToNextBatch {
-                Text("Prochain lot dans \(hours) h")
-                    .textStyle(.meta)
-            }
         }
-        .padding(.horizontal, 16)
-        .padding(.bottom, 8)
+        .padding(.horizontal, SagaceMetrics.pageMargin)
+        .padding(.bottom, 2)
     }
 
     private func cellView(_ cell: FeedViewModel.DayCell) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 2) {
             Text(cell.day, format: .dateTime.weekday(.abbreviated))
-                .font(.system(size: 12, weight: .semibold))
+                .font(.system(size: 11, weight: .medium))
                 .foregroundStyle(.vTextSecondary)
-            Text(cell.day, format: .dateTime.day())
-                .fontStyle(.rowTitle)
-                .foregroundStyle(cell.isFuture ? Color.vTextSecondary : .vTextPrimary)
-            ProgressRing(progress: cell.progress)
-                .frame(width: 18, height: 18)
-                .opacity(cell.isFuture ? 0.4 : 1)
+            ZStack {
+                ProgressRing(progress: cell.progress, lineWidth: 2)
+                    .opacity(cell.isFuture ? 0.25 : 1)
+                Text(cell.day, format: .dateTime.day())
+                    .font(.system(size: 13, weight: cell.isToday ? .bold : .medium))
+                    .foregroundStyle(cell.isFuture ? Color.vTextSecondary : .vTextPrimary)
+            }
+            .frame(width: 28, height: 28)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
+        .padding(.vertical, 4)
         .background(cell.isToday ? Color.vSurfaceSelected : .clear, in: .rect(cornerRadius: 16, style: .continuous))
         .accessibilityElement(children: .combine)
         .accessibilityValue(Text("\(Int(min(cell.progress, 1) * 100)) %"))

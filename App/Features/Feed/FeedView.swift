@@ -11,8 +11,6 @@ struct FeedView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     private let swipeTip = SwipeTip()
-    private let sortTip = SortTip()
-    private let infoTip = InfoTip()
     private let widgetTip = WidgetTip()
     @Environment(ScreenFactory.self) private var factory
     /// iPad (`09_IPAD.md`) : colonne centrée, puis deux colonnes en paysage.
@@ -32,9 +30,11 @@ struct FeedView: View {
             TipView(widgetTip)
                 .padding(.horizontal, SagaceMetrics.pageMargin)
                 .readableColumn()
+            DayStrip(week: viewModel.week) { router.open(.day($0)) }
+                .readableColumn()
             if layout == .wide {
                 HStack(spacing: 0) {
-                    cardColumn
+                    pager
                         .frame(width: SagaceMetrics.feedCardColumnWidth)
                     detailPanel
                 }
@@ -42,8 +42,10 @@ struct FeedView: View {
                 .frame(maxWidth: SagaceMetrics.feedCardColumnWidth + SagaceMetrics.readableWidth + SagaceMetrics.pageMargin)
                 .frame(maxWidth: .infinity)
             } else {
-                cardColumn
+                pager
             }
+            FeedGamesButton(dueReviews: viewModel.dueReviewCount) { router.open(.practice) }
+                .readableColumn()
         }
         .readsLayoutWidth($layout)
         .environment(\.layoutWidth, layout)
@@ -57,37 +59,6 @@ struct FeedView: View {
         }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active { viewModel.sceneDidBecomeActive() }
-        }
-    }
-
-    /// Carte, barre d'actions et frise : tout l'écran sur iPhone, une colonne de lecture sur iPad.
-    private var cardColumn: some View {
-        VStack(spacing: 0) {
-            pager
-            Group {
-                FeedActionBar(
-                    sorting: viewModel.currentSortableFicheID.flatMap { viewModel.sortings[$0] },
-                    canSort: viewModel.currentSortableFicheID != nil,
-                    hasFiche: viewModel.currentPage?.ficheID != nil,
-                    dueReviews: viewModel.dueReviewCount,
-                    showsInfo: layout != .wide,
-                    sortTip: sortTip,
-                    infoTip: infoTip,
-                    onInfo: {
-                        infoTip.invalidate(reason: .actionPerformed)
-                        if let id = viewModel.currentPage?.ficheID { router.open(.fiche(id)) }
-                    },
-                    onShare: { if let id = viewModel.currentPage?.ficheID { router.open(.share(id)) } },
-                    onGames: { router.open(.practice) },
-                    onSort: { sorting in
-                        sortTip.invalidate(reason: .actionPerformed)
-                        InfoTip.hasSorted = true
-                        viewModel.sort(sorting)
-                    }
-                )
-                DayStrip(week: viewModel.week, hoursToNextBatch: viewModel.hoursToNextBatch) { router.open(.day($0)) }
-            }
-            .readableColumn()
         }
     }
 
@@ -124,7 +95,7 @@ struct FeedView: View {
                 .keyboardShortcut(.downArrow, modifiers: [])
         }
         // Une sheet ouverte garde les flèches pour elle.
-        .disabled(router.sheet != nil)
+        .disabled(router.sheet != nil || router.fullScreen != nil)
         .opacity(0)
         .accessibilityHidden(true)
     }
@@ -170,8 +141,16 @@ struct FeedView: View {
                 FicheCard(
                     fiche: fiche, isWordOfTheDay: viewModel.wordOfTheDayID == id, details: viewModel.details(of: fiche),
                     revealed: viewModel.revealed[page.id, default: 0], revealsDetails: layout != .wide,
-                    onSpeak: { viewModel.speak(id) }
-                ) { viewModel.reveal(page.id) }
+                    sorting: viewModel.sortings[id], isCurrent: viewModel.currentPageID == page.id,
+                    onSpeak: { viewModel.speak(id) },
+                    onReveal: { viewModel.reveal(page.id) },
+                    onInfo: { router.open(.fiche(id)) },
+                    onShare: { router.open(.share(id)) },
+                    onSort: { sorting in
+                        guard viewModel.currentPageID == page.id else { return }
+                        viewModel.sort(sorting)
+                    }
+                )
             }
         case .end:
             EndCardView(hoursToNextBatch: viewModel.hoursToNextBatch, isPremium: viewModel.isPremium) {
