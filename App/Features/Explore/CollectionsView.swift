@@ -18,7 +18,7 @@ final class CollectionsViewModel {
 
     /// Collections proposées quand la liste est vide.
     let suggestions: [String] = [
-        String(localized: "Écrire au travail"), String(localized: "Pièges des mails"), String(localized: "Bac de français"),
+        AppLocalization.string("Écrire au travail"), AppLocalization.string("Pièges des mails"), AppLocalization.string("Bac de français"),
     ]
 
     private let content: ContentRepository

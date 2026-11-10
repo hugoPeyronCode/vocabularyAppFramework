@@ -98,7 +98,7 @@ final class ScreenFactory {
 
     func practiceHub() -> some View {
         PracticeHubView(viewModel: PracticeHubViewModel(
-            topics: topics, progress: dependencies.store, recorder: dependencies.practice,
+            content: content, topics: topics, progress: dependencies.store, recorder: dependencies.practice,
             entitlements: dependencies.entitlements, day: dependencies.day, now: dependencies.now
         ))
     }

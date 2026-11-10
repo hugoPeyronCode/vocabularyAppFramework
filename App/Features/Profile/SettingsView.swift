@@ -119,6 +119,7 @@ struct SettingsView: View {
     @State var viewModel: SettingsViewModel
     @State private var isManagingSubscription = false
     @Environment(AppRouter.self) private var router
+    @Environment(ScreenFactory.self) private var factory
 
     var body: some View {
         SheetPage("Réglages") {
@@ -152,6 +153,7 @@ struct SettingsView: View {
 
     @ViewBuilder
     private var contentTab: some View {
+        AppLanguagePicker(dependencies: factory.dependencies)
         sectionTitle("Rythme")
         ForEach([(3, "3 fiches"), (5, "5 fiches"), (10, "10 fiches")] as [(Int, LocalizedStringKey)], id: \.0) { goal, title in
             OptionRow(title, detail: goal == Rules.premiumDailyGoal && !viewModel.isPremium ? "PRO" : nil, isSelected: viewModel.dailyGoal == goal, haptic: nil) {

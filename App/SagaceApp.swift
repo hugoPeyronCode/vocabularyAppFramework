@@ -18,6 +18,8 @@ struct SagaceApp: App {
     var body: some Scene {
         WindowGroup {
             RootView(dependencies: dependencies)
+                .id(dependencies.contentRevision)
+                .environment(\.locale, dependencies.languagePreference.locale)
                 .environment(dependencies.router)
                 .environment(dependencies.connectivity)
                 .environment(\.haptics, dependencies.haptics)

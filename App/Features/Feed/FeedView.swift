@@ -191,7 +191,7 @@ struct GameSuggestionSheet: View {
         SheetContainer("Un jeu de 2 minutes ?", systemImage: "gamecontroller") {
             VStack(spacing: SagaceMetrics.rowSpacing) {
                 ForEach(games, id: \.self) { game in
-                    OptionRow(verbatim: String(localized: game.title), systemImage: game.symbol, isSelected: false) { play(game) }
+                    OptionRow(verbatim: AppLocalization.string(game.title), systemImage: game.symbol, isSelected: false) { play(game) }
                 }
                 Spacer(minLength: 8)
                 SecondaryButton("Plus tard") { dismiss() }

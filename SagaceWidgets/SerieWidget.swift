@@ -8,6 +8,7 @@ struct SerieWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "SerieWidget", provider: SerieProvider()) { entry in
             SerieWidgetView(entry: entry)
+                .environment(\.locale, AppLanguagePreference.saved().locale)
         }
         .configurationDisplayName("Série")
         .description("Votre série de jours et l'objectif du jour.")

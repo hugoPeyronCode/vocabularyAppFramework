@@ -53,6 +53,7 @@ struct FicheCard: View {
                     .minimumScaleFactor(0.6)
             }
             Text(verbatim: fiche.headword)
+                .accessibilityIdentifier("feed.headword")
                 .textStyle(layoutWidth.isRegular ? .heroLarge : .hero)
                 .lineLimit(2)
                 .minimumScaleFactor(0.6)

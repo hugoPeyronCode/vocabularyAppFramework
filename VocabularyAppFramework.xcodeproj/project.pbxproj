@@ -403,6 +403,7 @@
 				"$(SRCROOT)/content/fr/fiches.json",
 				"$(SRCROOT)/content/fr/topics.json",
 				"$(SRCROOT)/content/en/fiches.json",
+				"$(SRCROOT)/content/en/topics.json",
 			);
 			name = "Copy content pack";
 			outputFileListPaths = (
@@ -411,10 +412,11 @@
 				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Content/fr/fiches.json",
 				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Content/fr/topics.json",
 				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Content/en/fiches.json",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Content/en/topics.json",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nroot=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Content\"\nmkdir -p \"$root/fr\" \"$root/en\"\n# Pack produit par le pipeline (content/pipeline, étape build) ; pack anglais historique (convert-en).\ncp \"${SRCROOT}/content/fr/fiches.json\" \"$root/fr/fiches.json\"\ncp \"${SRCROOT}/content/fr/topics.json\" \"$root/fr/topics.json\"\ncp \"${SRCROOT}/content/en/fiches.json\" \"$root/en/fiches.json\"\n";
+			shellScript = "set -e\nroot=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Content\"\nmkdir -p \"$root/fr\" \"$root/en\"\n# Pack produit par le pipeline (content/pipeline, étape build) ; pack anglais historique (convert-en).\ncp \"${SRCROOT}/content/fr/fiches.json\" \"$root/fr/fiches.json\"\ncp \"${SRCROOT}/content/fr/topics.json\" \"$root/fr/topics.json\"\ncp \"${SRCROOT}/content/en/fiches.json\" \"$root/en/fiches.json\"\ncp \"${SRCROOT}/content/en/topics.json\" \"$root/en/topics.json\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

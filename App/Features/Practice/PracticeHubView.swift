@@ -17,6 +17,7 @@ final class PracticeHubViewModel {
     /// Fiches "À retenir" dont la révision est due, la plus ancienne d'abord.
     private(set) var dueReviews: [String] = []
 
+    private let content: ContentRepository
     private let topics: Topics
     private let progress: any ProgressStoring
     private let recorder: any PracticeRecording
@@ -25,9 +26,9 @@ final class PracticeHubViewModel {
     private let engine: FeedEngine
     private let now: () -> Date
 
-    init(topics: Topics, progress: any ProgressStoring, recorder: any PracticeRecording, entitlements: any PremiumProviding,
+    init(content: ContentRepository, topics: Topics, progress: any ProgressStoring, recorder: any PracticeRecording, entitlements: any PremiumProviding,
          day: SagaceDay, now: @escaping () -> Date) {
-        self.topics = topics; self.progress = progress; self.recorder = recorder; self.entitlements = entitlements
+        self.content = content; self.topics = topics; self.progress = progress; self.recorder = recorder; self.entitlements = entitlements
         self.stats = PracticeStats(day: day); self.engine = FeedEngine(day: day); self.now = now
     }
 
@@ -39,7 +40,7 @@ final class PracticeHubViewModel {
         hasTakenTest = recorder.lastLevelTest() != nil
         suggestedGame = stats.suggestedSkill(stats.accuracy(recorder.answers(), at: now()))?.games.first
         gameSessionsToday = recorder.gameSessionsToday(at: now())
-        dueReviews = engine.dueReviews(progress.allProgress().values, at: now())
+        dueReviews = engine.dueReviews(progress.allProgress().values, at: now()).filter { content.fiche(id: $0) != nil }
         let followed = Set(progress.preferences.followedFamilies)
         followedFamilies = topics.families.filter { followed.contains($0.id.rawValue) }
         records = Dictionary(uniqueKeysWithValues: ChallengeState.Kind.allCases.compactMap { kind in

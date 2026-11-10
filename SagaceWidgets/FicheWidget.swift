@@ -9,6 +9,7 @@ struct FicheWidget: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: "FicheWidget", intent: FicheWidgetConfiguration.self, provider: FicheProvider()) { entry in
             FicheWidgetView(entry: entry)
+                .environment(\.locale, AppLanguagePreference.saved().locale)
         }
         .configurationDisplayName("Fiche du jour")
         .description("Un mot juste, chaque jour, sur votre écran d'accueil.")

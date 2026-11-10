@@ -69,7 +69,7 @@ struct ProfileView: View {
                     haptics.play(.light)
                     requestReview()
                 } label: { purpleButton("Noter", symbol: "star.fill") }
-                ShareLink(item: String(localized: "Sagace : le mot juste, chaque jour.")) { purpleButton("Partager", symbol: "square.and.arrow.up") }
+                ShareLink(item: AppLocalization.string("Sagace : le mot juste, chaque jour.")) { purpleButton("Partager", symbol: "square.and.arrow.up") }
             }
             .buttonStyle(PressScaleButtonStyle())
         }
@@ -284,7 +284,7 @@ final class VoicesViewModel {
     func isLocked(_ voice: Voice) -> Bool { !isPremium && voice.id != voices.first?.id }
 
     func listen(_ voice: Voice) {
-        audio.preview(String(localized: "Le départ est imminent, l'invité est éminent."), voiceIdentifier: voice.id)
+        audio.preview(AppLocalization.string("Le départ est imminent, l'invité est éminent."), voiceIdentifier: voice.id)
     }
 
     func select(_ voice: Voice) {
@@ -312,7 +312,7 @@ struct VoicesView: View {
                             CircleButton(systemImage: "play", accessibilityLabel: "Écouter", size: 40, isActive: true) { viewModel.listen(voice) }
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(verbatim: voice.name).fontStyle(.rowTitle).foregroundStyle(.vTextPrimary)
-                                Text(verbatim: voice.isEnhanced ? "\(voice.language) · \(String(localized: "Améliorée"))" : voice.language).textStyle(.meta)
+                                Text(verbatim: voice.isEnhanced ? "\(voice.language) · \(AppLocalization.string("Améliorée"))" : voice.language).textStyle(.meta)
                             }
                             Spacer()
                             if viewModel.isLocked(voice) {

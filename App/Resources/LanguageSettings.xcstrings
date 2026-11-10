@@ -1,0 +1,46 @@
+{
+  "sourceLanguage": "fr",
+  "strings": {
+    "Langue de l’app": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App language"
+          }
+        }
+      }
+    },
+    "Automatique": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatic"
+          }
+        }
+      }
+    },
+    "Automatique suit la langue de l’appareil. Ce choix change l’interface et les mots proposés. Le changement vous ramène aux mots ; votre progression est conservée.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatic follows your device’s language. This changes the interface and the words shown. Changing language takes you back to the words; your progress is kept."
+          }
+        }
+      }
+    },
+    "La langue n’a pas pu être changée. Réessayez.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The language could not be changed. Try again."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
