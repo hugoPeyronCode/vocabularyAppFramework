@@ -22,6 +22,9 @@ Règles :
 - examples : 2 phrases du quotidien moderne (travail, mails, vie courante), le mot entre ** **.
 - quiz : 2 questions dont la bonne réponse est indiscutable selon les sources ; les mauvaises réponses ne doivent jamais être correctes dans la phrase ; mêmes nature et genre que la bonne réponse.
 - Juste ou fautif et Le mot juste : un emploi de verdict "fautif" ou "critique" compte comme fautif (réponse « Fautif », ou mauvaise réponse) ; l'explication dit alors « tournure critiquée » et donne la forme recommandée. Pas de question Juste ou fautif sur un emploi "tolere".
+- Prononciation et registre : ceux des extraits seulement. Registre "soutenu", "familier" ou "litteraire" seulement si un marqueur des extraits l'indique, sinon "courant".
+- Pléonasmes : quand le Wiktionnaire ne signale pas la redondance mais qu'elle découle directement de la définition donnée par les extraits, verdict "critique" au plus, jamais "fautif".
+- Impropriétés et anglicismes : les 2 exemples emploient le mot correctement (ou, s'il n'a pas d'emploi correct, la forme recommandée) ; la tournure critiquée n'apparaît que dans le bloc d'usage (avoid) et les quiz.
 - Choisis la meilleure phrase d'auteur parmi les candidates fournies, ou null si aucune n'emploie le mot dans ce sens.
 Réponds uniquement par un objet JSON conforme au schéma fourni."""
 

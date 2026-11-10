@@ -48,15 +48,31 @@ def check(fiche: dict[str, Any], raw: dict[str, Any], schema: dict[str, Any], se
             problems.append(f"genre : {fiche.get('gender')} ≠ sources {sorted(genders)}")
     # 3. Le mot (ou une forme fléchie) dans chaque exemple et dans la phrase d'auteur.
     forms = word_forms(fiche["headword"], lexique.get("forms", []))
-    # Expression conjuguée (« fait florès », « à mon corps défendant ») : la moitié au moins de ses mots pleins.
-    words = [word for word in re.findall(r"[\w-]+", fold(fiche["headword"])) if len(word) > 2]
+    # Expression conjuguée (« fait florès », « à mon corps défendant ») : la moitié au moins de ses mots pleins. Le
+    # possessif et le pronom réfléchi varient (« prendre son parti » → « j'en ai pris mon parti »), un verbe se conjugue
+    # (« faire fi de » → « fait fi des », « se rappeler » → « rappelle ») : radical de trois lettres pour un mot de quatre.
+    variable = {"se", "son", "sa", "ses", "leur", "leurs"}
+    words = [word for word in re.findall(r"[\w-]+", fold(fiche["headword"])) if len(word) > 2 and word not in variable]
     def shows_phrase(part: str) -> bool:
         present = set(re.findall(r"[\w-]+", fold(part)))
-        return bool(words) and sum(word in present for word in words) * 2 >= len(words)
+        found = sum(word in present or (len(word) >= 4 and any(other.startswith(word[:3]) for other in present)) for word in words)
+        return bool(words) and found * 2 >= len(words)
+    # Tournure sans emploi correct (« suite à ») : les exemples montrent la forme recommandée, celle de usage.correct ou
+    # un synonyme, fléchie (« anxieuse » → « anxieux ») : radical de quatre lettres (OPEN_QUESTIONS n° 91).
+    usage = fiche.get("usage") or {}
+    recommended = set()
+    if fiche["family"] in ("impropriete", "anglicisme") and usage.get("verdict") in ("fautif", "critique"):
+        recommended = {word[:4] for text in [usage.get("correct") or "", *fiche["synonyms"]]
+                       for word in re.findall(r"[\w-]+", fold(text)) if len(word) >= 3}
+    def shows_recommended(part: str) -> bool:
+        # « vous porter candidat », « sont insupportables » : un mot plein suffit.
+        return any(word[:4].startswith(prefix) or prefix.startswith(word[:4])
+                   for word in re.findall(r"[\w-]+", fold(part)) if len(word) >= 3 for prefix in recommended)
     for example in fiche["examples"]:
         bold = re.findall(r"\*\*(.+?)\*\*", example)
         if not bold or not any(contains_form(part, forms) or fold(part).startswith(fold(fiche["headword"])[:4])
-                               or (is_phrase and shows_phrase(part)) for part in bold):
+                               or (is_phrase and shows_phrase(part)) or shows_recommended(part)
+                               for part in bold):
             problems.append(f"exemple sans le mot en gras : {example}")
     quote = fiche.get("authorQuote")
     if quote and not contains_form(quote["text"], forms):

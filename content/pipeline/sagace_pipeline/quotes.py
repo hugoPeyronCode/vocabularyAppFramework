@@ -66,10 +66,12 @@ def visible_text(rendered: str) -> str:
 
 
 def is_prose(sentence: str) -> bool:
-    """Écarte ce qui reste de pages de titre et de sommaires : capitales, flèches de note, « Chapitre XI »."""
+    """Écarte ce qui reste de pages de titre et de sommaires (capitales, flèches de note, « Chapitre XI ») et l'orthographe
+    ancienne en s longs (« ſucs ſucrés »)."""
     letters = [char for char in sentence if char.isalpha()]
     capitals = sum(char.isupper() for char in letters)
-    return bool(letters) and capitals <= 0.2 * len(letters) and "↑" not in sentence and not re.search(r"\bchapitre\b", sentence, re.I)
+    return (bool(letters) and capitals <= 0.2 * len(letters) and "↑" not in sentence and "ſ" not in sentence
+            and not re.search(r"\bchapitre\b", sentence, re.I))
 
 
 def sentences_with(text: str, forms: set[str]) -> list[str]:
@@ -82,19 +84,30 @@ def sentences_with(text: str, forms: set[str]) -> list[str]:
     return found
 
 
+def clean_work(work: str) -> str:
+    """Nom de page Wikisource → titre : « Stendhal (Paul Valéry) » → « Stendhal », « Centenaire de Diafoirus (Le) » →
+    « Le Centenaire de Diafoirus »."""
+    article = re.match(r"(.+?)\s*\((Le|La|Les|L’|L')\)$", work)
+    if article:
+        separator = "" if article.group(2).startswith("L") and article.group(2) not in ("Le", "La", "Les") else " "
+        return f"{article.group(2)}{separator}{article.group(1)}"
+    return re.sub(r"\s*\([^()]*\)$", "", work) or work
+
+
 def metadata(wikitext: str, rendered: str = "", categories: list[str] | None = None, title: str = "") -> dict[str, Any]:
     """Auteur, œuvre et année : attributs `<pages ... auteur= titre= annee=>` du wikicode, sinon le lien `Auteur:`
     de l'en-tête rendu, le titre de la page racine et la catégorie « Romans parus en 1839 »."""
     def field(name: str) -> str | None:
-        match = re.search(rf'{name}\s*=\s*(?:"([^"]+)"|([^|\n>]+))', wikitext)
-        return (match.group(1) or match.group(2)).strip() if match else None
+        # titre="" (vide) ne doit pas déborder sur l'attribut suivant (« "" prev="[[Lysimaque »).
+        match = re.search(rf'{name}\s*=\s*(?:"([^"]*)"|([^|\n>"]+))', wikitext)
+        return ((match.group(1) if match.group(1) is not None else match.group(2)).strip() or None) if match else None
     unlink = lambda text: re.sub(r"\[\[(?:Auteur:)?(?:[^|\]]*\|)?([^\]]+)\]\]", r"\1", text).strip()
     author = unlink(field("auteur") or "")
     if not author and (link := re.search(r'href="/wiki/Auteur:([^"#]+)"', rendered)):
         author = urllib.parse.unquote(link.group(1)).replace("_", " ")
     # Titre absent ou modèle non développé ({{BASEPAGENAME}}) : page racine.
     work = unlink(field("titre") or "")
-    work = title.split("/")[0] if not work or "{{" in work else work
+    work = clean_work(title.split("/")[0] if not work or "{{" in work else work)
     year_text = field("annee") or field("date") or " ".join(categories or [])
     year = re.search(r"\b(1[0-9]{3})\b", year_text)
     return {"author": author or None, "work": work or None, "year": int(year.group(1)) if year else None}

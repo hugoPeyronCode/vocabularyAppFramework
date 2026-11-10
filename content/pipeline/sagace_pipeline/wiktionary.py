@@ -61,9 +61,19 @@ class Entry:
 
 
 def phonetic(section: str) -> str | None:
-    """Première prononciation française : {{pron|nwe|nu.e|fr}}, sinon le modèle de flexion {{fr-rég|nwe}}."""
-    for template in re.findall(r"\{\{(?:pron|fr-rég|fr-inv)\|([^}]*)\}\}", section):
-        values = [value.strip() for value in template.split("|") if value.strip() and "=" not in value and value.strip() != "fr"]
+    """Prononciation de la ligne de forme (« '''mot''' {{pron|nwe|fr}} »), sinon la première prononciation française, sinon
+    le modèle de flexion {{fr-rég|nwe}}. Une prononciation citée dans une note ({{pron|a|fr}}) n'est pas celle du mot."""
+    head = "\n".join(line for line in section.splitlines() if line.startswith("'''"))
+    return _first_phonetic(head) or _first_phonetic(section)
+
+
+def _first_phonetic(section: str) -> str | None:
+    for name, template in re.findall(r"\{\{(pron|fr-rég|fr-inv)\|([^}]*)\}\}", section):
+        params = [value.strip() for value in template.split("|")]
+        # {{pron|ˈdjɔr.nu|co}} dans une étymologie : prononciation d'une autre langue.
+        if name == "pron" and "fr" not in params and "lang=fr" not in params:
+            continue
+        values = [value for value in params if value and "=" not in value and value != "fr"]
         if values:
             return f"/{values[0]}/"
     return None
@@ -84,10 +94,11 @@ LANGUAGES = {
 
 
 def _etymon(match: re.Match[str]) -> str:
-    """{{étyl|la|fr|mot=eminens}} → « latin eminens » ; sans mot, la langue seule."""
+    """{{étyl|la|fr|mot=eminens}} ou {{étyl|grc|fr|δηλητήριος}} → « latin eminens » ; sans mot, la langue seule."""
     parts = match.group(1).split("|")
     language = LANGUAGES.get(parts[0].strip(), parts[0].strip()) if parts else ""
-    word = next((part.split("=", 1)[1] for part in parts if part.startswith("mot=")), "")
+    positional = [part.strip() for part in parts if "=" not in part]
+    word = next((part.split("=", 1)[1] for part in parts if part.startswith("mot=")), positional[2] if len(positional) > 2 else "")
     return f"{language} {word}".strip()
 
 
@@ -99,15 +110,15 @@ def clean(text: str) -> str:
     text = re.sub(r"\[\[(?:Fichier|Image|File):(?:[^\[\]]|\[\[[^\]]*\]\])*\]\]", "", text)
     text = re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]", r"\1", text)
     # Modèles de contexte ({{figuré|fr}}) → (figuré) ; modèles « lien » → leur texte.
-    text = re.sub(r"\{\{(?:lien|l|w)\|([^|}]+)[^}]*\}\}", r"\1", text)
+    text = re.sub(r"\{\{(?:lien|l|w|W)\|([^|}]+)[^}]*\}\}", r"\1", text)
     # Renvoi d'orthographe : {{variante ortho de|évènement|fr}} → Variante orthographique de évènement.
     text = re.sub(r"\{\{variante(?: ortho| orthographique)? de\|([^|}]+)[^}]*\}\}", r"Variante orthographique de \1", text)
     # {{composé de|prolonger|-ment|lang=fr}} → Composé de prolonger et -ment.
     text = re.sub(r"\{\{composé de\|([^}]*)\}\}",
                   lambda match: "Composé de " + " et ".join(part for part in match.group(1).split("|") if "=" not in part), text)
     text = re.sub(r"\{\{(?:dénominal|déverbal)\|[^}]*?de=([^|}]+)[^}]*\}\}", r"Dérivé de \1", text)
-    # Étymologie : {{étyl|la|fr|mot=eminens}} → latin eminens.
-    text = re.sub(r"\{\{étyl\|([^}]*)\}\}", _etymon, text)
+    # Étymologie : {{étyl|la|fr|mot=eminens}} → latin eminens ; {{calque|en|fr|mot=prioritize}} → anglais prioritize.
+    text = re.sub(r"\{\{(?:étyl|calque)\|([^}]*)\}\}", _etymon, text)
     text = re.sub(r"\{\{([^|}]+)\|fr\}\}", r"(\1)", text)
     text = re.sub(r"\{\{[^}]*\}\}", "", text)
     text = text.replace("'''", "").replace("''", "")

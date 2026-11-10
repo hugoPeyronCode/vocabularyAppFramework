@@ -82,6 +82,12 @@ class WiktionaryExamples(unittest.TestCase):
         ])
         self.assertEqual(wiktionary.part_of_speech("locution conjonctive"), "locution")
         self.assertEqual(wiktionary.part_of_speech("adjectif indéfini"), "adjectif")
+        self.assertEqual(wiktionary.clean("calque de l’{{calque|en|fr|mot=prioritize}}."), "calque de l’anglais prioritize.")
+        self.assertEqual(wiktionary.clean("Du {{étyl|grc|fr|δηλητήριος|dêlêtêrios|nuisible}}."), "Du grec ancien δηλητήριος.")
+        self.assertEqual(wiktionary.clean("L’{{W|Académie française}} pense"), "L’Académie française pense")
+        self.assertEqual(wiktionary.phonetic("Cognat du corse {{pron|ˈdjɔr.nu|co}}.\n'''jour''' {{pron|ʒuʁ|fr}}"), "/ʒuʁ/")
+        self.assertEqual(wiktionary.phonetic("{{pron|a|fr}} dans une note.\n'''soulager''' {{pron|su.la.ʒe|fr}}"), "/su.la.ʒe/")
+        self.assertFalse(quotes.is_prose("Les ſucs ſucrés du fruit."))
 
 
 class Selection(unittest.TestCase):
@@ -116,6 +122,12 @@ class Quotes(unittest.TestCase):
         rendered = quotes.metadata('<pages index="x" header=1 titre="[[Illusions perdues]]" />',
                                    '<a href="/wiki/Auteur:Honor%C3%A9_de_Balzac">Balzac</a>', ["Romans parus en 1839"], "Illusions perdues/Chapitre")
         self.assertEqual(rendered, {"author": "Honoré de Balzac", "work": "Illusions perdues", "year": 1839})
+        self.assertEqual(quotes.clean_work("Stendhal (Paul Valéry)"), "Stendhal")
+        self.assertEqual(quotes.clean_work("Centenaire de Diafoirus (Le)"), "Le Centenaire de Diafoirus")
+        self.assertEqual(quotes.clean_work("Illusions perdues"), "Illusions perdues")
+        # Titre vide : la page racine, pas l'attribut suivant.
+        empty = quotes.metadata('<pages index="x" titre="" prev="[[Lysimaque]]" />', "", ["1734"], "Dissertation sur la politique des Romains/1")
+        self.assertEqual(empty["work"], "Dissertation sur la politique des Romains")
 
     def test_text_fetched_only_for_public_domain_works(self):
         sentence = "Le plus éminent des orateurs de la Chambre se leva lentement pour répondre à ses adversaires."
@@ -214,6 +226,21 @@ class Checks(unittest.TestCase):
         fiche = seed()
         fiche["phonetic"] = ""
         self.assertTrue(any("phonetic" in p for p in self.problems(fiche)))
+
+    def test_conjugated_phrase_in_examples(self):
+        for headword, examples in [("prendre son parti", ["J'en ai **pris mon parti**.", "Elle en **prend son parti**."]),
+                                   ("faire fi de", ["Il a **fait fi des** consignes.", "Elle **fait fi de** tout."]),
+                                   ("se rappeler", ["Je me **rappelle** ce jour.", "Tu te **rappelles** le code ?"])]:
+            fiche = {**seed(), "headword": headword, "examples": examples}
+            self.assertFalse(any("exemple" in p for p in self.problems(fiche)), headword)
+        fiche = {**seed(), "headword": "faire fi de", "examples": ["Il **ignore** les consignes.", "Elle **fait fi de** tout."]}
+        self.assertTrue(any("exemple" in p for p in self.problems(fiche)))
+        # Tournure critiquée sans emploi correct : les exemples montrent la forme recommandée (OPEN_QUESTIONS n° 91).
+        usage = {"correct": "Elle a personnalisé son téléphone.", "avoid": "Elle a customisé son téléphone.", "verdict": "critique", "explanation": "x"}
+        fiche = {**seed(), "headword": "customiser", "family": "anglicisme", "usage": usage,
+                 "examples": ["Il a **personnalisé** son vélo.", "Elle a **personnalisé** son téléphone."]}
+        self.assertFalse(any("exemple" in p for p in self.problems(fiche)))
+        self.assertTrue(any("exemple" in p for p in self.problems({**fiche, "usage": {**usage, "verdict": "tolere"}})))
 
     def test_english_legacy_fiche_is_valid(self):
         fiche = convert_v3_en.convert([{"Rank": "1", "List": "1k", "Headword": "otiose", "Definition": "Otiose refers to something useless.",

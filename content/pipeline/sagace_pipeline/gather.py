@@ -51,6 +51,8 @@ class Lafaye:
         return found[:3]
 
 
+RELATED_DEFINITIONS, RELATED_DEFINITIONS_CITED = 3, 10
+
 def note_words(note: str) -> list[str]:
     """Mots cités par la note éditoriale : « à ne pas confondre avec X », « X ou Y ou Z », « préférer X », « au lieu de « X » »."""
     cited = r"(?:« ([^»]+?) »|([\w'-]+))"
@@ -96,7 +98,9 @@ def gather_one(candidate: dict[str, str], lexique: Lexique, littre: Littre, lafa
             continue
         other = parse_resolved(word, fetch)
         if other.senses:
-            related[word] = {"definitions": [d for s in other.senses for d in s.definitions][:3],
+            # Un mot cité par la note est celui de la nuance ou du piège : le sens utile n'est pas toujours parmi les premiers.
+            keep = RELATED_DEFINITIONS_CITED if word in cited else RELATED_DEFINITIONS
+            related[word] = {"definitions": [d for s in other.senses for d in s.definitions][:keep],
                              "partOfSpeech": other.senses[0].part_of_speech, "gender": other.senses[0].gender,
                              "url": web.page_url(WIKTIONARY_SITE, word)}
     sources = [{"name": "Wiktionnaire", "url": web.page_url(WIKTIONARY_SITE, headword)}]
