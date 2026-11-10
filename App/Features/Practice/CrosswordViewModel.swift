@@ -8,7 +8,7 @@ import SagaceUI
 /// pour indice. Compte comme une session de jeu (limite gratuite).
 @MainActor @Observable
 final class CrosswordViewModel {
-    enum Phase: Equatable { case playing, solved, locked, empty }
+    enum Phase: Equatable { case loading, playing, solved, locked, empty }
 
     enum Highlight: Equatable { case none, slot, current, wrong, solved, revealed }
 
@@ -30,7 +30,7 @@ final class CrosswordViewModel {
         var id: String { ficheID }
     }
 
-    private(set) var phase: Phase = .playing
+    private(set) var phase: Phase = .loading
     private(set) var engine: CrosswordEngine?
     private(set) var wrongCells: Set<GridPosition> = []
     /// Incrémenté à chaque vérification ratée (secousse de la grille).
@@ -48,6 +48,8 @@ final class CrosswordViewModel {
     private var session: PracticeSession?
     private var seedOffset: UInt64 = 0
     private var flash: Task<Void, Never>?
+    private var generation = 0
+    private var isPreparing = false
 
     init(content: ContentRepository, recorder: any PracticeRecording, progress: any ProgressStoring, entitlements: any PremiumProviding,
          haptics: any HapticPlaying, analytics: any Analytics, now: @escaping () -> Date) {
@@ -57,16 +59,26 @@ final class CrosswordViewModel {
 
     var isInProgress: Bool { phase == .playing && engine != nil }
 
-    func start() {
+    func start() async {
+        guard !isPreparing else { return }
+        isPreparing = true
+        defer { isPreparing = false }
+        let generation = self.generation
         guard PracticeStats.canStartGame(isPremium: entitlements.isPremium, gameSessionsToday: recorder.gameSessionsToday(at: now())) else {
             phase = .locked
             return
         }
         // Les fiches déjà vues d'abord : la grille fait retrouver des mots rencontrés dans le feed.
         let seen = Set(progress.allProgress().keys)
-        let pool = content.fiches.filter { seen.contains($0.id) } + content.fiches.filter { !seen.contains($0.id) }
+        let fiches = content.fiches
+        phase = .loading
         let seed = UInt64(bitPattern: Int64(now().timeIntervalSinceReferenceDate)) &+ seedOffset
-        guard let puzzle = CrosswordBuilder().build(from: pool, seed: seed) else {
+        let puzzle = await Task.detached(priority: .userInitiated) {
+            let pool = fiches.filter { seen.contains($0.id) } + fiches.filter { !seen.contains($0.id) }
+            return CrosswordBuilder().build(from: pool, seed: seed)
+        }.value
+        guard !Task.isCancelled, generation == self.generation else { return }
+        guard let puzzle else {
             phase = .empty
             return
         }
@@ -79,10 +91,12 @@ final class CrosswordViewModel {
         analytics.track(.practiceStarted(mode: .crossword))
     }
 
-    func replay() {
+    func replay() async {
         seedOffset &+= 1
-        start()
+        await start()
     }
+
+    func cancelPreparation() { generation += 1 }
 
     // MARK: Grille
 

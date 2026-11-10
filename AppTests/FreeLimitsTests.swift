@@ -58,8 +58,8 @@ struct FreeLimitsTests {
         )
     }
 
-    private func play(_ viewModel: PracticeSessionViewModel) {
-        viewModel.start()
+    private func play(_ viewModel: PracticeSessionViewModel) async {
+        await viewModel.start()
         while let question = viewModel.current, viewModel.phase == .question {
             viewModel.select(question.correct)
             viewModel.next()
@@ -67,37 +67,37 @@ struct FreeLimitsTests {
     }
 
     @Test("Practice gratuit : une session de jeu par jour, défis compris ; ensuite le bandeau PRO")
-    func practiceLimit() throws {
+    func practiceLimit() async throws {
         let world = try TestWorld()
         let first = session(world, .session(.game(.sens)), premium: false)
-        play(first)
+        await play(first)
         #expect(first.phase == .finished)
 
         let second = session(world, .session(.game(.motJuste)), premium: false)
-        second.start()
+        await second.start()
         #expect(second.phase == .locked)
 
         let challenge = ChallengeViewModel(kind: .rush, content: world.content, recorder: world.practice, entitlements: FakePremium(false),
                                            haptics: SilentHaptics(), analytics: RecordingAnalytics(), now: { .now })
-        challenge.begin()
+        await challenge.begin()
         #expect(challenge.phase == .locked)
     }
 
     @Test("Test de précision et révisions restent libres ; le premium n'a pas de limite")
-    func notLimited() throws {
+    func notLimited() async throws {
         let world = try TestWorld()
-        play(session(world, .session(.game(.sens)), premium: false))
+        await play(session(world, .session(.game(.sens)), premium: false))
 
         let test = session(world, .levelTest, premium: false)
-        test.start()
+        await test.start()
         #expect(test.phase == .question)
 
         let review = session(world, .session(.review(["fr.eminent", "fr.pallier"])), premium: false)
-        review.start()
+        await review.start()
         #expect(review.phase == .question)
 
         let premium = session(world, .session(.game(.motJuste)), premium: true)
-        premium.start()
+        await premium.start()
         #expect(premium.phase == .question)
     }
 }

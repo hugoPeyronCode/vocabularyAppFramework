@@ -19,7 +19,7 @@ enum Sheet: Identifiable, Hashable {
 }
 
 /// Ce qu'on travaille dans une session (PRA-02).
-enum PracticeRequest: Hashable {
+enum PracticeRequest: Hashable, Sendable {
     /// Un des 6 jeux, sur tout le pack.
     case game(GameType)
     /// "S'entraîner sur cette famille" (EXP-02).
@@ -62,11 +62,13 @@ enum TopicKind: Hashable {
 enum FullScreen: Identifiable, Equatable {
     case migration(V3MigrationReport, isPremium: Bool)
     case onboarding(OnboardingFlow)
+    case game(Sheet)
 
     var id: String {
         switch self {
         case .migration: "migration"
         case .onboarding: "onboarding"
+        case .game(let sheet): "game:\(sheet.id)"
         }
     }
 }
@@ -78,8 +80,27 @@ final class AppRouter {
     var stackedPaywall: PaywallSource?
     var fullScreen: FullScreen?
 
+    private(set) var pendingGame: Sheet?
+
     func open(_ sheet: Sheet) {
-        self.sheet = sheet
+        switch sheet {
+        case .session, .challenge, .levelTest, .crossword:
+            if self.sheet != nil {
+                pendingGame = sheet
+                self.sheet = nil
+            } else {
+                fullScreen = .game(sheet)
+            }
+        default:
+            self.sheet = sheet
+        }
+    }
+
+    /// Attend la fermeture réelle de la sheet avant de présenter le jeu, sans temporisation arbitraire.
+    func sheetDidDismiss() {
+        guard let pendingGame else { return }
+        self.pendingGame = nil
+        fullScreen = .game(pendingGame)
     }
 
     /// Ouvre l'action si premium, sinon le paywall par-dessus la sheet courante.

@@ -11,9 +11,11 @@ final class ScreenFactory {
     let dependencies: AppDependencies
     let content: ContentRepository
     let topics: Topics
+    private let questionPreparation: QuestionPreparation
 
     init(dependencies: AppDependencies, content: ContentRepository, topics: Topics) {
         self.dependencies = dependencies; self.content = content; self.topics = topics
+        questionPreparation = QuestionPreparation(content: content)
     }
 
     var isPremium: Bool { dependencies.entitlements.isPremium }
@@ -105,7 +107,7 @@ final class ScreenFactory {
 
     func session(_ kind: PracticeSessionViewModel.Kind) -> some View {
         PracticeSessionView(viewModel: PracticeSessionViewModel(
-            kind: kind, content: content, recorder: dependencies.practice, progress: dependencies.store,
+            kind: kind, content: content, preparation: questionPreparation, recorder: dependencies.practice, progress: dependencies.store,
             entitlements: dependencies.entitlements, haptics: dependencies.haptics, analytics: dependencies.analytics,
             now: dependencies.now
         ))
@@ -113,7 +115,7 @@ final class ScreenFactory {
 
     func challenge(_ kind: ChallengeState.Kind) -> some View {
         ChallengeView(viewModel: ChallengeViewModel(
-            kind: kind, content: content, recorder: dependencies.practice, entitlements: dependencies.entitlements,
+            kind: kind, content: content, preparation: questionPreparation, recorder: dependencies.practice, entitlements: dependencies.entitlements,
             haptics: dependencies.haptics, analytics: dependencies.analytics, now: dependencies.now
         ))
     }

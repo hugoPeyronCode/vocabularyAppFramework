@@ -8,7 +8,7 @@ import SagaceUI
 /// Chaque réponse montre son explication ; on passe à la suite avec "Continuer", jamais automatiquement.
 @MainActor @Observable
 final class PracticeSessionViewModel {
-    enum Kind: Equatable {
+    enum Kind: Equatable, Sendable {
         case session(PracticeRequest)
         case levelTest
     }
@@ -16,6 +16,7 @@ final class PracticeSessionViewModel {
     enum Phase: Equatable {
         /// Introduction du test de précision.
         case intro
+        case loading
         case question
         case answered(correct: Bool)
         case finished
@@ -52,7 +53,9 @@ final class PracticeSessionViewModel {
     private var reviewed: Set<String> = []
 
     private let content: ContentRepository
-    private let factory: QuestionFactory
+    private let preparation: any QuestionPreparing
+    private var generation = 0
+    private var isPreparing = false
     private let recorder: any PracticeRecording
     private let progress: any ProgressStoring
     private let entitlements: any PremiumProviding
@@ -64,13 +67,13 @@ final class PracticeSessionViewModel {
     private var seedOffset: UInt64 = 0
 
     init(
-        kind: Kind, content: ContentRepository, recorder: any PracticeRecording, progress: any ProgressStoring,
+        kind: Kind, content: ContentRepository, preparation: (any QuestionPreparing)? = nil, recorder: any PracticeRecording, progress: any ProgressStoring,
         entitlements: any PremiumProviding, haptics: any HapticPlaying, analytics: any Analytics, now: @escaping () -> Date
     ) {
         self.kind = kind; self.content = content; self.recorder = recorder; self.progress = progress
         self.entitlements = entitlements; self.haptics = haptics; self.analytics = analytics; self.now = now
-        self.factory = QuestionFactory(fiches: content.fiches)
-        self.phase = kind == .levelTest ? .intro : .question
+        self.preparation = preparation ?? QuestionPreparation(content: content)
+        self.phase = kind == .levelTest ? .intro : .loading
     }
 
     var mode: PracticeMode {
@@ -94,14 +97,21 @@ final class PracticeSessionViewModel {
 
     // MARK: Démarrage
 
-    func start() {
+    func start() async {
+        guard !isPreparing else { return }
+        isPreparing = true
+        defer { isPreparing = false }
+        let generation = self.generation
         if mode.countsAsGameSession,
            !PracticeStats.canStartGame(isPremium: entitlements.isPremium, gameSessionsToday: recorder.gameSessionsToday(at: now())) {
             phase = .locked
             return
         }
         let seed = UInt64(bitPattern: Int64(now().timeIntervalSinceReferenceDate)) &+ seedOffset
-        questions = makeQuestions(seed: seed)
+        phase = .loading
+        let prepared = await preparation.session(kind, seed: seed)
+        guard !Task.isCancelled, generation == self.generation else { return }
+        questions = prepared
         guard !questions.isEmpty else {
             phase = .empty
             return
@@ -120,20 +130,8 @@ final class PracticeSessionViewModel {
         analytics.track(.practiceStarted(mode: mode))
     }
 
-    private func makeQuestions(seed: UInt64) -> [Question] {
-        switch kind {
-        case .levelTest:
-            return factory.levelTest(seed: seed)
-        case .session(.game(let game)):
-            return factory.questions(for: game, from: content.fiches, count: Rules.sessionLength, seed: seed)
-        case .session(.family(let family)):
-            let games = [GameType.preferred(for: family)] + GameType.allCases.filter { $0 != .preferred(for: family) }
-            return factory.mixed(from: content.fiches(in: family), count: Rules.sessionLength, games: games, seed: seed)
-        case .session(.fiches(let ids)):
-            return factory.mixed(from: ids.compactMap(content.fiche(id:)), count: Rules.sessionLength, seed: seed)
-        case .session(.review(let ids)):
-            return factory.review(ids.compactMap(content.fiche(id:)), count: Rules.sessionLength, seed: seed)
-        }
+    func cancelPreparation() {
+        generation += 1
     }
 
     // MARK: Réponses
@@ -195,9 +193,9 @@ final class PracticeSessionViewModel {
         haptics.play(.celebration)
     }
 
-    func restart() {
+    func restart() async {
         seedOffset &+= 1
-        start()
+        await start()
     }
 
     /// État d'une réponse à choix une fois la question répondue.
@@ -217,7 +215,7 @@ final class PracticeSessionViewModel {
     #if DEBUG
     /// `-autoplay` : joue la session jusqu'au bout par le même chemin que les touches (une réponse sur cinq fausse).
     func autoplay() async {
-        if phase == .intro { start() }
+        if phase == .intro { await start() }
         var turn = 0
         while phase == .question || isAnswered {
             if phase == .question, let question = current {

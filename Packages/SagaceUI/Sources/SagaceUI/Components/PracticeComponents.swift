@@ -69,18 +69,18 @@ public struct LivesView: View {
 
 /// Carte de question : libellé du jeu en fantôme, consigne en `rowTitle` ou mot en héros.
 public struct QuestionCard: View {
-    let label: Text
+    let label: Text?
     let prompt: String
     let isSingleWord: Bool
 
     /// - Parameter prompt: texte du contenu (phrase à trou, mot, définition), non localisé.
-    public init(label: Text, prompt: String, isSingleWord: Bool) {
+    public init(label: Text? = nil, prompt: String, isSingleWord: Bool) {
         self.label = label; self.prompt = prompt; self.isSingleWord = isSingleWord
     }
 
     public var body: some View {
         VStack(spacing: 6) {
-            label
+            label?
                 .textStyle(.heroGhost)
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
@@ -93,6 +93,7 @@ public struct QuestionCard: View {
                 }
             }
             .foregroundStyle(.vTextPrimary)
+            .accessibilityIdentifier("game.prompt")
             .multilineTextAlignment(.center)
             .minimumScaleFactor(0.7)
             .fixedSize(horizontal: false, vertical: true)

@@ -44,7 +44,7 @@ struct RootView: View {
                                 router.sheet?.isTwoColumn == true ? SagaceMetrics.wideSheetWidth : SagaceMetrics.sheetMaxSize.width,
                                 inWindow: windowWidth
                             ),
-                            onDismiss: { feed.refreshAfterSheet() }
+                            onDismiss: { feed.refreshAfterSheet(); router.sheetDidDismiss() }
                         ) { sheet in
                             sheetView(sheet, content: content, factory: factory)
                                 .environment(factory)
@@ -96,6 +96,12 @@ struct RootView: View {
                     router.fullScreen = nil
                 } onDiscover: {
                     router.fullScreen = .onboarding(.afterMigration)
+                }
+            case .game(let game):
+                if let factory {
+                    sheetView(game, content: factory.content, factory: factory)
+                        .environment(factory)
+                        .environment(dependencies.router)
                 }
             case .onboarding(let flow):
                 if let factory {

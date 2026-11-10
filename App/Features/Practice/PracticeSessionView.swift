@@ -10,10 +10,11 @@ struct PracticeSessionView: View {
     @State private var dragOffset: CGFloat = 0
 
     var body: some View {
-        SheetContainer {
+        GameContainer(title: viewModel.current.map { Text($0.game.title) }) {
             Group {
                 switch viewModel.phase {
                 case .intro: intro
+                case .loading: GameLoadingView()
                 case .question, .answered: questionScreen
                 case .finished: results
                 case .locked: locked
@@ -26,10 +27,13 @@ struct PracticeSessionView: View {
         }
         .stackedPaywall(router)
         .interactiveDismissDisabled(viewModel.isInProgress)
-        .onAppear { if !viewModel.isLevelTest { viewModel.start() } }
-        #if DEBUG
-        .task { if DebugLaunch.autoplay { await viewModel.autoplay() } }
-        #endif
+        .task {
+            if !viewModel.isLevelTest, viewModel.questions.isEmpty { await viewModel.start() }
+            #if DEBUG
+            if DebugLaunch.autoplay { await viewModel.autoplay() }
+            #endif
+        }
+        .onDisappear { viewModel.cancelPreparation() }
     }
 
     // MARK: Test : introduction (PRA-07)
@@ -46,7 +50,7 @@ struct PracticeSessionView: View {
                 .textStyle(.definition)
                 .multilineTextAlignment(.center)
             Spacer()
-            PrimaryButton("Commencer") { viewModel.start() }
+            PrimaryButton("Commencer") { Task { await viewModel.start() } }
         }
         .padding(.bottom, 12)
     }
@@ -60,7 +64,7 @@ struct PracticeSessionView: View {
             if let question = viewModel.current {
                 ScrollView {
                     VStack(spacing: 18) {
-                        QuestionCard(label: Text(question.game.title), prompt: question.prompt, isSingleWord: question.game == .sens)
+                        QuestionCard(prompt: question.prompt, isSingleWord: question.game == .sens)
                             .offset(x: dragOffset)
                             .rotationEffect(.degrees(dragOffset / 40))
                             .gesture(question.game == .justeOuFautif ? swipeToAnswer : nil)
@@ -131,7 +135,7 @@ struct PracticeSessionView: View {
                 }
                 HStack(spacing: 12) {
                     if !viewModel.isLevelTest {
-                        PrimaryButton("Rejouer", systemImage: "arrow.counterclockwise") { viewModel.restart() }
+                        PrimaryButton("Rejouer", systemImage: "arrow.counterclockwise") { Task { await viewModel.restart() } }
                     }
                     SecondaryButton("Terminer") { dismiss() }
                 }
