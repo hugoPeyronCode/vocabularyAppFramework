@@ -178,6 +178,12 @@ final class FeedViewModel {
         haptics.play(.selection)
     }
 
+    /// Clavier de l'iPad : ↓ fiche suivante, ↑ précédente.
+    func showPage(offset: Int) {
+        guard let index = pages.firstIndex(where: { $0.id == currentPageID }), pages.indices.contains(index + offset) else { return }
+        withAnimation(SagaceMotion.page) { currentPageID = pages[index + offset].id }
+    }
+
     private func advance(from pageID: String) {
         guard currentPageID == pageID, let index = pages.firstIndex(where: { $0.id == pageID }), pages.indices.contains(index + 1) else { return }
         withAnimation(SagaceMotion.page) { currentPageID = pages[index + 1].id }

@@ -75,6 +75,13 @@ Critères
 - [ ] TestFlight externe validé par au moins 30 testeurs, aucun crash sur 3 jours.
 - [ ] Soumission envoyée avec les notes de review.
 
+## M10 iPad
+Tâches : interface iPad de `09_IPAD.md` (feed en colonne centrée puis en deux colonnes, Explorer en deux colonnes, sheets en grande carte, jeux et onboarding centrés, raccourcis clavier, widget très grand), sans changer l'iPhone.
+Critères
+- [ ] Écrans principaux vérifiés sur iPad en portrait et en paysage, clair et sombre, Dynamic Type standard et XXL (`Scripts/ipad_screens.sh`).
+- [ ] Split View étroit et Slide Over en mise en page iPhone.
+- [ ] iPhone inchangé, tests verts.
+
 ## Prompts de démarrage pour Claude Code
 - M0 : « Lis CLAUDE.md et docs/sagace dans l'ordre. Réalise le jalon M0 de 06_BUILD_PLAN.md sur une branche m0-socle. Commence par le package SagaceUI et sa page de démo. »
 - Ensuite, pour chaque jalon : « Réalise le jalon Mn. Avant chaque écran, relis sa fiche dans 01_SCREENS.md. Termine par la liste des critères cochés et ce qui reste ouvert dans OPEN_QUESTIONS.md. »

@@ -218,12 +218,15 @@ struct ChallengeView: View {
                 if question.game == .justeOuFautif {
                     HStack(spacing: 12) {
                         AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.select(.trueFalse(true)) }
+                            .trueFalseShortcut(true)
                         AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.select(.trueFalse(false)) }
+                            .trueFalseShortcut(false)
                     }
                 } else {
                     VStack(spacing: SagaceMetrics.rowSpacing) {
                         ForEach(question.choices.indices, id: \.self) { index in
                             AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.select(.choice(index)) }
+                                .answerShortcut(index)
                         }
                     }
                 }

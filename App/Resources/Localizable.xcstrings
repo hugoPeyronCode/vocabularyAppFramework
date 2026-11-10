@@ -4,26 +4,6 @@
     "" : {
       "shouldTranslate" : false
     },
-    "%@ : %@. Via Sagace." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@: %@. Via Sagace."
-          }
-        }
-      }
-    },
-    "%@ · %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ · %@"
-          }
-        }
-      }
-    },
     "%@ %@" : {
       "localizations" : {
         "en" : {
@@ -34,12 +14,12 @@
         }
       }
     },
-    "%@ ≠ %@. %@ : %@. %@ : %@. Via Sagace." : {
+    "%@ : %@. Via Sagace." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ ≠ %@. %@: %@. %@: %@. Via Sagace."
+            "value" : "%@: %@. Via Sagace."
           }
         }
       }
@@ -60,6 +40,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ per week, cancel anytime"
+          }
+        }
+      }
+    },
+    "%@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · %@"
+          }
+        }
+      }
+    },
+    "%@ ≠ %@. %@ : %@. %@ : %@. Via Sagace." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ≠ %@. %@: %@. %@: %@. Via Sagace."
           }
         }
       }
@@ -448,60 +448,6 @@
         }
       }
     },
-    "3 fiches" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "3 cards"
-          }
-        }
-      }
-    },
-    "3 jours de série" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "3-day streak"
-          }
-        }
-      }
-    },
-    "3 jours gratuits, puis 29,99 € par an" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "3 days free, then €29.99 per year"
-          }
-        }
-      }
-    },
-    "5 fiches" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "5 cards"
-          }
-        }
-      }
-    },
-    "7 jours de série" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "7-day streak"
-          }
-        }
-      }
-    },
     "10 fiches" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "localizations" : {
@@ -519,6 +465,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "10 words mastered"
+          }
+        }
+      }
+    },
+    "100 mots maîtrisés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100 words mastered"
           }
         }
       }
@@ -559,6 +515,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "25 to 34"
+          }
+        }
+      }
+    },
+    "3 fiches" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 cards"
+          }
+        }
+      }
+    },
+    "3 jours de série" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3-day streak"
+          }
+        }
+      }
+    },
+    "3 jours gratuits, puis 29,99 € par an" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 days free, then €29.99 per year"
           }
         }
       }
@@ -625,6 +614,17 @@
         }
       }
     },
+    "5 fiches" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 cards"
+          }
+        }
+      }
+    },
     "50 mots maîtrisés" : {
       "localizations" : {
         "en" : {
@@ -655,12 +655,12 @@
         }
       }
     },
-    "100 mots maîtrisés" : {
+    "7 jours de série" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "100 words mastered"
+            "value" : "7-day streak"
           }
         }
       }
@@ -671,88 +671,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "A to Z"
-          }
-        }
-      }
-    },
-    "À corriger" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Needs fixing"
-          }
-        }
-      }
-    },
-    "À débloquer" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Locked"
-          }
-        }
-      }
-    },
-    "À ne pas confondre" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Not to be confused with"
-          }
-        }
-      }
-    },
-    "À propos" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "About"
-          }
-        }
-      }
-    },
-    "à retenir" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "to learn"
-          }
-        }
-      }
-    },
-    "À retenir" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "To learn"
-          }
-        }
-      }
-    },
-    "À revoir : %lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "To review: %lld"
-          }
-        }
-      }
-    },
-    "À vie" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lifetime"
           }
         }
       }
@@ -797,44 +715,12 @@
         }
       }
     },
-    "adj." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "adj."
-          }
-        }
-      }
-    },
-    "adj. · /e.mi.nɑ̃/" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "adj. · /e.mi.nɑ̃/"
-          }
-        }
-      }
-    },
     "Adjectif" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Adjective"
-          }
-        }
-      }
-    },
-    "adv." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "adv."
           }
         }
       }
@@ -889,16 +775,6 @@
         }
       }
     },
-    "Ajouter à une collection" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add to a collection"
-          }
-        }
-      }
-    },
     "Ajouter un rappel" : {
       "localizations" : {
         "en" : {
@@ -915,6 +791,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add a widget"
+          }
+        }
+      }
+    },
+    "Ajouter à une collection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to a collection"
           }
         }
       }
@@ -1172,16 +1058,6 @@
         }
       }
     },
-    "bonnes réponses" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "correct answers"
-          }
-        }
-      }
-    },
     "Boutons" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "extractionState" : "stale",
@@ -1232,18 +1108,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Card of the day"
-          }
-        }
-      }
-    },
-    "Célébration" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Celebration"
           }
         }
       }
@@ -1519,16 +1383,6 @@
         }
       }
     },
-    "courant" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "standard"
-          }
-        }
-      }
-    },
     "Créer une collection" : {
       "localizations" : {
         "en" : {
@@ -1539,52 +1393,60 @@
         }
       }
     },
-    "critiqué" : {
+    "Célébration" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "disputed"
+            "value" : "Celebration"
           }
         }
       }
     },
-    "dans %lld jours" : {
+    "Design system" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "in %lld day"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "in %lld days"
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Design system"
           }
-        },
-        "fr" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "dans %lld jour"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "dans %lld jours"
-                }
-              }
-            }
+        }
+      }
+    },
+    "Deux mots qui se ressemblent, deux sens différents." : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Two words that look alike, two different meanings."
+          }
+        }
+      }
+    },
+    "Devine le mot" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guess the word"
+          }
+        }
+      }
+    },
+    "Doux" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soft"
           }
         }
       }
@@ -1670,82 +1532,6 @@
         }
       }
     },
-    "Design system" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Design system"
-          }
-        }
-      }
-    },
-    "Deux mots qui se ressemblent, deux sens différents." : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Two words that look alike, two different meanings."
-          }
-        }
-      }
-    },
-    "Devine le mot" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guess the word"
-          }
-        }
-      }
-    },
-    "Doux" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Soft"
-          }
-        }
-      }
-    },
-    "Écouter" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Listen"
-          }
-        }
-      }
-    },
-    "Écouter la prononciation" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Listen to pronunciation"
-          }
-        }
-      }
-    },
-    "Écrire au travail" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Write at work"
-          }
-        }
-      }
-    },
     "Effacer" : {
       "localizations" : {
         "en" : {
@@ -1773,38 +1559,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Effects and ambience"
-          }
-        }
-      }
-    },
-    "Élémentaire" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elementary"
-          }
-        }
-      }
-    },
-    "éminent" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "éminent"
-          }
-        }
-      }
-    },
-    "éminent ou imminent ? Le départ est imminent, l'invité est éminent." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "éminent or imminent? Le départ est imminent, l'invité est éminent."
           }
         }
       }
@@ -1901,16 +1655,6 @@
         }
       }
     },
-    "Étymologie" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Etymology"
-          }
-        }
-      }
-    },
     "Exact." : {
       "localizations" : {
         "en" : {
@@ -2001,16 +1745,6 @@
         }
       }
     },
-    "familier" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "informal"
-          }
-        }
-      }
-    },
     "Familles" : {
       "localizations" : {
         "en" : {
@@ -2041,16 +1775,6 @@
         }
       }
     },
-    "fautif" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "incorrect"
-          }
-        }
-      }
-    },
     "Fautif" : {
       "localizations" : {
         "en" : {
@@ -2071,16 +1795,6 @@
         }
       }
     },
-    "Féminin" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Feminine"
-          }
-        }
-      }
-    },
     "Fermer" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "localizations" : {
@@ -2088,6 +1802,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Close"
+          }
+        }
+      }
+    },
+    "Fiche du jour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Card of the day"
           }
         }
       }
@@ -2103,12 +1827,22 @@
         }
       }
     },
-    "Fiche du jour" : {
+    "Fiche précédente" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Card of the day"
+            "value" : "Previous card"
+          }
+        }
+      }
+    },
+    "Fiche suivante" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next card"
           }
         }
       }
@@ -2145,12 +1879,12 @@
         }
       }
     },
-    "Gérer l'abonnement" : {
+    "Féminin" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Manage subscription"
+            "value" : "Feminine"
           }
         }
       }
@@ -2181,6 +1915,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Grid complete!"
+          }
+        }
+      }
+    },
+    "Gérer l'abonnement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage subscription"
           }
         }
       }
@@ -2227,16 +1971,6 @@
         }
       }
     },
-    "hors ligne" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "offline"
-          }
-        }
-      }
-    },
     "Hors ligne : les offres s'afficheront une fois connecté." : {
       "localizations" : {
         "en" : {
@@ -2273,18 +2007,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Image saved"
-          }
-        }
-      }
-    },
-    "imminent" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "imminent"
           }
         }
       }
@@ -2346,16 +2068,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Intermediate"
-          }
-        }
-      }
-    },
-    "je savais" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "I knew it"
           }
         }
       }
@@ -2473,6 +2185,16 @@
         }
       }
     },
+    "Le Wiktionnaire et Lexique 3 sont publiés sous licence Creative Commons Attribution, partage dans les mêmes conditions (CC BY-SA 4.0). Le Littré, le Dictionnaire des synonymes de Lafaye et les textes de Wikisource sont dans le domaine public. Les fiches qui en dérivent sont publiées sous la même licence CC BY-SA 4.0." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wiktionary and Lexique 3 are published under the Creative Commons Attribution-ShareAlike license (CC BY-SA 4.0). The Littré, Lafaye's Dictionary of Synonyms and the texts from Wikisource are in the public domain. The cards derived from them are published under the same CC BY-SA 4.0 license."
+          }
+        }
+      }
+    },
     "Le contenu n'a pas pu être chargé." : {
       "localizations" : {
         "en" : {
@@ -2552,28 +2274,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Most popular"
-          }
-        }
-      }
-    },
-    "Le Wiktionnaire et Lexique 3 sont publiés sous licence Creative Commons Attribution, partage dans les mêmes conditions (CC BY-SA 4.0). Le Littré, le Dictionnaire des synonymes de Lafaye et les textes de Wikisource sont dans le domaine public. Les fiches qui en dérivent sont publiées sous la même licence CC BY-SA 4.0." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wiktionary and Lexique 3 are published under the Creative Commons Attribution-ShareAlike license (CC BY-SA 4.0). The Littré, Lafaye's Dictionary of Synonyms and the texts from Wikisource are in the public domain. The cards derived from them are published under the same CC BY-SA 4.0 license."
-          }
-        }
-      }
-    },
-    "Léger" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Light"
           }
         }
       }
@@ -2662,32 +2362,24 @@
         }
       }
     },
-    "littéraire" : {
+    "Léger" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "literary"
+            "value" : "Light"
           }
         }
       }
     },
-    "loc." : {
+    "Masculin" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "phr."
-          }
-        }
-      }
-    },
-    "maîtrisé" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "mastered"
+            "value" : "Masculine"
           }
         }
       }
@@ -2719,16 +2411,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mastered"
-          }
-        }
-      }
-    },
-    "Masculin" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Masculine"
           }
         }
       }
@@ -2853,16 +2535,6 @@
         }
       }
     },
-    "mots maîtrisés" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "words mastered"
-          }
-        }
-      }
-    },
     "Mots masqués" : {
       "localizations" : {
         "en" : {
@@ -2879,36 +2551,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Muted"
-          }
-        }
-      }
-    },
-    "n." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "n."
-          }
-        }
-      }
-    },
-    "n. f." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "fem. n."
-          }
-        }
-      }
-    },
-    "n. m." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "masc. n."
           }
         }
       }
@@ -2995,16 +2637,6 @@
         }
       }
     },
-    "nouveau" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "new"
-          }
-        }
-      }
-    },
     "Nouveau" : {
       "localizations" : {
         "en" : {
@@ -3061,6 +2693,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nuance"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         }
       }
@@ -3135,16 +2777,6 @@
         }
       }
     },
-    "OK" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        }
-      }
-    },
     "On dit : %@" : {
       "localizations" : {
         "en" : {
@@ -3205,6 +2837,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open a sheet"
+          }
+        }
+      }
+    },
+    "PRO" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PRO"
           }
         }
       }
@@ -3472,38 +3115,6 @@
         }
       }
     },
-    "Précisez si vous le souhaitez" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add details if you like"
-          }
-        }
-      }
-    },
-    "Précision" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accuracy"
-          }
-        }
-      }
-    },
-    "Précision sur 14 jours" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "14-day accuracy"
-          }
-        }
-      }
-    },
     "Premium" : {
       "comment" : "Page de démonstration SagaceUI (debug uniquement).",
       "extractionState" : "stale",
@@ -3512,27 +3123,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premium"
-          }
-        }
-      }
-    },
-    "prép." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "prep."
-          }
-        }
-      }
-    },
-    "PRO" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "PRO"
           }
         }
       }
@@ -3583,6 +3173,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Suggest this word?"
+          }
+        }
+      }
+    },
+    "Précisez si vous le souhaitez" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add details if you like"
+          }
+        }
+      }
+    },
+    "Précision" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy"
+          }
+        }
+      }
+    },
+    "Précision sur 14 jours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "14-day accuracy"
           }
         }
       }
@@ -3679,34 +3301,12 @@
         }
       }
     },
-    "Réglages" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Settings"
-          }
-        }
-      }
-    },
     "Regroupez vos fiches, par exemple « Réunions » ou « Mémoire de fin d'études »." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Group your cards, for example “Meetings” or “Thesis”."
-          }
-        }
-      }
-    },
-    "Régulier, 3 minutes" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Steady, 3 minutes"
           }
         }
       }
@@ -3781,26 +3381,6 @@
         }
       }
     },
-    "Répondez à vos révisions sans ouvrir l'app. Chaque réponse est expliquée, puis « Continuer »." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Answer your reviews without opening the app. Each answer is explained, then tap “Continue”."
-          }
-        }
-      }
-    },
-    "Répondez au plus vite. 5 secondes par question, 3 vies." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Answer fast. 5 seconds per question, 3 lives."
-          }
-        }
-      }
-    },
     "Restaurer" : {
       "localizations" : {
         "en" : {
@@ -3852,22 +3432,84 @@
         }
       }
     },
+    "Revoir ces fiches" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review these cards"
+          }
+        }
+      }
+    },
+    "Rush" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rush"
+          }
+        }
+      }
+    },
+    "Rythme" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pace"
+          }
+        }
+      }
+    },
+    "Réglages" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "Régulier, 3 minutes" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Steady, 3 minutes"
+          }
+        }
+      }
+    },
+    "Répondez au plus vite. 5 secondes par question, 3 vies." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answer fast. 5 seconds per question, 3 lives."
+          }
+        }
+      }
+    },
+    "Répondez à vos révisions sans ouvrir l'app. Chaque réponse est expliquée, puis « Continuer »." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answer your reviews without opening the app. Each answer is explained, then tap “Continue”."
+          }
+        }
+      }
+    },
     "Réussir un examen ou un concours" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pass an exam"
-          }
-        }
-      }
-    },
-    "Révéler" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reveal"
           }
         }
       }
@@ -3932,32 +3574,12 @@
         }
       }
     },
-    "Revoir ces fiches" : {
+    "Révéler" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Review these cards"
-          }
-        }
-      }
-    },
-    "Rush" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rush"
-          }
-        }
-      }
-    },
-    "Rythme" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pace"
+            "value" : "Reveal"
           }
         }
       }
@@ -3992,6 +3614,26 @@
         }
       }
     },
+    "Sagace Premium" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sagace Premium"
+          }
+        }
+      }
+    },
+    "Sagace Premium : jeux illimités, toutes les familles, stats, widgets." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sagace Premium: unlimited games, all families, stats, widgets."
+          }
+        }
+      }
+    },
     "Sagace est faite à Paris, sans pub. Une note ou un partage nous aide beaucoup." : {
       "localizations" : {
         "en" : {
@@ -4018,26 +3660,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sagace includes no third-party libraries or ads. Icons: SF Symbols; voice: iOS text-to-speech."
-          }
-        }
-      }
-    },
-    "Sagace Premium" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sagace Premium"
-          }
-        }
-      }
-    },
-    "Sagace Premium : jeux illimités, toutes les familles, stats, widgets." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sagace Premium: unlimited games, all families, stats, widgets."
           }
         }
       }
@@ -4122,104 +3744,12 @@
         }
       }
     },
-    "Sélection" : {
-      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selection"
-          }
-        }
-      }
-    },
     "Sens" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Meaning"
-          }
-        }
-      }
-    },
-    "Série" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Streak"
-          }
-        }
-      }
-    },
-    "Série : %lld jours" : {
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Streak: %lld day"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Streak: %lld days"
-                }
-              }
-            }
-          }
-        },
-        "fr" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Série : %lld jour"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Série : %lld jours"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "Série actuelle" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Current streak"
-          }
-        }
-      }
-    },
-    "Série et écran verrouillé" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Streak and Lock Screen"
-          }
-        }
-      }
-    },
-    "Série terminée à %lld." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Streak ended at %lld."
           }
         }
       }
@@ -4347,16 +3877,6 @@
         }
       }
     },
-    "soutenu" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "formal"
-          }
-        }
-      }
-    },
     "Sprint" : {
       "localizations" : {
         "en" : {
@@ -4398,22 +3918,22 @@
         }
       }
     },
-    "Suggéré" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Suggested"
-          }
-        }
-      }
-    },
     "Suggestions" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Suggestions"
+          }
+        }
+      }
+    },
+    "Suggéré" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suggested"
           }
         }
       }
@@ -4498,12 +4018,94 @@
         }
       }
     },
-    "Télécharger des voix de meilleure qualité dans Réglages iOS." : {
+    "Sélection" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Download higher-quality voices in iOS Settings."
+            "value" : "Selection"
+          }
+        }
+      }
+    },
+    "Série" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streak"
+          }
+        }
+      }
+    },
+    "Série : %lld jours" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Streak: %lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Streak: %lld days"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Série : %lld jour"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Série : %lld jours"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Série actuelle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current streak"
+          }
+        }
+      }
+    },
+    "Série et écran verrouillé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streak and Lock Screen"
+          }
+        }
+      }
+    },
+    "Série terminée à %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streak ended at %lld."
           }
         }
       }
@@ -4518,22 +4120,22 @@
         }
       }
     },
-    "Terminé" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Done"
-          }
-        }
-      }
-    },
     "Terminer" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finish"
+          }
+        }
+      }
+    },
+    "Terminé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }
@@ -4588,12 +4190,12 @@
         }
       }
     },
-    "toléré" : {
+    "Touchez Modifier, puis Ajouter un widget." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "accepted"
+            "value" : "Tap Edit, then Add Widget."
           }
         }
       }
@@ -4634,16 +4236,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Touch and hold an empty area of the Home Screen."
-          }
-        }
-      }
-    },
-    "Touchez Modifier, puis Ajouter un widget." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tap Edit, then Add Widget."
           }
         }
       }
@@ -4728,6 +4320,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Typography"
+          }
+        }
+      }
+    },
+    "Télécharger des voix de meilleure qualité dans Réglages iOS." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download higher-quality voices in iOS Settings."
           }
         }
       }
@@ -4842,16 +4444,6 @@
         }
       }
     },
-    "v." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "v."
-          }
-        }
-      }
-    },
     "Verbe" : {
       "localizations" : {
         "en" : {
@@ -4862,32 +4454,12 @@
         }
       }
     },
-    "Vérifier" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Check"
-          }
-        }
-      }
-    },
     "Version %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version %@"
-          }
-        }
-      }
-    },
-    "vide" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "empty"
           }
         }
       }
@@ -4952,6 +4524,16 @@
         }
       }
     },
+    "Votre session gratuite du jour est jouée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You've played today's free session."
+          }
+        }
+      }
+    },
     "Votre série de %lld jours vous attend." : {
       "localizations" : {
         "en" : {
@@ -4962,12 +4544,12 @@
         }
       }
     },
-    "Votre session gratuite du jour est jouée." : {
+    "Vérifier" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You've played today's free session."
+            "value" : "Check"
           }
         }
       }
@@ -5018,6 +4600,444 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YouTube"
+          }
+        }
+      }
+    },
+    "adj." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "adj."
+          }
+        }
+      }
+    },
+    "adj. · /e.mi.nɑ̃/" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "adj. · /e.mi.nɑ̃/"
+          }
+        }
+      }
+    },
+    "adv." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "adv."
+          }
+        }
+      }
+    },
+    "bonnes réponses" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "correct answers"
+          }
+        }
+      }
+    },
+    "courant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "standard"
+          }
+        }
+      }
+    },
+    "critiqué" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "disputed"
+          }
+        }
+      }
+    },
+    "dans %lld jours" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "in %lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "in %lld days"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "dans %lld jour"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "dans %lld jours"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "familier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "informal"
+          }
+        }
+      }
+    },
+    "fautif" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "incorrect"
+          }
+        }
+      }
+    },
+    "hors ligne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "offline"
+          }
+        }
+      }
+    },
+    "imminent" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "imminent"
+          }
+        }
+      }
+    },
+    "je savais" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I knew it"
+          }
+        }
+      }
+    },
+    "littéraire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "literary"
+          }
+        }
+      }
+    },
+    "loc." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "phr."
+          }
+        }
+      }
+    },
+    "maîtrisé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mastered"
+          }
+        }
+      }
+    },
+    "mots maîtrisés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "words mastered"
+          }
+        }
+      }
+    },
+    "n." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "n."
+          }
+        }
+      }
+    },
+    "n. f." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fem. n."
+          }
+        }
+      }
+    },
+    "n. m." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "masc. n."
+          }
+        }
+      }
+    },
+    "nouveau" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "new"
+          }
+        }
+      }
+    },
+    "prép." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "prep."
+          }
+        }
+      }
+    },
+    "soutenu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "formal"
+          }
+        }
+      }
+    },
+    "toléré" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "accepted"
+          }
+        }
+      }
+    },
+    "v." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "v."
+          }
+        }
+      }
+    },
+    "vide" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "empty"
+          }
+        }
+      }
+    },
+    "À corriger" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Needs fixing"
+          }
+        }
+      }
+    },
+    "À débloquer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locked"
+          }
+        }
+      }
+    },
+    "À ne pas confondre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not to be confused with"
+          }
+        }
+      }
+    },
+    "À propos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
+          }
+        }
+      }
+    },
+    "À retenir" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To learn"
+          }
+        }
+      }
+    },
+    "À revoir : %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To review: %lld"
+          }
+        }
+      }
+    },
+    "À vie" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lifetime"
+          }
+        }
+      }
+    },
+    "Écouter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listen"
+          }
+        }
+      }
+    },
+    "Écouter la prononciation" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listen to pronunciation"
+          }
+        }
+      }
+    },
+    "Écrire au travail" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write at work"
+          }
+        }
+      }
+    },
+    "Élémentaire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elementary"
+          }
+        }
+      }
+    },
+    "Étymologie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etymology"
+          }
+        }
+      }
+    },
+    "à retenir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to learn"
+          }
+        }
+      }
+    },
+    "éminent" : {
+      "comment" : "Page de démonstration SagaceUI (debug uniquement).",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "éminent"
+          }
+        }
+      }
+    },
+    "éminent ou imminent ? Le départ est imminent, l'invité est éminent." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "éminent or imminent? Le départ est imminent, l'invité est éminent."
           }
         }
       }
