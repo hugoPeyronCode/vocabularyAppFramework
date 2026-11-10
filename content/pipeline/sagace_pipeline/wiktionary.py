@@ -12,6 +12,21 @@ POS = {"nom": "nom", "nom commun": "nom", "verbe": "verbe", "adjectif": "adjecti
        "locution nominale": "locution", "locution verbale": "locution", "locution adverbiale": "locution",
        "locution adjectivale": "locution", "locution": "locution", "préposition": "preposition",
        "locution prépositive": "preposition", "interjection": "locution"}
+
+
+def part_of_speech(name: str) -> str | None:
+    """Nature d'une section : exacte (`POS`), puis par famille (« adjectif indéfini », « locution conjonctive »,
+    « locution-phrase ») ; le schéma n'a pas de conjonction ni de pronom, rangés avec les locutions."""
+    if name in POS:
+        return POS[name]
+    for prefix, value in (("locution prépositi", "preposition"), ("adjectif", "adjectif"), ("adverbe", "adverbe"),
+                          ("verbe", "verbe"), ("nom ", "nom"), ("locution", "locution"), ("conjonction", "locution"),
+                          ("pronom", "locution")):
+        if name.startswith(prefix):
+            return value
+    return None
+
+
 # Marqueurs d'usage repérés dans les définitions et les notes (sélection des familles, verdict).
 USAGE_MARKERS = {
     "critiqué": "critique", "critique": "critique", "pléonasme": "pleonasme", "anglicisme": "anglicisme",
@@ -45,24 +60,111 @@ class Entry:
         return asdict(self)
 
 
+def phonetic(section: str) -> str | None:
+    """Prononciation de la ligne de forme (« '''mot''' {{pron|nwe|fr}} »), sinon la première prononciation française, sinon
+    le modèle de flexion {{fr-rég|nwe}}. Une prononciation citée dans une note ({{pron|a|fr}}) n'est pas celle du mot."""
+    head = "\n".join(line for line in section.splitlines() if line.startswith("'''"))
+    return _first_phonetic(head) or _first_phonetic(section)
+
+
+def _first_phonetic(section: str) -> str | None:
+    for name, template in re.findall(r"\{\{(pron|fr-rég|fr-inv)\|([^}]*)\}\}", section):
+        params = [value.strip() for value in template.split("|")]
+        # {{pron|ˈdjɔr.nu|co}} dans une étymologie : prononciation d'une autre langue.
+        if name == "pron" and "fr" not in params and "lang=fr" not in params:
+            continue
+        values = [value for value in params if value and "=" not in value and value != "fr"]
+        if values:
+            return f"/{values[0]}/"
+    return None
+
+
 def french_section(wikitext: str) -> str:
     match = re.search(r"==\s*\{\{langue\|fr\}\}\s*==(.*?)(?=\n==\s*\{\{langue\||\Z)", wikitext, re.S)
     return match.group(1) if match else ""
+
+
+# Langues d'origine les plus courantes des modèles {{étyl}} ; un code inconnu est gardé tel quel.
+LANGUAGES = {
+    "la": "latin", "grc": "grec ancien", "el": "grec", "en": "anglais", "it": "italien", "de": "allemand", "es": "espagnol",
+    "pt": "portugais", "nl": "néerlandais", "ar": "arabe", "frk": "francique", "fro": "ancien français", "frm": "moyen français",
+    "pro": "ancien occitan", "oc": "occitan", "gaul": "gaulois", "la-cla": "latin classique", "la-ecc": "latin ecclésiastique",
+    "la-med": "latin médiéval", "bas-latin": "bas latin", "gem": "germanique", "hbo": "hébreu ancien", "tr": "turc",
+}
+
+
+def _etymon(match: re.Match[str]) -> str:
+    """{{étyl|la|fr|mot=eminens}} ou {{étyl|grc|fr|δηλητήριος}} → « latin eminens » ; sans mot, la langue seule."""
+    parts = match.group(1).split("|")
+    language = LANGUAGES.get(parts[0].strip(), parts[0].strip()) if parts else ""
+    positional = [part.strip() for part in parts if "=" not in part]
+    word = next((part.split("=", 1)[1] for part in parts if part.startswith("mot=")), positional[2] if len(positional) > 2 else "")
+    return f"{language} {word}".strip()
 
 
 def clean(text: str) -> str:
     """Wikicode → texte lisible (liens, modèles courants, gras/italique, références)."""
     text = re.sub(r"<ref[^>]*>.*?</ref>|<ref[^/]*/>", "", text, flags=re.S)
     text = re.sub(r"<[^>]+>", "", text)
+    # Images (« [[Fichier:x.jpg|thumb|Faire à manger.]] ») : retirées, légende comprise.
+    text = re.sub(r"\[\[(?:Fichier|Image|File):(?:[^\[\]]|\[\[[^\]]*\]\])*\]\]", "", text)
     text = re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]", r"\1", text)
     # Modèles de contexte ({{figuré|fr}}) → (figuré) ; modèles « lien » → leur texte.
-    text = re.sub(r"\{\{(?:lien|l|w)\|([^|}]+)[^}]*\}\}", r"\1", text)
-    # Étymologie : {{étyl|la|fr|mot=eminens}} → eminens.
-    text = re.sub(r"\{\{étyl\|[^}]*?mot=([^|}]+)[^}]*\}\}", r"\1", text)
+    text = re.sub(r"\{\{(?:lien|l|w|W)\|([^|}]+)[^}]*\}\}", r"\1", text)
+    # Renvoi d'orthographe : {{variante ortho de|évènement|fr}} → Variante orthographique de évènement.
+    text = re.sub(r"\{\{variante(?: ortho| orthographique)? de\|([^|}]+)[^}]*\}\}", r"Variante orthographique de \1", text)
+    # {{composé de|prolonger|-ment|lang=fr}} → Composé de prolonger et -ment.
+    text = re.sub(r"\{\{composé de\|([^}]*)\}\}",
+                  lambda match: "Composé de " + " et ".join(part for part in match.group(1).split("|") if "=" not in part), text)
+    text = re.sub(r"\{\{(?:dénominal|déverbal)\|[^}]*?de=([^|}]+)[^}]*\}\}", r"Dérivé de \1", text)
+    # Étymologie : {{étyl|la|fr|mot=eminens}} → latin eminens ; {{calque|en|fr|mot=prioritize}} → anglais prioritize.
+    text = re.sub(r"\{\{(?:étyl|calque)\|([^}]*)\}\}", _etymon, text)
     text = re.sub(r"\{\{([^|}]+)\|fr\}\}", r"(\1)", text)
     text = re.sub(r"\{\{[^}]*\}\}", "", text)
     text = text.replace("'''", "").replace("''", "")
     return re.sub(r"\s+", " ", text).strip(" :")
+
+
+def _split_template(inner: str) -> list[str]:
+    """Paramètres d'un modèle, sans couper les modèles et liens imbriqués."""
+    params, depth, current = [], 0, ""
+    for index, char in enumerate(inner):
+        pair = inner[index:index + 2]
+        if pair in ("{{", "[["):
+            depth += 1
+        elif pair in ("}}", "]]") and depth > 0:
+            depth -= 1
+        if char == "|" and depth == 0:
+            params.append(current)
+            current = ""
+        else:
+            current += char
+    return params + [current]
+
+
+def examples_in(body: str) -> list[str]:
+    """Exemples `{{exemple|texte|source=...}}` (sur une ou plusieurs lignes) : « texte — source »."""
+    found = []
+    for match in re.finditer(r"\{\{exemple", body):
+        depth, end = 0, None
+        for index in range(match.start(), len(body) - 1):
+            if body[index:index + 2] == "{{":
+                depth += 1
+            elif body[index:index + 2] == "}}":
+                depth -= 1
+                if depth == 0:
+                    end = index
+                    break
+        if end is None:
+            continue
+        params = _split_template(body[match.start() + 2:end])[1:]
+        positional = [param for param in params if not re.match(r"\s*\w+\s*=", param)]
+        named = {key.strip(): value for key, _, value in (param.partition("=") for param in params if re.match(r"\s*\w+\s*=", param))}
+        text = clean(positional[0]) if positional else ""
+        if text:
+            source = clean(named.get("source", ""))
+            found.append(f"{text} — {source}" if source else text)
+    return found
 
 
 def _links(block: str) -> list[str]:
@@ -80,9 +182,9 @@ def parse(title: str, wikitext: str) -> Entry:
     entry = Entry(title=title)
     if not section:
         return entry
-    pron = re.search(r"\{\{pron\|([^|}]+)\|fr\}\}", section)
-    entry.phonetic = f"/{pron.group(1)}/" if pron else None
-    parts = re.split(r"\n(={3,4}\s*\{\{S\|[^}]+\}\}[^\n]*)", "\n" + section)
+    entry.phonetic = phonetic(section)
+    # Niveaux 3 à 5 : les notes d'usage sont souvent rangées sous la nature (« ===== {{S|notes}} ===== »).
+    parts = re.split(r"\n(={3,5}\s*\{\{S\|[^}]+\}\}[^\n]*)", "\n" + section)
     current: Sense | None = None
     for index in range(1, len(parts), 2):
         header, body = parts[index], parts[index + 1]
@@ -94,20 +196,23 @@ def parse(title: str, wikitext: str) -> Entry:
         if name == "étymologie":
             lines = [clean(line.lstrip(": ")) for line in body.splitlines() if line.startswith(":")]
             entry.etymology = " ".join(line for line in lines if line) or None
-        elif name in POS:
+        elif part_of_speech(name):
             gender = "masculin" if "{{m}}" in body else "feminin" if "{{f}}" in body else None
             if "{{mf}}" in body or "{{épicène}}" in body:
                 gender = "epicene"
-            current = Sense(POS[name], gender)
+            current = Sense(part_of_speech(name), gender)
+            current.examples = examples_in(body)[:6]
             for line in body.splitlines():
-                if re.match(r"#[^*:#]", line):
-                    definition = clean(line[1:])
-                    if definition:
+                # Sens et sous-sens (« ## ») : la critique d'un emploi figure souvent dans le sous-sens.
+                if re.match(r"##?[^*:#]", line):
+                    definition = clean(line.lstrip("#"))
+                    # Définition pas encore rédigée sur le Wiktionnaire : « (figuré) … ».
+                    if re.sub(r"\([^)]*\)", "", definition).strip(" .…"):
                         current.definitions.append(definition)
                         current.markers += _markers(line)
-                elif line.startswith("#*") and "''" in line:
+                elif line.startswith("#*") and "''" in line and "{{exemple" not in line:
                     example = clean(line[2:])
-                    if example:
+                    if example and len(current.examples) < 6:
                         current.examples.append(example)
             current.markers = sorted(set(current.markers))
             entry.senses.append(current)

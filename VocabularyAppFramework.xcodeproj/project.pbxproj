@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		431C705C2AF2677400FB3C36 /* classical.caf in Resources */ = {isa = PBXBuildFile; fileRef = 431C705B2AF2677300FB3C36 /* classical.caf */; };
-		431C705A2AF266BC00FB3C36 /* default.caf in Resources */ = {isa = PBXBuildFile; fileRef = 431C70592AF266BC00FB3C36 /* default.caf */; };
 		431C70572AF2641E00FB3C36 /* positive.caf in Resources */ = {isa = PBXBuildFile; fileRef = 431C70562AF262AD00FB3C36 /* positive.caf */; };
+		431C705A2AF266BC00FB3C36 /* default.caf in Resources */ = {isa = PBXBuildFile; fileRef = 431C70592AF266BC00FB3C36 /* default.caf */; };
+		431C705C2AF2677400FB3C36 /* classical.caf in Resources */ = {isa = PBXBuildFile; fileRef = 431C705B2AF2677300FB3C36 /* classical.caf */; };
 		43C3F8FD2AC59AD30060B81E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C3F8FC2AC59AD30060B81E /* StoreKit.framework */; };
 		43E943BA2AB9CDE0008F79B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E943B92AB9CDE0008F79B5 /* Assets.xcassets */; };
 		5A6E00000000000000000031 /* SagaceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6E00000000000000000021 /* SagaceCore */; };
@@ -59,26 +59,26 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		431C705B2AF2677300FB3C36 /* classical.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = classical.caf; sourceTree = "<group>"; };
-		431C70592AF266BC00FB3C36 /* default.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.caf; sourceTree = "<group>"; };
 		431C70562AF262AD00FB3C36 /* positive.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = positive.caf; sourceTree = "<group>"; };
+		431C70592AF266BC00FB3C36 /* default.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.caf; sourceTree = "<group>"; };
+		431C705B2AF2677300FB3C36 /* classical.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = classical.caf; sourceTree = "<group>"; };
 		43C3F8FC2AC59AD30060B81E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		43E943B22AB9CDDF008F79B5 /* VocabularyAppFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyAppFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E943B92AB9CDE0008F79B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5A6E00000000000000000051 /* Sagace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sagace.entitlements; sourceTree = "<group>"; };
-		5A6E00000000000000000052 /* Words.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Words.storekit; sourceTree = "<group>"; };
 		5A6E00000000000000000041 /* SagaceCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SagaceCore; sourceTree = "<group>"; };
 		5A6E00000000000000000042 /* SagaceUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SagaceUI; sourceTree = "<group>"; };
 		5A6E00000000000000000043 /* SagaceData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SagaceData; sourceTree = "<group>"; };
-		5A6E00000000000000000072 /* SagaceAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SagaceAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A6E00000000000000000051 /* Sagace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sagace.entitlements; sourceTree = "<group>"; };
+		5A6E00000000000000000052 /* Words.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Words.storekit; sourceTree = "<group>"; };
 		5A6E00000000000000000053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A6E00000000000000000072 /* SagaceAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SagaceAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A6E00000000000000000092 /* SagaceWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SagaceWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A6E000000000000000000A2 /* SagaceWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SagaceWidgets.entitlements; sourceTree = "<group>"; };
 		5A6E000000000000000000B2 /* SagaceAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SagaceAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		5A6E000000000000000000A1 /* Exceptions for "SagaceWidgets" folder in "SagaceWidgets" target */ = {
+		5A6E000000000000000000A1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -90,7 +90,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5A6E00000000000000000001 /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
 		5A6E00000000000000000071 /* AppTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AppTests; sourceTree = "<group>"; };
-		5A6E00000000000000000090 /* SagaceWidgets */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (5A6E000000000000000000A1 /* Exceptions for "SagaceWidgets" folder in "SagaceWidgets" target */, ); explicitFileTypes = {}; explicitFolders = (); path = SagaceWidgets; sourceTree = "<group>"; };
+		5A6E00000000000000000090 /* SagaceWidgets */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (5A6E000000000000000000A1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SagaceWidgets; sourceTree = "<group>"; };
 		5A6E000000000000000000B1 /* AppUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AppUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -394,7 +394,6 @@
 /* Begin PBXShellScriptBuildPhase section */
 		5A6E00000000000000000060 /* Copy content pack */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 0;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -590,16 +589,16 @@
 		43E943C12AB9CDE0008F79B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconViolet AppIconRouge AppIconBronze AppIconNuit AppIconPapier";
-				INFOPLIST_FILE = Config/Info.plist;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/Sagace.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = YA24P24868;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sagace;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Pour enregistrer la carte d'une fiche dans vos photos.";
@@ -607,34 +606,35 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		43E943C22AB9CDE0008F79B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconViolet AppIconRouge AppIconBronze AppIconNuit AppIconPapier";
-				INFOPLIST_FILE = Config/Info.plist;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/Sagace.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = YA24P24868;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sagace;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Pour enregistrer la carte d'une fiche dans vos photos.";
@@ -642,18 +642,19 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -662,7 +663,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = YA24P24868;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -681,7 +682,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = YA24P24868;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -700,7 +701,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Config/SagaceWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = YA24P24868;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SagaceWidgets/Info.plist;
@@ -712,13 +713,13 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 4.0;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework.SagaceWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -727,7 +728,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Config/SagaceWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = YA24P24868;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SagaceWidgets/Info.plist;
@@ -739,13 +740,13 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 4.0;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cortex.VocabularyAppFramework.SagaceWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -753,7 +754,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = YA24P24868;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -771,7 +772,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = YA24P24868;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;

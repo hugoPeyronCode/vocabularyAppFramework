@@ -15,6 +15,8 @@ Vérifie la fiche ci-dessous contre les extraits sources, point par point :
 1. La définition est-elle fidèle aux sources ? 2. La règle d'usage et le verdict sont-ils justifiés par les sources ?
 3. Chaque exemple est-il correct, naturel, et emploie-t-il le mot dans le bon sens ? 4. La phrase d'auteur emploie-t-elle le mot dans le sens de la fiche ?
 5. Chaque question de quiz a-t-elle une seule bonne réponse indiscutable ? 6. Y a-t-il une faute de langue dans la fiche ?
+Convention de Sagace, à ne pas signaler : dans les quiz, un emploi de verdict « critique » compte comme fautif (réponse « Fautif », ou mauvaise réponse), comme un emploi « fautif ». Signale en revanche un verdict que les sources ne justifient pas, ou une question Juste ou fautif sur un emploi « tolere ».
+Un pléonasme dont la redondance découle directement de la définition donnée par les extraits justifie un verdict « critique », même si le Wiktionnaire ne le signale pas ; signale un verdict « fautif » sans source. Dans les impropriétés et anglicismes, les exemples emploient le mot correctement (ou la forme recommandée) : signale un exemple qui donne la tournure critiquée comme modèle. Signale une prononciation absente des extraits, et un registre soutenu, familier ou littéraire sans marqueur dans les extraits.
 Réponds en JSON : { "ok": bool, "problems": [ { "field": "...", "issue": "...", "severity": "bloquant|mineur" } ] }."""
 
 SCHEMA = {
@@ -50,6 +52,11 @@ def run(work: Path = WORK, sync: bool = False, confirm: bool = False) -> None:
             write_json(out / f"{result.custom_id}.json", report)
     elif not confirm:
         print("Rien n'est envoyé sans --confirm.")
+    write_report(work)
+
+
+def write_report(work: Path = WORK) -> None:
+    out = stage_dir("critic", work)
     rows = []
     for path in sorted(out.glob("*.json")):
         report = read_json(path)

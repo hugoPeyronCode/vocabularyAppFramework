@@ -162,4 +162,6 @@ public enum Rules {
 
     /// Identifiants reconnus comme premium. Les trois premiers viennent de Words v3 : ne jamais les retirer.
     public static let premiumProductIDs: Set<String> = ["Yearly", "weekly", "lifetime"]
+    /// Attente maximale (secondes) d'une réponse StoreKit au lancement : au delà, l'app s'ouvre sans elle.
+    public static let storeKitLaunchTimeout = 3.0
 }

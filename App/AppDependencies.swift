@@ -97,7 +97,7 @@ final class AppDependencies {
             await migrateFromV3IfNeeded(content: content)
             importPendingV3Words(content: content)
             if router.fullScreen == nil {
-                await entitlements.start(legacyPremiumFlag: store.profile.legacyPremiumFlag)
+                await startEntitlements(legacyPremiumFlag: store.profile.legacyPremiumFlag)
             }
             reminders.content = content
             await reminders.reschedule()
@@ -109,6 +109,17 @@ final class AppDependencies {
             logger.error("Chargement du contenu impossible : \(error)")
             state = .failed
         }
+    }
+
+    /// Produits et droits StoreKit, attendus au plus `Rules.storeKitLaunchTimeout` secondes : sur un appareil,
+    /// `Transaction.currentEntitlements` peut ne jamais répondre et laissait l'app sur le chargement. Passé ce délai,
+    /// les droits arrivent en arrière-plan (`isPremium` est observé).
+    private func startEntitlements(legacyPremiumFlag: Bool) async {
+        let entitlements = entitlements
+        let answered = await value(within: Rules.storeKitLaunchTimeout) {
+            await entitlements.start(legacyPremiumFlag: legacyPremiumFlag)
+        }
+        if answered == nil { logger.notice("StoreKit sans réponse au lancement, droits relus en arrière-plan") }
     }
 
     // MARK: Migration Words v3 (04_MIGRATION.md section 7)
@@ -132,7 +143,7 @@ final class AppDependencies {
         }
         // Les rappels v3 sont retirés ; la replanification selon le nouveau modèle arrive avec ReminderScheduler (M5).
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        await entitlements.start(legacyPremiumFlag: report.legacyPremiumFlag)
+        await startEntitlements(legacyPremiumFlag: report.legacyPremiumFlag)
         analytics.track(.migrationV3Completed(hadSavedWords: report.hadSavedWords, wasPremium: entitlements.isPremium))
         router.fullScreen = .migration(report, isPremium: entitlements.isPremium)
     }

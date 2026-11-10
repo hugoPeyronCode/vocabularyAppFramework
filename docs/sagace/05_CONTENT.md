@@ -61,6 +61,10 @@ Règles :
 - shortDefinition : 90 caractères maximum, sans point final.
 - examples : 2 phrases du quotidien moderne (travail, mails, vie courante), le mot entre ** **.
 - quiz : 2 questions dont la bonne réponse est indiscutable selon les sources ; les mauvaises réponses ne doivent jamais être correctes dans la phrase ; mêmes nature et genre que la bonne réponse.
+- Juste ou fautif et Le mot juste : un emploi de verdict "fautif" ou "critique" compte comme fautif (réponse « Fautif », ou mauvaise réponse) ; l'explication dit alors « tournure critiquée » et donne la forme recommandée. Pas de question Juste ou fautif sur un emploi "tolere".
+- Prononciation et registre : ceux des extraits seulement. Registre "soutenu", "familier" ou "litteraire" seulement si un marqueur des extraits l'indique, sinon "courant".
+- Pléonasmes : quand le Wiktionnaire ne signale pas la redondance mais qu'elle découle directement de la définition donnée par les extraits, verdict "critique" au plus, jamais "fautif".
+- Impropriétés et anglicismes : les 2 exemples emploient le mot correctement (ou, s'il n'a pas d'emploi correct, la forme recommandée) ; la tournure critiquée n'apparaît que dans le bloc d'usage (avoid) et les quiz.
 - Choisis la meilleure phrase d'auteur parmi les candidates fournies, ou null si aucune n'emploie le mot dans ce sens.
 Réponds uniquement par un objet JSON conforme au schéma fourni.
 Extraits : {raw}
@@ -88,6 +92,8 @@ Vérifie la fiche ci-dessous contre les extraits sources, point par point :
 1. La définition est-elle fidèle aux sources ? 2. La règle d'usage et le verdict sont-ils justifiés par les sources ?
 3. Chaque exemple est-il correct, naturel, et emploie-t-il le mot dans le bon sens ? 4. La phrase d'auteur emploie-t-elle le mot dans le sens de la fiche ?
 5. Chaque question de quiz a-t-elle une seule bonne réponse indiscutable ? 6. Y a-t-il une faute de langue dans la fiche ?
+Convention de Sagace, à ne pas signaler : dans les quiz, un emploi de verdict « critique » compte comme fautif (réponse « Fautif », ou mauvaise réponse), comme un emploi « fautif ». Signale en revanche un verdict que les sources ne justifient pas, ou une question Juste ou fautif sur un emploi « tolere ».
+Un pléonasme dont la redondance découle directement de la définition donnée par les extraits justifie un verdict « critique », même si le Wiktionnaire ne le signale pas ; signale un verdict « fautif » sans source. Dans les impropriétés et anglicismes, les exemples emploient le mot correctement (ou la forme recommandée) : signale un exemple qui donne la tournure critiquée comme modèle. Signale une prononciation absente des extraits, et un registre soutenu, familier ou littéraire sans marqueur dans les extraits.
 Réponds en JSON : { "ok": bool, "problems": [ { "field": "...", "issue": "...", "severity": "bloquant|mineur" } ] }.
 Fiche : {draft}
 Extraits : {raw}
