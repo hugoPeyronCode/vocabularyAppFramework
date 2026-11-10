@@ -18,6 +18,9 @@ final class AppDependencies {
     }
 
     private(set) var state: State = .loading
+    private(set) var languagePreference = AppLanguagePreference.saved()
+    private(set) var isChangingLanguage = false
+    private(set) var contentRevision = 0
     let container: ModelContainer
     let store: ProgressStore
     let library: LibraryStore
@@ -82,17 +85,10 @@ final class AppDependencies {
     func start() async {
         guard case .loading = state else { return }
         let englishPack = Bundle.main.url(forResource: "fiches", withExtension: "json", subdirectory: "Content/en")
-        let language = ContentLanguage.preferred(Locale.preferredLanguages, englishPackAvailable: englishPack != nil)
-        guard let fichesURL = language == .en ? englishPack : Bundle.main.url(forResource: "fiches", withExtension: "json", subdirectory: "Content/fr"),
-              let topicsURL = Bundle.main.url(forResource: "topics", withExtension: "json", subdirectory: "Content/fr") else {
-            logger.error("Pack de contenu absent du bundle")
-            state = .failed
-            return
-        }
+        let language = languagePreference.resolved(englishPackAvailable: englishPack != nil)
         channel = await DistributionChannel.current()
         do {
-            let content = try await ContentRepository.load(contentsOf: fichesURL, visibility: channel.contentVisibility)
-            let topics = try JSONDecoder().decode(Topics.self, from: Data(contentsOf: topicsURL))
+            let (content, topics) = try await AppContent.load(language, visibility: channel.contentVisibility)
             if !content.issues.isEmpty { logger.error("Fiches écartées : \(content.issues.map(\.description))") }
             await migrateFromV3IfNeeded(content: content)
             importPendingV3Words(content: content)
@@ -108,6 +104,34 @@ final class AppDependencies {
         } catch {
             logger.error("Chargement du contenu impossible : \(error)")
             state = .failed
+        }
+    }
+
+    /// Charge avant de valider le choix : une erreur conserve le pack et la langue précédents.
+    @discardableResult
+    func setLanguage(_ preference: AppLanguagePreference) async -> Bool {
+        guard !isChangingLanguage, case .ready = state else { return false }
+        guard preference != languagePreference else { return true }
+        isChangingLanguage = true
+        defer { isChangingLanguage = false }
+        do {
+            let (content, topics) = try await AppContent.load(preference.resolved(), visibility: channel.contentVisibility)
+            widgets.applyInbox()
+            importPendingV3Words(content: content)
+            preference.save()
+            languagePreference = preference
+            reminders.content = content
+            widgets.content = content
+            widgets.refresh()
+            router.sheet = nil
+            router.stackedPaywall = nil
+            state = .ready(content: content, topics: topics)
+            contentRevision += 1
+            await reminders.reschedule()
+            return true
+        } catch {
+            logger.error("Changement de langue impossible : \(error)")
+            return false
         }
     }
 

@@ -79,8 +79,8 @@ public struct ShareCard: View {
 
     /// Rendu en image dans l'apparence demandée, indépendamment de celle de l'app.
     @MainActor
-    public func image(colorScheme: ColorScheme, scale: CGFloat = 3) -> UIImage? {
-        let renderer = ImageRenderer(content: environment(\.colorScheme, colorScheme))
+    public func image(colorScheme: ColorScheme, scale: CGFloat = 3, locale: Locale = .current) -> UIImage? {
+        let renderer = ImageRenderer(content: environment(\.colorScheme, colorScheme).environment(\.locale, locale))
         renderer.scale = scale
         return renderer.uiImage
     }

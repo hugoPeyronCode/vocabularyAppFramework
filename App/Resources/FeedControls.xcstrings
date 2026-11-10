@@ -1,0 +1,66 @@
+{
+  "sourceLanguage": "fr",
+  "strings": {
+    "Je connais": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I know this"
+          }
+        }
+      }
+    },
+    "Objectif quotidien": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily goal"
+          }
+        }
+      }
+    },
+    "Voir les mots classés ce jour-là": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See the words sorted that day"
+          }
+        }
+      }
+    },
+    "Options de la fiche": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Card options"
+          }
+        }
+      }
+    },
+    "Choisissez « Je connais » ou « À retenir » sur la carte.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose “I know this” or “To learn” on the card."
+          }
+        }
+      }
+    },
+    "Le menu de la carte donne accès aux détails et au partage.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use the card menu for details and sharing."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

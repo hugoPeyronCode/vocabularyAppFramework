@@ -71,7 +71,7 @@ final class WidgetBridge {
             isPremium: entitlements.isPremium, dailyGoal: progress.preferences.dailyGoal, activity: progress.activity()
         )
         let snapshot = WidgetSnapshotBuilder(day: day).build(
-            input, at: now(), grammar: { String(localized: $0.grammarLabel) }, gameTitle: { String(localized: $0.title) }
+            input, at: now(), grammar: { AppLocalization.string($0.grammarLabel) }, gameTitle: { AppLocalization.string($0.title) }
         )
         files.write(snapshot)
         WidgetCenter.shared.reloadAllTimelines()

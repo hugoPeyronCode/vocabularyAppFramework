@@ -14,11 +14,17 @@ public struct Tile: View {
     let systemImage: String
     let detail: Text?
     let badge: Badge
+    /// Page affichée dans la colonne de droite (Explorer en deux colonnes sur iPad).
+    let isSelected: Bool
     let action: () -> Void
     @Environment(\.haptics) private var haptics
 
-    public init(_ title: Text, systemImage: String, detail: Text? = nil, badge: Badge = .none, action: @escaping () -> Void) {
-        self.title = title; self.systemImage = systemImage; self.detail = detail; self.badge = badge; self.action = action
+    public init(
+        _ title: Text, systemImage: String, detail: Text? = nil, badge: Badge = .none, isSelected: Bool = false,
+        action: @escaping () -> Void
+    ) {
+        self.title = title; self.systemImage = systemImage; self.detail = detail; self.badge = badge
+        self.isSelected = isSelected; self.action = action
     }
 
     public var body: some View {
@@ -48,11 +54,17 @@ public struct Tile: View {
             }
             .padding(16)
             .frame(maxWidth: .infinity, minHeight: 104, alignment: .leading)
-            .background(.vSurfaceRaised, in: .rect(cornerRadius: SagaceMetrics.metricCardRadius, style: .continuous))
+            .background(isSelected ? Color.vSurfaceSelected : .vSurfaceRaised, in: .rect(cornerRadius: SagaceMetrics.metricCardRadius, style: .continuous))
+            .overlay {
+                if isSelected {
+                    RoundedRectangle(cornerRadius: SagaceMetrics.metricCardRadius, style: .continuous)
+                        .strokeBorder(.vTextPrimary, lineWidth: 2)
+                }
+            }
             .contentShape(.rect(cornerRadius: SagaceMetrics.metricCardRadius, style: .continuous))
         }
         .buttonStyle(PressScaleButtonStyle())
-        .accessibilityAddTraits(badge == .followed ? .isSelected : [])
+        .accessibilityAddTraits(badge == .followed || isSelected ? .isSelected : [])
     }
 
     @ViewBuilder

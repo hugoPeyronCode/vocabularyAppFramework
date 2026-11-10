@@ -1,0 +1,114 @@
+{
+  "families": [
+    {
+      "id": "paronyme",
+      "name": "Paronyms",
+      "intro": "Two similar words with different meanings.",
+      "illustration": "ill_topic_paronymes"
+    },
+    {
+      "id": "impropriete",
+      "name": "Misused words",
+      "intro": "Common expressions that are incorrect or disputed.",
+      "illustration": "ill_topic_improprietes"
+    },
+    {
+      "id": "passePartout",
+      "name": "General-purpose verbs",
+      "intro": "Replace do, put and say with a precise verb.",
+      "illustration": "ill_topic_passe_partout"
+    },
+    {
+      "id": "nuance",
+      "name": "Nuances",
+      "intro": "Choose the right word between close alternatives.",
+      "illustration": "ill_topic_nuances"
+    },
+    {
+      "id": "pleonasme",
+      "name": "Pleonasms",
+      "intro": "Saying the same thing twice without realizing it.",
+      "illustration": "ill_topic_pleonasmes"
+    },
+    {
+      "id": "anglicisme",
+      "name": "Anglicisms and false friends",
+      "intro": "Find the right French word.",
+      "illustration": "ill_topic_anglicismes"
+    },
+    {
+      "id": "motMalCompris",
+      "name": "Misunderstood words",
+      "intro": "Words we think we know.",
+      "illustration": "ill_topic_expressions"
+    },
+    {
+      "id": "expression",
+      "name": "Expressions",
+      "intro": "The exact meaning of everyday expressions.",
+      "illustration": "ill_topic_expressions"
+    }
+  ],
+  "themes": [
+    {
+      "id": "travail",
+      "name": "Work",
+      "illustration": "ill_topic_travail"
+    },
+    {
+      "id": "emotions",
+      "name": "Emotions",
+      "illustration": "ill_topic_emotions"
+    },
+    {
+      "id": "relations",
+      "name": "Relationships",
+      "illustration": "ill_topic_relations"
+    },
+    {
+      "id": "societe",
+      "name": "Society",
+      "illustration": "ill_topic_societe"
+    },
+    {
+      "id": "argent",
+      "name": "Money",
+      "illustration": "ill_topic_economie"
+    },
+    {
+      "id": "sante",
+      "name": "Health",
+      "illustration": "ill_topic_medecine"
+    },
+    {
+      "id": "droit",
+      "name": "Law",
+      "illustration": "ill_topic_droit"
+    },
+    {
+      "id": "sciences",
+      "name": "Science and technology",
+      "illustration": "ill_topic_sciences"
+    },
+    {
+      "id": "culture",
+      "name": "Culture",
+      "illustration": "ill_topic_arts"
+    },
+    {
+      "id": "cuisine",
+      "name": "Cooking",
+      "illustration": "ill_topic_cuisine"
+    },
+    {
+      "id": "voyage",
+      "name": "Travel",
+      "illustration": "ill_topic_voyage"
+    },
+    {
+      "id": "nature",
+      "name": "Nature",
+      "illustration": "ill_topic_nature"
+    }
+  ]
+}

@@ -11,9 +11,10 @@ struct FeedView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     private let swipeTip = SwipeTip()
-    private let sortTip = SortTip()
-    private let infoTip = InfoTip()
     private let widgetTip = WidgetTip()
+    @Environment(ScreenFactory.self) private var factory
+    /// iPad (`09_IPAD.md`) : colonne centrée, puis deux colonnes en paysage.
+    @State private var layout = LayoutWidth.compact
 
     var body: some View {
         VStack(spacing: 0) {
@@ -28,29 +29,28 @@ struct FeedView: View {
             )
             TipView(widgetTip)
                 .padding(.horizontal, SagaceMetrics.pageMargin)
-            pager
-            FeedActionBar(
-                sorting: viewModel.currentSortableFicheID.flatMap { viewModel.sortings[$0] },
-                canSort: viewModel.currentSortableFicheID != nil,
-                hasFiche: viewModel.currentPage?.ficheID != nil,
-                dueReviews: viewModel.dueReviewCount,
-                sortTip: sortTip,
-                infoTip: infoTip,
-                onInfo: {
-                    infoTip.invalidate(reason: .actionPerformed)
-                    if let id = viewModel.currentPage?.ficheID { router.open(.fiche(id)) }
-                },
-                onShare: { if let id = viewModel.currentPage?.ficheID { router.open(.share(id)) } },
-                onGames: { router.open(.practice) },
-                onSort: { sorting in
-                    sortTip.invalidate(reason: .actionPerformed)
-                    InfoTip.hasSorted = true
-                    viewModel.sort(sorting)
+                .readableColumn()
+            DayStrip(week: viewModel.week) { router.open(.day($0)) }
+                .readableColumn()
+            if layout == .wide {
+                HStack(spacing: 0) {
+                    pager
+                        .frame(width: SagaceMetrics.feedCardColumnWidth)
+                    detailPanel
                 }
-            )
-            DayStrip(week: viewModel.week, hoursToNextBatch: viewModel.hoursToNextBatch) { router.open(.day($0)) }
+                .padding(.trailing, SagaceMetrics.pageMargin)
+                .frame(maxWidth: SagaceMetrics.feedCardColumnWidth + SagaceMetrics.readableWidth + SagaceMetrics.pageMargin)
+                .frame(maxWidth: .infinity)
+            } else {
+                pager
+            }
+            FeedGamesButton(dueReviews: viewModel.dueReviewCount) { router.open(.practice) }
+                .readableColumn()
         }
+        .readsLayoutWidth($layout)
+        .environment(\.layoutWidth, layout)
         .background(.vBackground)
+        .background { keyboardShortcuts }
         .toast(viewModel.goalToast) { toast in
             Toast(Text("Objectif atteint · \(toast.goal) fiches · Série : \(toast.streak) jours"), systemImage: "checkmark.seal")
         }
@@ -62,6 +62,44 @@ struct FeedView: View {
         }
     }
 
+    /// iPad paysage : la fiche détaillée de la carte affichée, qui suit la pagination.
+    private var detailPanel: some View {
+        Group {
+            if let id = viewModel.currentPage?.ficheID {
+                NavigationStack {
+                    factory.ficheDetail(id, origin: nil, isEmbedded: true)
+                        .padding(.top, 20)
+                        .background(.vSurface)
+                        .toolbar(.hidden, for: .navigationBar)
+                        .navigationDestination(for: AppRoute.self) { factory.destination($0) }
+                }
+                .id(id)
+                .transition(.opacity)
+            } else {
+                Color.vSurface
+            }
+        }
+        .clipShape(.rect(cornerRadius: SagaceMetrics.cardRadius, style: .continuous))
+        .cardBackground()
+        .padding(.vertical, 10)
+        .frame(maxWidth: SagaceMetrics.readableWidth)
+        .animation(SagaceMotion.page, value: viewModel.currentPage?.ficheID)
+    }
+
+    /// Clavier matériel de l'iPad : ↑ et ↓ changent de fiche.
+    private var keyboardShortcuts: some View {
+        ZStack {
+            Button("Fiche précédente") { viewModel.showPage(offset: -1) }
+                .keyboardShortcut(.upArrow, modifiers: [])
+            Button("Fiche suivante") { viewModel.showPage(offset: 1) }
+                .keyboardShortcut(.downArrow, modifiers: [])
+        }
+        // Une sheet ouverte garde les flèches pour elle.
+        .disabled(router.sheet != nil || router.fullScreen != nil)
+        .opacity(0)
+        .accessibilityHidden(true)
+    }
+
     private var pager: some View {
         ScrollView(.vertical) {
             LazyVStack(spacing: 0) {
@@ -69,6 +107,7 @@ struct FeedView: View {
                     pageView(page)
                         .padding(.horizontal, SagaceMetrics.pageMargin)
                         .padding(.vertical, 10)
+                        .readableColumn()
                         .containerRelativeFrame(.vertical)
                         .id(page.id)
                 }
@@ -101,8 +140,17 @@ struct FeedView: View {
             if let fiche = viewModel.fiche(id) {
                 FicheCard(
                     fiche: fiche, isWordOfTheDay: viewModel.wordOfTheDayID == id, details: viewModel.details(of: fiche),
-                    revealed: viewModel.revealed[page.id, default: 0], onSpeak: { viewModel.speak(id) }
-                ) { viewModel.reveal(page.id) }
+                    revealed: viewModel.revealed[page.id, default: 0], revealsDetails: layout != .wide,
+                    sorting: viewModel.sortings[id], isCurrent: viewModel.currentPageID == page.id,
+                    onSpeak: { viewModel.speak(id) },
+                    onReveal: { viewModel.reveal(page.id) },
+                    onInfo: { router.open(.fiche(id)) },
+                    onShare: { router.open(.share(id)) },
+                    onSort: { sorting in
+                        guard viewModel.currentPageID == page.id else { return }
+                        viewModel.sort(sorting)
+                    }
+                )
             }
         case .end:
             EndCardView(hoursToNextBatch: viewModel.hoursToNextBatch, isPremium: viewModel.isPremium) {
@@ -122,7 +170,7 @@ struct GameSuggestionSheet: View {
         SheetContainer("Un jeu de 2 minutes ?", systemImage: "gamecontroller") {
             VStack(spacing: SagaceMetrics.rowSpacing) {
                 ForEach(games, id: \.self) { game in
-                    OptionRow(verbatim: String(localized: game.title), systemImage: game.symbol, isSelected: false) { play(game) }
+                    OptionRow(verbatim: AppLocalization.string(game.title), systemImage: game.symbol, isSelected: false) { play(game) }
                 }
                 Spacer(minLength: 8)
                 SecondaryButton("Plus tard") { dismiss() }

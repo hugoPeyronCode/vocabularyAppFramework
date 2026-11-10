@@ -74,7 +74,7 @@ final class LibraryViewModel {
     }
 
     func loadHistory() {
-        let progress = store.allProgress().values
+        let progress = store.allProgress().values.filter { content.fiche(id: $0.ficheID) != nil }
         history = rules.history(progress, at: now(), days: historyDays).map { day in
             HistorySection(day: day.day, rows: day.fiches.compactMap { item in
                 content.fiche(id: item.ficheID).map { ($0, FicheStatus(progress: item)) }

@@ -39,13 +39,13 @@ final class ShareViewModel {
     var shareText: String {
         let headword = fiche.headword
         guard let confusion = fiche.confusions.first else {
-            return String(localized: "\(headword.capitalizedFirst) : \(fiche.shortDefinition). Via Sagace.")
+            return AppLocalization.string("\(headword.capitalizedFirst) : \(fiche.shortDefinition). Via Sagace.")
         }
-        return String(localized: "\(headword) ≠ \(confusion.word). \(headword.capitalizedFirst) : \(fiche.shortDefinition). \(confusion.word.capitalizedFirst) : \(confusion.meaning). Via Sagace.")
+        return AppLocalization.string("\(headword) ≠ \(confusion.word). \(headword.capitalizedFirst) : \(fiche.shortDefinition). \(confusion.word.capitalizedFirst) : \(confusion.meaning). Via Sagace.")
     }
 
     func renderImage() {
-        image = card.image(colorScheme: appearance)
+        image = card.image(colorScheme: appearance, locale: AppLanguagePreference.saved().locale)
     }
 
     func saveImage() {

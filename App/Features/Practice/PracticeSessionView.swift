@@ -10,10 +10,11 @@ struct PracticeSessionView: View {
     @State private var dragOffset: CGFloat = 0
 
     var body: some View {
-        SheetContainer {
+        GameContainer(title: viewModel.current.map { Text($0.game.title) }) {
             Group {
                 switch viewModel.phase {
                 case .intro: intro
+                case .loading: GameLoadingView()
                 case .question, .answered: questionScreen
                 case .finished: results
                 case .locked: locked
@@ -22,13 +23,17 @@ struct PracticeSessionView: View {
                 }
             }
             .padding(.horizontal, SagaceMetrics.pageMargin)
+            .readableColumn(SagaceMetrics.focusWidth)
         }
         .stackedPaywall(router)
         .interactiveDismissDisabled(viewModel.isInProgress)
-        .onAppear { if !viewModel.isLevelTest { viewModel.start() } }
-        #if DEBUG
-        .task { if DebugLaunch.autoplay { await viewModel.autoplay() } }
-        #endif
+        .task {
+            if !viewModel.isLevelTest, viewModel.questions.isEmpty { await viewModel.start() }
+            #if DEBUG
+            if DebugLaunch.autoplay { await viewModel.autoplay() }
+            #endif
+        }
+        .onDisappear { viewModel.cancelPreparation() }
     }
 
     // MARK: Test : introduction (PRA-07)
@@ -45,9 +50,9 @@ struct PracticeSessionView: View {
                 .textStyle(.definition)
                 .multilineTextAlignment(.center)
             Spacer()
-            PrimaryButton("Commencer") { viewModel.start() }
+            PrimaryButton("Commencer") { Task { await viewModel.start() } }
         }
-        .padding(.bottom, 12)
+        .padding(.bottom, 8)
     }
 
     // MARK: Question (PRA-02)
@@ -57,12 +62,13 @@ struct PracticeSessionView: View {
         VStack(spacing: 18) {
             ProgressDots(total: viewModel.questions.count, completed: viewModel.completedCount)
             if let question = viewModel.current {
-                ScrollView {
+                GameRoundLayout {
+                    QuestionCard(prompt: question.prompt, isSingleWord: question.game == .sens)
+                        .offset(x: dragOffset)
+                        .rotationEffect(.degrees(dragOffset / 40))
+                        .gesture(question.game == .justeOuFautif ? swipeToAnswer : nil)
+                } controls: {
                     VStack(spacing: 18) {
-                        QuestionCard(label: Text(question.game.title), prompt: question.prompt, isSingleWord: question.game == .sens)
-                            .offset(x: dragOffset)
-                            .rotationEffect(.degrees(dragOffset / 40))
-                            .gesture(question.game == .justeOuFautif ? swipeToAnswer : nil)
                         answers(for: question)
                         if case .answered(let correct) = viewModel.phase {
                             AnswerFeedback(isCorrect: correct, correctAnswer: question.correctChoice, explanation: viewModel.explanation,
@@ -71,14 +77,11 @@ struct PracticeSessionView: View {
                         }
                     }
                 }
-                .scrollBounceBehavior(.basedOnSize)
-                .scrollIndicators(.hidden)
-                .defaultScrollAnchor(.top, for: .initialOffset)
-                .defaultScrollAnchor(.bottom, for: .sizeChanges)
+                .id(question.id)
             }
         }
         .animation(SagaceMotion.select, value: viewModel.phase)
-        .padding(.bottom, 12)
+        .padding(.bottom, 8)
     }
 
     @ViewBuilder
@@ -87,14 +90,17 @@ struct PracticeSessionView: View {
             HStack(spacing: 12) {
                 AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.select(.trueFalse(true)) }
                     .accessibilityIdentifier("answer.juste")
+                    .trueFalseShortcut(true)
                 AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.select(.trueFalse(false)) }
                     .accessibilityIdentifier("answer.fautif")
+                    .trueFalseShortcut(false)
             }
         } else {
             VStack(spacing: SagaceMetrics.rowSpacing) {
                 ForEach(question.choices.indices, id: \.self) { index in
                     AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.select(.choice(index)) }
                         .accessibilityIdentifier("answer.\(index)")
+                        .answerShortcut(index)
                 }
             }
         }
@@ -127,7 +133,7 @@ struct PracticeSessionView: View {
                 }
                 HStack(spacing: 12) {
                     if !viewModel.isLevelTest {
-                        PrimaryButton("Rejouer", systemImage: "arrow.counterclockwise") { viewModel.restart() }
+                        PrimaryButton("Rejouer", systemImage: "arrow.counterclockwise") { Task { await viewModel.restart() } }
                     }
                     SecondaryButton("Terminer") { dismiss() }
                 }
@@ -172,7 +178,7 @@ struct PracticeSessionView: View {
             Spacer()
             SecondaryButton("Plus tard") { dismiss() }
         }
-        .padding(.bottom, 12)
+        .padding(.bottom, 8)
     }
 }
 

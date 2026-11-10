@@ -9,6 +9,7 @@ struct RevisionWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "RevisionWidget", provider: RevisionProvider()) { entry in
             RevisionWidgetView(entry: entry)
+                .environment(\.locale, AppLanguagePreference.saved().locale)
         }
         .configurationDisplayName("Révision")
         .description("Répondez à vos révisions sans ouvrir l'app.")

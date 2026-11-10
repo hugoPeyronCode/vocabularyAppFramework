@@ -9,9 +9,10 @@ struct CrosswordView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        SheetContainer {
+        GameContainer(title: Text("Mot croisé")) {
             Group {
                 switch viewModel.phase {
+                case .loading: GameLoadingView()
                 case .playing: playing
                 case .solved: solved
                 case .locked: locked
@@ -23,14 +24,14 @@ struct CrosswordView: View {
         }
         .stackedPaywall(router)
         .interactiveDismissDisabled(viewModel.isInProgress)
-        .onAppear { if viewModel.engine == nil { viewModel.start() } }
+        .task { if viewModel.engine == nil { await viewModel.start() } }
+        .onDisappear { viewModel.cancelPreparation() }
     }
 
     // MARK: Partie
 
     private var playing: some View {
         VStack(spacing: 14) {
-            Text("Mot croisé").textStyle(.title)
             CrosswordGridView(viewModel: viewModel)
                 .modifier(Shake(animatableData: CGFloat(viewModel.shakes)))
                 .animation(.easeInOut(duration: 0.4), value: viewModel.shakes)
@@ -76,7 +77,7 @@ struct CrosswordView: View {
                     }
                 }
                 HStack(spacing: 12) {
-                    PrimaryButton("Nouvelle grille", systemImage: "arrow.counterclockwise") { viewModel.replay() }
+                    PrimaryButton("Nouvelle grille", systemImage: "arrow.counterclockwise") { Task { await viewModel.replay() } }
                     SecondaryButton("Terminer") { dismiss() }
                 }
             }

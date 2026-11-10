@@ -11,9 +11,11 @@ final class ScreenFactory {
     let dependencies: AppDependencies
     let content: ContentRepository
     let topics: Topics
+    private let questionPreparation: QuestionPreparation
 
     init(dependencies: AppDependencies, content: ContentRepository, topics: Topics) {
         self.dependencies = dependencies; self.content = content; self.topics = topics
+        questionPreparation = QuestionPreparation(content: content)
     }
 
     var isPremium: Bool { dependencies.entitlements.isPremium }
@@ -24,8 +26,10 @@ final class ScreenFactory {
 
     // MARK: Fiche
 
-    /// - Parameter origin: provenance à journaliser, `nil` si déjà comptée par le feed.
-    func ficheDetail(_ ficheID: String, origin: AnalyticsEvent.FicheOrigin?) -> some View {
+    /// - Parameters:
+    ///   - origin: provenance à journaliser, `nil` si déjà comptée par le feed.
+    ///   - isEmbedded: à côté de la carte du feed (iPad paysage), sans barre basse.
+    func ficheDetail(_ ficheID: String, origin: AnalyticsEvent.FicheOrigin?, isEmbedded: Bool = false) -> some View {
         Group {
             if let fiche = content.fiche(id: ficheID) {
                 FicheDetailView(viewModel: FicheDetailViewModel(
@@ -33,7 +37,7 @@ final class ScreenFactory {
                     library: dependencies.library, audio: dependencies.audio, haptics: dependencies.haptics,
                     analytics: dependencies.analytics, origin: origin, showsBetaReview: dependencies.showsBetaReview,
                     now: dependencies.now
-                ))
+                ), isEmbedded: isEmbedded)
             }
         }
     }
@@ -96,14 +100,14 @@ final class ScreenFactory {
 
     func practiceHub() -> some View {
         PracticeHubView(viewModel: PracticeHubViewModel(
-            topics: topics, progress: dependencies.store, recorder: dependencies.practice,
+            content: content, topics: topics, progress: dependencies.store, recorder: dependencies.practice,
             entitlements: dependencies.entitlements, day: dependencies.day, now: dependencies.now
         ))
     }
 
     func session(_ kind: PracticeSessionViewModel.Kind) -> some View {
         PracticeSessionView(viewModel: PracticeSessionViewModel(
-            kind: kind, content: content, recorder: dependencies.practice, progress: dependencies.store,
+            kind: kind, content: content, preparation: questionPreparation, recorder: dependencies.practice, progress: dependencies.store,
             entitlements: dependencies.entitlements, haptics: dependencies.haptics, analytics: dependencies.analytics,
             now: dependencies.now
         ))
@@ -111,7 +115,7 @@ final class ScreenFactory {
 
     func challenge(_ kind: ChallengeState.Kind) -> some View {
         ChallengeView(viewModel: ChallengeViewModel(
-            kind: kind, content: content, recorder: dependencies.practice, entitlements: dependencies.entitlements,
+            kind: kind, content: content, preparation: questionPreparation, recorder: dependencies.practice, entitlements: dependencies.entitlements,
             haptics: dependencies.haptics, analytics: dependencies.analytics, now: dependencies.now
         ))
     }
@@ -200,6 +204,7 @@ struct SheetPage<Content: View>: View {
     let title: Text?
     let content: Content
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.isSplitDetailRoot) private var isSplitDetailRoot
 
     init(_ title: LocalizedStringKey? = nil, @ViewBuilder content: () -> Content) {
         self.title = title.map { Text($0) }
@@ -217,9 +222,11 @@ struct SheetPage<Content: View>: View {
                 if let title {
                     title.textStyle(.sheetTitle).lineLimit(1).padding(.horizontal, 56).accessibilityAddTraits(.isHeader)
                 }
-                HStack {
-                    CircleButton(systemImage: "chevron.left", accessibilityLabel: "Retour", size: 36) { dismiss() }
-                    Spacer()
+                if !isSplitDetailRoot {
+                    HStack {
+                        CircleButton(systemImage: "chevron.left", accessibilityLabel: "Retour", size: 36) { dismiss() }
+                        Spacer()
+                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -231,6 +238,11 @@ struct SheetPage<Content: View>: View {
         .background(.vSurface)
         .toolbar(.hidden, for: .navigationBar)
     }
+}
+
+extension EnvironmentValues {
+    /// Page racine de la colonne de droite d'une sheet en deux colonnes (Explorer sur iPad) : pas de retour.
+    @Entry var isSplitDetailRoot = false
 }
 
 extension View {

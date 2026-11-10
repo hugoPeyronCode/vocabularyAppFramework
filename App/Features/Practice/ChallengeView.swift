@@ -8,7 +8,7 @@ import SwiftUI
 /// Défis Rush, Sprint, Perfection (PRA-04 à 06). Les règles sont dans `ChallengeState`, l'horloge ici.
 @MainActor @Observable
 final class ChallengeViewModel {
-    enum Phase: Equatable { case intro, playing, over, locked }
+    enum Phase: Equatable { case intro, loading, playing, over, locked, empty }
 
     let kind: ChallengeState.Kind
     private(set) var phase: Phase = .intro
@@ -19,23 +19,26 @@ final class ChallengeViewModel {
     private(set) var isNewRecord = false
 
     private let content: ContentRepository
-    private let factory: QuestionFactory
+    private let preparation: any QuestionPreparing
+    private var generation = 0
+    private var isAdvancing = false
     private let recorder: any PracticeRecording
     private let entitlements: any PremiumProviding
     private let haptics: any HapticPlaying
     private let analytics: any Analytics
     private let now: () -> Date
     private var queue: [Question] = []
+    private var usedFiches: Set<String> = []
     private var session: PracticeSession?
     private var shownAt = Date()
     private var clock: Task<Void, Never>?
     private var round: UInt64 = 0
 
-    init(kind: ChallengeState.Kind, content: ContentRepository, recorder: any PracticeRecording, entitlements: any PremiumProviding,
+    init(kind: ChallengeState.Kind, content: ContentRepository, preparation: (any QuestionPreparing)? = nil, recorder: any PracticeRecording, entitlements: any PremiumProviding,
          haptics: any HapticPlaying, analytics: any Analytics, now: @escaping () -> Date) {
         self.kind = kind; self.content = content; self.recorder = recorder; self.entitlements = entitlements
         self.haptics = haptics; self.analytics = analytics; self.now = now
-        self.factory = QuestionFactory(fiches: content.fiches)
+        self.preparation = preparation ?? QuestionPreparation(content: content)
         self.state = ChallengeState(kind: kind)
     }
 
@@ -43,31 +46,46 @@ final class ChallengeViewModel {
         record = recorder.bestScore(for: kind.mode)
     }
 
-    func begin() {
+    func begin() async {
+        guard phase != .loading else { return }
         guard PracticeStats.canStartGame(isPremium: entitlements.isPremium, gameSessionsToday: recorder.gameSessionsToday(at: now())) else {
             phase = .locked
             return
         }
         state = ChallengeState(kind: kind)
         queue = []
+        usedFiches = []
+        current = nil
         isNewRecord = false
+        session = nil
+        await advance()
+        guard phase == .playing else { return }
         session = recorder.start(kind.mode, at: now())
         analytics.track(.practiceStarted(mode: kind.mode))
-        phase = .playing
-        advance()
-        startClock()
     }
 
     /// Questions sans fin : on reconstitue la file quand elle est vide.
-    private func advance() {
+    private func advance() async {
+        guard !isAdvancing, !state.isOver else { return }
+        isAdvancing = true
+        defer { isAdvancing = false }
+        let generation = self.generation
+        clock?.cancel()
         if queue.isEmpty {
+            phase = .loading
             round &+= 1
-            queue = factory.mixed(from: content.fiches, count: content.fiches.count, games: kind.games,
-                                  seed: UInt64(bitPattern: Int64(now().timeIntervalSinceReferenceDate)) &+ round)
+            let prepared = await preparation.challenge(kind, seed: UInt64(bitPattern: Int64(now().timeIntervalSinceReferenceDate)) &+ round, excluding: usedFiches)
+            guard !Task.isCancelled, generation == self.generation else { return }
+            if prepared.contains(where: { usedFiches.contains($0.ficheID) }) { usedFiches = [] }
+            usedFiches.formUnion(prepared.map(\.ficheID))
+            queue = prepared
         }
-        current = queue.isEmpty ? nil : queue.removeFirst()
+        guard !queue.isEmpty else { phase = .empty; return }
+        current = queue.removeFirst()
         selected = nil
         shownAt = now()
+        phase = .playing
+        startClock()
     }
 
     private func startClock() {
@@ -77,7 +95,7 @@ final class ChallengeViewModel {
             let tick = Duration.milliseconds(100)
             while !Task.isCancelled {
                 try? await Task.sleep(for: tick)
-                guard let self, self.phase == .playing else { return }
+                guard !Task.isCancelled, let self, self.phase == .playing else { return }
                 self.handle(self.state.tick(0.1))
             }
         }
@@ -92,7 +110,7 @@ final class ChallengeViewModel {
         guard phase == .playing else { return }
         Task {
             try? await Task.sleep(for: .milliseconds(350))
-            if phase == .playing, current?.id == question.id { advance() }
+            if phase == .playing, current?.id == question.id { await advance() }
         }
     }
 
@@ -102,7 +120,7 @@ final class ChallengeViewModel {
             case .correct: haptics.play(.success)
             case .wrong: haptics.play(.error)
             case .lostLife: haptics.play(.heavy)
-            case .timedOut: advance()
+            case .timedOut: Task { await advance() }
             case .ended: end()
             }
         }
@@ -121,9 +139,9 @@ final class ChallengeViewModel {
     #if DEBUG
     /// `-autoplay` : bonnes réponses puis erreurs, jusqu'à la fin du défi.
     func autoplay() async {
-        begin()
+        await begin()
         var turn = 0
-        while phase == .playing {
+        while phase == .playing || phase == .loading {
             if selected == nil, let question = current {
                 turn += 1
                 let wrong = turn > 6
@@ -138,6 +156,7 @@ final class ChallengeViewModel {
     #endif
 
     func quit() {
+        generation += 1
         clock?.cancel()
     }
 
@@ -160,17 +179,19 @@ struct ChallengeView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        SheetContainer(viewModel.kind.title, systemImage: viewModel.kind.symbol) {
+        GameContainer(title: Text(viewModel.kind.title)) {
             Group {
                 switch viewModel.phase {
                 case .intro: intro
+                case .loading: GameLoadingView()
+                case .empty: EmptyState(systemImage: "rectangle.stack", text: "Pas encore assez de fiches pour ce jeu.")
                 case .playing: playing
                 case .over: over
                 case .locked: locked
                 }
             }
             .padding(.horizontal, SagaceMetrics.pageMargin)
-            .padding(.bottom, 12)
+            .padding(.bottom, 8)
         }
         .stackedPaywall(router)
         .interactiveDismissDisabled(viewModel.phase == .playing)
@@ -194,7 +215,7 @@ struct ChallengeView: View {
                 Chip("Record : \(record)", systemImage: "trophy")
             }
             Spacer()
-            PrimaryButton("Commencer") { viewModel.begin() }
+            PrimaryButton("Commencer") { Task { await viewModel.begin() } }
         }
     }
 
@@ -214,21 +235,30 @@ struct ChallengeView: View {
                 TimerBar(fraction: viewModel.state.timeFraction)
             }
             if let question = viewModel.current {
-                QuestionCard(label: Text(question.game.title), prompt: question.prompt, isSingleWord: question.game == .sens)
-                if question.game == .justeOuFautif {
-                    HStack(spacing: 12) {
-                        AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.select(.trueFalse(true)) }
-                        AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.select(.trueFalse(false)) }
-                    }
-                } else {
-                    VStack(spacing: SagaceMetrics.rowSpacing) {
-                        ForEach(question.choices.indices, id: \.self) { index in
-                            AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.select(.choice(index)) }
+                GameRoundLayout {
+                    QuestionCard(prompt: question.prompt, isSingleWord: question.game == .sens)
+                } controls: {
+                    if question.game == .justeOuFautif {
+                        HStack(spacing: 12) {
+                            AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.select(.trueFalse(true)) }
+                                .accessibilityIdentifier("answer.juste")
+                                .trueFalseShortcut(true)
+                            AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.select(.trueFalse(false)) }
+                                .accessibilityIdentifier("answer.fautif")
+                                .trueFalseShortcut(false)
+                        }
+                    } else {
+                        VStack(spacing: SagaceMetrics.rowSpacing) {
+                            ForEach(question.choices.indices, id: \.self) { index in
+                                AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.select(.choice(index)) }
+                                    .accessibilityIdentifier("answer.\(index)")
+                                    .answerShortcut(index)
+                            }
                         }
                     }
                 }
+                .id(question.id)
             }
-            Spacer(minLength: 0)
         }
     }
 
@@ -261,7 +291,7 @@ struct ChallengeView: View {
                 Chip(viewModel.isNewRecord ? "Nouveau record : \(record)" : "Record : \(record)", systemImage: "trophy")
             }
             Spacer()
-            PrimaryButton("Rejouer", systemImage: "arrow.counterclockwise") { viewModel.begin() }
+            PrimaryButton("Rejouer", systemImage: "arrow.counterclockwise") { Task { await viewModel.begin() } }
             SecondaryButton("Terminer") { dismiss() }
         }
     }

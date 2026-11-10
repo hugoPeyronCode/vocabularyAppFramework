@@ -7,6 +7,8 @@ struct RootView: View {
     let dependencies: AppDependencies
     @State private var feed: FeedViewModel?
     @State private var factory: ScreenFactory?
+    /// Largeur de la fenêtre : borne la largeur des sheets sur iPad.
+    @State private var windowWidth: CGFloat = 0
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -36,7 +38,14 @@ struct RootView: View {
             case .ready(let content, let topics):
                 if let feed, let factory {
                     FeedView(viewModel: feed, profileInitial: dependencies.store.profile.firstName?.first.map { String($0).uppercased() })
-                        .floatingSheet(item: $router.sheet, onDismiss: { feed.refreshAfterSheet() }) { sheet in
+                        .floatingSheet(
+                            item: $router.sheet,
+                            width: SagaceMetrics.sheetWidth(
+                                router.sheet?.isTwoColumn == true ? SagaceMetrics.wideSheetWidth : SagaceMetrics.sheetMaxSize.width,
+                                inWindow: windowWidth
+                            ),
+                            onDismiss: { feed.refreshAfterSheet(); router.sheetDidDismiss() }
+                        ) { sheet in
                             sheetView(sheet, content: content, factory: factory)
                                 .environment(factory)
                         }
@@ -46,6 +55,7 @@ struct RootView: View {
                 }
             }
         }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { windowWidth = $0 }
         .background(.vBackground)
         .preferredColorScheme(colorScheme)
         .transaction { transaction in
@@ -86,6 +96,12 @@ struct RootView: View {
                     router.fullScreen = nil
                 } onDiscover: {
                     router.fullScreen = .onboarding(.afterMigration)
+                }
+            case .game(let game):
+                if let factory {
+                    sheetView(game, content: factory.content, factory: factory)
+                        .environment(factory)
+                        .environment(dependencies.router)
                 }
             case .onboarding(let flow):
                 if let factory {

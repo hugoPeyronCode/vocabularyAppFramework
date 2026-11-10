@@ -1,40 +1,111 @@
 import SagaceCore
 import SagaceUI
 import SwiftUI
+import TipKit
 
 /// Carte fiche du feed (FEED-01), centrée sur le mot à la Vocabulary : mot en héros, phonétique et écoute,
 /// nature et définition courte. Chaque toucher dévoile un détail de plus (confusion, bon usage, exemple,
 /// phrase d'auteur) ; s'il manque de hauteur, les premiers détails cèdent la place au dernier dévoilé.
+/// En deux colonnes sur iPad, la fiche détaillée est à côté : la carte ne montre que le mot (`revealsDetails` faux).
 struct FicheCard: View {
     let fiche: Fiche
     let isWordOfTheDay: Bool
     let details: [FeedViewModel.Detail]
     let revealed: Int
+    var revealsDetails = true
+    let sorting: Sorting?
+    let isCurrent: Bool
     let onSpeak: () -> Void
     let onReveal: () -> Void
+    let onInfo: () -> Void
+    let onShare: () -> Void
+    let onSort: (Sorting) -> Void
+    private let sortTip = SortTip()
+    private let infoTip = InfoTip()
+    @Environment(\.layoutWidth) private var layoutWidth
+
+    private var shownCount: Int { revealsDetails ? revealed : 0 }
 
     var body: some View {
         VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                actionsMenu
+            }
+            .padding(.horizontal, 12)
+            .padding(.top, 8)
             ViewThatFits(in: .vertical) {
-                ForEach(0...revealed, id: \.self) { dropped in
-                    content(shown: Array(details.prefix(revealed).dropFirst(dropped)))
+                ForEach(0...shownCount, id: \.self) { dropped in
+                    content(shown: Array(details.prefix(shownCount).dropFirst(dropped)))
                 }
             }
-            .frame(maxHeight: .infinity, alignment: .center)
-            if revealed < details.count {
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .contentShape(.rect)
+            .onTapGesture { if revealsDetails { onReveal() } }
+            .accessibilityActions {
+                if revealsDetails { Button("En savoir plus", action: onReveal) }
+            }
+            if revealsDetails, revealed < details.count {
                 Label("Touchez pour en savoir plus", systemImage: "hand.tap")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.vTextSecondary)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 10)
                     .transition(.opacity)
             }
+            HStack(spacing: 10) {
+                sortButton(.known, title: Text("Je connais", tableName: "FeedControls"), symbol: "checkmark", identifier: "feed.known")
+                sortButton(.toLearn, title: Text("À retenir"), symbol: "bookmark", identifier: "feed.learn")
+            }
+            .popoverTip(isCurrent ? sortTip : nil, arrowEdge: .bottom)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .cardBackground()
-        .contentShape(.rect(cornerRadius: SagaceMetrics.cardRadius))
-        .onTapGesture(perform: onReveal)
         .animation(SagaceMotion.select, value: revealed)
-        .accessibilityAction(named: Text("En savoir plus"), onReveal)
+    }
+
+    private var actionsMenu: some View {
+        Menu {
+            Button {
+                infoTip.invalidate(reason: .actionPerformed)
+                onInfo()
+            } label: { Label("Fiche détaillée", systemImage: "info.circle") }
+            Button(action: onShare) { Label("Partager", systemImage: "square.and.arrow.up") }
+        } label: {
+            Image(systemName: "ellipsis")
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(.vTextSecondary)
+                .frame(width: 44, height: 44)
+                .contentShape(.rect)
+        }
+        .accessibilityLabel(Text("Options de la fiche", tableName: "FeedControls"))
+        .accessibilityIdentifier("feed.card.options")
+        .popoverTip(isCurrent ? infoTip : nil, arrowEdge: .top)
+    }
+
+    private func sortButton(_ value: Sorting, title: Text, symbol: String, identifier: String) -> some View {
+        Button {
+            sortTip.invalidate(reason: .actionPerformed)
+            InfoTip.hasSorted = true
+            onSort(value)
+        } label: {
+            ViewThatFits(in: .horizontal) {
+                Label { title } icon: { Image(systemName: symbol) }.fixedSize()
+                title.multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
+            }
+            .font(.subheadline.weight(.semibold))
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, minHeight: 48)
+            .foregroundStyle(sorting == value ? Color.vOnInverse : .vTextPrimary)
+            .background(sorting == value ? Color.vInverse : .vSurfaceRaised, in: .capsule)
+            .contentShape(.capsule)
+        }
+        .buttonStyle(PressScaleButtonStyle())
+        .accessibilityIdentifier(identifier)
+        .accessibilityLabel(title)
+        .accessibilityAddTraits(sorting == value ? .isSelected : [])
     }
 
     private var header: some View {
@@ -46,7 +117,8 @@ struct FicheCard: View {
                     .minimumScaleFactor(0.6)
             }
             Text(verbatim: fiche.headword)
-                .textStyle(.hero)
+                .accessibilityIdentifier("feed.headword")
+                .textStyle(layoutWidth.isRegular ? .heroLarge : .hero)
                 .lineLimit(2)
                 .minimumScaleFactor(0.6)
                 .padding(.top, isWordOfTheDay ? -8 : 0)
@@ -61,7 +133,7 @@ struct FicheCard: View {
             .textStyle(.meta)
             .padding(.top, 4)
             (fiche.hasGrammar ? Text("\(Text(fiche.grammarLabel).italic()) \(fiche.shortDefinition)") : Text(verbatim: fiche.shortDefinition))
-                .textStyle(.definition)
+                .textStyle(layoutWidth.isRegular ? .definitionLarge : .definition)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 14)
         }

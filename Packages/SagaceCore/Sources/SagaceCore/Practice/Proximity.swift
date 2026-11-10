@@ -15,7 +15,11 @@ public enum Proximity {
     /// Proximité de forme, de 0 à 1 : distance d'édition relative, début ou fin de mot partagés
     /// ("éminent" / "imminent", "prolongation" / "prolongement").
     public static func form(_ a: String, _ b: String) -> Double {
-        let a = Array(core(a)), b = Array(core(b))
+        form(Array(core(a)), Array(core(b)))
+    }
+
+    /// Formes déjà normalisées par l'index de questions.
+    static func form(_ a: [Character], _ b: [Character]) -> Double {
         guard !a.isEmpty, !b.isEmpty, a != b else { return a == b ? 1 : 0 }
         let edit = 1 - Double(levenshtein(a, b)) / Double(max(a.count, b.count))
         let prefix = zip(a, b).prefix { $0 == $1 }.count
@@ -43,12 +47,13 @@ public enum Proximity {
 
     static func levenshtein(_ a: [Character], _ b: [Character]) -> Int {
         var previous = Array(0...b.count)
+        var current = Array(repeating: 0, count: b.count + 1)
         for (i, ca) in a.enumerated() {
-            var current = [i + 1] + Array(repeating: 0, count: b.count)
+            current[0] = i + 1
             for (j, cb) in b.enumerated() {
                 current[j + 1] = min(previous[j + 1] + 1, current[j] + 1, previous[j] + (ca == cb ? 0 : 1))
             }
-            previous = current
+            swap(&previous, &current)
         }
         return previous[b.count]
     }

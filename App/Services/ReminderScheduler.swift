@@ -50,8 +50,8 @@ final class ReminderScheduler {
             let notification = UNMutableNotificationContent()
             switch item.kind {
             case .eveningStreak:
-                notification.title = String(localized: "Votre série de \(streak) jours vous attend.")
-                notification.body = String(localized: "Une fiche suffit pour la garder.")
+                notification.title = AppLocalization.string("Votre série de \(streak) jours vous attend.")
+                notification.body = AppLocalization.string("Une fiche suffit pour la garder.")
             case let .reminder(id, source, sourceID, soundID):
                 let fiches = self.fiches(for: source, sourceID: sourceID, content: content)
                 guard !fiches.isEmpty else { continue }
@@ -59,7 +59,7 @@ final class ReminderScheduler {
                 cursor[id] = position + 1
                 let fiche = fiches[position % fiches.count]
                 if let confusion = fiche.confusions.first {
-                    notification.title = String(localized: "\(fiche.headword) ou \(confusion.word) ?")
+                    notification.title = AppLocalization.string("\(fiche.headword) ou \(confusion.word) ?")
                 } else {
                     notification.title = fiche.headword
                 }

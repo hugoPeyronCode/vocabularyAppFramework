@@ -67,20 +67,21 @@ public struct LivesView: View {
     }
 }
 
-/// Carte de question : libellé du jeu en fantôme, consigne en `rowTitle` ou mot en héros.
+/// Carte de question sur un matériau natif, sans ombre extérieure susceptible d’être coupée.
 public struct QuestionCard: View {
-    let label: Text
+    let label: Text?
     let prompt: String
     let isSingleWord: Bool
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
 
     /// - Parameter prompt: texte du contenu (phrase à trou, mot, définition), non localisé.
-    public init(label: Text, prompt: String, isSingleWord: Bool) {
+    public init(label: Text? = nil, prompt: String, isSingleWord: Bool) {
         self.label = label; self.prompt = prompt; self.isSingleWord = isSingleWord
     }
 
     public var body: some View {
         VStack(spacing: 6) {
-            label
+            label?
                 .textStyle(.heroGhost)
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
@@ -93,13 +94,26 @@ public struct QuestionCard: View {
                 }
             }
             .foregroundStyle(.vTextPrimary)
+            .accessibilityIdentifier("game.prompt")
             .multilineTextAlignment(.center)
             .minimumScaleFactor(0.7)
             .fixedSize(horizontal: false, vertical: true)
         }
         .padding(24)
         .frame(maxWidth: .infinity, minHeight: 180)
-        .cardBackground()
+        .background {
+            let shape = RoundedRectangle(cornerRadius: SagaceMetrics.cardRadius, style: .continuous)
+            if reduceTransparency {
+                shape.fill(.vSurfaceRaised)
+            } else {
+                shape.fill(.regularMaterial)
+            }
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: SagaceMetrics.cardRadius, style: .continuous)
+                .strokeBorder(.vSeparator.opacity(0.5), lineWidth: 0.5)
+                .allowsHitTesting(false)
+        }
     }
 }
 

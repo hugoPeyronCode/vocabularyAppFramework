@@ -29,12 +29,14 @@ enum DebugLaunch {
         store.save()
     }
 
-    /// `-debugSheet practice | paywall | levelTest | crossword | stats | fiche:<id> | game:<jeu> | challenge:<rush|sprint|perfection>`
+    /// `-debugSheet practice | explore | profile | paywall | levelTest | crossword | stats | fiche:<id> | game:<jeu> | challenge:<rush|sprint|perfection>`
     static var sheet: Sheet? {
         guard let value = value(after: "-debugSheet") else { return nil }
         let parts = value.split(separator: ":").map(String.init)
         switch parts.first {
         case "practice": return .practice
+        case "explore": return .explore
+        case "profile": return .profile
         case "paywall": return .paywall(.crown)
         case "levelTest": return .levelTest
         case "crossword": return .crossword

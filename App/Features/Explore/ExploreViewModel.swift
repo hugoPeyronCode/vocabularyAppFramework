@@ -50,7 +50,7 @@ final class ExploreViewModel {
     var isSearching: Bool { !query.trimmingCharacters(in: .whitespaces).isEmpty }
 
     func load() {
-        let progress = store.allProgress().values
+        let progress = store.allProgress().values.filter { content.fiche(id: $0.ficheID) != nil }
         let library = Library()
         counts = Counts(
             toLearn: library.toLearn(progress, at: now()).count,

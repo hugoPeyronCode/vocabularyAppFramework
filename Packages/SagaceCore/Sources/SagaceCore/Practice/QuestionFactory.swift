@@ -9,6 +9,8 @@ public struct QuestionFactory: Sendable {
     /// Une mauvaise réponse possible : le mot d'une fiche, ou un paronyme listé dans une fiche.
     struct Decoy: Sendable {
         let word: String
+        let normalizedWord: String
+        let core: [Character]
         let definition: String
         let keywords: Set<String>
         let ownerID: String
@@ -20,13 +22,18 @@ public struct QuestionFactory: Sendable {
 
     private let fiches: [Fiche]
     private let decoys: [Decoy]
+    private let closeWordsByOwner: [String: Set<String>]
 
     /// - Parameter fiches: tout le pack visible, réservoir des mauvaises réponses.
     public init(fiches: [Fiche]) {
         self.fiches = fiches
+        self.closeWordsByOwner = Dictionary(uniqueKeysWithValues: fiches.map { fiche in
+            let close = fiche.synonyms + fiche.confusions.filter { !Self.isParonym($0.word, of: fiche) }.map(\.word)
+            return (fiche.id, Set(close.map(SearchIndex.normalize)))
+        })
         self.decoys = fiches.flatMap { fiche in
             let own = Decoy(
-                word: fiche.headword, definition: fiche.shortDefinition,
+                word: fiche.headword, normalizedWord: SearchIndex.normalize(fiche.headword), core: Array(Proximity.core(fiche.headword)), definition: fiche.shortDefinition,
                 keywords: Self.keywords(of: fiche), ownerID: fiche.id, isConfusion: false,
                 partOfSpeech: fiche.partOfSpeech, gender: fiche.gender, themes: Set(fiche.themes)
             )
@@ -34,7 +41,7 @@ public struct QuestionFactory: Sendable {
             // connu : pas de paronyme d'un nom, pour ne pas trahir la réponse par l'article.
             let paronyms = fiche.partOfSpeech == .nom ? [] : fiche.confusions.filter { Self.isParonym($0.word, of: fiche) }.map { confusion in
                 Decoy(
-                    word: confusion.word, definition: Self.capitalized(confusion.meaning), keywords: Proximity.keywords(confusion.meaning),
+                    word: confusion.word, normalizedWord: SearchIndex.normalize(confusion.word), core: Array(Proximity.core(confusion.word)), definition: Self.capitalized(confusion.meaning), keywords: Proximity.keywords(confusion.meaning),
                     ownerID: fiche.id, isConfusion: true, partOfSpeech: fiche.partOfSpeech, gender: nil, themes: Set(fiche.themes)
                 )
             }
@@ -65,7 +72,8 @@ public struct QuestionFactory: Sendable {
         var rng = SeededGenerator(seed: seed)
         let shuffled = pool.shuffled(using: &rng)
         let withQuiz = shuffled.filter { $0.quiz.contains { $0.game == game } }
-        let others = shuffled.filter { fiche in !withQuiz.contains { $0.id == fiche.id } }
+        let quizIDs = Set(withQuiz.map(\.id))
+        let others = shuffled.filter { !quizIDs.contains($0.id) }
         var result: [Question] = []
         for fiche in withQuiz + others where result.count < count {
             if let question = question(for: fiche, game: game, rng: &rng) { result.append(question) }
@@ -169,17 +177,13 @@ public struct QuestionFactory: Sendable {
         let headword = SearchIndex.normalize(fiche.headword)
         let synonyms = Set(fiche.synonyms.map(SearchIndex.normalize))
         let closeMeanings = Set(fiche.confusions.filter { !Self.isParonym($0.word, of: fiche) }.map { SearchIndex.normalize($0.word) })
-        let owners = Dictionary(uniqueKeysWithValues: fiches.map { ($0.id, $0) })
+        let targetCore = Array(Proximity.core(fiche.headword))
         let keywords = Self.keywords(of: fiche)
         let themes = Set(fiche.themes)
         let candidates = decoys.filter { decoy in
-            let word = SearchIndex.normalize(decoy.word)
+            let word = decoy.normalizedWord
             // La fiche d'origine ne doit pas tenir ce mot pour un synonyme ni pour une confusion de sens.
-            let owner = owners[decoy.ownerID]
-            let ownerIsClose = owner.map { owner in
-                owner.synonyms.map(SearchIndex.normalize).contains(headword)
-                    || owner.confusions.contains { SearchIndex.normalize($0.word) == headword && !Self.isParonym($0.word, of: owner) }
-            } ?? false
+            let ownerIsClose = closeWordsByOwner[decoy.ownerID]?.contains(headword) == true
             return word != headword
                 && !ownerIsClose
                 && (decoy.ownerID != fiche.id || decoy.isConfusion)
@@ -190,7 +194,7 @@ public struct QuestionFactory: Sendable {
         }
         let scored = candidates.map { decoy in
             // Forme au carré : sur des mots courts, deux lettres communes suffisent à une ressemblance de hasard.
-            let shape = Proximity.form(decoy.word, fiche.headword)
+            let shape = Proximity.form(decoy.core, targetCore)
             let closeness = max(shape * shape, Proximity.meaning(decoy.keywords, keywords))
             return (decoy, closeness + (decoy.themes.isDisjoint(with: themes) ? 0 : Rules.proximityThemeBonus))
         }
