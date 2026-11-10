@@ -39,3 +39,27 @@ struct GameLoadingView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
+
+/// Même zone de réponse basse pour les jeux, les révisions, le test et les défis.
+/// Le contenu peut défiler sur un petit écran ou avec de grands caractères.
+struct GameRoundLayout<QuestionContent: View, Controls: View>: View {
+    @ViewBuilder let question: () -> QuestionContent
+    @ViewBuilder let controls: () -> Controls
+
+    var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 0) {
+                    question()
+                    Spacer(minLength: SagaceMetrics.pageMargin)
+                    controls()
+                }
+                .frame(maxWidth: .infinity, minHeight: geometry.size.height, alignment: .top)
+            }
+            .scrollBounceBehavior(.basedOnSize)
+            .scrollIndicators(.hidden)
+            .defaultScrollAnchor(.top, for: .initialOffset)
+            .defaultScrollAnchor(.bottom, for: .sizeChanges)
+        }
+    }
+}

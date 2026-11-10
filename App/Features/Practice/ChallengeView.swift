@@ -191,7 +191,7 @@ struct ChallengeView: View {
                 }
             }
             .padding(.horizontal, SagaceMetrics.pageMargin)
-            .padding(.bottom, 12)
+            .padding(.bottom, 8)
         }
         .stackedPaywall(router)
         .interactiveDismissDisabled(viewModel.phase == .playing)
@@ -235,24 +235,30 @@ struct ChallengeView: View {
                 TimerBar(fraction: viewModel.state.timeFraction)
             }
             if let question = viewModel.current {
-                QuestionCard(prompt: question.prompt, isSingleWord: question.game == .sens)
-                if question.game == .justeOuFautif {
-                    HStack(spacing: 12) {
-                        AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.select(.trueFalse(true)) }
-                            .trueFalseShortcut(true)
-                        AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.select(.trueFalse(false)) }
-                            .trueFalseShortcut(false)
-                    }
-                } else {
-                    VStack(spacing: SagaceMetrics.rowSpacing) {
-                        ForEach(question.choices.indices, id: \.self) { index in
-                            AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.select(.choice(index)) }
-                                .answerShortcut(index)
+                GameRoundLayout {
+                    QuestionCard(prompt: question.prompt, isSingleWord: question.game == .sens)
+                } controls: {
+                    if question.game == .justeOuFautif {
+                        HStack(spacing: 12) {
+                            AnswerRow(localized: "Juste", state: viewModel.state(forTrueFalse: true)) { viewModel.select(.trueFalse(true)) }
+                                .accessibilityIdentifier("answer.juste")
+                                .trueFalseShortcut(true)
+                            AnswerRow(localized: "Fautif", state: viewModel.state(forTrueFalse: false)) { viewModel.select(.trueFalse(false)) }
+                                .accessibilityIdentifier("answer.fautif")
+                                .trueFalseShortcut(false)
+                        }
+                    } else {
+                        VStack(spacing: SagaceMetrics.rowSpacing) {
+                            ForEach(question.choices.indices, id: \.self) { index in
+                                AnswerRow(question.choices[index], state: viewModel.state(forChoice: index)) { viewModel.select(.choice(index)) }
+                                    .accessibilityIdentifier("answer.\(index)")
+                                    .answerShortcut(index)
+                            }
                         }
                     }
                 }
+                .id(question.id)
             }
-            Spacer(minLength: 0)
         }
     }
 

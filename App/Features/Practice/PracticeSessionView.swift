@@ -52,7 +52,7 @@ struct PracticeSessionView: View {
             Spacer()
             PrimaryButton("Commencer") { Task { await viewModel.start() } }
         }
-        .padding(.bottom, 12)
+        .padding(.bottom, 8)
     }
 
     // MARK: Question (PRA-02)
@@ -62,12 +62,13 @@ struct PracticeSessionView: View {
         VStack(spacing: 18) {
             ProgressDots(total: viewModel.questions.count, completed: viewModel.completedCount)
             if let question = viewModel.current {
-                ScrollView {
+                GameRoundLayout {
+                    QuestionCard(prompt: question.prompt, isSingleWord: question.game == .sens)
+                        .offset(x: dragOffset)
+                        .rotationEffect(.degrees(dragOffset / 40))
+                        .gesture(question.game == .justeOuFautif ? swipeToAnswer : nil)
+                } controls: {
                     VStack(spacing: 18) {
-                        QuestionCard(prompt: question.prompt, isSingleWord: question.game == .sens)
-                            .offset(x: dragOffset)
-                            .rotationEffect(.degrees(dragOffset / 40))
-                            .gesture(question.game == .justeOuFautif ? swipeToAnswer : nil)
                         answers(for: question)
                         if case .answered(let correct) = viewModel.phase {
                             AnswerFeedback(isCorrect: correct, correctAnswer: question.correctChoice, explanation: viewModel.explanation,
@@ -76,14 +77,11 @@ struct PracticeSessionView: View {
                         }
                     }
                 }
-                .scrollBounceBehavior(.basedOnSize)
-                .scrollIndicators(.hidden)
-                .defaultScrollAnchor(.top, for: .initialOffset)
-                .defaultScrollAnchor(.bottom, for: .sizeChanges)
+                .id(question.id)
             }
         }
         .animation(SagaceMotion.select, value: viewModel.phase)
-        .padding(.bottom, 12)
+        .padding(.bottom, 8)
     }
 
     @ViewBuilder
@@ -180,7 +178,7 @@ struct PracticeSessionView: View {
             Spacer()
             SecondaryButton("Plus tard") { dismiss() }
         }
-        .padding(.bottom, 12)
+        .padding(.bottom, 8)
     }
 }
 
